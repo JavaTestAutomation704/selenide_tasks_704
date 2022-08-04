@@ -13,7 +13,7 @@ public class GoogleTest {
 
     @BeforeMethod
     public void setUp() {
-        open("https://www.google.com.ua");
+        open("https://www.google.com");
         $(By.name("q")).val("funny dogs").pressEnter();
     }
 
