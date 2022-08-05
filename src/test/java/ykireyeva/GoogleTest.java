@@ -4,7 +4,10 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -83,13 +86,13 @@ public class GoogleTest {
     }
 
     @Test
-    public void nineVerifyGoogleLogoIsDisplayed() {
+    public void nineVerifyNextBtnIsDisplayed() {
         $x("//input[@aria-label='Пошук']").setValue("funny dogs").pressEnter();
         $x("//span[text()='Уперед']").shouldBe(Condition.enabled);
     }
 
     @Test
-    public void tenVerifyGoogleLogoIsDisplayed() {
+    public void tenVerifyPreviousBtnIsDisplayed() {
         $x("//input[@aria-label='Пошук']").setValue("funny dogs").pressEnter();
         $x("//span[text()='Уперед']").shouldBe(Condition.enabled);
         $x("//a[@aria-label='Page 5']").click();
