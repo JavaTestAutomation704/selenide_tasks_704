@@ -7,13 +7,12 @@ import org.testng.annotations.Test;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Selenide.*;
+import com.codeborne.selenide.SelenideElement;
 
 
 public class GoogleTest {
     private final String searchField = "//input[@name='q']";
-    private final String searchResult = "//a/h3/ancestor::div[contains(@class, 'g ')]";
-    private final String searchResultTitle = "//div[contains(@class, 'g ')]//a//h3";
-
+    private final String searchResultContainer = "div[contains(@class, 'g ')]";
 
     @BeforeMethod
     public void searchFunnyDogs() {
@@ -23,12 +22,13 @@ public class GoogleTest {
 
     @Test
     public void verifyFirstResultTitle() {
-        $$x(searchResultTitle).first().shouldHave(text("dogs"));
+        searchResultTitleByNumber(1).shouldHave(text("dogs"));
     }
 
     @Test
     public void verifyNinthResultLinkHrefHasValidURL() {
-        $$x(searchResultTitle + "/ancestor::a").get(8)
+        searchResultTitleByNumber(9)
+                .ancestor("a")
                 .shouldHave(attributeMatching("href", "^((ftp|http|https)://)?www\\..*"));
     }
 
@@ -41,19 +41,23 @@ public class GoogleTest {
     @Test
     public void verifyFirstResultTitleOnFifthPage() {
         openPage(5);
-        $$x(searchResultTitle).first().shouldHave(text("dog"));
+        searchResultTitleByNumber(1)
+                .ancestor(searchResultContainer)
+                .shouldHave(text("dog"));
     }
 
     @Test
     public void verifySearchResultsQuantityIsMoreThenNine() {
-        $$x(searchResult).shouldBe(sizeGreaterThanOrEqual(9));
+        $$x("//a/h3/ancestor::" + searchResultContainer).shouldBe(sizeGreaterThanOrEqual(9));
     }
 
     @Test
     public void verifyRepeatSearchFirstResultTitle() {
         $x(searchField).clear();
         $x(searchField).setValue("funny kitten").pressEnter();
-        $$x(searchResult).first().shouldNotHave(text("dogs")).shouldHave(text("kitten"));
+        searchResultTitleByNumber(1)
+                .ancestor(searchResultContainer)
+                .shouldNotHave(text("dogs")).shouldHave(text("kitten"));
     }
 
     @Test
@@ -75,5 +79,9 @@ public class GoogleTest {
 
     private void openPage(int page) {
         $x("//div[@role='navigation']//a[contains(@aria-label, '" + page + "')]").click();
+    }
+
+    private SelenideElement searchResultTitleByNumber(int titleNumber) {
+        return $x(String.format("(//%s//a//h3)[%d]", searchResultContainer, titleNumber));
     }
 }
