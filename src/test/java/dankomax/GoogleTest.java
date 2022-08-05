@@ -28,7 +28,7 @@ public class GoogleTest {
 
     @Test
     public void verifyNinthResultLinkHrefHasValidURL() {
-        $$x(String.format("%s/ancestor::a", searchResultTitle)).get(8)
+        $$x(searchResultTitle + "/ancestor::a").get(8)
                 .shouldHave(attributeMatching("href", "^((ftp|http|https)://)?www\\..*"));
     }
 
@@ -74,6 +74,6 @@ public class GoogleTest {
     }
 
     private void openPage(int page) {
-        $x(String.format("//div[@role='navigation']//a[contains(@aria-label, '%d')]", page)).click();
+        $x("//div[@role='navigation']//a[contains(@aria-label, '" + page + "')]").click();
     }
 }
