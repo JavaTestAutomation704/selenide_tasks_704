@@ -1,13 +1,15 @@
 package dankomax;
 
-import org.testng.Assert;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Selenide.*;
+
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.Configuration;
 
 
 public class GoogleTest {
@@ -16,6 +18,9 @@ public class GoogleTest {
 
     @BeforeMethod
     public void searchFunnyDogs() {
+        Configuration.browserSize = "1920x1080";
+        Configuration.browserCapabilities = new ChromeOptions()
+                .addArguments("--lang=en-GB");
         open("https://www.google.com");
         $x(searchField).setValue("funny dogs").pressEnter();
     }
@@ -35,7 +40,10 @@ public class GoogleTest {
     @Test
     public void verifyHomePageLinkWorks() {
         $x("//a[@id='logo']").click();
-        Assert.assertEquals(title(), "Google");
+        $x("//title").shouldHave(attribute("text", "Google"));
+        $x("//div[@id='SIvCob']").shouldBe(visible);
+        $x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']").shouldBe(visible).shouldHave(value("I'm Feeling Lucky"));
+        $x("//div[@jsname='LgbsSe']").shouldBe(visible).shouldHave(text("Settings"));
     }
 
     @Test
