@@ -1,95 +1,72 @@
 package dankomax;
 
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.CollectionCondition.*;
-import static com.codeborne.selenide.Selenide.*;
-
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.Configuration;
 
 
-public class GoogleTest {
-    private final String searchField = "//input[@name='q']";
-    private final String searchResultContainer = "div[contains(@class, 'g ')]";
+public class GoogleTest extends BaseTestRunner {
+    private final HomePage homePage = new HomePage();
+    private final SearchPage searchPage = new SearchPage();
 
     @BeforeMethod
     public void searchFunnyDogs() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.browserCapabilities = new ChromeOptions()
-                .addArguments("--lang=en-GB");
-        open("https://www.google.com");
-        $x(searchField).setValue("funny dogs").pressEnter();
+        homePage.searchPhrase("Funny dogs");
     }
 
     @Test
     public void verifyFirstResultTitle() {
-        searchResultTitleByNumber(1).shouldHave(text("dogs"));
+        searchPage.searchResultTitleByNumber(1).shouldHave(text("dogs"));
     }
 
     @Test
     public void verifyNinthResultLinkHrefHasValidURL() {
-        searchResultTitleByNumber(9)
-                .ancestor("a")
+        searchPage.searchResultLinkByNumber(9)
                 .shouldHave(attributeMatching("href", "^((ftp|http|https)://)?www\\..*"));
     }
 
     @Test
     public void verifyHomePageLinkWorks() {
-        $x("//a[@id='logo']").click();
-        $x("//title").shouldHave(attribute("text", "Google"));
-        $x("//div[@id='SIvCob']").shouldBe(visible);
-        $x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']").shouldBe(visible).shouldHave(value("I'm Feeling Lucky"));
-        $x("//div[@jsname='LgbsSe']").shouldBe(visible).shouldHave(text("Settings"));
+        searchPage.openHomePage()
+                .title().shouldHave(attribute("text", "Google"));
+        homePage.languageSelection().shouldBe(visible);
+        homePage.feelingLuckyButton().shouldBe(visible).shouldHave(value("I'm Feeling Lucky"));
+        homePage.settingsButton().shouldBe(visible).shouldHave(text("Settings"));
     }
 
     @Test
     public void verifyFirstResultTitleOnFifthPage() {
-        openPage(5);
-        searchResultTitleByNumber(1)
-                .ancestor(searchResultContainer)
-                .shouldHave(text("dog"));
+        searchPage.paginationOpenPage(5)
+                .searchResultByNumber(1).shouldHave(text("dog"));
     }
 
     @Test
-    public void verifySearchResultsQuantityIsMoreThenNine() {
-        $$x("//a/h3/ancestor::" + searchResultContainer).shouldBe(sizeGreaterThanOrEqual(9));
+    public void verifySearchResultsQuantityIsSufficient() {
+        searchPage.searchResultCollection().shouldBe(sizeGreaterThanOrEqual(9));
     }
 
     @Test
     public void verifyRepeatSearchFirstResultTitle() {
-        $x(searchField).clear();
-        $x(searchField).setValue("funny kitten").pressEnter();
-        searchResultTitleByNumber(1)
-                .ancestor(searchResultContainer)
-                .shouldNotHave(text("dogs")).shouldHave(text("kitten"));
+        homePage.searchPhrase("funny kitten")
+                .searchResultByNumber(1).shouldNotHave(text("dogs")).shouldHave(text("kitten"));
     }
 
     @Test
     public void verifyGoogleLogoIsDisplayed() {
-        $x("//a[@id='logo']").shouldBe(visible);
+        searchPage.googleLogo().shouldBe(visible);
     }
 
     @Test
     public void verifyNextLinkIsDisplayed() {
-        $x("//a[@id='pnnext']").shouldBe(visible);
+        searchPage.paginationNextButton().shouldBe(visible);
     }
 
     @Test
     public void verifyPreviousLinkIsDisplayed() {
-        $x("//a[@id='pnnext']").shouldBe(visible);
-        openPage(4);
-        $x("//a[@id='pnprev']").shouldBe(visible);
-    }
-
-    private void openPage(int page) {
-        $x("//div[@role='navigation']//a[contains(@aria-label, '" + page + "')]").click();
-    }
-
-    private SelenideElement searchResultTitleByNumber(int titleNumber) {
-        return $x(String.format("(//%s//a//h3)[%d]", searchResultContainer, titleNumber));
+        searchPage.paginationNextButton().shouldBe(visible);
+        searchPage.paginationOpenPage(4);
+        searchPage.paginationPreviousButton().shouldBe(visible);
     }
 }
