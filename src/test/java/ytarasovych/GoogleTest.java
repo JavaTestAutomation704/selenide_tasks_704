@@ -34,7 +34,7 @@ public class GoogleTest extends BaseMethods {
         new GoogleHomePage()
                 .search(searchTerm)
                 .goToPage(5)
-                .verifyLinkContainsText(1,expectedTerm);
+                .verifyLinkContainsText(1, expectedTerm);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class GoogleTest extends BaseMethods {
                 .inputSearchTerm(searchTerm)
                 .clearSearchField()
                 .search("funny kitten")
-                .verifyLinkDoesNotContainText(1,expectedTerm);
+                .verifyLinkDoesNotContainText(1, expectedTerm);
     }
 
     @Test

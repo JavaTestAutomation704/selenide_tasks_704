@@ -16,50 +16,50 @@ public class GoogleSearchResultPage {
     }
 
     public GoogleSearchResultPage goToPage(int numberOfPage){
-        $x("//a[@aria-label='Page "+numberOfPage+"']")
+        $x("//a[@aria-label='Page " + numberOfPage + "']")
                 .click();
-        return new GoogleSearchResultPage();
+        return this;
     }
 
     public GoogleSearchResultPage verifyLinkContainsText(int numberOfLink, String text){
         $x("(" + resultLink + ")[" + numberOfLink + "]")
                 .shouldHave(text(text));
-        return new GoogleSearchResultPage();
+        return this;
     }
 
     public GoogleSearchResultPage verifyLinkDoesNotContainText(int numberOfLink, String text){
         $x("(" + resultLink + ")[" + numberOfLink + "]")
                 .shouldNot(text(text));
-        return new GoogleSearchResultPage();
+        return this;
     }
 
     public GoogleSearchResultPage verifyLinkContainsValidUrl(int numberOfLink){
-        $x("(//div[@id='rso']//h3/ancestor::a)["+numberOfLink+"]")
+        $x("(//div[@id='rso']//h3/ancestor::a)[" + numberOfLink + "]")
                 .shouldHave(attributeMatching("href","https://www\\..+"));
-        return new GoogleSearchResultPage();
+        return this;
     }
 
     public GoogleSearchResultPage verifyTotalNumberOfLinksIsGreaterThan(int totalNumberOfLinks){
         $$x("//div[@id='rso']/div")
                 .shouldBe(CollectionCondition.sizeGreaterThan(totalNumberOfLinks));
-        return new GoogleSearchResultPage();
+        return this;
     }
 
     public GoogleSearchResultPage verifyLogoIsVisible(){
         $x("//img[@alt='Google']")
                 .shouldBe(visible);
-        return new GoogleSearchResultPage();
+        return this;
     }
 
     public GoogleSearchResultPage verifyBtnNextPageIsVisible(){
         $x("//a[@id='pnnext']/span[@class]")
                 .shouldBe(visible);
-        return new GoogleSearchResultPage();
+        return this;
     }
 
     public GoogleSearchResultPage verifyBtnPreviousPageIsVisible(){
         $x("//a[@id='pnprev']")
                 .shouldBe(visible);
-        return new GoogleSearchResultPage();
+        return this;
     }
 }

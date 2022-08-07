@@ -17,13 +17,13 @@ public class GoogleHomePage {
     public GoogleHomePage inputSearchTerm(String searchTerm){
         $x(inputField)
                 .setValue(searchTerm);
-        return new GoogleHomePage();
+        return this;
     }
 
     public GoogleHomePage clearSearchField(){
         $x(inputField)
                 .clear();
-        return new GoogleHomePage();
+        return this;
     }
 
     public GoogleHomePage verifyGoogleHomePageIsOpen(){
@@ -33,6 +33,6 @@ public class GoogleHomePage {
                 .shouldHave(attribute("width","272"));
         $x("//div[@id='SIvCob']")
                 .shouldBe(visible);
-        return new GoogleHomePage();
+        return this;
     }
 }
