@@ -14,6 +14,4 @@ public class GoogleHomePage {
         $x(searchFieldXpath).setValue(text).pressEnter();
         return new GoogleSearchResultPage();
     }
-
-
 }

@@ -5,7 +5,6 @@ import com.codeborne.selenide.CollectionCondition;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import static com.codeborne.selenide.WebDriverConditions.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;

@@ -53,5 +53,4 @@ public class GoogleSearchResultPage {
     public SelenideElement showPreviousPageLink(){
         return $x(previousPageXpath);
     }
-
 }
