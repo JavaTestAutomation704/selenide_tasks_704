@@ -7,17 +7,17 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class SearchResultsPage {
 
-    private final String LinkName = "//h3[@class = 'LC20lb MBeuO DKV0Md']";
+    private final String linkName = "//h3[@class = 'LC20lb MBeuO DKV0Md']";
 
-    public ElementsCollection searchResultLinksNames() {
-        return $$x(LinkName);
+    public ElementsCollection getLinkNames() {
+        return $$x(linkName);
     }
 
-    public SelenideElement searchResultLink(int index) {
-        return $x("//div[" + index + "]" + LinkName + "/parent::a");
+    public SelenideElement getLinkNameByNumber(int index) {
+        return $x("//div[" + index + "]" + linkName + "/parent::a");
     }
 
-    public ElementsCollection searchResultsDescriptions() {
+    public ElementsCollection getDescriptions() {
         return $$x("//div[@class = 'Uroaid']");
     }
 }
