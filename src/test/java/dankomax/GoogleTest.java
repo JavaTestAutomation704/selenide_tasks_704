@@ -3,9 +3,6 @@ package dankomax;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.CollectionCondition.*;
-
 
 public class GoogleTest extends BaseTestRunner {
     private final HomePage homePage = new HomePage();
@@ -18,55 +15,51 @@ public class GoogleTest extends BaseTestRunner {
 
     @Test
     public void verifyFirstResultTitle() {
-        searchPage.searchResultTitleByNumber(1).shouldHave(text("dogs"));
+        searchPage.verifySearchResultTitleHasExpectedText(1, "dogs");
     }
 
     @Test
     public void verifyNinthResultLinkHrefHasValidURL() {
-        searchPage.searchResultLinkByNumber(9)
-                .shouldHave(attributeMatching("href", "^((ftp|http|https)://)?www\\..*"));
+        searchPage.verifyValidityOfSearchResultLinkByNumber(9);
     }
 
     @Test
     public void verifyHomePageLinkWorks() {
-        searchPage.openHomePage()
-                .title().shouldHave(attribute("text", "Google"));
-        homePage.languageSelection().shouldBe(visible);
-        homePage.feelingLuckyButton().shouldBe(visible).shouldHave(value("I'm Feeling Lucky"));
-        homePage.settingsButton().shouldBe(visible).shouldHave(text("Settings"));
+        searchPage.openHomePage().verifyCurrentPageIsHomePage();
     }
 
     @Test
     public void verifyFirstResultTitleOnFifthPage() {
         searchPage.paginationOpenPage(5)
-                .searchResultByNumber(1).shouldHave(text("dog"));
+                .verifySearchResultTitleHasExpectedText(1, "dog");
     }
 
     @Test
     public void verifySearchResultsQuantityIsSufficient() {
-        searchPage.searchResultCollection().shouldBe(sizeGreaterThanOrEqual(9));
+        searchPage.verifySearchResultsQuantityIsGreaterOrEqual(9);
     }
 
     @Test
     public void verifyRepeatSearchFirstResultTitle() {
         homePage.searchPhrase("funny kitten")
-                .searchResultByNumber(1).shouldNotHave(text("dogs")).shouldHave(text("kitten"));
+                .verifySearchResultByNumberExcludeText(1, "dogs")
+                .verifySearchResultByNumberIncludeText(1, "kitten");
     }
 
     @Test
     public void verifyGoogleLogoIsDisplayed() {
-        searchPage.googleLogo().shouldBe(visible);
+        searchPage.checkGoogleLogoIsVisible();
     }
 
     @Test
     public void verifyNextLinkIsDisplayed() {
-        searchPage.paginationNextButton().shouldBe(visible);
+        searchPage.checkPaginationNextButtonIsVisible();
     }
 
     @Test
     public void verifyPreviousLinkIsDisplayed() {
-        searchPage.paginationNextButton().shouldBe(visible);
+        searchPage.checkPaginationNextButtonIsVisible();
         searchPage.paginationOpenPage(4);
-        searchPage.paginationPreviousButton().shouldBe(visible);
+        searchPage.checkPaginationPreviousButtonIsVisible();
     }
 }

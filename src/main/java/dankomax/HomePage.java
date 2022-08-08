@@ -1,7 +1,6 @@
 package dankomax;
 
-import com.codeborne.selenide.SelenideElement;
-
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$x;
 
 
@@ -12,19 +11,11 @@ public class HomePage {
         return new SearchPage();
     }
 
-    public SelenideElement title() {
-        return $x("//title");
-    }
-
-    public SelenideElement languageSelection() {
-        return $x("//div[@id='SIvCob']");
-    }
-
-    public SelenideElement feelingLuckyButton() {
-        return $x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']");
-    }
-
-    public SelenideElement settingsButton() {
-        return $x("//div[@jsname='LgbsSe']");
+    public HomePage verifyCurrentPageIsHomePage() {
+        $x("//title").shouldHave(attribute("text", "Google"));
+        $x("//div[@id='SIvCob']").shouldBe(visible);
+        $x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']").shouldBe(visible).shouldHave(value("I'm Feeling Lucky"));
+        $x("//div[@jsname='LgbsSe']").shouldBe(visible).shouldHave(text("Settings"));
+        return this;
     }
 }
