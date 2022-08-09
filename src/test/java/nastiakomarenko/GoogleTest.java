@@ -1,74 +1,78 @@
 package nastiakomarenko;
 
-
-import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.By;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
-import javax.naming.directory.SearchResult;
-
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
-import static org.testng.AssertJUnit.assertTrue;
+import static com.codeborne.selenide.WebDriverConditions.url;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
-public class GoogleTest extends HomePage{
-
-
+public class GoogleTest extends BaseTestRunner {
     @Test
     public void verifyThatMethodSearchesDogs() {
-        $x("//a/h3[@class = 'LC20lb MBeuO DKV0Md']").shouldHave(text("dogs"));
+        assertTrue(resultPage.getTextFromLinkNumber(1).contains("dogs"), "Text doesn't contain \"dogs\"");
     }
 
     @Test
-    public void verifyThatMethodSearchesTheNinthLink(){
+    public void verifyThatMethodSearchesTheNinthLink() {
         String ninthLink = $x("(//a)[9]").getAttribute("href");
         $x("(//a)[9]").click();
 
         String actualLink = WebDriverRunner.getWebDriver().getCurrentUrl();
         assertTrue(actualLink.contains(ninthLink));
+    }
+
+    @Test
+    public void verifyThatGooglePageIsOpen() {
+        resultPage.openGoogleLogo();
+        String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
+        assertTrue(currentUrl.contains("https://www.google.com/"), "Google page didn't open");
+    }
+
+    @Test
+    public void verifyThatFifthPageHasText() {
+        String linkText = resultPage
+                .goToPage(5)
+                .getTextFromLinkNumber(1);
+        assertTrue(linkText.contains("dogs"), "Text doesn't contain \"dogs\"");
 
     }
 
     @Test
-    public void verifyThatGooglePageIsOpen(){
-        $x("//div[@class='logo']").click();
-        $x("//img[@class='lnXdpd']").shouldBe(visible);
+    public void verifyThatNineLinksAreDisplayed() {
+        assertTrue(resultPage.getNumberOfAllLinks() >= 9, "Number of links is less than 9");
     }
 
     @Test
-    public void verifyThatFifthPageHasText(){
-        $x("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '5')]").click();
-        $x("//a/h3[@class = 'LC20lb MBeuO DKV0Md']").shouldHave(text("dogs"));
+    public void verifyThatMethodContainsText() {
+        String currentText = resultPage
+                .clearInputField()
+                .search("funny kitten")
+                .getTextFromLinkNumber(1);
+
+        assertTrue(currentText.contains("kitten"), "Text doesn't contain \"kitten\"");
+        assertFalse(currentText.contains("dogs"), "Text contains \"dogs\"");
     }
 
     @Test
-    public void verifyThatNineLinksAreDisplayed(){
-        $$x("//h3[@class = 'LC20lb MBeuO DKV0Md']").shouldHave(CollectionCondition.sizeGreaterThanOrEqual(9));
+    public void verifyThatGoogleLogoIsDisplayed() {
+        assertTrue($x(resultPage.getLogoXpath()).isDisplayed(), "Google logo isn't display");
     }
 
     @Test
-    public void verifyThatMethodContainsText(){
-        $x("//input[@class = 'gLFyf gsfi']").clear();
-        $(By.name("q")).val("funny kitten").pressEnter();
-        $x("//div[@class = 'mSA5Bd']").shouldHave(text("kitten")).shouldNotHave(text("dogs"));
+    public void verifyThatNextLinkIsDisplayed() {
+        $x(resultPage.getNextPageXpath()).shouldHave(Condition.visible);
     }
 
     @Test
-    public void verifyThatGoogleLogoIsDisplayed(){
-        $x("//div[@class = 'logo']").shouldBe(visible);
-    }
+    public void verifyThatLinksAreDisplayed() {
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue($x(resultPage.getNextPageXpath()).isDisplayed(), "Button \"next page\" isn't visible");
 
-    @Test
-    public void verifyThatNextLinkIsDisplayed(){
-        $x("//a[@id='pnnext']/span[@class]").shouldBe(visible);
-    }
-
-    @Test
-    public void verifyThatLinksAreDisplayed(){
-        $x("//a[@id='pnnext']/span[@class]").shouldBe(visible);
-        $x("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '4')]").click();
-        $x("//span[@class='SJajHc NVbCr']").shouldBe(visible);
+        resultPage.goToPage(4);
+        softAssert.assertTrue($x(resultPage.getPreviousPageXpath()).isDisplayed(), "Button \"previous page\" isn't visible");
     }
 }
