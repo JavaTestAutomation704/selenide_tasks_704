@@ -1,16 +1,17 @@
 package ykireyeva;
 
-import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
+import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends BaseTestRunner {
 
     @Test
     public void oneVerifyLinkText() {
-        resultsPage.resultLinkShouldHaveOwnText(0, "dogs");
+        assertTrue(resultsPage.getLinkOwnText(0).contains("dogs"));
     }
 
     @Test
@@ -23,42 +24,52 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     public void threeVerifyGoogleHomePageIsOpen() {
         resultsPage.openGoogleSearchPage();
-        searchPage.titleShouldHave("Google").gmailLinkShouldBe(Condition.enabled);
-        resultsPage.submitButtonOnSearchFieldShouldNot(Condition.exist);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(searchPage.getTitleOwnText(), "Google");
+        softAssert.assertTrue(searchPage.gmailLinkIsEnabled());
+        softAssert.assertFalse(searchPage.submitButtonOnSearchFieldIsEnabled());
+        softAssert.assertAll();
     }
 
     @Test
     public void fourVerifyLinkText() {
-        resultsPage.goToPage(5).resultLinkShouldHaveOwnText(0, "dog");
+        resultsPage.goToPage(5);
+        assertTrue(resultsPage.getLinkOwnText(0).contains("dog"));
     }
 
     @Test
     public void fiveVerifyNumberOfResultLinks() {
-        resultsPage.goToPage(5).resultLinksShouldHaveSizeGreaterThanOrEqual(9);
+        resultsPage.goToPage(5);
+        assertTrue(resultsPage.getResultLinksSize() >= 9);
     }
 
     @Test
     public void sixVerifyLinkText() {
         resultsPage.clearSearchField()
-                .search("funny kitten")
-                .resultLinkShouldNotHaveOwnText(0, "dogs")
-                .resultLinkShouldHaveOwnText(0, "kitten");
+                .search("funny kitten");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(resultsPage.getLinkOwnText(0).contains("dogs"));
+        softAssert.assertTrue(resultsPage.getLinkOwnText(0).contains("kitten"));
+        softAssert.assertAll();
+
     }
 
     @Test
     public void eightVerifyGoogleLogoIsDisplayed() {
-        resultsPage.googleLogoShouldBe(Condition.enabled);
+        assertTrue(resultsPage.logoIsEnabled());
     }
 
     @Test
     public void nineVerifyNextBtnIsDisplayed() {
-        resultsPage.nextPageButtonShouldBe(Condition.enabled);
+        assertTrue(resultsPage.nextPageButtonIsEnabled());
     }
 
     @Test
     public void tenVerifyPreviousBtnIsDisplayed() {
-        resultsPage.nextPageButtonShouldBe(Condition.enabled)
-                .goToPage(5)
-                .prevPageButtonShouldBe(Condition.enabled);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(resultsPage.nextPageButtonIsEnabled());
+        resultsPage.goToPage(5);
+        softAssert.assertTrue(resultsPage.prevPageButtonIsEnabled());
+        softAssert.assertAll();
     }
 }

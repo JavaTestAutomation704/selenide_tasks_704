@@ -1,19 +1,25 @@
 package ykireyeva;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import org.openqa.selenium.NoSuchElementException;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class GoogleSearchResultsPage {
-    private final ElementsCollection resultLinksTitles = $$x("//a//h3").filter(Condition.interactable);
-    private final ElementsCollection resultLinks = $$x("(//a[descendant::h3])").filter(Condition.interactable);
-    private final String logoXPathExp = "//div[@class='logo']";
+    private final String logoXpath = "//div[@class='logo']";
+
+    private ElementsCollection getResultLinks() {
+        return $$x("(//a[descendant::h3])").filter(Condition.interactable);
+    }
+
+    private ElementsCollection getResultLinksTitles() {
+        return $$x("//a//h3").filter(Condition.interactable);
+    }
 
     public GoogleSearchPage openGoogleSearchPage() {
-        $x(logoXPathExp).click();
+        $x(logoXpath).click();
         return new GoogleSearchPage();
     }
 
@@ -27,24 +33,8 @@ public class GoogleSearchResultsPage {
         return this;
     }
 
-    public GoogleSearchResultsPage submitButtonOnSearchFieldShouldNot(Condition condition) {
-        $x("//button[@type='submit']").shouldNot(condition);
-        return this;
-    }
-
-    public GoogleSearchResultsPage googleLogoShouldBe(Condition condition) {
-        $x(logoXPathExp).shouldBe(condition);
-        return this;
-    }
-
-    public GoogleSearchResultsPage nextPageButtonShouldBe(Condition condition) {
-        $x("//a[@id='pnnext']").shouldBe(condition);
-        return this;
-    }
-
-    public GoogleSearchResultsPage prevPageButtonShouldBe(Condition condition) {
-        $x("//a[@id='pnprev']").shouldBe(condition);
-        return this;
+    public int getResultLinksSize() {
+        return getResultLinks().size();
     }
 
     public GoogleSearchResultsPage goToPage(int pageNumber) {
@@ -53,25 +43,38 @@ public class GoogleSearchResultsPage {
     }
 
     public void openLink(int linkNumber) {
-        resultLinks.get(linkNumber - 1).click();
-    }
-
-    public GoogleSearchResultsPage resultLinksShouldHaveSizeGreaterThanOrEqual(int size) {
-        resultLinks.shouldHave(CollectionCondition.sizeGreaterThanOrEqual(size));
-        return this;
-    }
-
-    public GoogleSearchResultsPage resultLinkShouldHaveOwnText(int linkNumber, String expectedOwnText) {
-        resultLinksTitles.get(linkNumber).shouldHave(Condition.ownText(expectedOwnText));
-        return this;
-    }
-
-    public GoogleSearchResultsPage resultLinkShouldNotHaveOwnText(int linkNumber, String expectedOwnText) {
-        resultLinksTitles.get(linkNumber).shouldNotHave(Condition.ownText(expectedOwnText));
-        return this;
+        getResultLinks().get(linkNumber - 1).click();
     }
 
     public String getAttributeValueOfResultLink(int linkNumber, String nameOfAttribute) {
-        return resultLinks.get(linkNumber - 1).getAttribute(nameOfAttribute);
+        return getResultLinks().get(linkNumber - 1).getAttribute(nameOfAttribute);
+    }
+
+    public String getLinkOwnText(int linkNumber) {
+        return getResultLinksTitles().get(linkNumber).getOwnText();
+    }
+
+    public boolean logoIsEnabled() {
+        try {
+            return $x(logoXpath).isEnabled();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean nextPageButtonIsEnabled() {
+        try {
+            return $x("//a[@id='pnnext']").isEnabled();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean prevPageButtonIsEnabled() {
+        try {
+            return $x("//a[@id='pnprev']").isEnabled();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }

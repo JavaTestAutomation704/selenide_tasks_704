@@ -1,7 +1,6 @@
 package ykireyeva;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
@@ -17,14 +16,9 @@ public class BaseTestRunner {
 
     @BeforeMethod
     public void openGoogleSearchPageBeforeMethod() {
-        Selenide.open("https://www.google.com/");
-        setPages();
-        baseSearch();
-    }
-
-    public void setPages() {
-        searchPage = new GoogleSearchPage();
+        searchPage = new GoogleSearchPage().openGoogleSearchPage();
         resultsPage = new GoogleSearchResultsPage();
+        baseSearch();
     }
 
     public void baseSearch() {
