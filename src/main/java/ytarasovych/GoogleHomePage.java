@@ -2,7 +2,6 @@ package ytarasovych;
 
 import com.codeborne.selenide.Selenide;
 import java.util.Objects;
-
 import static com.codeborne.selenide.Selenide.$x;
 
 public class GoogleHomePage {

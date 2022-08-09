@@ -29,6 +29,7 @@ public class GoogleTest extends BaseMethods {
 
     @Test
     public void verifyGooglePageIsOpen(){
+
        boolean isHomePageOpen = openGoogleHomePage
                 .search(searchTerm)
                 .goGoogleHomePageByLogo()
