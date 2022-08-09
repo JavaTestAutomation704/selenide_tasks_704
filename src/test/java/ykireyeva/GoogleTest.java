@@ -26,8 +26,8 @@ public class GoogleTest extends BaseTestRunner {
         resultsPage.openGoogleSearchPage();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(searchPage.getTitleOwnText(), "Google");
-        softAssert.assertTrue(searchPage.gmailLinkIsEnabled());
-        softAssert.assertFalse(searchPage.submitButtonOnSearchFieldIsEnabled());
+        softAssert.assertTrue(searchPage.gmailLinkIsDisplayed());
+        softAssert.assertFalse(searchPage.submitButtonOnSearchFieldIsDisplayed());
         softAssert.assertAll();
     }
 
@@ -56,20 +56,20 @@ public class GoogleTest extends BaseTestRunner {
 
     @Test
     public void eightVerifyGoogleLogoIsDisplayed() {
-        assertTrue(resultsPage.logoIsEnabled());
+        assertTrue(resultsPage.logoIsDisplayed());
     }
 
     @Test
     public void nineVerifyNextBtnIsDisplayed() {
-        assertTrue(resultsPage.nextPageButtonIsEnabled());
+        assertTrue(resultsPage.nextPageButtonIsDisplayed());
     }
 
     @Test
     public void tenVerifyPreviousBtnIsDisplayed() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(resultsPage.nextPageButtonIsEnabled());
+        softAssert.assertTrue(resultsPage.nextPageButtonIsDisplayed());
         resultsPage.goToPage(5);
-        softAssert.assertTrue(resultsPage.prevPageButtonIsEnabled());
+        softAssert.assertTrue(resultsPage.prevPageButtonIsDisplayed());
         softAssert.assertAll();
     }
 }

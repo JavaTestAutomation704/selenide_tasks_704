@@ -2,7 +2,7 @@ package ykireyeva;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import org.openqa.selenium.NoSuchElementException;
+import com.codeborne.selenide.ex.ElementNotFound;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -51,29 +51,29 @@ public class GoogleSearchResultsPage {
     }
 
     public String getLinkOwnText(int linkNumber) {
-        return getResultLinksTitles().get(linkNumber).getOwnText();
+        return getResultLinksTitles().get(linkNumber).getOwnText().toLowerCase();
     }
 
-    public boolean logoIsEnabled() {
+    public boolean logoIsDisplayed() {
         try {
-            return $x(logoXpath).isEnabled();
-        } catch (NoSuchElementException e) {
+            return $x(logoXpath).isDisplayed();
+        } catch (ElementNotFound e) {
             return false;
         }
     }
 
-    public boolean nextPageButtonIsEnabled() {
+    public boolean nextPageButtonIsDisplayed() {
         try {
-            return $x("//a[@id='pnnext']").isEnabled();
-        } catch (NoSuchElementException e) {
+            return $x("//a[@id='pnnext']").isDisplayed();
+        } catch (ElementNotFound e) {
             return false;
         }
     }
 
-    public boolean prevPageButtonIsEnabled() {
+    public boolean prevPageButtonIsDisplayed() {
         try {
-            return $x("//a[@id='pnprev']").isEnabled();
-        } catch (NoSuchElementException e) {
+            return $x("//a[@id='pnprev']").isDisplayed();
+        } catch (ElementNotFound e) {
             return false;
         }
     }
