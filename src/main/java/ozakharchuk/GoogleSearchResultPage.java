@@ -1,56 +1,68 @@
 package ozakharchuk;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ex.ElementNotFound;
+
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class GoogleSearchResultPage {
 
-    private String resultLinkNamesXpath = "//div//a/h3";
-    private String resultLinksXpath = "//div//a/h3/..";
-    private String googleLogoXpath = "//div[@class='logo']/a";
-    private String pageNumberXpath = "//div[@role='navigation']//td";
-    private String previousPageXpath = "//a[@id='pnprev']";
-    private String nextPageXpath = "//a[@id='pnnext']";
+    String nextPageXpath = "//a[@id='pnnext']";
+    String googleLogoXpath = "//div[@class='logo']/a";
+    String resultLinksXpath = "//div//a/h3/..";
 
-    public SelenideElement showResultLinkName(int numberOfLink){
-       return  $$x( resultLinkNamesXpath ).get(numberOfLink);
+    public String getResultLinkName(int numberOfLink) {
+        return $$x("//div//a/h3").get(numberOfLink).text();
     }
 
-    public ElementsCollection showResultLink(){
-        return  $$x(resultLinksXpath);
+    public String getResultLinkUrl(int numberOfLink) {
+        return $$x(resultLinksXpath).get(numberOfLink).getAttribute("href");
     }
 
-    public GoogleHomePage openHomePage(){
+    public void openLink(int numberOfLink) {
+        $$x(resultLinksXpath).get(numberOfLink).click();
+    }
+
+    public int getResultLinksNumber() {
+        return $$x(resultLinksXpath).size();
+    }
+
+    public GoogleHomePage openHomePage() {
         $x(googleLogoXpath).click();
         return new GoogleHomePage();
     }
 
-    public SelenideElement showGoogleLogo(){
-       return  $x(googleLogoXpath);
+    public boolean isGoogleLogoVisible() {
+        try {
+            return $x(googleLogoXpath).isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
     }
 
-    public GoogleSearchResultPage chooseNumberOfResultPage(int number){
-         $$x(pageNumberXpath).get(number).click();
-         return new GoogleSearchResultPage();
+    public GoogleSearchResultPage chooseNumberOfResultPage(int number) {
+        $$x("//div[@role='navigation']//td").get(number).click();
+        return this;
     }
 
-    public GoogleSearchResultPage openNextResultPage(){
+    public GoogleSearchResultPage openNextResultPage() {
         $x(nextPageXpath).click();
-        return new GoogleSearchResultPage();
+        return this;
     }
 
-    public SelenideElement showNextPageLink(){
-        return $x(nextPageXpath);
+    public boolean isNextPageButtonVisible() {
+        try {
+            return $x(nextPageXpath).isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
     }
 
-    public GoogleSearchResultPage openPreviousResultPage(){
-        $x(previousPageXpath).click();
-        return new GoogleSearchResultPage();
-    }
-
-    public SelenideElement showPreviousPageLink(){
-        return $x(previousPageXpath);
+    public boolean isPreviousPageButtonVisible() {
+        try {
+            return $x("//a[@id='pnprev']").isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
     }
 }

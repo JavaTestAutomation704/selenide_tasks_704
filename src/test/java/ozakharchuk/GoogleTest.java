@@ -1,82 +1,81 @@
 package ozakharchuk;
 
-import com.codeborne.selenide.*;
-import com.codeborne.selenide.CollectionCondition;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
 import static com.codeborne.selenide.WebDriverConditions.*;
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class GoogleTest {
-
-    @BeforeClass
-    public void downloadBrowser() {
-        Configuration.browser = "chrome";
-    }
-
-    @BeforeMethod
-    public void openGoogleAndTypeSearchItem() {
-        Selenide.open("https://www.google.com/");
-        GoogleHomePage googleHomePage = new GoogleHomePage();
-        googleHomePage.searchForText("funny dogs");
-    }
+public class GoogleTest extends GoogleTestRunner {
 
     @Test
     public void verifyFirstLinkNameContainsDogs() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.showResultLinkName(1).shouldHave(text("dog"));
+        String linkName = googleSearchResultsPage
+                .getResultLinkName(1)
+                .toLowerCase();
+        Assert.assertTrue(linkName.contains("dogs"), "Link name is : " + googleSearchResultsPage.getResultLinkName(1));
     }
 
     @Test
     public void verifyNinthLinkValid() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.showResultLink().get(9).shouldHave(attribute("href"));
+        String linkUrl = googleSearchResultsPage.getResultLinkUrl(8);
+        googleSearchResultsPage.openLink(8);
+        webdriver().shouldHave(url(linkUrl));
     }
 
     @Test
     public void verifyGoogleHomePageIsOpen() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.openHomePage();
-        webdriver().shouldHave(urlStartingWith("https://www.google.com/"));
+        boolean isGoogleHomePageOpen = googleSearchResultsPage
+                .openHomePage()
+                .isLanguageBlockVisible();
+        Assert.assertTrue(isGoogleHomePageOpen);
     }
 
     @Test
     public void verifyFirstLinkNameContainsDogsFifthPage() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.chooseNumberOfResultPage(5).showResultLinkName(1).shouldHave(text("dog"));
+        String linkName = googleSearchResultsPage
+                .chooseNumberOfResultPage(5)
+                .getResultLinkName(1).toLowerCase();
+        Assert.assertTrue(linkName.contains("dog"), "Link name is : " + googleSearchResultsPage.getResultLinkName(1));
     }
 
     @Test
     public void verifyAtLeastNineLinks() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.showResultLink().shouldHave(CollectionCondition.sizeGreaterThanOrEqual(9));
+        int numberOfLinks = googleSearchResultsPage.getResultLinksNumber();
+        Assert.assertTrue(numberOfLinks >= 9);
     }
 
     @Test
     public void verifyFirstLinkContainsKitten() {
-        GoogleHomePage googleHomePage = new GoogleHomePage();
-        googleHomePage.searchForText("funny kitten").showResultLinkName(1).shouldHave(text("kitten"));
-
+        String linkName = googleSearchResultsPage
+                .openHomePage()
+                .searchForText("funny kitten")
+                .getResultLinkName(1)
+                .toLowerCase();
+        Assert.assertTrue(linkName.contains("kitten"), "Link name is : " + googleSearchResultsPage.getResultLinkName(1));
     }
 
     @Test
     public void verifyGoogleLogoIsDisplayed() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.showGoogleLogo().shouldBe(visible);
+        boolean isGoogleLogoVisible = googleSearchResultsPage.isGoogleLogoVisible();
+        Assert.assertTrue(isGoogleLogoVisible);
     }
 
     @Test
     public void verifyNextLinkIsDisplayed() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.showNextPageLink().shouldBe(visible);
+        boolean isNextPageButtonVisible = googleSearchResultsPage.isNextPageButtonVisible();
+        Assert.assertTrue(isNextPageButtonVisible);
     }
 
     @Test
     public void verifyNextAndPreviousLinkIsDisplayed() {
-        GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage();
-        googleSearchResultPage.showNextPageLink().shouldBe(visible);
-        googleSearchResultPage.chooseNumberOfResultPage(4).showPreviousPageLink().shouldBe(visible);
+        SoftAssert softAssert = new SoftAssert();
+        boolean isNextPageButtonVisible = googleSearchResultsPage.isNextPageButtonVisible();
+        softAssert.assertTrue(isNextPageButtonVisible);
+        googleSearchResultsPage.chooseNumberOfResultPage(4);
+        boolean isPreviousPageButtonVisible = googleSearchResultsPage.isPreviousPageButtonVisible();
+        softAssert.assertTrue(isPreviousPageButtonVisible);
+        softAssert.assertAll();
     }
 }
