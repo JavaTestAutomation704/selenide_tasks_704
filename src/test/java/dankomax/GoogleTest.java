@@ -1,72 +1,108 @@
 package dankomax;
 
-import org.testng.annotations.BeforeMethod;
+import static org.testng.Assert.*;
+
 import org.testng.annotations.Test;
-
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.CollectionCondition.*;
+import org.testng.asserts.SoftAssert;
 
 
-public class GoogleTest extends BaseTestRunner {
-    private final HomePage homePage = new HomePage();
-    private final SearchPage searchPage = new SearchPage();
-
-    @BeforeMethod
-    public void searchFunnyDogs() {
-        homePage.searchPhrase("Funny dogs");
-    }
+public class GoogleTest extends TestRunner {
 
     @Test
     public void verifyFirstResultTitle() {
-        searchPage.searchResultTitleByNumber(1).shouldHave(text("dogs"));
+        String firstResultTitle = homePage
+                .searchPhrase("funny dogs")
+                .searchResultTitleText(1);
+
+        assertTrue(firstResultTitle.toLowerCase().contains("dogs"));
     }
 
     @Test
     public void verifyNinthResultLinkHrefHasValidURL() {
-        searchPage.searchResultLinkByNumber(9)
-                .shouldHave(attributeMatching("href", "^((ftp|http|https)://)?www\\..*"));
+        String ninthResultLinkHrefValue = homePage
+                .searchPhrase("funny dogs")
+                .searchResultLinkHrefValue(9);
+
+        assertTrue(ninthResultLinkHrefValue.matches("^((ftp|http|https)://)?www\\..*"));
     }
 
     @Test
-    public void verifyHomePageLinkWorks() {
-        searchPage.openHomePage()
-                .title().shouldHave(attribute("text", "Google"));
-        homePage.languageSelection().shouldBe(visible);
-        homePage.feelingLuckyButton().shouldBe(visible).shouldHave(value("I'm Feeling Lucky"));
-        homePage.settingsButton().shouldBe(visible).shouldHave(text("Settings"));
+    public void verifyGoogleLogoRedirectToHomePage() {
+        String pageTitle = homePage
+                .searchPhrase("funny dogs")
+                .openHomePage()
+                .title();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(pageTitle, "Google", "Page title should be 'Google'.");
+        softAssert.assertTrue(homePage.isSelectLanguageSectionVisible(), "Section for language selection is visible.");
+        softAssert.assertTrue(homePage.isFeelingLuckyButtonVisible(), "I'm Feeling Lucky button is visible.");
+        softAssert.assertTrue(homePage.isSettingsButtonVisible(), "Settings button is visible.");
+        softAssert.assertAll();
     }
 
     @Test
-    public void verifyFirstResultTitleOnFifthPage() {
-        searchPage.paginationOpenPage(5)
-                .searchResultByNumber(1).shouldHave(text("dog"));
+    public void verifyFirstSearchResultOnFifthPage() {
+        String searchResultText = homePage
+                .searchPhrase("funny dogs")
+                .openSearchResultsPage(5)
+                .searchResultText(1);
+
+        System.out.println(searchResultText);
+        assertTrue(searchResultText.toLowerCase().contains("dog"));
     }
 
     @Test
     public void verifySearchResultsQuantityIsSufficient() {
-        searchPage.searchResultCollection().shouldBe(sizeGreaterThanOrEqual(9));
+        int searchResultsQuantity = homePage
+                .searchPhrase("funny dogs")
+                .searchResultCollectionSize();
+
+        assertTrue(searchResultsQuantity >= 9);
     }
 
     @Test
     public void verifyRepeatSearchFirstResultTitle() {
-        homePage.searchPhrase("funny kitten")
-                .searchResultByNumber(1).shouldNotHave(text("dogs")).shouldHave(text("kitten"));
+        String firstResultText = homePage
+                .searchPhrase("funny dogs")
+                .searchPhrase("funny kitten")
+                .searchResultText(1);
+        System.out.println(firstResultText);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(firstResultText.contains("dogs"), "First result title should not contain word 'dogs'.");
+        softAssert.assertTrue(firstResultText.toLowerCase().contains("kitten"), "First result title should contain word 'kitten'.");
+        softAssert.assertAll();
     }
 
     @Test
     public void verifyGoogleLogoIsDisplayed() {
-        searchPage.googleLogo().shouldBe(visible);
+        boolean googleLogoVisible = homePage
+                .searchPhrase("funny dogs")
+                .isGoogleLogoVisible();
+
+        assertTrue(googleLogoVisible, "Google logo is visible.");
     }
 
     @Test
     public void verifyNextLinkIsDisplayed() {
-        searchPage.paginationNextButton().shouldBe(visible);
+        SearchResultsPage searchPage = homePage
+                .searchPhrase("funny dogs");
+
+        assertTrue(searchPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
     }
 
     @Test
     public void verifyPreviousLinkIsDisplayed() {
-        searchPage.paginationNextButton().shouldBe(visible);
-        searchPage.paginationOpenPage(4);
-        searchPage.paginationPreviousButton().shouldBe(visible);
+        SearchResultsPage searchPage = homePage
+                .searchPhrase("funny dogs");
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(searchPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
+
+        searchPage.openSearchResultsPage(4);
+        softAssert.assertTrue(searchPage.isPreviousLinkVisible(), "'Previous' link in pagination should be visible.");
+
+        softAssert.assertAll();
     }
 }
