@@ -1,4 +1,4 @@
-package olenka;
+package odashynych;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
@@ -18,8 +18,7 @@ public class TestRunner {
 
     @BeforeMethod
     public void openGooglePage() {
-        open("https://www.google.com/");
-        basePage = new GoogleBasePage();
+        basePage = new GoogleBasePage().open();
         resultPage = basePage.search("funny dogs");
     }
 
