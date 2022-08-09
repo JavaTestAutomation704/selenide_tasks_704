@@ -1,48 +1,65 @@
 package mvynokur;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.ex.ElementNotFound;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class GooglePage {
 
-    private final String logoIcon = "//div[@class = 'logo']";
-    private final String paginationBlock = "//tr[@jsname = 'TeSSVd']";
-    private final String previousPage = paginationBlock + "//a/span[contains(text(), 'Previous')]";
-    private final String nextPage = paginationBlock + "//a/span[contains(text(), 'Next')]";
-    private final String feelingLuckyButton = "//div[@class='FPdoLc lJ9FBc']//input[@name='btnI']";
-    private final String languageBlock = "//div[@id='SIvCob']";
+    private final String logoIconXpath = "//div[@class = 'logo']";
+    private final String paginationBlockXpath = "//tr[@jsname = 'TeSSVd']";
+
+    public GooglePage openHomePage() {
+        Selenide.open("https://www.google.com");
+        return this;
+    }
 
     public GooglePage searchFor(String text) {
         $(By.name("q")).val(text).pressEnter();
-        return new GooglePage();
-    }
-
-    public GooglePage logoIconIsVisible() {
-        $x(logoIcon).shouldBe(visible);
         return this;
     }
 
-    public GooglePage previousPageIsVisible() {
-        $x(previousPage).shouldBe(visible);
-        return this;
+    public boolean isLogoVisible() {
+        try {
+            return $x(logoIconXpath).isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
     }
 
-    public GooglePage nextPageIsVisible() {
-        $x(nextPage).shouldBe(visible);
-        return this;
+    public boolean isPreviousPageVisible() {
+        try {
+            return $x(paginationBlockXpath + "//a/span[contains(text(), 'Previous')]").isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
     }
 
-    public GooglePage feelingLuckyButtonIsVisible() {
-        $x(feelingLuckyButton).shouldBe(visible);
-        return this;
+    public boolean isNextPageVisible() {
+        try {
+            return $x(paginationBlockXpath + "//a/span[contains(text(), 'Next')]").isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
     }
 
-    public GooglePage languageBlockIsVisible() {
-        $x(languageBlock).shouldBe(visible);
-        return this;
+    public boolean isFeelingLuckyButtonVisible() {
+        try {
+            return $x("//div[@class='FPdoLc lJ9FBc']//input[@name='btnI']").isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
+    }
+
+    public boolean isLanguageBlockVisible() {
+        try {
+            return $x("//div[@id='SIvCob']").isDisplayed();
+        } catch (ElementNotFound e) {
+            return false;
+        }
     }
 
     public GooglePage clearSearchField() {
@@ -51,12 +68,12 @@ public class GooglePage {
     }
 
     public GooglePage navigateToHomePage() {
-        $x(logoIcon).click();
+        $x(logoIconXpath).click();
         return this;
     }
 
     public GooglePage navigateToPage(int index) {
-        $x(paginationBlock + "//a[contains(@aria-label, '" + index + "')]").click();
+        $x(paginationBlockXpath + "//a[contains(@aria-label, '" + index + "')]").click();
         return this;
     }
 }

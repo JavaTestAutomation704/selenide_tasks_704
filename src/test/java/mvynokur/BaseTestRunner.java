@@ -2,12 +2,15 @@ package mvynokur;
 
 import org.testng.annotations.BeforeMethod;
 
-import static com.codeborne.selenide.Selenide.open;
-
 public class BaseTestRunner {
 
+    protected GooglePage homePage;
+    protected SearchResultsPage searchResults;
+    private final String baseSearch = "funny dogs";
+
     @BeforeMethod
-    public void openHomePage() {
-        open("https://www.google.com");
+    public void openHomePageAndSearch() {
+        homePage = new GooglePage().openHomePage().searchFor(baseSearch);
+        searchResults = new SearchResultsPage();
     }
 }

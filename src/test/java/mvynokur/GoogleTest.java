@@ -1,78 +1,78 @@
 package mvynokur;
 
-import com.codeborne.selenide.CollectionCondition;
 import jdk.jfr.Description;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import static com.codeborne.selenide.Condition.*;
+import org.testng.asserts.SoftAssert;
 
 public class GoogleTest extends BaseTestRunner {
-
-    private final String searchText = "funny dogs";
 
     @Test
     @Description("Task 1")
     public void verifyThatSearchFunctionalityWorks() {
-        new GooglePage().searchFor(searchText);
-        new SearchResultsPage().getLinkNameByNumber(1).shouldHave(text("dogs"));
+        Assert.assertTrue(searchResults.getLinkNameNumber(1).contains("dogs"));
     }
 
     @Test
     @Description("Task 2")
     public void verifyNineLinkURLCorrectness() {
-        new GooglePage().searchFor(searchText);
-        new SearchResultsPage().getLinkNameByNumber(9).
-                shouldHave(attributeMatching("href", "((http|https)://)(www.)?"
-                        + "[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]"
-                        + "{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"));
-
+        Assert.assertTrue(searchResults.getLinkUrlNumber(9).matches("((http|https)://)(www.)?"
+                + "[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]"
+                + "{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"));
     }
 
     @Test
     @Description("Task 3")
-    public void verifyNavigationToHomePage() throws InterruptedException {
-        new GooglePage().searchFor(searchText)
-                .navigateToHomePage().feelingLuckyButtonIsVisible().languageBlockIsVisible();
+    public void verifyNavigationToHomePage() {
+        homePage.navigateToHomePage();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(homePage.isFeelingLuckyButtonVisible());
+        softAssert.assertTrue(homePage.isLanguageBlockVisible());
+        softAssert.assertAll();
     }
 
     @Test
     @Description("Task 4")
     public void verifySearchFunctionalityOnDifferentPages() {
-        new GooglePage().searchFor(searchText).navigateToPage(5);
-        new SearchResultsPage().getLinkNameByNumber(1).shouldHave(text("dogs"));
+        homePage.navigateToPage(5);
+        Assert.assertTrue(searchResults.getLinkNameNumber(1).contains("dogs"));
     }
 
     @Test
     @Description("Task 5")
     public void verifySearchResultsLinksAmount() {
-        new GooglePage().searchFor(searchText);
-        new SearchResultsPage().getLinkNames().shouldHave(CollectionCondition.sizeGreaterThanOrEqual(9));
+        Assert.assertTrue(searchResults.amountOfLinks() >= 9);
     }
 
     @Test
     @Description("Task 6/7")
     public void verifySearchFunctionalityWithDifferentInputs() {
-        new GooglePage().searchFor(searchText).clearSearchField().searchFor("funny kitten");
-        new SearchResultsPage().getDescriptions().get(0)
-                .shouldHave(text("kitten")).shouldNotHave(text("dogs"));
+        homePage.clearSearchField().searchFor("funny kitten");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(searchResults.getDescriptionTextByLinkNumber(1).contains("kitten"));
+        softAssert.assertFalse(searchResults.getDescriptionTextByLinkNumber(1).contains("dogs"));
+        softAssert.assertAll();
     }
 
     @Test
     @Description("Task 8")
     public void verifyLogoIconIsDisplayed() {
-        new GooglePage().searchFor(searchText).logoIconIsVisible();
+        Assert.assertTrue(homePage.isLogoVisible());
     }
 
     @Test
     @Description("Task 9")
     public void verifyThatNextPageLinkIsDisplayed() {
-        new GooglePage().searchFor(searchText).nextPageIsVisible();
+        Assert.assertTrue(homePage.isNextPageVisible());
     }
 
     @Test
     @Description("Task 10")
     public void verifyThatPreviousPageLinkIsDisplayed() {
-        verifyThatNextPageLinkIsDisplayed();
-        new GooglePage().navigateToPage(4).previousPageIsVisible();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(homePage.isNextPageVisible());
+        homePage.navigateToPage(4);
+        softAssert.assertTrue(homePage.isPreviousPageVisible());
+        softAssert.assertAll();
     }
 }
