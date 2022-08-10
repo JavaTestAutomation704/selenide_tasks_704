@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import static com.codeborne.selenide.Selenide.open;
 
 public class BaseTestRunner {
-    protected GooglePage basePage;
+    protected GooglePage googlePage;
     protected GoogleSearchResultsPage resultPage;
 
     @BeforeClass
@@ -18,7 +18,7 @@ public class BaseTestRunner {
 
     @BeforeMethod
     public void openGooglePage() {
-        basePage = new GooglePage().open();
-        resultPage = basePage.search("funny dogs");
+        googlePage = new GooglePage().open();
+        resultPage = googlePage.search("funny dogs");
     }
 }

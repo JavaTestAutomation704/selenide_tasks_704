@@ -6,14 +6,13 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.url;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends BaseTestRunner {
     @Test
     public void verifyThatMethodSearchesDogs() {
-        assertTrue(resultPage.getTextFromLinkNumber(1).contains("dogs"), "Text doesn't contain \"dogs\"");
+        assertTrue(resultPage.getLinkNumberText(1).contains("dogs"), "Text doesn't contain \"dogs\"");
     }
 
     @Test
@@ -27,7 +26,7 @@ public class GoogleTest extends BaseTestRunner {
 
     @Test
     public void verifyThatGooglePageIsOpen() {
-        resultPage.openGoogleLogo();
+        resultPage.goToGoogleLogo();
         String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
         assertTrue(currentUrl.contains("https://www.google.com/"), "Google page didn't open");
     }
@@ -36,7 +35,7 @@ public class GoogleTest extends BaseTestRunner {
     public void verifyThatFifthPageHasText() {
         String linkText = resultPage
                 .goToPage(5)
-                .getTextFromLinkNumber(1);
+                .getLinkNumberText(1);
         assertTrue(linkText.contains("dogs"), "Text doesn't contain \"dogs\"");
 
     }
@@ -51,7 +50,7 @@ public class GoogleTest extends BaseTestRunner {
         String currentText = resultPage
                 .clearInputField()
                 .search("funny kitten")
-                .getTextFromLinkNumber(1);
+                .getLinkNumberText(1);
 
         assertTrue(currentText.contains("kitten"), "Text doesn't contain \"kitten\"");
         assertFalse(currentText.contains("dogs"), "Text contains \"dogs\"");
@@ -59,18 +58,18 @@ public class GoogleTest extends BaseTestRunner {
 
     @Test
     public void verifyThatGoogleLogoIsDisplayed() {
-        assertTrue($x(resultPage.getLogoXpath()).isDisplayed(), "Google logo isn't display");
+        assertTrue($x(resultPage.logoXpath).isDisplayed(), "Google logo isn't display");
     }
 
     @Test
     public void verifyThatNextLinkIsDisplayed() {
-        $x(resultPage.getNextPageXpath()).shouldHave(Condition.visible);
+        $x(resultPage.nextPageXpath).shouldHave(Condition.visible);
     }
 
     @Test
     public void verifyThatLinksAreDisplayed() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue($x(resultPage.getNextPageXpath()).isDisplayed(), "Button \"next page\" isn't visible");
+        softAssert.assertTrue($x(resultPage.nextPageXpath).isDisplayed(), "Button \"next page\" isn't visible");
 
         resultPage.goToPage(4);
         softAssert.assertTrue($x(resultPage.getPreviousPageXpath()).isDisplayed(), "Button \"previous page\" isn't visible");

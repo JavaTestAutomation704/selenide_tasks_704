@@ -1,6 +1,7 @@
 package nastiakomarenko;
 
-import com.codeborne.selenide.ex.ElementNotFound;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.ElementsCollection;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.$$x;
@@ -18,28 +19,14 @@ public class GoogleSearchResultsPage {
         return this;
     }
 
-    public String getTextFromLinkNumber(int linkNumber) {
+    public String getLinkNumberText(int linkNumber) {
         return $x(String.format("(//a/h3)[%s]", linkNumber)).text();
     }
+    public String logoXpath = "//div[@class = 'logo']";
 
-    private String getLinkElementXpath(int linkNumber) {
-        return String.format("(//a)[%s]", linkNumber);
-    }
 
-    public String getLinkNumberHref(int linkNumber) {
-        return $x(getLinkElementXpath(linkNumber)).getAttribute("href");
-    }
-
-    public void openLink(int linkNumber) {
-        $x(getLinkElementXpath(linkNumber)).click();
-    }
-
-    public String getLogoXpath() {
-        return "//div[@class = 'logo']";
-    }
-
-    public GoogleSearchResultsPage openGoogleLogo() {
-        $x(getLogoXpath()).click();
+    public GoogleSearchResultsPage goToGoogleLogo() {
+        $x(logoXpath).click();
         return this;
     }
 
@@ -50,6 +37,11 @@ public class GoogleSearchResultsPage {
 
     }
     public int getNumberOfAllLinks(){
+        try {
+            $$x("(//a)").shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1));
+        } catch (AssertionError e) {
+            throw new AssertionError(e);
+        }
         return $$x("(//a)").size();
     }
 
@@ -57,7 +49,6 @@ public class GoogleSearchResultsPage {
         return "//a[@id='pnprev']";
     }
 
-    public String getNextPageXpath() {
-        return "//a[@id='pnnext']";
-    }
+    public String nextPageXpath = "//a[@id='pnnext']";
+
 }
