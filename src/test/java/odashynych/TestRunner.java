@@ -4,10 +4,9 @@ import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import static com.codeborne.selenide.Selenide.open;
 
 public class TestRunner {
-    protected GoogleBasePage basePage;
+    protected GooglePage googlePage;
     protected GoogleResultPage resultPage;
 
     @BeforeClass
@@ -17,9 +16,9 @@ public class TestRunner {
     }
 
     @BeforeMethod
-    public void openGooglePage() {
-        basePage = new GoogleBasePage().open();
-        resultPage = basePage.search("funny dogs");
+    public void openHomePageAndSearch() {
+        googlePage = new GooglePage().openHomePage();
+        resultPage = googlePage.search("funny dogs");
     }
 
 }

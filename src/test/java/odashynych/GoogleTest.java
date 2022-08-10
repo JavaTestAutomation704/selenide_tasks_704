@@ -1,47 +1,44 @@
 package odashynych;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.url;
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends TestRunner {
     @Test
     public void verifyFirstLinkContainDogsTest() {
-        assertTrue(resultPage.getTextFromLinkNumber(1).contains("dogs"), "Text doesn't contain \"dogs\"");
+        boolean result = resultPage.getText(1).contains("dogs");
+        assertTrue(result, "Text doesn't contain \"dogs\"");
     }
 
     @Test
     public void verifyValidNineUrl() {
-        String nineUrl = resultPage.getLinkNumberHref(9);
-        resultPage.openLink(9);
-        webdriver().shouldHave(url(nineUrl));
+        assertTrue(resultPage.getUrl(9)
+                .matches("^https?:\\/\\/(?:www\\.)?"
+                        + "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\"
+                        + ".[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$"),
+                "Nine URL is invalid");
     }
 
     @Test
     public void verifyGoogleHomePageIsOpen() {
-        resultPage.openGoogleLogo();
-        String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
-        assertTrue(currentUrl.contains("https://www.google.com/"), "Home page isn't open");
+        boolean result = resultPage.openHomePage().isLanguageComponentVisible();
+        assertTrue(result, "Home page isn't open");
     }
 
     @Test
     public void verifyFirstLinkContainDogsTestOn5Page() {
-        String linkText = resultPage
-                .goToPage(5)
-                .getTextFromLinkNumber(1);
-        assertTrue(linkText.contains("dogs"), "Text doesn't contain \"dogs\"");
-
+        boolean result = resultPage
+                .openPage(5)
+                .getText(1)
+                .contains("dogs");
+        assertTrue(result, "Text doesn't contain \"dogs\"");
     }
 
     @Test
     public void verify9ResultsLinksDisplayed() {
-        assertTrue(resultPage.getNumberOfAllLinks() >= 9, "Links are less than 9");
+        assertTrue(resultPage.getLinksAmount() >= 9, "Links are less than 9");
     }
 
     @Test
@@ -49,28 +46,29 @@ public class GoogleTest extends TestRunner {
         String linkText = resultPage
                 .clearInputField()
                 .search("funny kitten")
-                .getTextFromLinkNumber(1);
+                .getText(1);
 
-        assertTrue(linkText.contains("kitten"), "Text doesn't contain \"kitten\"");
-        assertFalse(linkText.contains("dogs"), "Text contains \"dogs\"");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(linkText.contains("kitten"), "Text doesn't contain \"kitten\"");
+        softAssert.assertFalse(linkText.contains("dogs"), "Text contains \"dogs\"");
+        softAssert.assertAll();
     }
 
     @Test
     public void verifyGoogleLogoDisplayed() {
-        assertTrue($x(resultPage.getLogoXpath()).isDisplayed(), "Google logo isn't display");
+        assertTrue(resultPage.isGoogleLogoDisplayed(), "Google logo isn't display");
     }
 
     @Test
-    public void verifyNextLinkDisplayed() {
-        $x(resultPage.getNextPageXpath()).shouldHave(Condition.visible);
+    public void verifyNextPageLinkIsDisplayed() {
+        assertTrue(resultPage.isNextPageLinkDisplayed(), "Next page button isn't display");
     }
 
     @Test
-    public void verifyPreviousLinkDisplayed() {
+    public void verifyNextAndPreviousLinksAreDisplayed() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue($x(resultPage.getNextPageXpath()).isDisplayed(), "Button next page isn't visible");
-
-        resultPage.goToPage(4);
-        softAssert.assertTrue($x(resultPage.getPreviousPageXpath()).isDisplayed(), "Button previous page isn't visible");
+        softAssert.assertTrue(resultPage.isNextPageLinkDisplayed(), "Next link page isn't visible");
+        resultPage.openPage(4);
+        softAssert.assertTrue(resultPage.isPreviousPageLinkDisplayed(), "Previous link page isn't visible");
     }
 }

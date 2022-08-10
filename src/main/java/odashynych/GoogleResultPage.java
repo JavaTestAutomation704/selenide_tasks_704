@@ -1,11 +1,14 @@
 package odashynych;
 
+import com.codeborne.selenide.CollectionCondition;
+import odashynych.utils.WebElementUtil;
+
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.$$x;
 
-
 public class GoogleResultPage {
-
     public GoogleResultPage clearInputField() {
         $x("//input[@name='q']").clear();
         return this;
@@ -16,47 +19,41 @@ public class GoogleResultPage {
         return this;
     }
 
-    public String getTextFromLinkNumber(int linkNumber) {
+    public String getText(int linkNumber) {
         return $x(String.format("(//a/h3)[%s]", linkNumber)).text();
     }
 
-    private String getLinkElementXpath(int linkNumber) {
-        return String.format("(//a)[%s]", linkNumber);
+    public String getUrl(int linkNumber) {
+        return $x(String.format("(//a)[%s]", linkNumber)).getAttribute("href");
     }
 
-    public String getLinkNumberHref(int linkNumber) {
-        return $x(getLinkElementXpath(linkNumber)).getAttribute("href");
+    public boolean isGoogleLogoDisplayed() {
+        return WebElementUtil.isDisplayed("//div[@class = 'logo']");
     }
 
-    public void openLink(int linkNumber) {
-        $x(getLinkElementXpath(linkNumber)).click();
+    public GooglePage openHomePage() {
+        $x("//div[@class = 'logo']").click();
+        return new GooglePage();
     }
 
-    public String getLogoXpath() {
-        return "//div[@class = 'logo']";
-    }
-
-    public GoogleResultPage openGoogleLogo() {
-        $x(getLogoXpath()).click();
+    public GoogleResultPage openPage(int number) {
+        $x((String.format("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '%s')]", number))).click();
         return this;
     }
 
-    public GoogleResultPage goToPage(int page) {
-        $x((String.format("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '%s')]", page)))
-                .click();
-        return this;
-
+    public int getLinksAmount() {
+        try {
+            return $$x("(//a)").shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1), Duration.ofSeconds(5)).size();
+        } catch (AssertionError e) {
+            return 0;
+        }
     }
 
-    public int getNumberOfAllLinks(){
-        return $$x("(//a)").size();
+    public boolean isPreviousPageLinkDisplayed() {
+        return WebElementUtil.isDisplayed("//a[@id='pnprev']");
     }
 
-    public String getPreviousPageXpath() {
-        return "//a[@id='pnprev']";
-    }
-
-    public String getNextPageXpath() {
-        return "//a[@id='pnnext']";
+    public boolean isNextPageLinkDisplayed() {
+        return WebElementUtil.isDisplayed("//a[@id='pnnext']");
     }
 }
