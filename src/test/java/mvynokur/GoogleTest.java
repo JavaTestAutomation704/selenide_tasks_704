@@ -9,14 +9,14 @@ public class GoogleTest extends BaseTestRunner {
 
     @Test
     @Description("Task 1")
-    public void verifyThatSearchFunctionalityWorks() {
-        Assert.assertTrue(searchResults.getLinkNameNumber(1).contains("dogs"));
+    public void verifySearchFunctionalityWorks() {
+        Assert.assertTrue(searchResultsPage.getName(1).contains("dogs"));
     }
 
     @Test
     @Description("Task 2")
     public void verifyNineLinkURLCorrectness() {
-        Assert.assertTrue(searchResults.getLinkUrlNumber(9).matches("((http|https)://)(www.)?"
+        Assert.assertTrue(searchResultsPage.getUrl(9).matches("((http|https)://)(www.)?"
                 + "[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]"
                 + "{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"));
     }
@@ -24,7 +24,7 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     @Description("Task 3")
     public void verifyNavigationToHomePage() {
-        homePage.navigateToHomePage();
+        searchResultsPage.openHomePage();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(homePage.isFeelingLuckyButtonVisible());
         softAssert.assertTrue(homePage.isLanguageBlockVisible());
@@ -34,45 +34,45 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     @Description("Task 4")
     public void verifySearchFunctionalityOnDifferentPages() {
-        homePage.navigateToPage(5);
-        Assert.assertTrue(searchResults.getLinkNameNumber(1).contains("dogs"));
+        searchResultsPage.openPage(5);
+        Assert.assertTrue(searchResultsPage.getName(1).contains("dogs"));
     }
 
     @Test
     @Description("Task 5")
     public void verifySearchResultsLinksAmount() {
-        Assert.assertTrue(searchResults.amountOfLinks() >= 9);
+        Assert.assertTrue(searchResultsPage.getLinksAmount() >= 9);
     }
 
     @Test
     @Description("Task 6/7")
     public void verifySearchFunctionalityWithDifferentInputs() {
-        homePage.clearSearchField().searchFor("funny kitten");
+        searchResultsPage.clearSearchField().searchFor("funny kitten");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(searchResults.getDescriptionTextByLinkNumber(1).contains("kitten"));
-        softAssert.assertFalse(searchResults.getDescriptionTextByLinkNumber(1).contains("dogs"));
+        softAssert.assertTrue(searchResultsPage.getDescriptionText(1).contains("kitten"));
+        softAssert.assertFalse(searchResultsPage.getDescriptionText(1).contains("dogs"));
         softAssert.assertAll();
     }
 
     @Test
     @Description("Task 8")
-    public void verifyLogoIconIsDisplayed() {
+    public void verifyGoogleLogoIsDisplayed() {
         Assert.assertTrue(homePage.isLogoVisible());
     }
 
     @Test
     @Description("Task 9")
-    public void verifyThatNextPageLinkIsDisplayed() {
-        Assert.assertTrue(homePage.isNextPageVisible());
+    public void verifyNextPageLinkIsDisplayed() {
+        Assert.assertTrue(searchResultsPage.isNextPageLinkVisible());
     }
 
     @Test
     @Description("Task 10")
-    public void verifyThatPreviousPageLinkIsDisplayed() {
+    public void verifyNextAndPreviousPageLinksAreDisplayed() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(homePage.isNextPageVisible());
-        homePage.navigateToPage(4);
-        softAssert.assertTrue(homePage.isPreviousPageVisible());
+        softAssert.assertTrue(searchResultsPage.isNextPageLinkVisible());
+        searchResultsPage.openPage(4);
+        softAssert.assertTrue(searchResultsPage.isPreviousPageLinkVisible());
         softAssert.assertAll();
     }
 }
