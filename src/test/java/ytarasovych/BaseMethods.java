@@ -5,17 +5,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseMethods {
-
-    protected GoogleHomePage openGoogleHomePage;
+    protected GooglePage googleHomePage;
 
     @BeforeClass
-    public void setConfigurations(){
+    public void setConfigurations() {
         Configuration.browser = "chrome";
         Configuration.timeout = 20;
     }
 
     @BeforeMethod
-    public void openHomePage(){
-        openGoogleHomePage = new GoogleHomePage().open();
+    public void openHomePage() {
+        googleHomePage = new GooglePage().openHomePage();
     }
 }
