@@ -5,7 +5,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$x;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -33,9 +33,7 @@ public class GoogleTest extends BaseTestRunner {
 
     @Test
     public void verifyThatFifthPageHasText() {
-        String linkText = resultPage
-                .goToPage(5)
-                .getLinkNumberText(1);
+        String linkText = resultPage.goToPage(5).getLinkNumberText(1);
         assertTrue(linkText.contains("dogs"), "Text doesn't contain \"dogs\"");
 
     }
@@ -47,10 +45,7 @@ public class GoogleTest extends BaseTestRunner {
 
     @Test
     public void verifyThatMethodContainsText() {
-        String currentText = resultPage
-                .clearInputField()
-                .search("funny kitten")
-                .getLinkNumberText(1);
+        String currentText = resultPage.clearInputField().search("funny kitten").getLinkNumberText(1);
 
         assertTrue(currentText.contains("kitten"), "Text doesn't contain \"kitten\"");
         assertFalse(currentText.contains("dogs"), "Text contains \"dogs\"");

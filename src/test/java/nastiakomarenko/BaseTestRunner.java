@@ -4,8 +4,6 @@ import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import static com.codeborne.selenide.Selenide.open;
-
 public class BaseTestRunner {
     protected GooglePage googlePage;
     protected GoogleSearchResultsPage resultPage;

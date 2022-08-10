@@ -1,13 +1,15 @@
 package nastiakomarenko;
 
 import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.ElementsCollection;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.$$x;
 
 
 public class GoogleSearchResultsPage {
+
+    public String logoXpath = "//div[@class = 'logo']";
+    public String nextPageXpath = "//a[@id='pnnext']";
 
     public GoogleSearchResultsPage clearInputField() {
         $x("//input[@name='q']").clear();
@@ -22,8 +24,6 @@ public class GoogleSearchResultsPage {
     public String getLinkNumberText(int linkNumber) {
         return $x(String.format("(//a/h3)[%s]", linkNumber)).text();
     }
-    public String logoXpath = "//div[@class = 'logo']";
-
 
     public GoogleSearchResultsPage goToGoogleLogo() {
         $x(logoXpath).click();
@@ -31,12 +31,11 @@ public class GoogleSearchResultsPage {
     }
 
     public GoogleSearchResultsPage goToPage(int page) {
-        $x((String.format("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '%s')]", page)))
-                .click();
+        $x((String.format("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '%s')]", page))).click();
         return this;
-
     }
-    public int getNumberOfAllLinks(){
+
+    public int getNumberOfAllLinks() {
         try {
             $$x("(//a)").shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1));
         } catch (AssertionError e) {
@@ -48,7 +47,4 @@ public class GoogleSearchResultsPage {
     public String getPreviousPageXpath() {
         return "//a[@id='pnprev']";
     }
-
-    public String nextPageXpath = "//a[@id='pnnext']";
-
 }
