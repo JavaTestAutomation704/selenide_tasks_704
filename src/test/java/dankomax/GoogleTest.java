@@ -12,7 +12,7 @@ public class GoogleTest extends TestRunner {
     public void verifyFirstResultTitle() {
         String firstResultTitle = homePage
                 .searchPhrase("funny dogs")
-                .searchResultTitleText(1);
+                .getSearchResultTitleText(1);
 
         assertTrue(firstResultTitle.toLowerCase().contains("dogs"));
     }
@@ -21,7 +21,7 @@ public class GoogleTest extends TestRunner {
     public void verifyNinthResultLinkHrefHasValidURL() {
         String ninthResultLinkHrefValue = homePage
                 .searchPhrase("funny dogs")
-                .searchResultLinkHrefValue(9);
+                .getSearchResultLinkHrefValue(9);
 
         assertTrue(ninthResultLinkHrefValue.matches("^((ftp|http|https)://)?www\\..*"));
     }
@@ -31,7 +31,7 @@ public class GoogleTest extends TestRunner {
         String pageTitle = homePage
                 .searchPhrase("funny dogs")
                 .openHomePage()
-                .title();
+                .getPageTitle();
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(pageTitle, "Google", "Page title should be 'Google'.");
@@ -46,9 +46,8 @@ public class GoogleTest extends TestRunner {
         String searchResultText = homePage
                 .searchPhrase("funny dogs")
                 .openSearchResultsPage(5)
-                .searchResultText(1);
+                .getSearchResultText(1);
 
-        System.out.println(searchResultText);
         assertTrue(searchResultText.toLowerCase().contains("dog"));
     }
 
@@ -56,7 +55,7 @@ public class GoogleTest extends TestRunner {
     public void verifySearchResultsQuantityIsSufficient() {
         int searchResultsQuantity = homePage
                 .searchPhrase("funny dogs")
-                .searchResultCollectionSize();
+                .getSearchResultCollectionSize();
 
         assertTrue(searchResultsQuantity >= 9);
     }
@@ -66,8 +65,7 @@ public class GoogleTest extends TestRunner {
         String firstResultText = homePage
                 .searchPhrase("funny dogs")
                 .searchPhrase("funny kitten")
-                .searchResultText(1);
-        System.out.println(firstResultText);
+                .getSearchResultText(1);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(firstResultText.contains("dogs"), "First result title should not contain word 'dogs'.");
@@ -86,22 +84,22 @@ public class GoogleTest extends TestRunner {
 
     @Test
     public void verifyNextLinkIsDisplayed() {
-        SearchResultsPage searchPage = homePage
+        SearchResultsPage searchResultsPage = homePage
                 .searchPhrase("funny dogs");
 
-        assertTrue(searchPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
+        assertTrue(searchResultsPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
     }
 
     @Test
     public void verifyPreviousLinkIsDisplayed() {
-        SearchResultsPage searchPage = homePage
+        SearchResultsPage searchResultsPage = homePage
                 .searchPhrase("funny dogs");
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(searchPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
+        softAssert.assertTrue(searchResultsPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
 
-        searchPage.openSearchResultsPage(4);
-        softAssert.assertTrue(searchPage.isPreviousLinkVisible(), "'Previous' link in pagination should be visible.");
+        searchResultsPage.openSearchResultsPage(4);
+        softAssert.assertTrue(searchResultsPage.isPreviousLinkVisible(), "'Previous' link in pagination should be visible.");
 
         softAssert.assertAll();
     }

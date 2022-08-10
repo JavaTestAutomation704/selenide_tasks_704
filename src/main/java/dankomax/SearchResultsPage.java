@@ -25,19 +25,19 @@ public class SearchResultsPage {
         return this;
     }
 
-    public String searchResultTitleText(int resultNumber) {
+    public String getSearchResultTitleText(int resultNumber) {
         return searchResultTitle(resultNumber).text();
     }
 
-    public String searchResultLinkHrefValue(int resultNumber) {
+    public String getSearchResultLinkHrefValue(int resultNumber) {
         return searchResultTitle(resultNumber).ancestor("a").attr("href");
     }
 
-    public String searchResultText(int resultNumber) {
+    public String getSearchResultText(int resultNumber) {
         return searchResultTitle(resultNumber).ancestor("div[contains(@class, 'g ')]").text();
     }
 
-    public int searchResultCollectionSize() {
+    public int getSearchResultCollectionSize() {
         return $$x("//a/h3/ancestor::div[contains(@class, 'g ')]").size();
     }
 

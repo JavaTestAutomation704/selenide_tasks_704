@@ -10,7 +10,7 @@ public class HomePage {
         return new SearchResultsPage();
     }
 
-    public String title() {
+    public String getPageTitle() {
         return $x("//title").attr("text");
     }
 
