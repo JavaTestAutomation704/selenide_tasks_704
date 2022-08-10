@@ -1,26 +1,28 @@
 package ykireyeva;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.ex.ElementNotFound;
+import com.codeborne.selenide.SelenideElement;
+import ykireyeva.utils.WebElementUtils;
 
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class GoogleSearchResultsPage {
     private final String logoXpath = "//div[@class='logo']";
 
-    private ElementsCollection getResultLinks() {
-        return $$x("(//a[descendant::h3])").filter(Condition.interactable);
+    private SelenideElement getResultLink(int number) {
+        return $x("(//a[descendant::h3])[" + number + "]");
     }
 
-    private ElementsCollection getResultLinksTitles() {
-        return $$x("//a//h3").filter(Condition.interactable);
+    private SelenideElement getResultLinkTitle(int number) {
+        return $x("//a//h3[" + number + "]");
     }
 
-    public GoogleSearchPage openGoogleSearchPage() {
+    private SelenideElement getPage(int number) {
+        return $x("//a[contains(@aria-label, 'Page " + number + "')]");
+    }
+
+    public GooglePage openGooglePage() {
         $x(logoXpath).click();
-        return new GoogleSearchPage();
+        return new GooglePage();
     }
 
     public GoogleSearchResultsPage search(String query) {
@@ -29,52 +31,36 @@ public class GoogleSearchResultsPage {
     }
 
     public GoogleSearchResultsPage clearSearchField() {
-        $x("//div[contains(@class, 'M2vV3')]").click();
+        $x("//input[@name='q']").clear();
         return this;
     }
 
     public int getResultLinksSize() {
-        return getResultLinks().size();
+        return WebElementUtils.getElementsSize("(//a[descendant::h3])");
     }
 
-    public GoogleSearchResultsPage goToPage(int pageNumber) {
-        $$x("//a[contains(@aria-label, 'Page')]").get(pageNumber - 2).click();
+    public GoogleSearchResultsPage openPage(int number) {
+        getPage(number).click();
         return this;
     }
 
-    public void openLink(int linkNumber) {
-        getResultLinks().get(linkNumber - 1).click();
+    public String getResultLinkAttributeValue(int number, String attributeName) {
+        return getResultLink(number).getAttribute(attributeName);
     }
 
-    public String getAttributeValueOfResultLink(int linkNumber, String nameOfAttribute) {
-        return getResultLinks().get(linkNumber - 1).getAttribute(nameOfAttribute);
+    public String getLinkText(int number) {
+        return getResultLinkTitle(number).getOwnText().toLowerCase();
     }
 
-    public String getLinkOwnText(int linkNumber) {
-        return getResultLinksTitles().get(linkNumber).getOwnText().toLowerCase();
+    public boolean isLogoDisplayed() {
+        return WebElementUtils.isElementDisplayed(logoXpath);
     }
 
-    public boolean logoIsDisplayed() {
-        try {
-            return $x(logoXpath).isDisplayed();
-        } catch (ElementNotFound e) {
-            return false;
-        }
+    public boolean isNextPageLinkDisplayed() {
+        return WebElementUtils.isElementDisplayed("//a[@id='pnnext']");
     }
 
-    public boolean nextPageButtonIsDisplayed() {
-        try {
-            return $x("//a[@id='pnnext']").isDisplayed();
-        } catch (ElementNotFound e) {
-            return false;
-        }
-    }
-
-    public boolean prevPageButtonIsDisplayed() {
-        try {
-            return $x("//a[@id='pnprev']").isDisplayed();
-        } catch (ElementNotFound e) {
-            return false;
-        }
+    public boolean isPreviousPageLinkDisplayed() {
+        return WebElementUtils.isElementDisplayed("//a[@id='pnprev']");
     }
 }
