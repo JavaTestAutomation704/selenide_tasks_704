@@ -53,6 +53,10 @@ public class SearchResultsPage {
         return $x("//div[" + linkNumber + "]" + headerXpath + "/parent::a").getAttribute("href");
     }
 
+    public boolean isLogoVisible() {
+        return WebElementUtils.isElementVisible("//div[@class = 'logo']");
+    }
+
     public boolean isPreviousPageLinkVisible() {
         return WebElementUtils.isElementVisible(paginationBlockXpath + "//a/span[contains(text(), 'Previous')]");
     }

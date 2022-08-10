@@ -18,10 +18,6 @@ public class GooglePage {
         return new SearchResultsPage();
     }
 
-    public boolean isLogoVisible() {
-        return WebElementUtils.isElementVisible("//div[@class = 'logo']");
-    }
-
     public boolean isFeelingLuckyButtonVisible() {
         return WebElementUtils.isElementVisible("//div[@class='FPdoLc lJ9FBc']//input[@name='btnI']");
     }

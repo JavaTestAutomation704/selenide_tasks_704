@@ -57,7 +57,7 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     @Description("Task 8")
     public void verifyGoogleLogoIsDisplayed() {
-        Assert.assertTrue(homePage.isLogoVisible());
+        Assert.assertTrue(searchResultsPage.isLogoVisible());
     }
 
     @Test
