@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class GoogleTestRunner {
 
+    protected GooglePage googlePage;
     protected GoogleSearchResultPage googleSearchResultsPage;
 
     @BeforeClass
@@ -14,9 +15,8 @@ public class GoogleTestRunner {
     }
 
     @BeforeMethod
-    public void openGoogleAndTypeSearchItem() {
-        googleSearchResultsPage = new GoogleHomePage()
-                .openGoogleHomePage()
-                .searchForText("funny dogs");
+    public void openGooglePageAndSearch() {
+        googlePage = new GooglePage().openGoogleHomePage();
+        googleSearchResultsPage = googlePage.searchForText("funny dogs");
     }
 }

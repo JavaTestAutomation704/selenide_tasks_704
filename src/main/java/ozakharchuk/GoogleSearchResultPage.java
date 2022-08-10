@@ -1,47 +1,51 @@
 package ozakharchuk;
 
-import com.codeborne.selenide.ex.ElementNotFound;
+import com.codeborne.selenide.CollectionCondition;
+import ozakharchuk.utils.WebElementUtils;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class GoogleSearchResultPage {
 
-    String nextPageXpath = "//a[@id='pnnext']";
-    String googleLogoXpath = "//div[@class='logo']/a";
-    String resultLinksXpath = "//div//a/h3/..";
+    private final String nextPageXpath = "//a[@id='pnnext']";
+    private final String googleLogoXpath = "//div[@class='logo']/a";
+    private final String resultLinksXpath = "//div//a/h3/..";
 
-    public String getResultLinkName(int numberOfLink) {
-        return $$x("//div//a/h3").get(numberOfLink).text();
+    public GoogleSearchResultPage searchText(String text) {
+        $x("//input[@name='q']").clear();
+        $x("//input[@name='q']").setValue(text).pressEnter();
+        return this;
     }
 
-    public String getResultLinkUrl(int numberOfLink) {
-        return $$x(resultLinksXpath).get(numberOfLink).getAttribute("href");
+    public String getResultName(int linkNumber) {
+        return $x("(//div//a/h3)["+ linkNumber + "]").text().toLowerCase();
     }
 
-    public void openLink(int numberOfLink) {
-        $$x(resultLinksXpath).get(numberOfLink).click();
+    public String getResultUrl(int linkNumber) {
+        return $x("(" + resultLinksXpath + ")[" + linkNumber + "]").getAttribute("href");
     }
 
     public int getResultLinksNumber() {
-        return $$x(resultLinksXpath).size();
-    }
-
-    public GoogleHomePage openHomePage() {
-        $x(googleLogoXpath).click();
-        return new GoogleHomePage();
-    }
-
-    public boolean isGoogleLogoVisible() {
         try {
-            return $x(googleLogoXpath).isDisplayed();
-        } catch (ElementNotFound e) {
-            return false;
+            return $$x(resultLinksXpath).shouldHave(CollectionCondition.sizeGreaterThan(1)).size();
+        }
+        catch (AssertionError e){
+            return 0;
         }
     }
 
-    public GoogleSearchResultPage chooseNumberOfResultPage(int number) {
-        $$x("//div[@role='navigation']//td").get(number).click();
+    public GooglePage openGooglePage() {
+        $x(googleLogoXpath).click();
+        return new GooglePage();
+    }
+
+    public boolean isGoogleLogoVisible() {
+        return WebElementUtils.isElementVisible(googleLogoXpath);
+    }
+
+    public GoogleSearchResultPage openResultPage(int pageNumber) {
+        $x("(//div[@role='navigation']//td)" + "[" + pageNumber + "]").click();
         return this;
     }
 
@@ -50,19 +54,11 @@ public class GoogleSearchResultPage {
         return this;
     }
 
-    public boolean isNextPageButtonVisible() {
-        try {
-            return $x(nextPageXpath).isDisplayed();
-        } catch (ElementNotFound e) {
-            return false;
-        }
+    public boolean isNextPageLinkVisible() {
+        return WebElementUtils.isElementVisible(nextPageXpath);
     }
 
-    public boolean isPreviousPageButtonVisible() {
-        try {
-            return $x("//a[@id='pnprev']").isDisplayed();
-        } catch (ElementNotFound e) {
-            return false;
-        }
+    public boolean isPreviousPageLinkVisible() {
+        return WebElementUtils.isElementVisible("//a[@id='pnprev']");
     }
 }

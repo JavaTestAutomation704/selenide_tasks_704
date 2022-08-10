@@ -1,11 +1,11 @@
 package ozakharchuk;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.ex.ElementNotFound;
+import ozakharchuk.utils.WebElementUtils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class GoogleHomePage {
+public class GooglePage {
 
     public GoogleSearchResultPage searchForText(String text) {
         $x("//input[@name='q']").clear();
@@ -13,16 +13,12 @@ public class GoogleHomePage {
         return new GoogleSearchResultPage();
     }
 
-    public GoogleHomePage openGoogleHomePage() {
+    public GooglePage openGoogleHomePage() {
         Selenide.open("https://www.google.com");
         return this;
     }
 
     public boolean isLanguageBlockVisible() {
-        try {
-            return $x("//div[@id='SIvCob']").isDisplayed();
-        } catch (ElementNotFound e) {
-            return false;
-        }
+        return WebElementUtils.isElementVisible("//div[@id='SIvCob']");
     }
 }
