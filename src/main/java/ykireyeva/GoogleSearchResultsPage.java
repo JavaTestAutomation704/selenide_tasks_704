@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import ykireyeva.utils.WebElementUtils;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static ykireyeva.utils.WebElementUtils.isElementDisplayed;
 
 public class GoogleSearchResultsPage {
     private final String logoXpath = "//div[@class='logo']";
@@ -53,14 +54,14 @@ public class GoogleSearchResultsPage {
     }
 
     public boolean isLogoDisplayed() {
-        return WebElementUtils.isElementDisplayed(logoXpath);
+        return isElementDisplayed(logoXpath);
     }
 
     public boolean isNextPageLinkDisplayed() {
-        return WebElementUtils.isElementDisplayed("//a[@id='pnnext']");
+        return isElementDisplayed("//a[@id='pnnext']");
     }
 
     public boolean isPreviousPageLinkDisplayed() {
-        return WebElementUtils.isElementDisplayed("//a[@id='pnprev']");
+        return isElementDisplayed("//a[@id='pnprev']");
     }
 }
