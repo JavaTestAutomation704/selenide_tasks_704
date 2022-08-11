@@ -36,7 +36,7 @@ public class GoogleTest extends TestRunner {
     @Test
     public void verifyFirstSearchResultOnFifthPage() {
         String searchResultText = searchResultsPage
-                .openSearchResultsPage(5)
+                .open(5)
                 .getText(1);
 
         assertTrue(searchResultText.contains("dog"));
@@ -78,7 +78,7 @@ public class GoogleTest extends TestRunner {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(searchResultsPage.isNextPageLinkVisible(), "'Next' link in pagination should be visible.");
 
-        searchResultsPage.openSearchResultsPage(4);
+        searchResultsPage.open(4);
         softAssert.assertTrue(searchResultsPage.isPreviousPageLinkVisible(), "'Previous' link in pagination should be visible.");
 
         softAssert.assertAll();

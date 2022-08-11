@@ -14,8 +14,8 @@ public class SearchResultsPage {
         return new HomePage();
     }
 
-    public SearchResultsPage openSearchResultsPage(int number) {
-        $x("//div[@role='navigation']//a[contains(@aria-label, '" + number + "')]").click();
+    public SearchResultsPage open(int page) {
+        $x("//div[@role='navigation']//a[contains(@aria-label, '" + page + "')]").click();
         return this;
     }
 
