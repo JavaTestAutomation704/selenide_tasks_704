@@ -1,7 +1,7 @@
 package odashynych;
 
 import com.codeborne.selenide.Selenide;
-import odashynych.utils.WebElementUtil;
+import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -11,12 +11,12 @@ public class GooglePage {
         return new GoogleResultPage();
     }
 
-    public GooglePage openHomePage() {
+    public GooglePage open() {
         Selenide.open("https://www.google.com/");
         return this;
     }
 
-    public boolean isLanguageComponentVisible(){
-        return WebElementUtil.isDisplayed("//*[@id='SIvCob']");
+    public boolean isLanguageComponentVisible() {
+        return WebElementUtil.isVisible("//*[@id='SIvCob']");
     }
 }

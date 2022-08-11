@@ -1,12 +1,8 @@
 package odashynych;
 
-import com.codeborne.selenide.CollectionCondition;
-import odashynych.utils.WebElementUtil;
-
-import java.time.Duration;
+import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.$$x;
 
 public class GoogleResultPage {
     public GoogleResultPage clearInputField() {
@@ -27,33 +23,29 @@ public class GoogleResultPage {
         return $x(String.format("(//a)[%s]", linkNumber)).getAttribute("href");
     }
 
-    public boolean isGoogleLogoDisplayed() {
-        return WebElementUtil.isDisplayed("//div[@class = 'logo']");
+    public boolean isGoogleLogoVisible() {
+        return WebElementUtil.isVisible("//div[@class = 'logo']");
     }
 
-    public GooglePage openHomePage() {
+    public GooglePage openGooglePageViaLogo() {
         $x("//div[@class = 'logo']").click();
         return new GooglePage();
     }
 
-    public GoogleResultPage openPage(int number) {
+    public GoogleResultPage openSearchPage(int number) {
         $x((String.format("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '%s')]", number))).click();
         return this;
     }
 
     public int getLinksAmount() {
-        try {
-            return $$x("(//a)").shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1), Duration.ofSeconds(5)).size();
-        } catch (AssertionError e) {
-            return 0;
-        }
+        return WebElementUtil.getCollectionSize("//a");
     }
 
-    public boolean isPreviousPageLinkDisplayed() {
-        return WebElementUtil.isDisplayed("//a[@id='pnprev']");
+    public boolean isPreviousPageLinkVisible() {
+        return WebElementUtil.isVisible("//a[@id='pnprev']");
     }
 
-    public boolean isNextPageLinkDisplayed() {
-        return WebElementUtil.isDisplayed("//a[@id='pnnext']");
+    public boolean isNextPageLinkVisible() {
+        return WebElementUtil.isVisible("//a[@id='pnnext']");
     }
 }

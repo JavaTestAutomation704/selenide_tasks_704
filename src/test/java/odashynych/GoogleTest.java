@@ -8,32 +8,29 @@ import static org.testng.Assert.assertTrue;
 public class GoogleTest extends TestRunner {
     @Test
     public void verifyFirstLinkContainDogsTest() {
-        boolean result = resultPage.getText(1).contains("dogs");
-        assertTrue(result, "Text doesn't contain \"dogs\"");
+        assertTrue(resultPage.getText(1).contains("dogs"), "Text doesn't contain \"dogs\"");
     }
 
     @Test
     public void verifyValidNineUrl() {
         assertTrue(resultPage.getUrl(9)
-                .matches("^https?:\\/\\/(?:www\\.)?"
-                        + "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\"
-                        + ".[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$"),
+                        .matches("^https?:\\/\\/(?:www\\.)?"
+                                + "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\"
+                                + ".[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$"),
                 "Nine URL is invalid");
     }
 
     @Test
     public void verifyGoogleHomePageIsOpen() {
-        boolean result = resultPage.openHomePage().isLanguageComponentVisible();
-        assertTrue(result, "Home page isn't open");
+        assertTrue(resultPage.openGooglePageViaLogo().isLanguageComponentVisible(), "Home page isn't open");
     }
 
     @Test
     public void verifyFirstLinkContainDogsTestOn5Page() {
-        boolean result = resultPage
-                .openPage(5)
+        assertTrue(resultPage
+                .openSearchPage(5)
                 .getText(1)
-                .contains("dogs");
-        assertTrue(result, "Text doesn't contain \"dogs\"");
+                .contains("dogs"), "Text doesn't contain \"dogs\"");
     }
 
     @Test
@@ -56,19 +53,19 @@ public class GoogleTest extends TestRunner {
 
     @Test
     public void verifyGoogleLogoDisplayed() {
-        assertTrue(resultPage.isGoogleLogoDisplayed(), "Google logo isn't display");
+        assertTrue(resultPage.isGoogleLogoVisible(), "Google logo isn't display");
     }
 
     @Test
     public void verifyNextPageLinkIsDisplayed() {
-        assertTrue(resultPage.isNextPageLinkDisplayed(), "Next page button isn't display");
+        assertTrue(resultPage.isNextPageLinkVisible(), "Next page button isn't display");
     }
 
     @Test
     public void verifyNextAndPreviousLinksAreDisplayed() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(resultPage.isNextPageLinkDisplayed(), "Next link page isn't visible");
-        resultPage.openPage(4);
-        softAssert.assertTrue(resultPage.isPreviousPageLinkDisplayed(), "Previous link page isn't visible");
+        softAssert.assertTrue(resultPage.isNextPageLinkVisible(), "Next link page isn't visible");
+        resultPage.openSearchPage(4);
+        softAssert.assertTrue(resultPage.isPreviousPageLinkVisible(), "Previous link page isn't visible");
     }
 }
