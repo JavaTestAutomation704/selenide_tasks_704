@@ -22,7 +22,7 @@ public class GoogleTest extends TestRunner {
     @Test
     public void verifyGoogleLogoRedirectsToHomePage() {
         String pageTitle = searchResultsPage
-                .openHomePage()
+                .openHomePageViaLogo()
                 .getPageTitleText();
 
         SoftAssert softAssert = new SoftAssert();

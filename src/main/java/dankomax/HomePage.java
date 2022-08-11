@@ -1,13 +1,14 @@
 package dankomax;
 
+import com.codeborne.selenide.Selenide;
+
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
-import static dankomax.utils.WebElementUtils.isVisible;
+import static utils.WebElementUtil.isVisible;
 
 
 public class HomePage {
-    public HomePage openHomePage() {
-        open("https://www.google.com");
+    public HomePage open() {
+        Selenide.open("https://www.google.com");
         return this;
     }
 
@@ -22,14 +23,14 @@ public class HomePage {
     }
 
     public boolean isSelectLanguageSectionVisible() {
-        return isVisible($x("//div[@id='SIvCob']"));
+        return isVisible("//div[@id='SIvCob']");
     }
 
     public boolean isFeelingLuckyButtonVisible() {
-        return isVisible($x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']"));
+        return isVisible("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']");
     }
 
     public boolean isSettingsButtonVisible() {
-        return isVisible($x("//div[@jsname='LgbsSe']"));
+        return isVisible("//div[@jsname='LgbsSe']");
     }
 }

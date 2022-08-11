@@ -7,8 +7,8 @@ import org.testng.annotations.BeforeMethod;
 
 
 public class TestRunner {
-    protected HomePage homePage;
-    protected SearchResultsPage searchResultsPage;
+    protected HomePage homePage = new HomePage();
+    protected SearchResultsPage searchResultsPage = new SearchResultsPage();
 
     @BeforeClass
     public void setUp() {
@@ -21,7 +21,6 @@ public class TestRunner {
 
     @BeforeMethod
     public void performSearch() {
-        homePage = new HomePage().openHomePage();
-        searchResultsPage = homePage.search("funny dogs");
+        homePage.open().search("funny dogs");
     }
 }
