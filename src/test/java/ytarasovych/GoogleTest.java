@@ -30,8 +30,8 @@ public class GoogleTest extends BaseMethods {
     public void verifyGooglePageIsOpen() {
         boolean isHomePageOpen = googleHomePage
                 .search(searchTerm)
-                .openGooglePage()
-                .isHomePageOpen();
+                .openHomePageViaLogo()
+                .isOpen();
         assertTrue(isHomePageOpen);
     }
 
@@ -67,28 +67,28 @@ public class GoogleTest extends BaseMethods {
 
     @Test
     public void verifyLogoIsDisplayed() {
-        boolean isGoogleLogoDisplayed = googleHomePage
+        boolean isGoogleLogoVisible = googleHomePage
                 .search(searchTerm)
-                .isGoogleLogoDisplayed();
-        assertTrue(isGoogleLogoDisplayed);
+                .isGoogleLogoVisible();
+        assertTrue(isGoogleLogoVisible);
     }
 
     @Test
     public void verifyLinkNextPageIsDisplayed() {
-        boolean isNextLinkDisplayed = googleHomePage
+        boolean isNextLinkVisible = googleHomePage
                 .search(searchTerm)
-                .isNextLinkDisplayed();
-        assertTrue(isNextLinkDisplayed);
+                .isNextLinkVisible();
+        assertTrue(isNextLinkVisible);
     }
 
     @Test
     public void verifyLinkNextAndPreviousPageAreDisplayed() {
         GoogleSearchResultPage googleSearchPage = googleHomePage.search(searchTerm);
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(googleSearchPage.isNextLinkDisplayed());
+        softAssert.assertTrue(googleSearchPage.isNextLinkVisible());
         softAssert.assertTrue(googleSearchPage
                 .openPage(4)
-                .isPreviousLinkDisplayed());
+                .isPreviousLinkVisible());
         softAssert.assertAll();
     }
 }

@@ -1,15 +1,13 @@
 package ytarasovych;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static java.time.Duration.ofSeconds;
-import static ytarasovych.utils.SelenideElementUtils.isElementDisplayed;
+import static utils.WebElementUtil.getCollectionSize;
+import static utils.WebElementUtil.isVisible;
 
 public class GoogleSearchResultPage {
     private final String inputFieldXpath = "//input[@class='gLFyf gsfi']";
 
-    public GooglePage openGooglePage() {
+    public GooglePage openHomePageViaLogo() {
         $x("//img[@alt='Google']").click();
         return new GooglePage();
     }
@@ -42,24 +40,18 @@ public class GoogleSearchResultPage {
     }
 
     public int getLinksAmount() {
-        try {
-            return $$x("//div[@id='rso']/div")
-                    .shouldHave(sizeGreaterThanOrEqual(1), ofSeconds(2))
-                    .size();
-        } catch (AssertionError e) {
-            return 0;
-        }
+        return getCollectionSize("//div[@id='rso']/div");
     }
 
-    public boolean isGoogleLogoDisplayed() {
-        return isElementDisplayed("//img[@alt='Google']");
+    public boolean isGoogleLogoVisible() {
+        return isVisible("//img[@alt='Google']");
     }
 
-    public boolean isNextLinkDisplayed() {
-        return isElementDisplayed("//a[@id='pnnext']");
+    public boolean isNextLinkVisible() {
+        return isVisible("//a[@id='pnnext']");
     }
 
-    public boolean isPreviousLinkDisplayed() {
-        return isElementDisplayed("//a[@id='pnprev']");
+    public boolean isPreviousLinkVisible() {
+        return isVisible("//a[@id='pnprev']");
     }
 }

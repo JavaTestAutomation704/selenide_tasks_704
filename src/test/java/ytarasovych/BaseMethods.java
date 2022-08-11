@@ -15,6 +15,6 @@ public class BaseMethods {
 
     @BeforeMethod
     public void openHomePage() {
-        googleHomePage = new GooglePage().openHomePage();
+        googleHomePage = new GooglePage().open();
     }
 }

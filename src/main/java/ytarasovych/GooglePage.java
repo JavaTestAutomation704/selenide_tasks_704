@@ -3,17 +3,17 @@ package ytarasovych;
 import com.codeborne.selenide.Selenide;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static ytarasovych.utils.SelenideElementUtils.isElementDisplayed;
+import static utils.WebElementUtil.isVisible;
 
 public class GooglePage {
 
-    public GooglePage openHomePage() {
+    public GooglePage open() {
         Selenide.open("https://www.google.com");
         return this;
     }
 
-    public boolean isHomePageOpen() {
-        return isSettingsButtonDisplayed() && isLanguageSwitchLinkDisplayed();
+    public boolean isOpen() {
+        return isSettingsButtonVisible() && isLanguageSwitchLinkVisible();
     }
 
     public GoogleSearchResultPage search(String searchTerm) {
@@ -23,11 +23,11 @@ public class GooglePage {
         return new GoogleSearchResultPage();
     }
 
-    public boolean isSettingsButtonDisplayed() {
-        return isElementDisplayed("//div[@jsname='LgbsSe']");
+    public boolean isSettingsButtonVisible() {
+        return isVisible("//div[@jsname='LgbsSe']");
     }
 
-    private boolean isLanguageSwitchLinkDisplayed() {
-        return isElementDisplayed("//div[@id='SIvCob']");
+    private boolean isLanguageSwitchLinkVisible() {
+        return isVisible("//div[@id='SIvCob']");
     }
 }
