@@ -47,14 +47,14 @@ public class SearchResultsPage {
     }
 
     public boolean isLogoVisible() {
-        return WebElementUtil.isElementVisible("//div[@class = 'logo']");
+        return WebElementUtil.isVisible("//div[@class = 'logo']");
     }
 
     public boolean isPreviousPageLinkVisible() {
-        return WebElementUtil.isElementVisible(paginationBlockXpath + "//a/span[contains(text(), 'Previous')]");
+        return WebElementUtil.isVisible(paginationBlockXpath + "//a/span[contains(text(), 'Previous')]");
     }
 
     public boolean isNextPageLinkVisible() {
-        return WebElementUtil.isElementVisible(paginationBlockXpath + "//a/span[contains(text(), 'Next')]");
+        return WebElementUtil.isVisible(paginationBlockXpath + "//a/span[contains(text(), 'Next')]");
     }
 }

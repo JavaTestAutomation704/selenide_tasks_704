@@ -19,10 +19,10 @@ public class GooglePage {
     }
 
     public boolean isFeelingLuckyButtonVisible() {
-        return WebElementUtil.isElementVisible("//div[@class='FPdoLc lJ9FBc']//input[@name='btnI']");
+        return WebElementUtil.isVisible("//div[@class='FPdoLc lJ9FBc']//input[@name='btnI']");
     }
 
     public boolean isLanguageBlockVisible() {
-        return WebElementUtil.isElementVisible("//div[@id='SIvCob']");
+        return WebElementUtil.isVisible("//div[@id='SIvCob']");
     }
 }
