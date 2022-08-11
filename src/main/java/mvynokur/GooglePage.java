@@ -1,14 +1,14 @@
 package mvynokur;
 
 import com.codeborne.selenide.Selenide;
-import mvynokur.utils.WebElementUtils;
 import org.openqa.selenium.By;
+import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class GooglePage {
 
-    public GooglePage openHomePage() {
+    public GooglePage open() {
         Selenide.open("https://www.google.com");
         return this;
     }
@@ -19,10 +19,10 @@ public class GooglePage {
     }
 
     public boolean isFeelingLuckyButtonVisible() {
-        return WebElementUtils.isElementVisible("//div[@class='FPdoLc lJ9FBc']//input[@name='btnI']");
+        return WebElementUtil.isElementVisible("//div[@class='FPdoLc lJ9FBc']//input[@name='btnI']");
     }
 
     public boolean isLanguageBlockVisible() {
-        return WebElementUtils.isElementVisible("//div[@id='SIvCob']");
+        return WebElementUtil.isElementVisible("//div[@id='SIvCob']");
     }
 }

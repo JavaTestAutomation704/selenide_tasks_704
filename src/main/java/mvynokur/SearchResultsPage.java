@@ -1,10 +1,7 @@
 package mvynokur;
 
-import com.codeborne.selenide.CollectionCondition;
-import mvynokur.utils.WebElementUtils;
 import org.openqa.selenium.By;
-
-import java.time.Duration;
+import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -13,7 +10,7 @@ public class SearchResultsPage {
     private final String paginationBlockXpath = "//tr[@jsname = 'TeSSVd']";
     private final String headerXpath = "//h3[@class = 'LC20lb MBeuO DKV0Md']";
 
-    public GooglePage openHomePage() {
+    public GooglePage openHomePageViaLogo() {
         $x("//div[@class = 'logo']").click();
         return new GooglePage();
     }
@@ -34,11 +31,7 @@ public class SearchResultsPage {
     }
 
     public int getLinksAmount() {
-        try {
-            return $$x(headerXpath).shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1), Duration.ofSeconds(5)).size();
-        } catch (AssertionError e) {
-            return 0;
-        }
+        return WebElementUtil.getCollectionSize(headerXpath);
     }
 
     public String getName(int linkNumber) {
@@ -54,14 +47,14 @@ public class SearchResultsPage {
     }
 
     public boolean isLogoVisible() {
-        return WebElementUtils.isElementVisible("//div[@class = 'logo']");
+        return WebElementUtil.isElementVisible("//div[@class = 'logo']");
     }
 
     public boolean isPreviousPageLinkVisible() {
-        return WebElementUtils.isElementVisible(paginationBlockXpath + "//a/span[contains(text(), 'Previous')]");
+        return WebElementUtil.isElementVisible(paginationBlockXpath + "//a/span[contains(text(), 'Previous')]");
     }
 
     public boolean isNextPageLinkVisible() {
-        return WebElementUtils.isElementVisible(paginationBlockXpath + "//a/span[contains(text(), 'Next')]");
+        return WebElementUtil.isElementVisible(paginationBlockXpath + "//a/span[contains(text(), 'Next')]");
     }
 }
