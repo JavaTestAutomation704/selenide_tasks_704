@@ -5,18 +5,17 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseTestRunner {
-    protected GooglePage googlePage;
-    protected GoogleSearchResultsPage resultPage;
+    protected GooglePage googlePage = new GooglePage();
+    protected GoogleSearchResultsPage searchResultsPage = new GoogleSearchResultsPage();
 
     @BeforeClass
-    public void initializeBrowser() {
+    public void setUpBrowserBeforeClass() {
         Configuration.browser = "chrome";
         Configuration.timeout = 10;
     }
 
     @BeforeMethod
-    public void openGooglePage() {
-        googlePage = new GooglePage().open();
-        resultPage = googlePage.search("funny dogs");
+    public void openSearchResultsPage() {
+        googlePage.open().search("funny dogs");
     }
 }

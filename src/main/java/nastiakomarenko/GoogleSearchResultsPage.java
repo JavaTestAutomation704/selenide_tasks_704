@@ -1,50 +1,59 @@
 package nastiakomarenko;
 
-import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.SelenideElement;
+import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.$$x;
-
+import static utils.WebElementUtil.isElementVisible;
 
 public class GoogleSearchResultsPage {
+    private final String logoXpath = "//div[@class='logo']";
 
-    public String logoXpath = "//div[@class = 'logo']";
-    public String nextPageXpath = "//a[@id='pnnext']";
+    private SelenideElement getPage(int number) {
+        return $x("//a[contains(@aria-label, 'Page " + number + "')]");
+    }
 
-    public GoogleSearchResultsPage clearInputField() {
+    public GooglePage openGooglePageViaLogo() {
+        $x(logoXpath).click();
+        return new GooglePage();
+    }
+
+    public GoogleSearchResultsPage search(String query) {
+        $x("//input[@name='q']").setValue(query).pressEnter();
+        return this;
+    }
+
+    public GoogleSearchResultsPage clearSearchField() {
         $x("//input[@name='q']").clear();
         return this;
     }
 
-    public GoogleSearchResultsPage search(String searchItem) {
-        $x("//input[@name='q']").setValue(searchItem).pressEnter();
+    public int getResultLinksSize() {
+        return WebElementUtil.getCollectionSize("(//a[descendant::h3])");
+    }
+
+    public GoogleSearchResultsPage openPage(int number) {
+        getPage(number).click();
         return this;
     }
 
-    public String getLinkNumberText(int linkNumber) {
-        return $x(String.format("(//a/h3)[%s]", linkNumber)).text();
+    public String getResultLinkAttributeValue(int number, String attributeName) {
+        return $x("(//a[descendant::h3])[" + number + "]").getAttribute(attributeName);
     }
 
-    public GoogleSearchResultsPage goToGoogleLogo() {
-        $x(logoXpath).click();
-        return this;
+    public String getLinkText(int number) {
+        return $x("//a//h3[" + number + "]").getOwnText().toLowerCase();
     }
 
-    public GoogleSearchResultsPage goToPage(int page) {
-        $x((String.format("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '%s')]", page))).click();
-        return this;
+    public boolean isLogoVisible() {
+        return isElementVisible(logoXpath);
     }
 
-    public int getNumberOfAllLinks() {
-        try {
-            $$x("(//a)").shouldHave(CollectionCondition.sizeGreaterThanOrEqual(1));
-        } catch (AssertionError e) {
-            throw new AssertionError(e);
-        }
-        return $$x("(//a)").size();
+    public boolean isNextPageLinkVisible() {
+        return isElementVisible("//a[@id='pnnext']");
     }
 
-    public String getPreviousPageXpath() {
-        return "//a[@id='pnprev']";
+    public boolean isPreviousPageLinkDisplayed() {
+        return isElementVisible("//a[@id='pnprev']");
     }
 }
