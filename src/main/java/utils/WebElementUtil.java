@@ -1,28 +1,27 @@
 package utils;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
-
 import java.time.Duration;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.$x;
 
 
 public class WebElementUtil {
     private static final Duration TIMEOUT = Duration.ofSeconds(2);
 
-    public static boolean isVisible(SelenideElement element) {
+    public static boolean isVisible(String elementXpath) {
         try {
-            return element.shouldBe(visible, TIMEOUT).isDisplayed();
+            return $x(elementXpath).shouldBe(visible, TIMEOUT).isDisplayed();
         } catch (AssertionError e) {
             return false;
         }
     }
 
-    public static int getCollectionSize(ElementsCollection elements) {
+    public static int getCollectionSize(String elementXpath) {
         try {
-            return elements.shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
+            return $$x(elementXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
         } catch (AssertionError e) {
             return 0;
         }

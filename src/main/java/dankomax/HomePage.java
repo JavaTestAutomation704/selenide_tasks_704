@@ -23,14 +23,14 @@ public class HomePage {
     }
 
     public boolean isSelectLanguageSectionVisible() {
-        return isVisible($x("//div[@id='SIvCob']"));
+        return isVisible("//div[@id='SIvCob']");
     }
 
     public boolean isFeelingLuckyButtonVisible() {
-        return isVisible($x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']"));
+        return isVisible("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']");
     }
 
     public boolean isSettingsButtonVisible() {
-        return isVisible($x("//div[@jsname='LgbsSe']"));
+        return isVisible("//div[@jsname='LgbsSe']");
     }
 }

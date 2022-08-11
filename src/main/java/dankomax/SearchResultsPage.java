@@ -1,6 +1,5 @@
 package dankomax;
 
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.isVisible;
 import static utils.WebElementUtil.getCollectionSize;
@@ -39,18 +38,18 @@ public class SearchResultsPage {
     }
 
     public int getResultsQuantity() {
-        return getCollectionSize($$x("//div[contains(@class, 'g ') or @class='g']/div"));
+        return getCollectionSize("//div[contains(@class, 'g ') or @class='g']/div");
     }
 
     public boolean isNextPageLinkVisible() {
-        return isVisible($x("//a[@id='pnnext']"));
+        return isVisible("//a[@id='pnnext']");
     }
 
     public boolean isPreviousPageLinkVisible() {
-        return isVisible($x("//a[@id='pnprev']"));
+        return isVisible("//a[@id='pnprev']");
     }
 
     public boolean isGoogleLogoVisible() {
-        return isVisible($x(googleLogoXpath));
+        return isVisible(googleLogoXpath);
     }
 }
