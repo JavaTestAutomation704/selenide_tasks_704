@@ -1,4 +1,4 @@
-package dankomax.utils;
+package utils;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -9,7 +9,7 @@ import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
 
 
-public class WebElementUtils {
+public class WebElementUtil {
     private static final Duration TIMEOUT = Duration.ofSeconds(2);
 
     public static boolean isVisible(SelenideElement element) {

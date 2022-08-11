@@ -1,13 +1,14 @@
 package dankomax;
 
+import com.codeborne.selenide.Selenide;
+
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
-import static dankomax.utils.WebElementUtils.isVisible;
+import static utils.WebElementUtil.isVisible;
 
 
 public class HomePage {
-    public HomePage openHomePage() {
-        open("https://www.google.com");
+    public HomePage open() {
+        Selenide.open("https://www.google.com");
         return this;
     }
 

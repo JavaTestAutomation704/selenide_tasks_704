@@ -2,15 +2,15 @@ package dankomax;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static dankomax.utils.WebElementUtils.isVisible;
-import static dankomax.utils.WebElementUtils.getCollectionSize;
+import static utils.WebElementUtil.isVisible;
+import static utils.WebElementUtil.getCollectionSize;
 
 
 public class SearchResultsPage {
     private final String searchResultsXpath = "//div[contains(@class, 'g ') or @class='g']/div";
     private final String googleLogoXpath = "//a[@id='logo']";
 
-    public HomePage openHomePage() {
+    public HomePage openHomePageViaLogo() {
         $x(googleLogoXpath).click();
         return new HomePage();
     }
