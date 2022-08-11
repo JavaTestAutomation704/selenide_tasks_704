@@ -3,7 +3,7 @@ package ykireyeva;
 import com.codeborne.selenide.Selenide;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isElementVisible;
+import static utils.WebElementUtil.isVisible;
 
 public class GooglePage {
 
@@ -22,6 +22,6 @@ public class GooglePage {
     }
 
     public boolean isGmailLinkVisible() {
-        return isElementVisible("//a[text()='Gmail']");
+        return isVisible("//a[text()='Gmail']");
     }
 }

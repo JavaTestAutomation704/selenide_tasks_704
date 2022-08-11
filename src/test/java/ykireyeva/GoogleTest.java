@@ -75,7 +75,7 @@ public class GoogleTest extends BaseTestRunner {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(searchResultsPage.isNextPageLinkVisible());
         searchResultsPage.openPage(5);
-        softAssert.assertTrue(searchResultsPage.isPreviousPageLinkDisplayed());
+        softAssert.assertTrue(searchResultsPage.isPreviousPageLinkVisible());
         softAssert.assertAll();
     }
 }

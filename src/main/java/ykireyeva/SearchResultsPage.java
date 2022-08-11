@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isElementVisible;
+import static utils.WebElementUtil.isVisible;
 
 public class SearchResultsPage {
     private final String logoXpath = "//div[@class='logo']";
@@ -46,14 +46,14 @@ public class SearchResultsPage {
     }
 
     public boolean isLogoVisible() {
-        return isElementVisible(logoXpath);
+        return isVisible(logoXpath);
     }
 
     public boolean isNextPageLinkVisible() {
-        return isElementVisible("//a[@id='pnnext']");
+        return isVisible("//a[@id='pnnext']");
     }
 
-    public boolean isPreviousPageLinkDisplayed() {
-        return isElementVisible("//a[@id='pnprev']");
+    public boolean isPreviousPageLinkVisible() {
+        return isVisible("//a[@id='pnprev']");
     }
 }

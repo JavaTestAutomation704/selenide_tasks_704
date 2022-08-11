@@ -1,19 +1,19 @@
 package utils;
 
-import com.codeborne.selenide.CollectionCondition;
+import java.time.Duration;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static java.time.Duration.ofSeconds;
+
 
 public class WebElementUtil {
+    private static final Duration TIMEOUT = Duration.ofSeconds(2);
 
-    public static boolean isElementVisible(String elementXpath) {
+    public static boolean isVisible(String elementXpath) {
         try {
-            return $x(elementXpath)
-                    .shouldBe(visible, ofSeconds(5))
-                    .isDisplayed();
+            return $x(elementXpath).shouldBe(visible, TIMEOUT).isDisplayed();
         } catch (AssertionError e) {
             return false;
         }
@@ -21,9 +21,7 @@ public class WebElementUtil {
 
     public static int getCollectionSize(String elementsXpath) {
         try {
-            return $$x(elementsXpath)
-                    .shouldHave(CollectionCondition.sizeGreaterThan(1), ofSeconds(5))
-                    .size();
+            return $$x(elementsXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
         } catch (AssertionError e) {
             return 0;
         }
