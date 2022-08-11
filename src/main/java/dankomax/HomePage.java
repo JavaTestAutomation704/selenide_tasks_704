@@ -1,28 +1,35 @@
 package dankomax;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.open;
+import static dankomax.utils.WebElementUtils.isVisible;
 
 
 public class HomePage {
-    public SearchResultsPage searchPhrase(String phrase) {
+    public HomePage openHomePage() {
+        open("https://www.google.com");
+        return this;
+    }
+
+    public SearchResultsPage search(String phrase) {
         $x("//input[@name='q']").clear();
         $x("//input[@name='q']").setValue(phrase).pressEnter();
         return new SearchResultsPage();
     }
 
-    public String getPageTitle() {
+    public String getPageTitleText() {
         return $x("//title").attr("text");
     }
 
     public boolean isSelectLanguageSectionVisible() {
-        return $x("//div[@id='SIvCob']").isDisplayed();
+        return isVisible($x("//div[@id='SIvCob']"));
     }
 
     public boolean isFeelingLuckyButtonVisible() {
-        return $x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']").isDisplayed();
+        return isVisible($x("//div[not(@jsname='VlcLAe')]/center/input[@name='btnI']"));
     }
 
     public boolean isSettingsButtonVisible() {
-        return $x("//div[@jsname='LgbsSe']").isDisplayed();
+        return isVisible($x("//div[@jsname='LgbsSe']"));
     }
 }

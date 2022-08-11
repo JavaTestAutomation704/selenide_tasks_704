@@ -7,31 +7,23 @@ import org.testng.asserts.SoftAssert;
 
 
 public class GoogleTest extends TestRunner {
-
     @Test
-    public void verifyFirstResultTitle() {
-        String firstResultTitle = homePage
-                .searchPhrase("funny dogs")
-                .getSearchResultTitleText(1);
-
-        assertTrue(firstResultTitle.toLowerCase().contains("dogs"));
+    public void verifyFirstSearchResultTitle() {
+        String firstTitleText = searchResultsPage.getTitleText(1);
+        assertTrue(firstTitleText.contains("dogs"));
     }
 
     @Test
-    public void verifyNinthResultLinkHrefHasValidURL() {
-        String ninthResultLinkHrefValue = homePage
-                .searchPhrase("funny dogs")
-                .getSearchResultLinkHrefValue(9);
-
-        assertTrue(ninthResultLinkHrefValue.matches("^((ftp|http|https)://)?www\\..*"));
+    public void verifyNinthSearchResultLinkHasValidUrl() {
+        String ninthLinkUrl = searchResultsPage.getLinkUrl(9);
+        assertTrue(ninthLinkUrl.matches("^((ftp|http|https)://)?www\\..*"));
     }
 
     @Test
-    public void verifyGoogleLogoRedirectToHomePage() {
-        String pageTitle = homePage
-                .searchPhrase("funny dogs")
+    public void verifyGoogleLogoRedirectsToHomePage() {
+        String pageTitle = searchResultsPage
                 .openHomePage()
-                .getPageTitle();
+                .getPageTitleText();
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(pageTitle, "Google", "Page title should be 'Google'.");
@@ -43,63 +35,51 @@ public class GoogleTest extends TestRunner {
 
     @Test
     public void verifyFirstSearchResultOnFifthPage() {
-        String searchResultText = homePage
-                .searchPhrase("funny dogs")
+        String searchResultText = searchResultsPage
                 .openSearchResultsPage(5)
-                .getSearchResultText(1);
+                .getText(1);
 
-        assertTrue(searchResultText.toLowerCase().contains("dog"));
+        assertTrue(searchResultText.contains("dog"));
     }
 
     @Test
     public void verifySearchResultsQuantityIsSufficient() {
-        int searchResultsQuantity = homePage
-                .searchPhrase("funny dogs")
-                .getSearchResultCollectionSize();
+        int resultsQuantity = searchResultsPage
+                .getResultsQuantity();
 
-        assertTrue(searchResultsQuantity >= 9);
+        assertTrue(resultsQuantity >= 9);
     }
 
     @Test
-    public void verifyRepeatSearchFirstResultTitle() {
-        String firstResultText = homePage
-                .searchPhrase("funny dogs")
-                .searchPhrase("funny kitten")
-                .getSearchResultText(1);
+    public void verifyRepeatSearchResultFirstTitle() {
+        String firstResultText = searchResultsPage
+                .search("funny kitten")
+                .getText(1);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(firstResultText.contains("dogs"), "First result title should not contain word 'dogs'.");
-        softAssert.assertTrue(firstResultText.toLowerCase().contains("kitten"), "First result title should contain word 'kitten'.");
+        softAssert.assertTrue(firstResultText.contains("kitten"), "First result title should contain word 'kitten'.");
         softAssert.assertAll();
     }
 
     @Test
     public void verifyGoogleLogoIsDisplayed() {
-        boolean googleLogoVisible = homePage
-                .searchPhrase("funny dogs")
-                .isGoogleLogoVisible();
-
+        boolean googleLogoVisible = searchResultsPage.isGoogleLogoVisible();
         assertTrue(googleLogoVisible, "Google logo is visible.");
     }
 
     @Test
-    public void verifyNextLinkIsDisplayed() {
-        SearchResultsPage searchResultsPage = homePage
-                .searchPhrase("funny dogs");
-
-        assertTrue(searchResultsPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
+    public void verifyNextPageLinkIsDisplayed() {
+        assertTrue(searchResultsPage.isNextPageLinkVisible(), "'Next' link in pagination should be visible.");
     }
 
     @Test
-    public void verifyPreviousLinkIsDisplayed() {
-        SearchResultsPage searchResultsPage = homePage
-                .searchPhrase("funny dogs");
-
+    public void verifyNextAnd0PreviousPageLinksAreDisplayed() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(searchResultsPage.isNextLinkVisible(), "'Next' link in pagination should be visible.");
+        softAssert.assertTrue(searchResultsPage.isNextPageLinkVisible(), "'Next' link in pagination should be visible.");
 
         searchResultsPage.openSearchResultsPage(4);
-        softAssert.assertTrue(searchResultsPage.isPreviousLinkVisible(), "'Previous' link in pagination should be visible.");
+        softAssert.assertTrue(searchResultsPage.isPreviousPageLinkVisible(), "'Previous' link in pagination should be visible.");
 
         softAssert.assertAll();
     }

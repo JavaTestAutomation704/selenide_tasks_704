@@ -1,12 +1,13 @@
 package dankomax;
 
-import com.codeborne.selenide.SelenideElement;
-
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
+import static dankomax.utils.WebElementUtils.isVisible;
+import static dankomax.utils.WebElementUtils.getCollectionSize;
 
 
 public class SearchResultsPage {
+    private final String searchResultsXpath = "//div[contains(@class, 'g ') or @class='g']/div";
     private final String googleLogoXpath = "//a[@id='logo']";
 
     public HomePage openHomePage() {
@@ -14,46 +15,42 @@ public class SearchResultsPage {
         return new HomePage();
     }
 
-    public SearchResultsPage openSearchResultsPage(int pageNumber) {
-        $x("//div[@role='navigation']//a[contains(@aria-label, '" + pageNumber + "')]").click();
+    public SearchResultsPage openSearchResultsPage(int number) {
+        $x("//div[@role='navigation']//a[contains(@aria-label, '" + number + "')]").click();
         return this;
     }
 
-    public SearchResultsPage searchPhrase(String phrase) {
+    public SearchResultsPage search(String phrase) {
         $x("//input[@name='q']").clear();
         $x("//input[@name='q']").setValue(phrase).pressEnter();
         return this;
     }
 
-    public String getSearchResultTitleText(int resultNumber) {
-        return searchResultTitle(resultNumber).text();
+    public String getTitleText(int result) {
+        return $x("(" + searchResultsXpath + "//a/h3)[" + result + "]").text().toLowerCase();
     }
 
-    public String getSearchResultLinkHrefValue(int resultNumber) {
-        return searchResultTitle(resultNumber).ancestor("a").attr("href");
+    public String getLinkUrl(int result) {
+        return $x("(" + searchResultsXpath + "//a/h3/parent::a)[" + result + "]").attr("href");
     }
 
-    public String getSearchResultText(int resultNumber) {
-        return searchResultTitle(resultNumber).ancestor("div[contains(@class, 'g ')]").text();
+    public String getText(int result) {
+        return $x("(" + searchResultsXpath + ")[" + result + "]").text().toLowerCase();
     }
 
-    public int getSearchResultCollectionSize() {
-        return $$x("//a/h3/ancestor::div[contains(@class, 'g ')]").size();
+    public int getResultsQuantity() {
+        return getCollectionSize($$x("//div[contains(@class, 'g ') or @class='g']/div"));
     }
 
-    public boolean isNextLinkVisible() {
-        return $x("//a[@id='pnnext']").isDisplayed();
+    public boolean isNextPageLinkVisible() {
+        return isVisible($x("//a[@id='pnnext']"));
     }
 
-    public boolean isPreviousLinkVisible() {
-        return $x("//a[@id='pnprev']").isDisplayed();
+    public boolean isPreviousPageLinkVisible() {
+        return isVisible($x("//a[@id='pnprev']"));
     }
 
     public boolean isGoogleLogoVisible() {
-        return $x(googleLogoXpath).isDisplayed();
-    }
-
-    private SelenideElement searchResultTitle(int resultNumber) {
-        return $x(String.format("(//div[contains(@class, 'g ')]//a//h3)[%d]", resultNumber));
+        return isVisible($x(googleLogoXpath));
     }
 }
