@@ -3,25 +3,25 @@ package ykireyeva;
 import com.codeborne.selenide.Selenide;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static ykireyeva.utils.WebElementUtils.isElementDisplayed;
+import static utils.WebElementUtil.isElementVisible;
 
 public class GooglePage {
 
-    public GooglePage openSearchPage() {
+    public GooglePage open() {
         Selenide.open("https://www.google.com/");
         return this;
     }
 
-    public GoogleSearchResultsPage search(String query) {
+    public SearchResultsPage search(String query) {
         $x("//input[@name='q']").setValue(query).pressEnter();
-        return new GoogleSearchResultsPage();
+        return new SearchResultsPage();
     }
 
     public String getPageTitleText() {
         return $x("//title").getOwnText();
     }
 
-    public boolean isGmailLinkDisplayed() {
-        return isElementDisplayed("//a[text()='Gmail']");
+    public boolean isGmailLinkVisible() {
+        return isElementVisible("//a[text()='Gmail']");
     }
 }

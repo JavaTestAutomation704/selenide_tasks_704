@@ -8,11 +8,12 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends BaseTestRunner {
+    private final String expectedText = "dogs";
 
     @Test
     @Description("Test 1")
     public void verifyLinkText() {
-        assertTrue(searchResultsPage.getLinkText(1).contains("dogs"));
+        assertTrue(searchResultsPage.getLinkText(1).contains(expectedText));
     }
 
     @Test
@@ -26,16 +27,16 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     @Description("Test 3")
     public void verifyGooglePageIsOpen() {
-        searchResultsPage.openGooglePage();
-        assertEquals(searchPage.getPageTitleText(), "Google");
-        assertTrue(searchPage.isGmailLinkDisplayed());
+        searchResultsPage.openGooglePageViaLogo();
+        assertEquals(homePage.getPageTitleText(), "Google");
+        assertTrue(homePage.isGmailLinkVisible());
     }
 
     @Test
     @Description("Test 4")
     public void verifyLinkTextOnSelectedPage() {
         searchResultsPage.openPage(5);
-        assertTrue(searchResultsPage.getLinkText(1).contains("dog"));
+        assertTrue(searchResultsPage.getLinkText(1).contains(expectedText));
     }
 
     @Test
@@ -51,29 +52,28 @@ public class GoogleTest extends BaseTestRunner {
         searchResultsPage.clearSearchField()
                 .search("funny kitten");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(searchResultsPage.getLinkText(1).contains("dogs"));
+        softAssert.assertFalse(searchResultsPage.getLinkText(1).contains(expectedText));
         softAssert.assertTrue(searchResultsPage.getLinkText(1).contains("kitten"));
         softAssert.assertAll();
-
     }
 
     @Test
     @Description("Test 8")
-    public void verifyGoogleLogoIsDisplayed() {
-        assertTrue(searchResultsPage.isLogoDisplayed());
+    public void verifyGoogleLogoIsVisible() {
+        assertTrue(searchResultsPage.isLogoVisible());
     }
 
     @Test
     @Description("Test 9")
-    public void verifyNextPageLinkIsDisplayed() {
-        assertTrue(searchResultsPage.isNextPageLinkDisplayed());
+    public void verifyNextPageLinkIsVisible() {
+        assertTrue(searchResultsPage.isNextPageLinkVisible());
     }
 
     @Test
     @Description("Test 10")
-    public void verifyPreviousPageLinkIsDisplayed() {
+    public void verifyPreviousPageLinkIsVisible() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(searchResultsPage.isNextPageLinkDisplayed());
+        softAssert.assertTrue(searchResultsPage.isNextPageLinkVisible());
         searchResultsPage.openPage(5);
         softAssert.assertTrue(searchResultsPage.isPreviousPageLinkDisplayed());
         softAssert.assertAll();
