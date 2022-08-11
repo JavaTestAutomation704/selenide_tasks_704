@@ -34,7 +34,7 @@ public class SearchResultPage {
     }
 
     public boolean isGoogleLogoVisible() {
-        return WebElementUtil.isElementVisible(googleLogoXpath);
+        return WebElementUtil.isVisible(googleLogoXpath);
     }
 
     public SearchResultPage openPage(int number) {
@@ -48,10 +48,10 @@ public class SearchResultPage {
     }
 
     public boolean isNextPageLinkVisible() {
-        return WebElementUtil.isElementVisible(nextPageXpath);
+        return WebElementUtil.isVisible(nextPageXpath);
     }
 
     public boolean isPreviousPageLinkVisible() {
-        return WebElementUtil.isElementVisible("//a[@id='pnprev']");
+        return WebElementUtil.isVisible("//a[@id='pnprev']");
     }
 }

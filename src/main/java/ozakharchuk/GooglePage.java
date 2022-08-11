@@ -19,6 +19,6 @@ public class GooglePage {
     }
 
     public boolean isLanguageBlockVisible() {
-        return WebElementUtil.isElementVisible("//div[@id='SIvCob']");
+        return WebElementUtil.isVisible("//div[@id='SIvCob']");
     }
 }
