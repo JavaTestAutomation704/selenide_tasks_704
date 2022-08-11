@@ -6,17 +6,12 @@ import org.testng.annotations.BeforeMethod;
 
 public class GoogleTestRunner {
 
-    protected GooglePage googlePage;
-    protected GoogleSearchResultPage googleSearchResultsPage;
-
-    @BeforeClass
-    public void downloadBrowser() {
-        Configuration.browser = "chrome";
-    }
+    protected GooglePage homePage;
+    protected SearchResultPage searchResultsPage;
 
     @BeforeMethod
-    public void openGooglePageAndSearch() {
-        googlePage = new GooglePage().openGoogleHomePage();
-        googleSearchResultsPage = googlePage.searchForText("funny dogs");
+    public void openHomePageAndSearch() {
+        homePage = new GooglePage().open();
+        searchResultsPage = homePage.searchFor("funny dogs");
     }
 }
