@@ -6,7 +6,7 @@ import utils.WebElementUtil;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SearchResultsPage {
-
+    private final String searchFieldCss = "q";
     private final String paginationBlockXpath = "//tr[@jsname = 'TeSSVd']";
     private final String headerXpath = "//h3[@class = 'LC20lb MBeuO DKV0Md']";
 
@@ -16,17 +16,17 @@ public class SearchResultsPage {
     }
 
     public SearchResultsPage clearSearchField() {
-        $(By.name("q")).clear();
+        $(By.name(searchFieldCss)).clear();
         return this;
     }
 
     public SearchResultsPage searchFor(String text) {
-        $(By.name("q")).val(text).pressEnter();
+        $(By.name(searchFieldCss)).val(text).pressEnter();
         return this;
     }
 
     public SearchResultsPage openPage(int number) {
-        $x(paginationBlockXpath + "//a[contains(@aria-label, '" + number + "')]").click();
+        $x(String.format("%s//a[contains(@aria-label, '%s')]", paginationBlockXpath, number)).click();
         return this;
     }
 
@@ -34,16 +34,20 @@ public class SearchResultsPage {
         return WebElementUtil.getCollectionSize(headerXpath);
     }
 
+    private String getLink(int number) {
+        return String.format("//div[%d]%s/parent::a", number, headerXpath);
+    }
+
     public String getName(int linkNumber) {
-        return $x("//div[" + linkNumber + "]" + headerXpath + "/parent::a").text().toLowerCase();
+        return $x(getLink(linkNumber)).text().toLowerCase();
+    }
+
+    public String getUrl(int linkNumber) {
+        return $x(getLink(linkNumber)).getAttribute("href");
     }
 
     public String getDescriptionText(int linkNumber) {
         return $$x("//div[@class = 'Uroaid']").get(linkNumber - 1).text().toLowerCase();
-    }
-
-    public String getUrl(int linkNumber) {
-        return $x("//div[" + linkNumber + "]" + headerXpath + "/parent::a").getAttribute("href");
     }
 
     public boolean isLogoVisible() {

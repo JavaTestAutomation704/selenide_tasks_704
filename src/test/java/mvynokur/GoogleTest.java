@@ -6,8 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class GoogleTest extends BaseTestRunner {
-
-    private final String expectedText = "dogs";
+    private final String expectedText = "dog";
 
     @Test
     @Description("Task 1")
