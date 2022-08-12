@@ -64,8 +64,9 @@ public class GoogleTest extends TestRunner {
 
     @Test
     public void verifyGoogleLogoIsDisplayed() {
-        boolean googleLogoVisible = searchResultsPage.isGoogleLogoVisible();
-        assertTrue(googleLogoVisible, "Google logo is visible.");
+        boolean isGoogleLogoVisible = searchResultsPage.isGoogleLogoVisible();
+
+        assertTrue(isGoogleLogoVisible, "Google logo is visible.");
     }
 
     @Test
