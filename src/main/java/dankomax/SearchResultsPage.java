@@ -17,7 +17,7 @@ public class SearchResultsPage {
     }
 
     public SearchResultsPage open(int page) {
-        $x("//div[@role='navigation']//a[contains(@aria-label, '" + page + "')]").click();
+        $x(String.format("//div[@role='navigation']//a[contains(@aria-label, '%s')]", page)).click();
         return this;
     }
 
@@ -29,19 +29,19 @@ public class SearchResultsPage {
     }
 
     public String getTitleText(int result) {
-        return $x("(" + searchResultsXpath + "//a/h3)[" + result + "]").text().toLowerCase();
+        return $x(String.format("(%s//a/h3)[%s]", searchResultsXpath, result)).text().toLowerCase();
     }
 
     public String getLinkUrl(int result) {
-        return $x("(" + searchResultsXpath + "//a/h3/parent::a)[" + result + "]").attr("href");
+        return $x(String.format("(%s//a/h3/parent::a)[%s]", searchResultsXpath, result)).attr("href");
     }
 
     public String getText(int result) {
-        return $x("(" + searchResultsXpath + ")[" + result + "]").text().toLowerCase();
+        return $x(String.format("(%s)[%s]", searchResultsXpath, result)).text().toLowerCase();
     }
 
     public int getResultsQuantity() {
-        return getCollectionSize("//div[contains(@class, 'g ') or @class='g']/div");
+        return getCollectionSize(searchResultsXpath);
     }
 
     public boolean isNextPageLinkVisible() {
