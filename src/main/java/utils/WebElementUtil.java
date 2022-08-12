@@ -19,9 +19,9 @@ public class WebElementUtil {
         }
     }
 
-    public static int getCollectionSize(String elementsXpath) {
+    public static int getCollectionSize(String elementXpath) {
         try {
-            return $$x(elementsXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
+            return $$x(elementXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
         } catch (AssertionError e) {
             return 0;
         }

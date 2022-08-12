@@ -34,7 +34,8 @@ public class GoogleTest extends GoogleTestRunner {
     public void verifyFirstLinkNameFifthPage() {
         String linkName = searchResultsPage
                 .openPage(5)
-                .getResultName(1).toLowerCase();
+                .getResultName(1)
+                .toLowerCase();
         Assert.assertTrue(linkName.contains(expectedText), "Link name does not contain word 'dog'!");
     }
 
