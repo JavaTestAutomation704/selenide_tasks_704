@@ -1,65 +1,57 @@
 package ytarasovych;
 
-import com.codeborne.selenide.CollectionCondition;
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.getCollectionSize;
+import static utils.WebElementUtil.isVisible;
 
 public class GoogleSearchResultPage {
+    private final String inputFieldXpath = "//input[@class='gLFyf gsfi']";
 
-    private final String resultLink = "//div[@id='rso']//h3";
-
-    public GoogleHomePage goGoogleHomePageByLogo(){
-        $x("//img[@alt='Google']")
-                .click();
-        return new GoogleHomePage();
+    public GooglePage openHomePageViaLogo() {
+        $x("//img[@alt='Google']").click();
+        return new GooglePage();
     }
 
-    public GoogleSearchResultPage goToPage(int numberOfPage){
-        $x("//a[@aria-label='Page " + numberOfPage + "']")
-                .click();
+    public GoogleSearchResultPage openPage(int pageNumber) {
+        $x("//a[@aria-label='Page " + pageNumber + "']").click();
         return this;
     }
 
-    public GoogleSearchResultPage verifyLinkContainsText(int numberOfLink, String text){
-        $x("(" + resultLink + ")[" + numberOfLink + "]")
-                .shouldHave(text(text));
+    public GoogleSearchResultPage search(String searchTerm) {
+        $x(inputFieldXpath)
+                .setValue(searchTerm)
+                .pressEnter();
         return this;
     }
 
-    public GoogleSearchResultPage verifyLinkDoesNotContainText(int numberOfLink, String text){
-        $x("(" + resultLink + ")[" + numberOfLink + "]")
-                .shouldNot(text(text));
+    public GoogleSearchResultPage clearSearchField() {
+        $x(inputFieldXpath).clear();
         return this;
     }
 
-    public GoogleSearchResultPage verifyLinkContainsValidUrl(int numberOfLink){
-        $x("(//div[@id='rso']//h3/ancestor::a)[" + numberOfLink + "]")
-                .shouldHave(attributeMatching("href","https://www\\..+"));
-        return this;
+    public String getLinkText(int linkNumber) {
+        return $x("(//div[@id='rso']//h3)[" + linkNumber + "]")
+                .getText()
+                .toLowerCase();
     }
 
-    public GoogleSearchResultPage verifyTotalNumberOfLinksIsGreaterThan(int totalNumberOfLinks){
-        $$x("//div[@id='rso']/div")
-                .shouldBe(CollectionCondition.sizeGreaterThan(totalNumberOfLinks));
-        return this;
+    public String getUrl(int linkNumber) {
+        return $x("(//div[@id='rso']//h3/ancestor::a)[" + linkNumber + "]").getAttribute("href");
     }
 
-    public GoogleSearchResultPage verifyLogoIsVisible(){
-        $x("//img[@alt='Google']")
-                .shouldBe(visible);
-        return this;
+    public int getLinksAmount() {
+        return getCollectionSize("//div[@id='rso']/div");
     }
 
-    public GoogleSearchResultPage verifyBtnNextPageIsVisible(){
-        $x("//a[@id='pnnext']/span[@class]")
-                .shouldBe(visible);
-        return this;
+    public boolean isGoogleLogoVisible() {
+        return isVisible("//img[@alt='Google']");
     }
 
-    public GoogleSearchResultPage verifyBtnPreviousPageIsVisible(){
-        $x("//a[@id='pnprev']")
-                .shouldBe(visible);
-        return this;
+    public boolean isNextLinkVisible() {
+        return isVisible("//a[@id='pnnext']");
+    }
+
+    public boolean isPreviousLinkVisible() {
+        return isVisible("//a[@id='pnprev']");
     }
 }

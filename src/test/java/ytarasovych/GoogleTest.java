@@ -1,78 +1,94 @@
 package ytarasovych;
 
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends BaseMethods {
-
     private final String searchTerm = "funny dogs";
     private final String expectedTerm = "dog";
 
     @Test
-    public void verifySearchFirstLink(){
-        new GoogleHomePage()
+    public void verifySearchFirstLink() {
+        String linkText = googleHomePage
                 .search(searchTerm)
-                .verifyLinkContainsText(1, expectedTerm);
+                .getLinkText(1);
+        assertTrue(linkText.contains(expectedTerm));
     }
 
     @Test
-    public void verifySearchNinthLink(){
-        new GoogleHomePage()
+    public void verifyNinthLinkUrlIsValid() {
+        boolean isUrlValid = googleHomePage
                 .search(searchTerm)
-                .verifyLinkContainsValidUrl(9);
+                .getUrl(9)
+                .matches("(ftp|http|https)://(www.)?.*");
+        assertTrue(isUrlValid);
     }
 
     @Test
-    public void verifyGooglePageIsOpen(){
-        new GoogleHomePage()
+    public void verifyGooglePageIsOpen() {
+        boolean isHomePageOpen = googleHomePage
                 .search(searchTerm)
-                .goGoogleHomePageByLogo()
-                .verifyGoogleHomePageIsOpen();
+                .openHomePageViaLogo()
+                .isOpen();
+        assertTrue(isHomePageOpen);
     }
 
     @Test
-    public void verifySearchFirstLinkInFifthPage(){
-        new GoogleHomePage()
+    public void verifyFirstLinkInFifthPage() {
+        String linkText = googleHomePage
                 .search(searchTerm)
-                .goToPage(5)
-                .verifyLinkContainsText(1, expectedTerm);
+                .openPage(5)
+                .getLinkText(1);
+        assertTrue(linkText.contains(expectedTerm));
     }
 
     @Test
-    public void verifySearchNineLinksAreDisplayed(){
-        new GoogleHomePage()
+    public void verifyNineLinksAreDisplayed() {
+        int linksAmount = googleHomePage
                 .search(searchTerm)
-                .verifyTotalNumberOfLinksIsGreaterThan(9);
+                .getLinksAmount();
+        assertTrue(linksAmount >= 9);
     }
 
     @Test
-    public void verifySearchFirstLinkAnotherInput(){
-        new GoogleHomePage()
-                .inputSearchTerm(searchTerm)
+    public void verifyFirstLinkDifferentInput() {
+        String linkText = googleHomePage
+                .search(searchTerm)
                 .clearSearchField()
                 .search("funny kitten")
-                .verifyLinkDoesNotContainText(1, expectedTerm);
+                .getLinkText(1);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(linkText.contains(expectedTerm));
+        softAssert.assertTrue(linkText.contains("kitten"));
+        softAssert.assertAll();
     }
 
     @Test
-    public void verifyLogoIsDisplayed(){
-        new GoogleHomePage()
+    public void verifyLogoIsDisplayed() {
+        boolean isGoogleLogoVisible = googleHomePage
                 .search(searchTerm)
-                .verifyLogoIsVisible();
+                .isGoogleLogoVisible();
+        assertTrue(isGoogleLogoVisible);
     }
 
     @Test
-    public void verifyBtnNextPageIsDisplayed(){
-        new GoogleHomePage()
+    public void verifyLinkNextPageIsDisplayed() {
+        boolean isNextLinkVisible = googleHomePage
                 .search(searchTerm)
-                .verifyBtnNextPageIsVisible();
+                .isNextLinkVisible();
+        assertTrue(isNextLinkVisible);
     }
 
     @Test
-    public void verifyBtnNextPageAndPreviousAreDisplayed(){
-        new GoogleHomePage()
-                .search(searchTerm)
-                .verifyBtnNextPageIsVisible()
-                .goToPage(4)
-                .verifyBtnPreviousPageIsVisible();
+    public void verifyLinkNextAndPreviousPageAreDisplayed() {
+        GoogleSearchResultPage googleSearchPage = googleHomePage.search(searchTerm);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(googleSearchPage.isNextLinkVisible());
+        softAssert.assertTrue(googleSearchPage
+                .openPage(4)
+                .isPreviousLinkVisible());
+        softAssert.assertAll();
     }
 }
