@@ -1,5 +1,7 @@
 package dankomax;
 
+import com.codeborne.selenide.SelenideElement;
+
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.isVisible;
 import static utils.WebElementUtil.getCollectionSize;
@@ -20,8 +22,9 @@ public class SearchResultsPage {
     }
 
     public SearchResultsPage search(String phrase) {
-        $x("//input[@name='q']").clear();
-        $x("//input[@name='q']").setValue(phrase).pressEnter();
+        SelenideElement searchField = $x("//input[@name='q']");
+        searchField.clear();
+        searchField.setValue(phrase).pressEnter();
         return this;
     }
 
