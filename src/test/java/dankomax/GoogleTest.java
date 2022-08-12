@@ -44,8 +44,7 @@ public class GoogleTest extends TestRunner {
 
     @Test
     public void verifySearchResultsQuantityIsSufficient() {
-        int resultsQuantity = searchResultsPage
-                .getResultsQuantity();
+        int resultsQuantity = searchResultsPage.getResultsQuantity();
 
         assertTrue(resultsQuantity >= 9);
     }
@@ -81,7 +80,6 @@ public class GoogleTest extends TestRunner {
 
         searchResultsPage.open(4);
         softAssert.assertTrue(searchResultsPage.isPreviousPageLinkVisible(), "'Previous' link in pagination should be visible.");
-
         softAssert.assertAll();
     }
 }
