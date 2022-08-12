@@ -20,5 +20,4 @@ public class TestRunner {
         googlePage.open();
         resultPage = googlePage.search("funny dogs");
     }
-
 }
