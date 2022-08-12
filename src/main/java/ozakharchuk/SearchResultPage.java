@@ -1,5 +1,6 @@
 package ozakharchuk;
 
+import com.codeborne.selenide.SelenideElement;
 import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -11,17 +12,18 @@ public class SearchResultPage {
     private final String resultLinksXpath = "//div//a/h3/..";
 
     public SearchResultPage searchFor(String text) {
-        $x("//input[@name='q']").clear();
-        $x("//input[@name='q']").setValue(text).pressEnter();
+        SelenideElement searchField = $x("//input[@name='q']");
+        searchField.clear();
+        searchField.setValue(text).pressEnter();
         return this;
     }
 
     public String getResultName(int linkNumber) {
-        return $x("(//div//a/h3)[" + linkNumber + "]").text().toLowerCase();
+        return $x(String.format("(//div//a/h3)[%s]", linkNumber)).text().toLowerCase();
     }
 
     public String getResultUrl(int linkNumber) {
-        return $x("(" + resultLinksXpath + ")[" + linkNumber + "]").getAttribute("href");
+        return $x(String .format("(%s)[%s]", resultLinksXpath,linkNumber)).getAttribute("href");
     }
 
     public int getLinksAmount() {
@@ -38,7 +40,7 @@ public class SearchResultPage {
     }
 
     public SearchResultPage openPage(int number) {
-        $x("(//div[@role='navigation']//td)" + "[" + number + "]").click();
+        $x(String.format("(//div[@role='navigation']//td)[%s]", number)).click();
         return this;
     }
 
