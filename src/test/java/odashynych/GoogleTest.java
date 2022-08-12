@@ -6,9 +6,12 @@ import org.testng.asserts.SoftAssert;
 import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends TestRunner {
+
+    private final String expectedTerm = "dogs";
+
     @Test
     public void verifyFirstLinkContainDogsTest() {
-        assertTrue(resultPage.getText(1).contains("dogs"), "Text doesn't contain \"dogs\"");
+        assertTrue(resultPage.getText(1).contains(expectedTerm), "Text doesn't contain " + expectedTerm);
     }
 
     @Test
@@ -30,7 +33,7 @@ public class GoogleTest extends TestRunner {
         assertTrue(resultPage
                 .openSearchPage(5)
                 .getText(1)
-                .contains("dogs"), "Text doesn't contain \"dogs\"");
+                .contains(expectedTerm), "Text doesn't contain " + expectedTerm);
     }
 
     @Test
@@ -47,7 +50,7 @@ public class GoogleTest extends TestRunner {
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(linkText.contains("kitten"), "Text doesn't contain \"kitten\"");
-        softAssert.assertFalse(linkText.contains("dogs"), "Text contains \"dogs\"");
+        softAssert.assertFalse(linkText.contains(expectedTerm), "Text contains " + expectedTerm);
         softAssert.assertAll();
     }
 

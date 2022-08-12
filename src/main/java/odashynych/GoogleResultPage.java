@@ -5,13 +5,16 @@ import utils.WebElementUtil;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class GoogleResultPage {
+
+    private final String inputFieldXpath = "//input[@name='q']";
+
     public GoogleResultPage clearInputField() {
-        $x("//input[@name='q']").clear();
+        $x(inputFieldXpath).clear();
         return this;
     }
 
     public GoogleResultPage search(String searchItem) {
-        $x("//input[@name='q']").setValue(searchItem).pressEnter();
+        $x(inputFieldXpath).setValue(searchItem).pressEnter();
         return this;
     }
 

@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestRunner {
     protected GooglePage googlePage = new GooglePage();
-    protected GoogleResultPage resultPage = new GoogleResultPage();
+    protected GoogleResultPage resultPage;
 
     @BeforeClass
     public void initializeBrowser() {
