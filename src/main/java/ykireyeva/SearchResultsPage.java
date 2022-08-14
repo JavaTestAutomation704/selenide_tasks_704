@@ -1,6 +1,5 @@
 package ykireyeva;
 
-import com.codeborne.selenide.SelenideElement;
 import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -8,10 +7,7 @@ import static utils.WebElementUtil.isVisible;
 
 public class SearchResultsPage {
     private final String logoXpath = "//div[@class='logo']";
-
-    private SelenideElement getPage(int number) {
-        return $x("//a[contains(@aria-label, 'Page " + number + "')]");
-    }
+    private final String searchFieldXpath = "//input[@name='q']";
 
     public GooglePage openGooglePageViaLogo() {
         $x(logoXpath).click();
@@ -19,12 +15,12 @@ public class SearchResultsPage {
     }
 
     public SearchResultsPage search(String query) {
-        $x("//input[@name='q']").setValue(query).pressEnter();
+        $x(searchFieldXpath).setValue(query).pressEnter();
         return this;
     }
 
     public SearchResultsPage clearSearchField() {
-        $x("//input[@name='q']").clear();
+        $x(searchFieldXpath).clear();
         return this;
     }
 
@@ -33,7 +29,7 @@ public class SearchResultsPage {
     }
 
     public SearchResultsPage openPage(int number) {
-        getPage(number).click();
+        $x("//a[contains(@aria-label, 'Page " + number + "')]").click();
         return this;
     }
 
