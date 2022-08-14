@@ -1,6 +1,5 @@
 package nastiakomarenko;
 
-import com.codeborne.selenide.SelenideElement;
 import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -8,10 +7,7 @@ import static utils.WebElementUtil.isVisible;
 
 public class GoogleSearchResultsPage {
     private final String logoXpath = "//div[@class='logo']";
-
-    private SelenideElement getPage(int number) {
-        return $x("//a[contains(@aria-label, 'Page " + number + "')]");
-    }
+    private final String searchFieldXpath = "//input[@name='q']";
 
     public GooglePage openGooglePageViaLogo() {
         $x(logoXpath).click();
@@ -19,26 +15,13 @@ public class GoogleSearchResultsPage {
     }
 
     public GoogleSearchResultsPage search(String query) {
-        $x("//input[@name='q']").setValue(query).pressEnter();
+        $x(searchFieldXpath).setValue(query).pressEnter();
         return this;
     }
 
     public GoogleSearchResultsPage clearSearchField() {
-        $x("//input[@name='q']").clear();
+        $x(searchFieldXpath).clear();
         return this;
-    }
-
-    public int getResultLinksSize() {
-        return WebElementUtil.getCollectionSize("(//a[descendant::h3])");
-    }
-
-    public GoogleSearchResultsPage openPage(int number) {
-        getPage(number).click();
-        return this;
-    }
-
-    public String getResultLinkAttributeValue(int number, String attributeName) {
-        return $x("(//a[descendant::h3])[" + number + "]").getAttribute(attributeName);
     }
 
     public String getLinkText(int number) {
@@ -55,5 +38,18 @@ public class GoogleSearchResultsPage {
 
     public boolean isPreviousPageLinkDisplayed() {
         return isVisible("//a[@id='pnprev']");
+    }
+
+    public int getResultLinksSize() {
+        return WebElementUtil.getCollectionSize("(//a[descendant::h3])");
+    }
+
+    public GoogleSearchResultsPage openPage(int number) {
+        $x("//a[contains(@aria-label, 'Page " + number + "')]").click();
+        return this;
+    }
+
+    public String getResultLinkAttributeValue(int number, String attributeName) {
+        return $x("(//a[descendant::h3])[" + number + "]").getAttribute(attributeName);
     }
 }

@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTestRunner {
     protected GooglePage googlePage = new GooglePage();
-    protected GoogleSearchResultsPage searchResultsPage = new GoogleSearchResultsPage();
+    protected GoogleSearchResultsPage searchResultsPage;
 
     @BeforeClass
     public void setUpBrowserBeforeClass() {
@@ -16,6 +16,6 @@ public class BaseTestRunner {
 
     @BeforeMethod
     public void openSearchResultsPage() {
-        googlePage.open().search("funny dogs");
+        searchResultsPage = googlePage.open().search("funny dogs");
     }
 }
