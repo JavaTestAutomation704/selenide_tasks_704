@@ -18,12 +18,12 @@ public class SearchResultPage {
         return this;
     }
 
-    public String getResultName(int linkNumber) {
+    public String getLinkText(int linkNumber) {
         return $x(String.format("(//div//a/h3)[%s]", linkNumber)).text().toLowerCase();
     }
 
-    public String getResultUrl(int linkNumber) {
-        return $x(String .format("(%s)[%s]", resultLinksXpath,linkNumber)).getAttribute("href");
+    public String getLinkUrl(int linkNumber) {
+        return $x(String.format("(%s)[%s]", resultLinksXpath, linkNumber)).getAttribute("href");
     }
 
     public int getLinksAmount() {

@@ -1,7 +1,5 @@
 package ozakharchuk;
 
-import com.codeborne.selenide.Configuration;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 public class GoogleTestRunner {

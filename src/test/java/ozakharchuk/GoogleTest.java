@@ -10,13 +10,13 @@ public class GoogleTest extends GoogleTestRunner {
 
     @Test
     public void verifyFirstLinkName() {
-        String linkName = searchResultsPage.getResultName(1);
+        String linkName = searchResultsPage.getLinkText(1);
         Assert.assertTrue(linkName.contains(expectedText), "Link name does not contain word 'dog'!");
     }
 
     @Test
     public void verifyNinthLinkValid() {
-        boolean isUrlValid = searchResultsPage.getResultUrl(8).matches("((http|https)://)(www.)?"
+        boolean isUrlValid = searchResultsPage.getLinkUrl(8).matches("((http|https)://)(www.)?"
                 + "[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]"
                 + "{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)");
         Assert.assertTrue(isUrlValid, "Url is not valid!");
@@ -34,15 +34,15 @@ public class GoogleTest extends GoogleTestRunner {
     public void verifyFirstLinkNameFifthPage() {
         String linkName = searchResultsPage
                 .openPage(5)
-                .getResultName(1)
+                .getLinkText(1)
                 .toLowerCase();
         Assert.assertTrue(linkName.contains(expectedText), "Link name does not contain word 'dog'!");
     }
 
     @Test
     public void verifyLinkQuantity() {
-        int numberOfLinks = searchResultsPage.getLinksAmount();
-        Assert.assertTrue(numberOfLinks >= 9, "Links quantity smaller than 9!");
+        int linksAmount = searchResultsPage.getLinksAmount();
+        Assert.assertTrue(linksAmount >= 9, "Links quantity smaller than 9!");
     }
 
     @Test
@@ -50,7 +50,7 @@ public class GoogleTest extends GoogleTestRunner {
         SoftAssert softAssert = new SoftAssert();
         String linkName = homePage
                 .searchFor("funny kitten")
-                .getResultName(1)
+                .getLinkText(1)
                 .toLowerCase();
         softAssert.assertFalse(linkName.contains(expectedText), "Link name contains word 'dog'!");
         softAssert.assertTrue(linkName.contains("kitten"), "Link name does not contain word 'kitten'!");
