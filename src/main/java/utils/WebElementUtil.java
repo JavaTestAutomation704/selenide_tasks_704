@@ -9,7 +9,6 @@ import static com.codeborne.selenide.Selenide.$x;
 
 
 public class WebElementUtil {
-
     private static final Duration TIMEOUT = Duration.ofSeconds(5);
 
     public static boolean isVisible(String elementXpath) {
