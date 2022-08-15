@@ -11,13 +11,16 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     @Description("Task 1")
     public void verifySearchFunctionalityWorks() {
-        Assert.assertTrue(searchResultsPage.getName(1).contains(expectedText));
+        Assert.assertTrue(searchResultsPage
+                .getName(1)
+                .contains(expectedText));
     }
 
     @Test
     @Description("Task 2")
     public void verifyNineLinkUrlCorrectness() {
-        Assert.assertTrue(searchResultsPage.getUrl(9)
+        Assert.assertTrue(searchResultsPage
+                .getUrl(9)
                 .matches("((http|https)://)(www.)?"
                 + "[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]"
                 + "{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"));
@@ -37,13 +40,16 @@ public class GoogleTest extends BaseTestRunner {
     @Description("Task 4")
     public void verifySearchFunctionalityOnDifferentPages() {
         searchResultsPage.openPage(5);
-        Assert.assertTrue(searchResultsPage.getName(1).contains(expectedText));
+        Assert.assertTrue(searchResultsPage
+                .getName(1)
+                .contains(expectedText));
     }
 
     @Test
     @Description("Task 5")
     public void verifySearchResultsLinksAmount() {
-        Assert.assertTrue(searchResultsPage.getLinksAmount() >= 9);
+        Assert.assertTrue(searchResultsPage
+                .getLinksAmount() >= 9);
     }
 
     @Test
@@ -51,8 +57,9 @@ public class GoogleTest extends BaseTestRunner {
     public void verifySearchFunctionalityWithDifferentInputs() {
         searchResultsPage.clearSearchField().searchFor("funny kitten");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(searchResultsPage.getDescriptionText(1).contains("kitten"));
-        softAssert.assertFalse(searchResultsPage.getDescriptionText(1).contains(expectedText));
+        String descriptionText = searchResultsPage.getDescriptionText(1);
+        softAssert.assertTrue(descriptionText.contains("kitten"));
+        softAssert.assertFalse(descriptionText.contains(expectedText));
         softAssert.assertAll();
     }
 

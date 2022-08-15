@@ -47,7 +47,7 @@ public class SearchResultsPage {
     }
 
     public String getDescriptionText(int linkNumber) {
-        return $$x("//div[@class = 'Uroaid']").get(linkNumber - 1).text().toLowerCase();
+        return $x(String.format("//div[@class = 'Uroaid'][%d]", linkNumber)).text().toLowerCase();
     }
 
     public boolean isLogoVisible() {
