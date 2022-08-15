@@ -13,13 +13,16 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     @Description("Test 1")
     public void verifyLinkText() {
-        assertTrue(searchResultsPage.getLinkText(1).contains(expectedText));
+        assertTrue(searchResultsPage
+                .getLinkText(1)
+                .contains(expectedText));
     }
 
     @Test
     @Description("Test 2")
     public void verifyHrefUrlValue() {
-        assertTrue(searchResultsPage.getResultLinkAttributeValue(9, "href")
+        assertTrue(searchResultsPage
+                .getResultLinkAttributeValue(9, "href")
                 .matches("[(http(s)?):\\/\\/(www\\.)?a-zA-Z0-9@:%._\\+~#=]" +
                         "{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)"));
     }
@@ -36,7 +39,9 @@ public class GoogleTest extends BaseTestRunner {
     @Description("Test 4")
     public void verifyLinkTextOnSelectedPage() {
         searchResultsPage.openPage(5);
-        assertTrue(searchResultsPage.getLinkText(1).contains(expectedText));
+        assertTrue(searchResultsPage
+                .getLinkText(1)
+                .contains(expectedText));
     }
 
     @Test
@@ -49,11 +54,16 @@ public class GoogleTest extends BaseTestRunner {
     @Test
     @Description("Test 6")
     public void verifyLinkTextWithDifferentInputs() {
-        searchResultsPage.clearSearchField()
+        searchResultsPage
+                .clearSearchField()
                 .search("funny kitten");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(searchResultsPage.getLinkText(1).contains(expectedText));
-        softAssert.assertTrue(searchResultsPage.getLinkText(1).contains("kitten"));
+        softAssert.assertFalse(searchResultsPage
+                .getLinkText(1)
+                .contains(expectedText));
+        softAssert.assertTrue(searchResultsPage
+                .getLinkText(1)
+                .contains("kitten"));
         softAssert.assertAll();
     }
 
