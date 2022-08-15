@@ -9,7 +9,8 @@ import static com.codeborne.selenide.Selenide.$x;
 
 
 public class WebElementUtil {
-    private static final Duration TIMEOUT = Duration.ofSeconds(2);
+
+    private static final Duration TIMEOUT = Duration.ofSeconds(5);
 
     public static boolean isVisible(String elementXpath) {
         try {
@@ -19,9 +20,9 @@ public class WebElementUtil {
         }
     }
 
-    public static int getCollectionSize(String elementXpath) {
+    public static int getCollectionSize(String elementsXpath) {
         try {
-            return $$x(elementXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
+            return $$x(elementsXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
         } catch (AssertionError e) {
             return 0;
         }
