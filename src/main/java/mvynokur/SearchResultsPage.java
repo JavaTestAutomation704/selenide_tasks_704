@@ -7,7 +7,6 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class SearchResultsPage {
     private final String searchFieldCss = "q";
-    private final String paginationBlockXpath = "//tr[@jsname = 'TeSSVd']";
     private final String headerXpath = "//h3[@class = 'LC20lb MBeuO DKV0Md']";
 
     public GooglePage openHomePageViaLogo() {
@@ -26,7 +25,7 @@ public class SearchResultsPage {
     }
 
     public SearchResultsPage openPage(int number) {
-        $x(String.format("%s//a[contains(@aria-label, '%s')]", paginationBlockXpath, number)).click();
+        $x(String.format("//tr[@jsname = 'TeSSVd']//a[contains(@aria-label, '%d')]", number)).click();
         return this;
     }
 
@@ -55,10 +54,10 @@ public class SearchResultsPage {
     }
 
     public boolean isPreviousPageLinkVisible() {
-        return WebElementUtil.isVisible(paginationBlockXpath + "//a/span[contains(text(), 'Previous')]");
+        return WebElementUtil.isVisible("//a[@id = 'pnprev']");
     }
 
     public boolean isNextPageLinkVisible() {
-        return WebElementUtil.isVisible(paginationBlockXpath + "//a/span[contains(text(), 'Next')]");
+        return WebElementUtil.isVisible("//a[@id = 'pnnext']");
     }
 }
