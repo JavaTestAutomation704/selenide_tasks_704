@@ -12,4 +12,12 @@ public class HomePage extends HeaderComponent {
     public CategoryPage open(String name) {
         return new CategoryPage();
     }
+
+    public boolean isSmallCartSectionVisible(){
+        return true;
+    }
+
+    public boolean isMainCategoriesSectionVisible(){
+        return true;
+    }
 }
