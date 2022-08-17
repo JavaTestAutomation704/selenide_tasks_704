@@ -49,6 +49,10 @@ public class HeaderComponent {
         return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]");
     }
 
+    public boolean isShoppingCartModalVisible() {
+        return isVisible("//div[contains(@class, 'modal__holder')]");
+    }
+
     public SearchResultsPage search(String product) {
         $(By.name("search")).val(product).pressEnter();
         return new SearchResultsPage();
