@@ -1,9 +1,8 @@
-package rozetka_test;
+package rozetka;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import rozetka.HomePage;
 
 public class TestRunner {
     protected HomePage homePage;
