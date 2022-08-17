@@ -25,6 +25,12 @@ public class SearchResultsPage extends ResultsFilterComponent {
         return this;
     }
 
+    public SearchResultsPage sortDescByPrice() {
+        $x("//rz-sort//select").click();
+        $x("//rz-sort//select//option[contains(@value, 'expensive')]").click();
+        return this;
+    }
+
     public SearchResultsPage addToCart(int product) {
         return this;
     }
@@ -43,10 +49,6 @@ public class SearchResultsPage extends ResultsFilterComponent {
 
     public long getPrice(int product) {
         return Long.parseLong($x(String.format("(//span[@class='goods-tile__price-value'])[%d]", product)).text());
-    }
-
-    public int getProductPrice(int number) {
-        return 0;
     }
 
     public boolean isProductsOnSale() {
