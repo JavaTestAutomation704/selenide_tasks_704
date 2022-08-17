@@ -55,4 +55,8 @@ public class HeaderComponent {
     public HeaderComponent changeCity(String city){
         return this;
     }
+
+    public HomePage openHomePageViaLogo(){
+        return new HomePage();
+    }
 }
