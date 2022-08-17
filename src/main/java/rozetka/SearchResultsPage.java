@@ -1,5 +1,8 @@
 package rozetka;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultsPage extends ResultsFilterComponent {
@@ -20,5 +23,21 @@ public class SearchResultsPage extends ResultsFilterComponent {
     public SearchResultsPage resetFilers() {
         $x("//button[contains(@class, 'reset')]").click();
         return this;
+    }
+
+    public SearchResultsPage addToCart(int product) {
+        return this;
+    }
+
+    public List<String> getProductStatuses() {
+        return new ArrayList<>();
+    }
+
+    public List<String> getProductTitles() {
+        return new ArrayList<>();
+    }
+
+    public int getProductPrice(int number) {
+        return 0;
     }
 }

@@ -7,7 +7,7 @@ import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends TestRunner {
 
-    private final String expectedTerm = "dogs";
+    private final String expectedTerm = "dog";
 
     @Test
     public void verifyFirstLinkContainDogsTest() {

@@ -8,7 +8,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class GoogleTest extends BaseTestRunner {
-    private final String expectedText = "dogs";
+    private final String expectedText = "dog";
 
     @Test
     @Description("Test 1")
