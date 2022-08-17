@@ -1,5 +1,6 @@
 package rozetka;
 
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.By;
 import rozetka.modals.CatalogModal;
 import rozetka.modals.ShoppingCartModal;
@@ -10,6 +11,10 @@ import static utils.WebElementUtil.isVisible;
 
 public class HeaderComponent {
     private final String authorizationXpath = "//button[contains(@class,'side-menu__auth-button')]";
+
+    public String getUrl() {
+        return WebDriverRunner.getWebDriver().getCurrentUrl();
+    }
 
     public HeaderComponent logInViaUserIcon() {
         $x("//rz-user").click();
