@@ -4,7 +4,7 @@ import rozetka.modals.ShoppingCartModal;
 
 public class HeaderComponent {
 
-    public SearchResultsPage search() {
+    public SearchResultsPage search(String product) {
         return new SearchResultsPage();
     }
 
