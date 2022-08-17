@@ -1,6 +1,7 @@
 package rozetka;
 
 import org.openqa.selenium.By;
+import rozetka.modals.CatalogModal;
 import rozetka.modals.ShoppingCartModal;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -44,6 +45,10 @@ public class HeaderComponent {
         return new SearchResultsPage();
     }
 
+    public boolean isRegisterButtonVisible() {
+        return isVisible("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
+    }
+
     public ShoppingCartModal openShoppingCartViaHeader() {
         return new ShoppingCartModal();
     }
@@ -59,4 +64,6 @@ public class HeaderComponent {
     public HomePage openHomePageViaLogo(){
         return new HomePage();
     }
+
+    public CatalogModal openCatalog(){return new CatalogModal();}
 }
