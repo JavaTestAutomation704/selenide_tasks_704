@@ -1,4 +1,4 @@
 package rozetka;
 
-public class SearchResultsPage extends HeaderComponent {
+public class SearchResultsPage extends ResultsFilterComponent {
 }
