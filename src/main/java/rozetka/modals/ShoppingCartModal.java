@@ -14,4 +14,20 @@ public class ShoppingCartModal {
     public int getCartReceipt() {
         return 0;
     }
+
+    public ShoppingCartModal increaseProductQuantity(){
+        return this;
+    }
+
+    public ShoppingCartModal decreaseProductQuantity(){
+        return this;
+    }
+
+    public int getProductQuantity(){
+        return 0;
+    }
+
+    public int getPrice(int productNumber){
+        return 0;
+    }
 }
