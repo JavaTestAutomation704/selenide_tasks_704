@@ -16,4 +16,9 @@ public class SearchResultsPage extends ResultsFilterComponent {
                         .getText()
                         .replaceAll("[^0-9]", ""));
     }
+
+    public SearchResultsPage resetFilers() {
+        $x("//button[contains(@class, 'reset')]").click();
+        return this;
+    }
 }
