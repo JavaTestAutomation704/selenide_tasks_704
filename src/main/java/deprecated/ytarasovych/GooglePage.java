@@ -1,4 +1,4 @@
-package ytarasovych;
+package deprecated.ytarasovych;
 
 import com.codeborne.selenide.Selenide;
 

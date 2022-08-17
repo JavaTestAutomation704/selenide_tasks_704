@@ -1,4 +1,4 @@
-package ozakharchuk;
+package deprecated.ozakharchuk;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;

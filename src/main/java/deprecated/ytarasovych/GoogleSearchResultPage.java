@@ -1,4 +1,4 @@
-package ytarasovych;
+package deprecated.ytarasovych;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.getCollectionSize;

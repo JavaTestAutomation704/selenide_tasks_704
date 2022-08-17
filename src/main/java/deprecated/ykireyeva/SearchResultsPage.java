@@ -1,11 +1,11 @@
-package nastiakomarenko;
+package deprecated.ykireyeva;
 
 import utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.isVisible;
 
-public class GoogleSearchResultsPage {
+public class SearchResultsPage {
     private final String logoXpath = "//div[@class='logo']";
     private final String searchFieldXpath = "//input[@name='q']";
 
@@ -14,14 +14,27 @@ public class GoogleSearchResultsPage {
         return new GooglePage();
     }
 
-    public GoogleSearchResultsPage search(String query) {
+    public SearchResultsPage search(String query) {
         $x(searchFieldXpath).setValue(query).pressEnter();
         return this;
     }
 
-    public GoogleSearchResultsPage clearSearchField() {
+    public SearchResultsPage clearSearchField() {
         $x(searchFieldXpath).clear();
         return this;
+    }
+
+    public int getResultLinksSize() {
+        return WebElementUtil.getCollectionSize("(//a[descendant::h3])");
+    }
+
+    public SearchResultsPage openPage(int number) {
+        $x("//a[contains(@aria-label, 'Page " + number + "')]").click();
+        return this;
+    }
+
+    public String getResultLinkAttributeValue(int number, String attributeName) {
+        return $x("(//a[descendant::h3])[" + number + "]").getAttribute(attributeName);
     }
 
     public String getLinkText(int number) {
@@ -36,20 +49,7 @@ public class GoogleSearchResultsPage {
         return isVisible("//a[@id='pnnext']");
     }
 
-    public boolean isPreviousPageLinkDisplayed() {
+    public boolean isPreviousPageLinkVisible() {
         return isVisible("//a[@id='pnprev']");
-    }
-
-    public int getResultLinksSize() {
-        return WebElementUtil.getCollectionSize("(//a[descendant::h3])");
-    }
-
-    public GoogleSearchResultsPage openPage(int number) {
-        $x("//a[contains(@aria-label, 'Page " + number + "')]").click();
-        return this;
-    }
-
-    public String getResultLinkAttributeValue(int number, String attributeName) {
-        return $x("(//a[descendant::h3])[" + number + "]").getAttribute(attributeName);
     }
 }

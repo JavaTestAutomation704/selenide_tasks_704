@@ -1,4 +1,4 @@
-package mvynokur;
+package deprecated.mvynokur;
 
 import org.openqa.selenium.By;
 import utils.WebElementUtil;

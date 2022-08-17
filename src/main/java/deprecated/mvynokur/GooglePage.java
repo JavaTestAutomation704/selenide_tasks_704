@@ -1,4 +1,4 @@
-package mvynokur;
+package deprecated.mvynokur;
 
 import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;

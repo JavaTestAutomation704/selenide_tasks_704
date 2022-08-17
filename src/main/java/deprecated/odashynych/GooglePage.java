@@ -1,4 +1,4 @@
-package odashynych;
+package deprecated.odashynych;
 
 import com.codeborne.selenide.Selenide;
 import utils.WebElementUtil;

@@ -1,4 +1,4 @@
-package odashynych;
+package deprecated.odashynych;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
