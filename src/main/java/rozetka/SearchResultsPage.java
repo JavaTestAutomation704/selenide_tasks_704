@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SearchResultsPage extends ResultsFilterComponent {
 
-    public SearchResultsPage addProductViaShoppingCartIcon(int number) {
+    public SearchResultsPage addToCart(int product) {
         return this;
     }
 
