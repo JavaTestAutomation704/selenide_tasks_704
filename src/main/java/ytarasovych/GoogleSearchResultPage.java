@@ -30,7 +30,7 @@ public class GoogleSearchResultPage {
     }
 
     public String getLinkText(int linkNumber) {
-        return $x("(//div[@id='rso']//h3)[" + linkNumber + "]")
+        return $x("(//div[@id='rso']/div)[" + linkNumber + "]")
                 .getText()
                 .toLowerCase();
     }
