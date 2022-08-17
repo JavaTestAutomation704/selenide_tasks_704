@@ -47,4 +47,12 @@ public class HeaderComponent {
     public ShoppingCartModal openShoppingCartViaHeader() {
         return new ShoppingCartModal();
     }
+
+    public String getCurrentCity(){
+        return "";
+    }
+
+    public HeaderComponent changeCity(String city){
+        return this;
+    }
 }

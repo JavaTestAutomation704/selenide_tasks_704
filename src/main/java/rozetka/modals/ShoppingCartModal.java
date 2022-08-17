@@ -14,4 +14,12 @@ public class ShoppingCartModal {
     public int getCartReceipt() {
         return 0;
     }
+
+    public boolean isShoppingCartEmpty(){
+        return false;
+    }
+
+    public ShoppingCartModal removeProduct(){
+        return this;
+    }
 }
