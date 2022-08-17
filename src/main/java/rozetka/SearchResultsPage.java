@@ -41,6 +41,10 @@ public class SearchResultsPage extends ResultsFilterComponent {
         return $x(String.format("(//span[@class='goods-tile__title'])[%d]", product)).text();
     }
 
+    public long getPrice(int product) {
+        return Long.parseLong($x(String.format("(//span[@class='goods-tile__price-value'])[%d]", product)).text());
+    }
+
     public int getProductPrice(int number) {
         return 0;
     }
