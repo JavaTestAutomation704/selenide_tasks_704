@@ -41,6 +41,10 @@ public class SearchResultsPage extends ResultsFilterComponent {
         return 0;
     }
 
+    public boolean isProductsOnSale(){
+        return false;
+    }
+
     public boolean areAllProductsPreUsed(){
         return true;
     }

@@ -48,6 +48,14 @@ public class HeaderComponent {
         return new ShoppingCartModal();
     }
 
+    public String getCurrentCity(){
+        return "";
+    }
+
+    public HeaderComponent changeCity(String city){
+        return this;
+    }
+
     public HomePage openHomePageViaLogo(){
         return new HomePage();
     }

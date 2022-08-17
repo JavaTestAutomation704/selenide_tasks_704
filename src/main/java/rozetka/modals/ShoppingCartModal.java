@@ -15,6 +15,14 @@ public class ShoppingCartModal {
         return 0;
     }
 
+    public boolean isShoppingCartEmpty(){
+        return false;
+    }
+
+    public ShoppingCartModal removeProduct(){
+        return this;
+    }
+
     public ShoppingCartModal increaseProductQuantity(){
         return this;
     }
