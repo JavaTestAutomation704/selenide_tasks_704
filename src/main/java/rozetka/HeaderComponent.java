@@ -4,10 +4,20 @@ import org.openqa.selenium.By;
 import rozetka.modals.ShoppingCartModal;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.isVisible;
 
 public class HeaderComponent {
     private final String authorizationXpath = "//button[contains(@class,'side-menu__auth-button')]";
+
+    public HeaderComponent logInViaUserIcon() {
+        $x("//rz-user").click();
+        return this;
+    }
+
+    public boolean isLogInModalVisible() {
+        return isVisible("//rz-user-identification");
+    }
 
     public boolean isAuthorizationButtonVisible() {
         return isVisible("(" + authorizationXpath + ")[1]");
