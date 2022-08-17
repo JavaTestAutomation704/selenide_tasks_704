@@ -1,20 +1,22 @@
 package rozetka;
 
+import static utils.WebElementUtil.isVisible;
+
 public class CheckoutPage extends HeaderComponent {
 
     public boolean isHeaderVisible() {
-        return true;
+        return isVisible("//h1");
     }
 
     public boolean isTotalModalVisible() {
-        return true;
+        return isVisible("//div[@class='checkout-total']");
     }
 
     public boolean isContactsModalVisible() {
-        return true;
+        return isVisible("//rz-checkout-contact-info");
     }
 
     public boolean isOrderModalVisible() {
-        return true;
+        return isVisible("rz-checkout-order");
     }
 }
