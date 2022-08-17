@@ -2,6 +2,7 @@ package rozetka;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import rozetka.modals.ShoppingCartModal;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.isVisible;
@@ -13,6 +14,11 @@ public class ProductPage extends HeaderComponent {
 
     public String getTitle() {
         return $x("//h1[@class='product__title']").text();
+    }
+
+    public ShoppingCartModal buy() {
+        $x("//ul[@class='product-buttons']//button[contains(@class,'buy-button')]").click();
+        return new ShoppingCartModal();
     }
 
     public ProductPage buyOnCredit() {
