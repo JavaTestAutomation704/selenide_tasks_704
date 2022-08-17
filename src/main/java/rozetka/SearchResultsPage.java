@@ -40,4 +40,8 @@ public class SearchResultsPage extends ResultsFilterComponent {
     public int getProductPrice(int number) {
         return 0;
     }
+
+    public boolean isAllProductsPreUsed(){
+        return true;
+    }
 }
