@@ -41,7 +41,7 @@ public class SearchResultsPage extends ResultsFilterComponent {
         return 0;
     }
 
-    public boolean isAllProductsPreUsed(){
+    public boolean areAllProductsPreUsed(){
         return true;
     }
 }
