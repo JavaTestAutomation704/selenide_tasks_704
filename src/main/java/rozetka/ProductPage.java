@@ -16,6 +16,11 @@ public class ProductPage extends HeaderComponent {
         return $x("//h1[@class='product__title']").text();
     }
 
+    public ProductCharacteristicsPage openCharacteristics() {
+        $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").click();
+        return new ProductCharacteristicsPage();
+    }
+
     public ShoppingCartModal buy() {
         $x("//ul[@class='product-buttons']//button[contains(@class,'buy-button')]").click();
         return new ShoppingCartModal();
