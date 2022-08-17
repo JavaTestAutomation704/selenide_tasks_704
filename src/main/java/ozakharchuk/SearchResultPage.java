@@ -26,6 +26,10 @@ public class SearchResultPage {
         return $x(String.format("(%s)[%s]", resultLinksXpath, linkNumber)).getAttribute("href");
     }
 
+    public String getDescriptionText(int linkNumber) {
+        return $x(String.format("//div[@class = 'Uroaid'][%d]", linkNumber)).text().toLowerCase();
+    }
+
     public int getLinksAmount() {
         return WebElementUtil.getCollectionSize(resultLinksXpath);
     }
