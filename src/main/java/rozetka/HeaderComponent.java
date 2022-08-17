@@ -47,4 +47,8 @@ public class HeaderComponent {
     public ShoppingCartModal openShoppingCartViaHeader() {
         return new ShoppingCartModal();
     }
+
+    public HomePage openHomePageViaLogo(){
+        return new HomePage();
+    }
 }
