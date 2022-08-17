@@ -37,15 +37,19 @@ public class SearchResultsPage extends ResultsFilterComponent {
         return new ArrayList<>();
     }
 
+    public String getTitle(int product) {
+        return $x(String.format("(//span[@class='goods-tile__title'])[%d]", product)).text();
+    }
+
     public int getProductPrice(int number) {
         return 0;
     }
 
-    public boolean isProductsOnSale(){
+    public boolean isProductsOnSale() {
         return false;
     }
 
-    public boolean areAllProductsPreUsed(){
+    public boolean areAllProductsPreUsed() {
         return true;
     }
 }
