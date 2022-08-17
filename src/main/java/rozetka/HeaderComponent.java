@@ -1,5 +1,7 @@
 package rozetka;
 
+import rozetka.modals.ShoppingCartModal;
+
 public class HeaderComponent {
 
     public boolean isAuthorizationButtonVisible() {
@@ -20,5 +22,13 @@ public class HeaderComponent {
 
     public boolean isContactUsButtonVisible() {
         return true;
+    }
+
+    public SearchResultsPage search(String product) {
+        return new SearchResultsPage();
+    }
+
+    public ShoppingCartModal openShoppingCartViaHeader() {
+        return new ShoppingCartModal();
     }
 }
