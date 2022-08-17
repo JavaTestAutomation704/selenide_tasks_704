@@ -35,6 +35,10 @@ public class ShoppingCartModal {
         return 0;
     }
 
+    public String getTitle(int product) {
+        return $x(String.format("(//a[@class='cart-product__title'])[%d]",product)).text();
+    }
+
     public int getPrice(int productNumber){
         return 0;
     }
