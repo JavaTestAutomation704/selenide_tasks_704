@@ -8,7 +8,7 @@ public class ResultsFilterComponent extends HeaderComponent {
 
     public SearchResultsPage toggleFilter(ProductFilter... type) {
         for (ProductFilter filter : type) {
-            $x(String.format("//a[@data-id = '%s']", filter)).click();
+            $x(String.format("//a[@data-id = '%s']", filter.getFilterXpath())).click();
         }
         return new SearchResultsPage();
     }

@@ -10,4 +10,8 @@ public enum ProductFilter {
     ProductFilter(String filterXpath) {
         this.filterXpath = filterXpath;
     }
+
+    public String getFilterXpath() {
+        return filterXpath;
+    }
 }
