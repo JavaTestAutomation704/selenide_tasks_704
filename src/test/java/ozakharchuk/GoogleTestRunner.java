@@ -15,7 +15,7 @@ public class GoogleTestRunner {
         Configuration.browser = "chrome";
         Configuration.browserCapabilities = new ChromeOptions()
                 .addArguments("--lang=en-GB");
-        Configuration.timeout = 10;
+        Configuration.timeout = 10000;
     }
 
     @BeforeMethod
