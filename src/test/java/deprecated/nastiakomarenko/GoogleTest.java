@@ -1,4 +1,4 @@
-package nastiakomarenko;
+package deprecated.nastiakomarenko;
 
 import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.Test;

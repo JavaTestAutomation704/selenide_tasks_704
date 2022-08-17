@@ -1,4 +1,4 @@
-package ozakharchuk;
+package deprecated.ozakharchuk;
 
 import org.testng.annotations.BeforeMethod;
 

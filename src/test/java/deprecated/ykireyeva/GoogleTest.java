@@ -1,4 +1,4 @@
-package ykireyeva;
+package deprecated.ykireyeva;
 
 import jdk.jfr.Description;
 import org.testng.annotations.Test;

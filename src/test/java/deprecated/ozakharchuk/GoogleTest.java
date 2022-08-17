@@ -1,4 +1,4 @@
-package ozakharchuk;
+package deprecated.ozakharchuk;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

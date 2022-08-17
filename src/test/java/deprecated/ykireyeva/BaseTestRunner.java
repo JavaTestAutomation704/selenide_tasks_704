@@ -1,4 +1,4 @@
-package ykireyeva;
+package deprecated.ykireyeva;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;

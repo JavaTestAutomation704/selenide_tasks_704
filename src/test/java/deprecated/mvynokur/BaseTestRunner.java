@@ -1,4 +1,4 @@
-package mvynokur;
+package deprecated.mvynokur;
 
 import org.testng.annotations.BeforeMethod;
 

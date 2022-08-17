@@ -1,4 +1,4 @@
-package mvynokur;
+package deprecated.mvynokur;
 
 import jdk.jfr.Description;
 import org.testng.Assert;

@@ -1,4 +1,4 @@
-package ytarasovych;
+package deprecated.ytarasovych;
 
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;

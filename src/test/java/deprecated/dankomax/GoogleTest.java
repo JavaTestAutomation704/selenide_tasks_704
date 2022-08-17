@@ -1,4 +1,4 @@
-package dankomax;
+package deprecated.dankomax;
 
 import static org.testng.Assert.*;
 
