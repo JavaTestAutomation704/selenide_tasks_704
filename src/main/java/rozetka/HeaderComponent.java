@@ -40,6 +40,10 @@ public class HeaderComponent {
         return isVisible("//a[contains(@class,'side-menu__button') and contains(@href,'t.me')]");
     }
 
+    public boolean isShoppingCartEmpty() {
+        return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]");
+    }
+
     public SearchResultsPage search(String product) {
         $(By.name("search")).val(product).pressEnter();
         return new SearchResultsPage();
