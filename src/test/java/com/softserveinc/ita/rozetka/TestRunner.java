@@ -1,4 +1,4 @@
-package rozetka;
+package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;

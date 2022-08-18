@@ -19,7 +19,9 @@ public class GoogleResultPage {
     }
 
     public String getText(int linkNumber) {
-        return $x(String.format("(//a//h3)[%s]", linkNumber)).text().toLowerCase();
+        return $x(String.format("(//a//h3)[%s]", linkNumber))
+                .text()
+                .toLowerCase();
     }
 
     public String getUrl(int linkNumber) {
