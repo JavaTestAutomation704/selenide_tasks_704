@@ -29,16 +29,16 @@ public class SearchResultsPage {
     }
 
     public SearchResultsPage openPage(int number) {
-        $x("//a[contains(@aria-label, 'Page " + number + "')]").click();
+        $x(String.format("//a[contains(@aria-label, 'Page %d')]", number)).click();
         return this;
     }
 
     public String getResultLinkAttributeValue(int number, String attributeName) {
-        return $x("(//a[descendant::h3])[" + number + "]").getAttribute(attributeName);
+        return $x(String.format("(//a[descendant::h3])[%d]", number)).getAttribute(attributeName);
     }
 
     public String getLinkText(int number) {
-        return $x("//a//h3[" + number + "]").getOwnText().toLowerCase();
+        return $x(String.format("//a//h3[%d]", number)).getOwnText().toLowerCase();
     }
 
     public boolean isLogoVisible() {

@@ -34,7 +34,7 @@ public class GoogleTest extends GoogleTestRunner {
     public void verifyFirstLinkNameFifthPage() {
         String linkName = searchResultsPage
                 .openPage(5)
-                .getLinkText(1)
+                .getDescriptionText(1)
                 .toLowerCase();
         Assert.assertTrue(linkName.contains(expectedText), "Link name does not contain word 'dog'!");
     }
@@ -50,7 +50,7 @@ public class GoogleTest extends GoogleTestRunner {
         SoftAssert softAssert = new SoftAssert();
         String linkName = homePage
                 .searchFor("funny kitten")
-                .getLinkText(1)
+                .getDescriptionText(1)
                 .toLowerCase();
         softAssert.assertFalse(linkName.contains(expectedText), "Link name contains word 'dog'!");
         softAssert.assertTrue(linkName.contains("kitten"), "Link name does not contain word 'kitten'!");
