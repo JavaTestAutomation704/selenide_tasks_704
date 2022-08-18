@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.components;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.isVisible;
 
 public class Header {
     public MobileMenu openMobileMenu() {
@@ -11,5 +12,9 @@ public class Header {
     public Header logInViaUserIcon() {
         $x("//rz-user").click();
         return this;
+    }
+
+    public boolean isLogInModalVisible() {
+        return isVisible("//rz-user-identification");
     }
 }
