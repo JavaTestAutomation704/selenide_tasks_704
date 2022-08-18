@@ -15,4 +15,16 @@ public class SearchResultsPage extends BasePage {
         $x(String.format(productXpath, productNumber)).click();
         return new ProductPage();
     }
+
+    public int getResultsAmount() {
+        return Integer.parseInt(
+                $x("//p[contains(@class, 'selection')]")
+                        .getText()
+                        .replaceAll("[^0-9]", ""));
+    }
+
+    public SearchResultsPage resetFilers() {
+        $x("//button[contains(@class, 'reset')]").click();
+        return this;
+    }
 }
