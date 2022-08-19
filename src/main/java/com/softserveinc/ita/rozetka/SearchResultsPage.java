@@ -5,7 +5,7 @@ import com.softserveinc.ita.rozetka.components.ResultsFilter;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultsPage extends BasePage {
-    String productXpath = "(//div[contains(@class, 'goods-tile ')])[%d]";
+    private String productXpath = "(//div[contains(@class, 'goods-tile ')])[%d]";
 
     public ResultsFilter getFilter() {
         return new ResultsFilter();
