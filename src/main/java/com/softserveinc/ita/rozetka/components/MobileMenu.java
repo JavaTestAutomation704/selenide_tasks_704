@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.modals.ChangeCity;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -8,8 +9,9 @@ import static com.codeborne.selenide.Selenide.$x;
 public class MobileMenu {
     // implement
     public String getCity() {
-        $x("//span[@class='city-toggle__text']").shouldBe(Condition.visible);
-        return $x("//span[@class='city-toggle__text']").text();
+        SelenideElement citySpan = $x("//span[@class='city-toggle__text']");
+        citySpan.shouldBe(Condition.visible);
+        return citySpan.text();
     }
 
     public Header changeCity(String city) {
