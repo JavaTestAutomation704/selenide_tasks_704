@@ -3,13 +3,14 @@ package com.softserveinc.ita.rozetka.components;
 import static utils.WebElementUtil.isVisible;
 
 public class MobileMenu {
+    private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
 
-    public boolean isAuthorizationButtonVisible() {
-        return isVisible("//button[contains(text(),'Вхід')]");
+    public boolean isLoginButtonVisible() {
+        return isVisible("(" + xpathAuthentication + ")[1]");
     }
 
     public boolean isRegistrationButtonVisible() {
-        return isVisible("//button[contains(text(),'Реєстрація')]");
+        return isVisible("(" + xpathAuthentication + ")[2]");
     }
 
     public boolean isLocationSelectionVisible() {

@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ShoppingCartModal {
 
-    public CheckoutPage makeOrder() {
+    public CheckoutPage startCheckout() {
         $x("//a[contains(@data-testid,'order')]").click();
         return new CheckoutPage();
     }
