@@ -1,7 +1,9 @@
 package com.softserveinc.ita.rozetka.modals;
 
 import com.softserveinc.ita.rozetka.CheckoutPage;
+import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ShoppingCartModal {
@@ -23,15 +25,17 @@ public class ShoppingCartModal {
     }
 
     public ShoppingCartModal increaseProductQuantity(){
+        $(By.xpath("//button[@data-testid='cart-counter-increment-button']")).click();
         return this;
     }
 
     public ShoppingCartModal decreaseProductQuantity(){
+        $(By.xpath("//button[@data-testid='cart-counter-decrement-button']")).click();
         return this;
     }
 
     public int getProductQuantity(){
-        return 0;
+        return Integer.parseInt($("//input[@data-testid='cart-counter-input']").text());
     }
 
     public String getTitle(int product) {
@@ -39,6 +43,6 @@ public class ShoppingCartModal {
     }
 
     public int getPrice(int productNumber){
-        return 0;
+        return Integer.parseInt($("//p[@data-testid='cost']").text());
     }
 }

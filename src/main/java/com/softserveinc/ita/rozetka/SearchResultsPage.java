@@ -1,9 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.ResultsFilter;
+import org.openqa.selenium.By;
 
 import java.util.ArrayList;
-import java.util.List;import static com.codeborne.selenide.Selenide.$x;
+import java.util.List;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultsPage extends BasePage {
     String productXpath = "(//div[contains(@class, 'goods-tile ')])[%d]";

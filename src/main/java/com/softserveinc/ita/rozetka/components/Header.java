@@ -63,6 +63,7 @@ public class Header {
     }
 
     public HomePage openHomePageViaLogo() {
+        $(By.xpath("//a[@class='header__logo']")).click();
         return new HomePage();
     }
 
