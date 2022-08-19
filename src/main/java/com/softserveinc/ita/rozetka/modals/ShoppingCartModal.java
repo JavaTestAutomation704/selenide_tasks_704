@@ -1,25 +1,21 @@
 package com.softserveinc.ita.rozetka.modals;
 
-import org.openqa.selenium.NoSuchElementException;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.isVisible;
 
 public class ShoppingCartModal {
     public boolean isShoppingCartEmpty() {
-        try {
-            return $x("//div[@data-testid='empty-cart']").isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+        return isVisible("//div[@data-testid='empty-cart']");
     }
 
     public ShoppingCartModal remove(int productNumber) {
-        $x("//button[@id='cartProductActions" + (productNumber - 1) + "']").click();
+        $x(String.format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
         $x("//button[contains(@class, 'context-menu-actions__button')]").click();
         return this;
     }
 
-    public ShoppingCartModal removeAllProduct(){
+    public ShoppingCartModal removeAllProducts() {
         $x("//div[@class='cart-header__remove']//button").click();
         $x("(//li[contains(@class,'popup-menu')])[1]//button").click();
         return this;

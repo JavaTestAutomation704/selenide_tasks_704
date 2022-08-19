@@ -12,7 +12,7 @@ public class TestRunner {
     @BeforeClass
     public void initializeBrowser() {
         Configuration.browser = "chrome";
-        Configuration.timeout = 1000;
+        Configuration.timeout = 10;
     }
 
     @BeforeMethod

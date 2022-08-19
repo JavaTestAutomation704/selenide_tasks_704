@@ -10,7 +10,7 @@ public class Header {
         return new MobileMenu();
     }
 
-    public ShoppingCartModal openShoppingCart(){
+    public ShoppingCartModal openShoppingCart() {
         $x("//rz-cart[@class='header-actions__component']/button").click();
         return new ShoppingCartModal();
     }
