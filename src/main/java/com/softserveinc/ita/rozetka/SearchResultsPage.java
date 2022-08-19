@@ -17,7 +17,7 @@ public class SearchResultsPage extends BasePage {
         return Long.parseLong($x(String.format("(//span[@class='goods-tile__price-value'])[%d]", product)).text());
     }
 
-    public SearchResultsPage sortDescByPrice() {
+    public SearchResultsPage sortDescendingByPrice() {
         $x("//rz-sort//select").click();
         $x("//rz-sort//select//option[contains(@value, 'expensive')]").click();
         return this;

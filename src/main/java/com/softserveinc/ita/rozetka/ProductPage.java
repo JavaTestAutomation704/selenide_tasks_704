@@ -9,12 +9,12 @@ public class ProductPage extends BasePage {
         return $x("//h1[@class='product__title']").text();
     }
 
-    public ShoppingCartModal buy() {
+    public ShoppingCartModal addToCart() {
         $x("//ul[@class='product-buttons']//button[contains(@class,'buy-button')]").click();
         return new ShoppingCartModal();
     }
 
-    public ProductCharacteristicsPage openCharacteristics() {
+    public ProductCharacteristicsPage openCharacteristicsPage() {
         $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").click();
         return new ProductCharacteristicsPage();
     }
