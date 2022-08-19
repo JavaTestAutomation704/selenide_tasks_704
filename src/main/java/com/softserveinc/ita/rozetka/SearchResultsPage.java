@@ -23,7 +23,7 @@ public class SearchResultsPage extends BasePage {
                         .replaceAll("[^0-9]", ""));
     }
 
-    public SearchResultsPage resetFilers() {
+    public SearchResultsPage resetFilters() {
         $x("//button[contains(@class, 'reset')]").click();
         return this;
     }
