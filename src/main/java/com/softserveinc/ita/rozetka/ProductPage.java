@@ -1,11 +1,9 @@
 package com.softserveinc.ita.rozetka;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import static com.codeborne.selenide.Selenide.$;
 
 public class ProductPage extends BasePage {
-
-    @FindBy(xpath = "//div[@class='product-prices__inner ng-star-inserted']")
-    private WebElement price;
-
+    public String getPrice() {
+        return $("//div[@class='product-prices__inner ng-star-inserted']").text();
+    }
 }

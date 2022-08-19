@@ -8,7 +8,7 @@ public class SearchResultsPage extends BasePage {
     public ResultsFilter getFilter() {
         return new ResultsFilter();
     }
-    public SearchResultsPage sortAscByPrice() {
+    public SearchResultsPage sortAscendingByPrice() {
         $x("//rz-sort//select").click();
         $x("//rz-sort//select//option[contains(@value, 'cheap')]").click();
         return this;
