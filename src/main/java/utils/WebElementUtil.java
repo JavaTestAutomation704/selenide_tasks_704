@@ -35,12 +35,4 @@ public class WebElementUtil {
         }
         return "";
     }
-
-    public static List<String> getTextList(int firstResultsAmount, String elementXpath) {
-        List<String> productData = new ArrayList<>();
-        for (int i= 0; i < firstResultsAmount; i++) {
-            productData.add(getText(String.format("(//span[contains(@class, 'goods-tile__title')])[%d]", i)));
-        }
-        return productData;
-    }
 }

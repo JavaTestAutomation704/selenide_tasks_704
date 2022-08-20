@@ -19,13 +19,17 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public List<String> getFirstProductTitles(int amount) {
-        return WebElementUtil.getTextList(amount,"//span[contains(@class, 'goods-tile__title')]");
-    }
-
     public List<String> getProductStatuses() {
         List<String> titles = new ArrayList<>();
         titles.add(WebElementUtil.getText("//div[contains(@class, 'goods-tile__availability')]"));
         return titles;
+    }
+
+    public List<String> getFirstProductTitles(int amount) {
+        List<String> productData = new ArrayList<>();
+        for (int i=0; i < amount; i++) {
+            productData.add(WebElementUtil.getText(String.format("(//span[contains(@class, 'goods-tile__title')])[%d]", i)));
+        }
+        return productData;
     }
 }
