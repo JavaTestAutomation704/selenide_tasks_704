@@ -1,6 +1,8 @@
 package utils;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
@@ -25,5 +27,20 @@ public class WebElementUtil {
         } catch (AssertionError e) {
             return 0;
         }
+    }
+
+    public static String getText(String elementXpath) {
+        if (isVisible(elementXpath)) {
+            return $x(elementXpath).text().toLowerCase();
+        }
+        return "";
+    }
+
+    public static List<String> getTextList(int firstResultsAmount, String elementXpath) {
+        List<String> productData = new ArrayList<>();
+        for (int i= 0; i < firstResultsAmount; i++) {
+            productData.add(getText(elementXpath));
+        }
+        return productData;
     }
 }

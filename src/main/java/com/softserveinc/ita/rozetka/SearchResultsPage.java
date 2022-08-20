@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.ResultsFilter;
+import utils.WebElementUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,13 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public List<String> getProductStatuses() {
-        List<String> productStatuses = new ArrayList<>();
-        productStatuses.add($x("//div[contains(@class, 'goods-tile__availability')]").text());
-        return productStatuses;
+    public List<String> getFirstProductTitles(int amount) {
+        return WebElementUtil.getTextList(amount,"//span[contains(@class, 'goods-tile__title')]");
     }
 
-    public List<String> getProductTitles() {
-        List<String> productTitles = new ArrayList<>();
-        productTitles.add($x("//span[contains(@class, 'goods-tile__title')]").text());
-        return productTitles;
+    public List<String> getProductStatuses() {
+        List<String> titles = new ArrayList<>();
+        titles.add(WebElementUtil.getText("//div[contains(@class, 'goods-tile__availability')]"));
+        return titles;
     }
 }
