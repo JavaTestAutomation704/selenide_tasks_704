@@ -12,9 +12,11 @@ public class Header {
     }
 
     public boolean isRegisterButtonVisible() {
-        return isVisible("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
+        return isVisible
+                ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
-    public CatalogModal openCatalog(){
+
+    public CatalogModal openCatalogButton(){
         $x("button button--medium button--with-icon menu__toggle ng-star-inserted").click();
         return new CatalogModal();}
 }
