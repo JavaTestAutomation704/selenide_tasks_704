@@ -1,5 +1,10 @@
 package com.softserveinc.ita.rozetka.modals;
 
+import static utils.WebElementUtil.isVisible;
+
 public class LogInModal {
-    // empty class for use
+
+    public boolean isLogInModalVisible() {
+        return isVisible("//rz-user-identification");
+    }
 }
