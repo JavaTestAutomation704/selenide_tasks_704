@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Categories {
+public enum Category {
 
     NOTEBOOKS_COMPUTERS("computers-notebooks"),
     PHONES_TV_ELECTRONICS("telefony-tv-i-ehlektronika"),
