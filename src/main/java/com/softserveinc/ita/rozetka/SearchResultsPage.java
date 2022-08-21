@@ -1,11 +1,14 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.ResultsFilter;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 
 import static com.codeborne.selenide.Selenide.$x;
 
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class SearchResultsPage extends BasePage {
-    private String productXpath = "(//div[contains(@class, 'goods-tile ')])[%d]";
+    String productXpath = "(//div[contains(@class, 'goods-tile ')])[%d]";
 
     public ResultsFilter getFilter() {
         return new ResultsFilter();
