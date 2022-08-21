@@ -14,21 +14,25 @@ public class SearchResultsPage extends BasePage {
         return new ResultsFilter();
     }
 
-    public SearchResultsPage addToCart(int number) {
-        $x(String.format("(//button[contains(@class, 'buy-button')])[%d]", number)).click();
+    public SearchResultsPage addToCart(int productNumber) {
+        $x(String.format("(//button[contains(@class, 'buy-button')])[%d]", productNumber)).click();
         return this;
     }
 
     public List<String> getProductStatuses() {
         List<String> titles = new ArrayList<>();
-        titles.add(WebElementUtil.getText("//div[contains(@class, 'goods-tile__availability')]"));
+        titles.add(WebElementUtil
+                .getText("//div[contains(@class, 'goods-tile__availability')]")
+                .toLowerCase());
         return titles;
     }
 
     public List<String> getFirstProductTitles(int amount) {
         List<String> productData = new ArrayList<>();
-        for (int i=0; i < amount; i++) {
-            productData.add(WebElementUtil.getText(String.format("(//span[contains(@class, 'goods-tile__title')])[%d]", i)));
+        for (int i = 0; i < amount; i++) {
+            productData.add(WebElementUtil
+                    .getText(String.format("(//span[contains(@class, 'goods-tile__title')])[%d]", i))
+                    .toLowerCase());
         }
         return productData;
     }

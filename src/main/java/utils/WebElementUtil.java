@@ -31,8 +31,8 @@ public class WebElementUtil {
 
     public static String getText(String elementXpath) {
         if (isVisible(elementXpath)) {
-            return $x(elementXpath).text().toLowerCase();
+            return $x(elementXpath).text();
         }
-        return "";
+        return null;
     }
 }

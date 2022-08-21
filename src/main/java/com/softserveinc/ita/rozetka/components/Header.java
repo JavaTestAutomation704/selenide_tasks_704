@@ -19,7 +19,7 @@ public class Header {
         return new SearchResultsPage();
     }
 
-    public ShoppingCartModal openShoppingCart() {
+    public ShoppingCartModal openShoppingCartModal() {
         $x("//button[@rzopencart='']").click();
         return new ShoppingCartModal();
     }

@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CategoryPage extends BasePage {
 
-    SearchResultsPage openSubcategory(Subcategories subcategory) {
+    public SearchResultsPage openSubcategoryPage(Subcategories subcategory) {
         $x(String.format("//a[contains(@class, 'tile-cats__heading') and contains(@href, '%s')]",
                 subcategory.getSubcategoryXpath())).click();
         return new SearchResultsPage();
