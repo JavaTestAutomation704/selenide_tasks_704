@@ -11,9 +11,9 @@ import static com.codeborne.selenide.Selenide.$x;
 
 @UtilityClass
 public class WebElementUtil {
-    private final Duration TIMEOUT = Duration.ofSeconds(5);
+    private static final Duration TIMEOUT = Duration.ofSeconds(5);
 
-    public boolean isVisible(String elementXpath) {
+    public static boolean isVisible(String elementXpath) {
         try {
             return $x(elementXpath).shouldBe(visible, TIMEOUT).isDisplayed();
         } catch (AssertionError e) {
@@ -21,7 +21,7 @@ public class WebElementUtil {
         }
     }
 
-    public int getCollectionSize(String elementsXpath) {
+    public static int getCollectionSize(String elementsXpath) {
         try {
             return $$x(elementsXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
         } catch (AssertionError e) {
