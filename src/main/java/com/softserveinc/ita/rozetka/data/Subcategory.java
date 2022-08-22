@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Subcategories {
+public enum Subcategory {
 
     NOTEBOOKS("/notebooks"),
     COMPUTERS_("/computers/"),

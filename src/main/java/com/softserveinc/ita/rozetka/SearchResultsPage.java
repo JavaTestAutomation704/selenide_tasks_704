@@ -19,7 +19,7 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public List<String> getProductStatuses() {
+    public List<String> getProductAvailability() {
         List<String> titles = new ArrayList<>();
         titles.add(WebElementUtil
                 .getText("//div[contains(@class, 'goods-tile__availability')]")
@@ -27,7 +27,7 @@ public class SearchResultsPage extends BasePage {
         return titles;
     }
 
-    public List<String> getFirstProductTitles(int amount) {
+    public List<String> getProductsTitles(int amount) {
         List<String> productData = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             productData.add(WebElementUtil

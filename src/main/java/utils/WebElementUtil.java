@@ -33,6 +33,6 @@ public class WebElementUtil {
         if (isVisible(elementXpath)) {
             return $x(elementXpath).text();
         }
-        return null;
+        return "";
     }
 }
