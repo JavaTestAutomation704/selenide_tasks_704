@@ -11,8 +11,8 @@ public class SearchResultsPage extends BasePage {
         return new ResultsFilter();
     }
 
-    public ProductPage open(int productNumber) {
-        $x(String.format(productXpath, productNumber)).click();
+    public ProductPage openProductPage(int number) {
+        $x(String.format(productXpath, number)).click();
         return new ProductPage();
     }
 
