@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.ResultsFilter;
+import com.softserveinc.ita.rozetka.data.ProductSort;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -9,17 +10,9 @@ public class SearchResultsPage extends BasePage {
         return new ResultsFilter();
     }
 
-    public String getTitle(int product) {
-        return $x(String.format("(//span[@class='goods-tile__title'])[%d]", product)).text();
-    }
-
-    public long getPrice(int product) {
-        return Long.parseLong($x(String.format("(//span[@class='goods-tile__price-value'])[%d]", product)).text());
-    }
-
-    public SearchResultsPage sortDescendingByPrice() {
+    public SearchResultsPage sortBy(ProductSort sort) {
         $x("//rz-sort//select").click();
-        $x("//rz-sort//select//option[contains(@value, 'expensive')]").click();
+        $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
         return this;
     }
 }

@@ -9,7 +9,7 @@ public class Header {
         return new MobileMenu();
     }
 
-    public boolean isCartIconContainsCounter() {
+    public boolean isShoppingCartCounterVisible() {
         return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]");
     }
 }
