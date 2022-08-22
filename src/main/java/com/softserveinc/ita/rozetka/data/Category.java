@@ -12,5 +12,6 @@ public enum Category {
     PHONES_TV_ELECTRONICS("telefony-tv-i-ehlektronika"),
     GAMER_PRODUCTS("game-zone");
 
-    @NonNull private final String categoryXpath;
+    @NonNull
+    private final String categoryXpath;
 }

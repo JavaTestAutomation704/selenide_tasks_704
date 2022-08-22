@@ -30,6 +30,7 @@ public class MobileMenu {
     public boolean isContactUsButtonVisible() {
         return isVisible("//a[contains(@class,'side-menu__button') and contains(@href,'t.me')]");
     }
+
     public String getCity() {
         SelenideElement citySpan = $x("//span[@class='city-toggle__text']").shouldBe(Condition.visible);
         return citySpan.text();

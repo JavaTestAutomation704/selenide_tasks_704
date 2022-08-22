@@ -14,5 +14,6 @@ public enum ProductFilter {
     ROZETKA_SELLER("Rozetka"),
     OTHER_SELLERS("Інші продавці");
 
-    @NonNull private final String filterXpath;
+    @NonNull
+    private final String filterXpath;
 }
