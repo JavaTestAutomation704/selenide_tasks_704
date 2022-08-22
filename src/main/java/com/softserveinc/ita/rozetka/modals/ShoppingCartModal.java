@@ -1,9 +1,13 @@
 package com.softserveinc.ita.rozetka.modals;
 
+import com.softserveinc.ita.rozetka.CheckoutPage;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ShoppingCartModal {
-    public String getTitle(int product) {
-        return $x(String.format("(//a[@class='cart-product__title'])[%d]",product)).text();
+
+    public CheckoutPage startCheckout() {
+        $x("//a[contains(@data-testid,'order')]").click();
+        return new CheckoutPage();
     }
 }
