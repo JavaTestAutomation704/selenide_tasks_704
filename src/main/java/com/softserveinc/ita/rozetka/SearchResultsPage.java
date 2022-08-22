@@ -18,7 +18,7 @@ public class SearchResultsPage extends BasePage {
         String productsStateXpath = "//span[contains(@class, 'promo-label_type_used')]";
         List<String> states = new ArrayList<>();
         for (int i = 0; i < getCollectionSize(productsStateXpath); i++) {
-            states.add(getText(String.format("([%s])[%s]", productsStateXpath, i)).toLowerCase());
+            states.add(getText(String.format("([%s])[%s]", productsStateXpath, i)));
         }
         return states;
     }
