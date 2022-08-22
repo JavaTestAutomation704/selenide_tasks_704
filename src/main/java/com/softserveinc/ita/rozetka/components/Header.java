@@ -16,7 +16,8 @@ public class Header {
                 ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
 
-    public CatalogModal openCatalogButton(){
+    public CatalogModal openCatalogModal(){
         $x("button button--medium button--with-icon menu__toggle ng-star-inserted").click();
-        return new CatalogModal();}
+        return new CatalogModal();
+    }
 }
