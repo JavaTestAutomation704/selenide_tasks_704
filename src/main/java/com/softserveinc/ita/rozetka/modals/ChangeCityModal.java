@@ -5,7 +5,7 @@ import com.softserveinc.ita.rozetka.components.Header;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ChangeCity {
+public class ChangeCityModal {
     public Header changeCity(String city) {
         SelenideElement inputCityField = $x("//input[contains(@class, 'autocomplete__input')]");
         inputCityField.clear();
