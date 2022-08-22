@@ -1,5 +1,10 @@
 package com.softserveinc.ita.rozetka.modals;
 
+import static utils.WebElementUtil.isVisible;
+
 public class CreditModal {
-    // empty class for use
+
+    public boolean isCreditModalVisible() {
+        return isVisible("//credit-modal");
+    }
 }
