@@ -1,13 +1,9 @@
 package com.softserveinc.ita.rozetka.components;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-
 import static utils.WebElementUtil.isVisible;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class MobileMenu {
-    String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
+    private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
 
     public boolean isLoginButtonVisible() {
         return isVisible("(" + xpathAuthentication + ")[1]");
