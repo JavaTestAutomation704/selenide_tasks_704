@@ -11,7 +11,6 @@ public class Header {
     }
 
     public LogInModal startLoggingIn() {
-        $x("//rz-user").click();
-        return new LogInModal();
+        return new LogInModal().open();
     }
 }
