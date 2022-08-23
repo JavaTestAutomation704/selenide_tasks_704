@@ -16,5 +16,6 @@ public enum ProductFilter {
     NEW("Новий"),
     PRE_USED("Б/в");
 
-    @NonNull private final String filterXpath;
+    @NonNull
+    private final String filterXpath;
 }
