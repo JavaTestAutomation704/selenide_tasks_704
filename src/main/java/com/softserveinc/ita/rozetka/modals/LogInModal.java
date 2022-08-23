@@ -10,7 +10,7 @@ public class LogInModal {
         return this;
     }
 
-    public boolean isLogInModalVisible() {
+    public boolean isOpen() {
         return isVisible("//rz-user-identification");
     }
 }

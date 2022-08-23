@@ -10,7 +10,7 @@ public class CreditModal {
         return this;
     }
 
-    public boolean isCreditModalVisible() {
+    public boolean isOpen() {
         return isVisible("//credit-modal");
     }
 }
