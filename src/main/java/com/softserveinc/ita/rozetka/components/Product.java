@@ -10,32 +10,32 @@ import static utils.WebElementUtil.isVisible;
 
 @RequiredArgsConstructor
 public class Product {
-    private final int id;
+    private final int productNumber;
     private String titleXpath = "(//span[@class='goods-tile__title'])[%d]";
 
     public String getTitle() {
-        return getText(String.format(titleXpath, id)).toLowerCase();
+        return getText(String.format(titleXpath, productNumber)).toLowerCase();
     }
 
     public long getPrice() {
-        return Long.parseLong(getText(String.format("(//span[@class='goods-tile__price-value'])[%d]", id)));
+        return Long.parseLong(getText(String.format("(//span[@class='goods-tile__price-value'])[%d]", productNumber)));
     }
 
-    public SearchResultsPage addToCartList() {
-        $x(String.format("(//button[contains(@class, 'buy-button')])[%d]", id)).click();
+    public SearchResultsPage addToShoppingCart() {
+        $x(String.format("(//button[contains(@class, 'buy-button')])[%d]", productNumber)).click();
         return new SearchResultsPage();
     }
 
     public ProductPage open() {
-        $x(String.format(titleXpath, id)).click();
+        $x(String.format(titleXpath, productNumber)).click();
         return new ProductPage();
     }
 
     public String getAvailability() {
-        return getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%d]", id));
+        return getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%d]", productNumber));
     }
 
     public boolean isUsed() {
-        return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%d]", id));
+        return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%d]", productNumber));
     }
 }

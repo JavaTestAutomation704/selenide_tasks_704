@@ -13,8 +13,8 @@ public class ShoppingCartModal {
         return new CheckoutPage();
     }
 
-    public CartItem getCartItem(int id) {
-        return new CartItem(id);
+    public CartItem get(int cartItemNumber) {
+        return new CartItem(cartItemNumber);
     }
 
     public long getTotalSum() {

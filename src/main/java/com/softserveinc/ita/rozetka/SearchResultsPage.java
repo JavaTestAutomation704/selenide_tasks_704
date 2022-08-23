@@ -8,7 +8,7 @@ public class SearchResultsPage extends BasePage {
         return new ResultsFilter();
     }
 
-    public Product getProduct(int id) {
-        return new Product(id);
+    public Product get(int productNumber) {
+        return new Product(productNumber);
     }
 }
