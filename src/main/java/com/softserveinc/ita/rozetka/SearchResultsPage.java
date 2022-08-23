@@ -19,9 +19,9 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public String getProductAvailability(int number) {
+    public String getAvailability(int productNumber) {
         return WebElementUtil
-                .getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%d]", number))
+                .getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%d]", productNumber))
                 .toLowerCase();
     }
 
