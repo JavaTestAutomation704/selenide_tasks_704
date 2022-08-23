@@ -7,7 +7,6 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
-
 public class WebElementUtil {
     private static final Duration TIMEOUT = Duration.ofSeconds(5);
 
@@ -25,5 +24,12 @@ public class WebElementUtil {
         } catch (AssertionError e) {
             return 0;
         }
+    }
+
+    public static String getText(String elementXpath) {
+        if (isVisible(elementXpath)) {
+            return $x(elementXpath).text();
+        }
+        return "";
     }
 }
