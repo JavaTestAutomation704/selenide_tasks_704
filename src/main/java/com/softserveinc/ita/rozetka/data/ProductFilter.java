@@ -12,7 +12,9 @@ public enum ProductFilter {
     OUT_OF_STOCK("Немає в наявності"),
     WHITE_COLOR("Білий"),
     ROZETKA_SELLER("Rozetka"),
-    OTHER_SELLERS("Інші продавці");
+    OTHER_SELLERS("Інші продавці"),
+    NEW("Новий"),
+    PRE_USED("Б/в");
 
     @NonNull private final String filterXpath;
 }
