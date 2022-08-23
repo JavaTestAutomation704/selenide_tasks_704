@@ -2,19 +2,35 @@ package com.softserveinc.ita.rozetka.MobileMenuTests;
 
 import com.softserveinc.ita.rozetka.TestRunner;
 import com.softserveinc.ita.rozetka.components.Header;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class ChangeCityTest extends TestRunner {
     @Test()
     public void changeCityTest() {
-        String expectedCity = "Одеса";
+        String expectedCityViaMobileMenu = "Одеса";
+        String expectedCityViaProductPage = "Дніпро";
         Header header = homePage
                 .getHeader()
                 .openMobileMenu()
-                .changeCity(expectedCity);
-        String actualCity = header.openMobileMenu().getCity();
-        Assert.assertEquals(actualCity, expectedCity);
-        // will be added one more assert after merge
+                .changeCity(expectedCityViaMobileMenu);
+
+        String actualCityViaMobileMenu = header
+                .openMobileMenu()
+                .getCity();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualCityViaMobileMenu, expectedCityViaMobileMenu);
+
+        String actualCityViaProductPage = header
+                .search("Планшети")
+                .openProductPage(1)
+                .changeCity(expectedCityViaProductPage)
+                .getHeader()
+                .openMobileMenu()
+                .getCity();
+
+        softAssert.assertEquals(actualCityViaProductPage, expectedCityViaProductPage);
+        softAssert.assertAll();
     }
 }
