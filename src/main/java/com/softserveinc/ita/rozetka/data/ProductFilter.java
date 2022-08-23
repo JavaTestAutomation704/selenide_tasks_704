@@ -1,5 +1,11 @@
 package com.softserveinc.ita.rozetka.data;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum ProductFilter {
 
     AVAILABLE("Є в наявності"),
@@ -10,13 +16,5 @@ public enum ProductFilter {
     NEW("Новий"),
     PRE_USED("Б/в");
 
-    private final String filterXpath;
-
-    ProductFilter(String filterXpath) {
-        this.filterXpath = filterXpath;
-    }
-
-    public String getFilterXpath() {
-        return filterXpath;
-    }
+    @NonNull private final String filterXpath;
 }
