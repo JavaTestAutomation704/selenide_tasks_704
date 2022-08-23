@@ -3,6 +3,8 @@ package utils;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
