@@ -1,8 +1,8 @@
 package com.softserveinc.ita.rozetka.components;
 
-import static com.codeborne.selenide.Selenide.$x;
-import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import com.softserveinc.ita.rozetka.HomePage;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.isVisible;
 
 public class Header {
@@ -11,13 +11,12 @@ public class Header {
         return new MobileMenu();
     }
 
-    public boolean isRegisterButtonVisible() {
-        return isVisible
-                ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
+    public boolean isShoppingCartCounterVisible() {
+        return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]");
     }
-
-    public CatalogModal openCatalogModal(){
-        $x("button button--medium button--with-icon menu__toggle ng-star-inserted").click();
-        return new CatalogModal();
+    
+    public HomePage openHomePageViaLogo() {
+        $x(("//a[@class='header__logo']")).click();
+        return new HomePage();
     }
 }
