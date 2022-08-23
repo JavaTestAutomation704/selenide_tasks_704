@@ -1,10 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import org.openqa.selenium.By;
-
-import static com.codeborne.selenide.Selenide.$;
 
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
@@ -18,6 +18,10 @@ public class Header {
     public MobileMenu openMobileMenu() {
         $x("//rz-mobile-user-menu/button").click();
         return new MobileMenu();
+    }
+
+    public LogInModal startLoggingIn() {
+        return new LogInModal().open();
     }
 
     public SearchResultsPage search(String product) {
