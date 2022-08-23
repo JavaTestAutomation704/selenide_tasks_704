@@ -29,7 +29,7 @@ public class Header {
         $x("//button[@rzopencart='']").click();
         return new ShoppingCartModal();
     }
-    
+
     public boolean isShoppingCartCounterVisible() {
         return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]");
     }
