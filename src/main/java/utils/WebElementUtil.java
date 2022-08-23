@@ -9,7 +9,6 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
-
 public class WebElementUtil {
     private static final Duration TIMEOUT = Duration.ofSeconds(5);
 
