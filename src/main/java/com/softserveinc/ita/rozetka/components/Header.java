@@ -1,8 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.modals.LogInModal;
+import com.softserveinc.ita.rozetka.HomePage;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.isVisible;
 
 public class Header {
     public MobileMenu openMobileMenu() {
@@ -12,5 +14,14 @@ public class Header {
 
     public LogInModal startLoggingIn() {
         return new LogInModal().open();
+    }
+
+    public boolean isShoppingCartCounterVisible() {
+        return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]");
+    }
+    
+    public HomePage openHomePageViaLogo() {
+        $x(("//a[@class='header__logo']")).click();
+        return new HomePage();
     }
 }
