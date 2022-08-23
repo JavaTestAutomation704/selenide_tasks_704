@@ -28,4 +28,11 @@ public class WebElementUtil {
             return 0;
         }
     }
+
+    public static String getText(String elementXpath) {
+        if (isVisible(elementXpath)) {
+            return $x(elementXpath).text();
+        }
+        return "";
+    }
 }
