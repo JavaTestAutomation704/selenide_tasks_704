@@ -19,12 +19,10 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public List<String> getProductAvailability() {
-        List<String> titles = new ArrayList<>();
-        titles.add(WebElementUtil
-                .getText("//div[contains(@class, 'goods-tile__availability')]")
-                .toLowerCase());
-        return titles;
+    public String getProductAvailability(int number) {
+        return WebElementUtil
+                .getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%d]", number))
+                .toLowerCase();
     }
 
     public List<String> getProductsTitles(int amount) {
