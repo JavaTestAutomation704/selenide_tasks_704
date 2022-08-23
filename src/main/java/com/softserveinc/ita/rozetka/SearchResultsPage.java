@@ -14,8 +14,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public ProductPage openProductPage(int number) {
-        $x(String.format(productXpath, number)).click();
-        return new ProductPage();
+        return new Product(number).open();
     }
 
     public int getResultsAmount() {
