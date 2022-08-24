@@ -6,7 +6,7 @@ import static utils.WebElementUtil.isVisible;
 public class CreditModal {
 
     public CreditModal open() {
-        $x("//app-product-credit").click();
+        $x("//rz-product-credit").click();
         return this;
     }
 
