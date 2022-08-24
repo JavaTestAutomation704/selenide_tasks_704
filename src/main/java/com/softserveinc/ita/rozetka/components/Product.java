@@ -11,10 +11,9 @@ import static utils.WebElementUtil.isVisible;
 @RequiredArgsConstructor
 public class Product {
     private final int productNumber;
-    private String titleXpath = "(//span[@class='goods-tile__title'])[%d]";
 
     public String getTitle() {
-        return getText(String.format(titleXpath, productNumber)).toLowerCase();
+        return getText(String.format("(//span[@class='goods-tile__title'])[%d]", productNumber)).toLowerCase();
     }
 
     public long getPrice() {
@@ -27,7 +26,7 @@ public class Product {
     }
 
     public ProductPage open() {
-        $x(String.format(titleXpath, productNumber)).click();
+        $x(String.format("(//a[contains(@class, 'goods-tile__picture')])[%d]", productNumber)).click();
         return new ProductPage();
     }
 

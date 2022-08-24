@@ -4,8 +4,10 @@ import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.isVisible;
 
 public class ProductPage extends BasePage {
+
     public String getTitle() {
         return $x("//h1[@class='product__title']").text();
     }
@@ -22,5 +24,9 @@ public class ProductPage extends BasePage {
     
     public CreditModal startPurchaseOnCredit() {
         return new CreditModal().open();
+    }
+
+    public boolean isBonusIconVisible() {
+        return isVisible("//div[contains(@class, 'bonuses__icons')]");
     }
 }
