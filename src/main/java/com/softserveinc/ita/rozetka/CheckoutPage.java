@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import static utils.WebElementUtil.getText;
 import static utils.WebElementUtil.isVisible;
 
 public class CheckoutPage extends BasePage {
@@ -17,6 +18,10 @@ public class CheckoutPage extends BasePage {
     }
 
     public boolean isOrderModalVisible() {
-        return isVisible("rz-checkout-order");
+        return isVisible("//rz-checkout-order");
+    }
+
+    public long getTotalSum() {
+        return Long.parseLong(getText("//dl[contains(@class, 'js-total')]/dd").replaceAll("\\D", ""));
     }
 }
