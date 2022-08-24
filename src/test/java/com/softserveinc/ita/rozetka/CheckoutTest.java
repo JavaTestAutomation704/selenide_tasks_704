@@ -11,11 +11,16 @@ public class CheckoutTest extends TestRunner {
 
     @Test
     public void VerifyCheckoutPageComponentsVisible() {
-        ShoppingCartModal shoppingCart = homePage
+        int[] productNumbers = {1, 5, 60};
+        SubcategoryPage subcategoryPage = homePage
                 .openCategoryPage(GAMER_PRODUCTS)
-                .openSubcategoryPage(MONITORS)
-                .get(1)
-                .addToShoppingCart()
+                .openSubcategoryPage(MONITORS);
+        for (int productNumber : productNumbers) {
+            subcategoryPage
+                    .get(productNumber)
+                    .addToShoppingCart();
+        }
+        ShoppingCartModal shoppingCart = subcategoryPage
                 .getHeader()
                 .openShoppingCartModal();
         long totalSum = shoppingCart.getTotalSum();
