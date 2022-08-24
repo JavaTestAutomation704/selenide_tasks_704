@@ -2,17 +2,29 @@ package com.softserveinc.ita.rozetka.modals;
 
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isVisible;
+import static utils.WebElementUtil.*;
 
+import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
-
-import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.getText;
+import com.softserveinc.ita.rozetka.components.Header;
 
 public class ShoppingCartModal {
     public boolean isShoppingCartEmpty() {
         return isVisible("//div[@data-testid='empty-cart']");
+    }
+
+    public ShoppingCartModal clear() {
+        for (SelenideElement item: waitCollection("//button[contains(@id, 'cartProductActions')]")) {
+            waitVisibility(item).click();
+            waitVisibility("//div[contains(@id, 'cartProductActions')]//button").click();
+        }
+        return this;
+    }
+
+    public Header close() {
+        $x("//button[contains(@class, 'modal__close')]").click();
+        return new Header();
     }
 
     public ShoppingCartModal remove(int productNumber) {
@@ -37,6 +49,6 @@ public class ShoppingCartModal {
     }
 
     public long getTotalSum() {
-        return Long.parseLong(getText("//div[contains(@class,'sum-price')]/span[1]"));
+        return getLong("//div[contains(@class,'sum-price')]");
     }
 }

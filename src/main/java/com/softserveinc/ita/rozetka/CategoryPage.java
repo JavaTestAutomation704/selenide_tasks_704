@@ -11,4 +11,10 @@ public class CategoryPage extends BasePage {
                 subcategory.getSubcategoryXpath())).click();
         return new SubcategoryPage();
     }
+
+    public SubcategoryPage openInnerSubcategoryPage(Subcategory subcategory) {
+        $x(String.format("//li[contains(@class, 'tile-cats')]//a[contains(@href, '%s')]",
+                subcategory.getSubcategoryXpath())).click();
+        return new SubcategoryPage();
+    }
 }

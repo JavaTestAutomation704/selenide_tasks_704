@@ -1,10 +1,11 @@
 package com.softserveinc.ita.rozetka;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.waitVisibility;
 
 public class ProductCharacteristicsPage extends BasePage {
     public String getTitle() {
-        return $x("//h1[@class='product__title']").text();
+        return waitVisibility("//h1[@class='product__title']").text().toLowerCase();
     }
 
     public boolean isCharacteristicsTabHighlighted() {

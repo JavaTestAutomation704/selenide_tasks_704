@@ -4,14 +4,12 @@ import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
-import org.openqa.selenium.By;
-
-import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isVisible;
+import static utils.WebElementUtil.*;
 
 public class Header {
 
@@ -31,6 +29,7 @@ public class Header {
 
     public ShoppingCartModal openShoppingCartModal() {
         $x("//button[@rzopencart='']").click();
+        waitVisibility("//div[contains(@class, 'modal__holder')]");
         return new ShoppingCartModal();
     }
 
@@ -47,7 +46,8 @@ public class Header {
                 ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
     public CatalogModal openCatalogModal(){
-        $("button button--medium button--with-icon menu__toggle ng-star-inserted").click();
+        $x("//button[@id='fat-menu']").click();
+        waitVisibility("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]");
         return new CatalogModal();
     }
 }
