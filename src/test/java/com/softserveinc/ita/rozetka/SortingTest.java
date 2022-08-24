@@ -31,7 +31,7 @@ public class SortingTest extends TestRunner{
            actualResult = true;
        }
 
-        Assert.assertEquals(actualResult, true,
+        Assert.assertEquals(actualResult,
                 "Ascending sort works incorrectly");
     }
 }
