@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.isVisible;
 
 public class SearchResultsPage extends BasePage {
     private final String productXpath = "(//div[contains(@class, 'goods-tile ')])[%d]";
@@ -53,7 +54,7 @@ public class SearchResultsPage extends BasePage {
         }
         return productData;
     }
-    
+
     public Product get(int productNumber) {
         return new Product(productNumber);
     }
@@ -62,5 +63,10 @@ public class SearchResultsPage extends BasePage {
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
         return this;
+    }
+
+    public boolean isOnSale(int productNumber) {
+        return isVisible(String.format("(//div[@class='goods-tile__inner'])[%s]//span[contains(@class, 'promo-label_type_popularity')]", productNumber))
+                || isVisible(String.format("(//div[@class='goods-tile__inner'])[%s]//span[contains(@class, 'promo-label_type_action')]", productNumber));
     }
 }
