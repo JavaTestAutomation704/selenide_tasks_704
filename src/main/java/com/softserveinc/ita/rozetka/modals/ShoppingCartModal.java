@@ -7,11 +7,10 @@ import static utils.WebElementUtil.isVisible;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
 
-import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.getText;
 
 public class ShoppingCartModal {
-    public boolean isShoppingCartEmpty() {
+    public boolean isEmpty() {
         return isVisible("//div[@data-testid='empty-cart']");
     }
 
