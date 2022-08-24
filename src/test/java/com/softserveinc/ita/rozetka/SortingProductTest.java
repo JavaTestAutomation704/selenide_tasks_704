@@ -5,21 +5,14 @@ import com.softserveinc.ita.rozetka.data.ProductSort;
 import com.softserveinc.ita.rozetka.data.Subcategory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
-
-public class SortingTest extends TestRunner{
+public class SortingProductTest extends TestRunner{
     @Test
     public void ascendingSortByPrice() {
         homePage
                 .openCategoryPage(Category.NOTEBOOKS_COMPUTERS)
                 .openSubcategoryPage(Subcategory.NOTEBOOKS)
-                 .sortBy(ProductSort.PRICE_ASCENDING)
-        ;
+                 .sortBy(ProductSort.PRICE_ASCENDING);
 
         SearchResultsPage searchResultsPage = new SearchResultsPage();
         long firstProductPrice = searchResultsPage.get(1).getPrice();
