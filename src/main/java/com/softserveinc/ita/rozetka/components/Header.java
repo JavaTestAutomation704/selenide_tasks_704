@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.modals.RegistrationModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import org.openqa.selenium.By;
 
@@ -42,10 +43,10 @@ public class Header {
         $x(("//a[@class='header__logo']")).click();
         return new HomePage();
     }
-    public boolean isRegisterButtonVisible() {
-        return isVisible
-                ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
+    public RegistrationModal startRegistrationModal(){
+        return new RegistrationModal().open();
     }
+
     public CatalogModal openCatalogModal(){
         $("button button--medium button--with-icon menu__toggle ng-star-inserted").click();
         return new CatalogModal();
