@@ -11,9 +11,7 @@ public enum LaptopsAndComputers implements ISubcategory {
 
     NOTEBOOKS("/notebooks"),
     COMPUTERS_("/computers/"),
-    MONITORS("monitors"),
-    ASUS("asus"),
-    REFRIGERATORS("refrigerators");
+    MONITORS("monitors");
 
     @NonNull
     private final String subcategoryXpath;
