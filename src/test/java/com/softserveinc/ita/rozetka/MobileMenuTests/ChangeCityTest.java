@@ -7,9 +7,8 @@ import org.testng.asserts.SoftAssert;
 
 public class ChangeCityTest extends TestRunner {
     @Test()
-    public void changeCityTest() {
+    public void verifyChangeCityTest() {
         String expectedCityViaMobileMenu = "Одеса";
-        String expectedCityViaProductPage = "Дніпро";
         Header header = homePage
                 .getHeader()
                 .openMobileMenu()
@@ -22,6 +21,7 @@ public class ChangeCityTest extends TestRunner {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualCityViaMobileMenu, expectedCityViaMobileMenu);
 
+        String expectedCityViaProductPage = "Дніпро";
         String actualCityViaProductPage = header
                 .search("Планшети")
                 .openProductPage(1)
