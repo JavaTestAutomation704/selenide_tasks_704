@@ -32,30 +32,9 @@ public class SearchResultsPage extends BasePage {
         $x("//button[contains(@class, 'reset')]").click();
         return this;
     }
-
-    public SearchResultsPage addToCart(int productNumber) {
-        $x(String.format("(//button[contains(@class, 'buy-button')])[%d]", productNumber)).click();
-        return this;
-    }
-
-    public String getAvailability(int productNumber) {
-        return WebElementUtil
-                .getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%d]", productNumber))
-                .toLowerCase();
-    }
-
-    public List<String> getProductsTitles(int amount) {
-        List<String> productData = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            productData.add(WebElementUtil
-                    .getText(String.format("(//span[contains(@class, 'goods-tile__title')])[%d]", i))
-                    .toLowerCase());
-        }
-        return productData;
-    }
     
-    public Product get(int productNumber) {
-        return new Product(productNumber);
+    public Product getProduct(int number) {
+        return new Product(number);
     }
 
     public SearchResultsPage sortBy(ProductSort sort) {
