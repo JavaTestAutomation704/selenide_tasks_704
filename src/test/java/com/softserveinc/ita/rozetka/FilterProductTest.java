@@ -10,11 +10,11 @@ import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 
-public class FilterProductTest extends TestRunner{
+public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyProductAvailabilityFilter() {
-        homePage
+        SearchResultsPage searchResultsPage = homePage
                 .openCategoryPage(Category.NOTEBOOKS_COMPUTERS)
                 .openSubcategoryPage(Subcategory.NOTEBOOKS)
                 .getFilter()
@@ -22,14 +22,15 @@ public class FilterProductTest extends TestRunner{
 
         List<String> productAvailability = new ArrayList<>();
         for (int i = 1; i <= 20; i++) {
-            productAvailability.add(new SearchResultsPage().get(i).getAvailability());
+            productAvailability.add(searchResultsPage.getProduct(i).getAvailability());
         }
 
         SoftAssert softAssert = new SoftAssert();
         productAvailability
-                .forEach(availability -> softAssert.assertTrue(availability.contains("Готовий до відправлення")
-                                || availability.contains("Є у наявності"),
-                        "Product is not available"));
+                .forEach(availability ->
+                        softAssert.assertTrue(availability.contains("Готовий до відправлення")
+                                        || availability.contains("Є в наявності"),
+                                "The product status is: " + availability));
         softAssert.assertAll();
     }
 }
