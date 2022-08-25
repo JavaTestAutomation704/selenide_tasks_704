@@ -10,17 +10,14 @@ public class SearchFunctionalityTest extends TestRunner {
 
     @Test
     public void verifySearchFunctionalityWorks() {
-        SearchResultsPage searchResultsPage = new SearchResultsPage();
-        homePage
+        SearchResultsPage searchResultsPage = homePage
                 .getHeader()
                 .search("starbucks");
 
         List<String> productTitles = new ArrayList<>();
-        productTitles.add(searchResultsPage.get(1).getTitle());
-        productTitles.add(searchResultsPage.get(5).getTitle());
-        productTitles.add(searchResultsPage.get(10).getTitle());
-        productTitles.add(searchResultsPage.get(20).getTitle());
-
+        for (int i = 1; i <= 20; i = i + 5) {
+            productTitles.add(searchResultsPage.getProduct(i).getTitle());
+        }
         SoftAssert softAssert = new SoftAssert();
         productTitles.forEach(productTitle -> softAssert.assertTrue(productTitle.contains("starbucks"),
                 "Product title doesn't contain 'starbucks'"));
