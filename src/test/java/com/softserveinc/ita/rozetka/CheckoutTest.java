@@ -5,12 +5,12 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static com.softserveinc.ita.rozetka.data.Category.GAMER_PRODUCTS;
-import static com.softserveinc.ita.rozetka.data.Subcategory.MONITORS;
+import static com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers.MONITORS;
 
 public class CheckoutTest extends TestRunner {
 
     @Test
-    public void verifyCheckoutPageComponentsVisible() {
+    public void verifyCheckoutPageComponents() {
         int[] numbers = {1, 5, 60};
         SubcategoryPage subcategoryPage = homePage
                 .openCategoryPage(GAMER_PRODUCTS)
