@@ -38,6 +38,7 @@ public class CartItem {
     }
 
     public long getTotalPrice() {
-        return Long.parseLong(getText(String.format("(//input[contains(@class, 'cart-counter')])[%d]", numberCartItem)));
+        String price = getText(String.format("(//p[contains(@class, 'cart-product__price')])[%d]", numberCartItem));
+        return Long.parseLong(price.replaceAll("[^0-9]", ""));
     }
 }
