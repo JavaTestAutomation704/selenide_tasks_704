@@ -7,6 +7,9 @@ import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.*;
@@ -29,25 +32,34 @@ public class Header {
 
     public ShoppingCartModal openShoppingCartModal() {
         $x("//button[@rzopencart='']").click();
-        waitVisibility("//div[contains(@class, 'modal__holder')]");
+        $x("//div[contains(@class, 'modal__holder')]").shouldBe(visible);
         return new ShoppingCartModal();
     }
 
     public boolean isShoppingCartCounterVisible() {
-        return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]");
+        try {
+            return $x("//button[@rzopencart='']//span[contains(@class, 'counter')]")
+                    .shouldBe(visible, Duration.ofSeconds(3))
+                    .isDisplayed();
+        } catch (AssertionError e) {
+            return false;
+        }
     }
-    
+
     public HomePage openHomePageViaLogo() {
         $x(("//a[@class='header__logo']")).click();
         return new HomePage();
     }
+
     public boolean isRegisterButtonVisible() {
         return isVisible
                 ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
-    public CatalogModal openCatalogModal(){
+
+    public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
-        waitVisibility("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]");
+        $x("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]")
+                .shouldBe(visible);
         return new CatalogModal();
     }
 }

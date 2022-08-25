@@ -1,6 +1,9 @@
 package com.softserveinc.ita.rozetka.modals;
 
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.*;
 
@@ -9,15 +12,21 @@ import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 
+import java.util.List;
+
 public class ShoppingCartModal {
     public boolean isShoppingCartEmpty() {
         return isVisible("//div[@data-testid='empty-cart']");
     }
 
     public ShoppingCartModal clear() {
-        for (SelenideElement item: waitCollection("//button[contains(@id, 'cartProductActions')]")) {
-            waitVisibility(item).click();
-            waitVisibility("//div[contains(@id, 'cartProductActions')]//button").click();
+        List<SelenideElement> cartItems = $$x("//button[contains(@id, 'cartProductActions')]")
+                .shouldBe(sizeGreaterThanOrEqual(1));
+        for (SelenideElement item: cartItems) {
+            item.shouldBe(visible).click();
+            $x("//div[contains(@id, 'cartProductActions')]//button")
+                    .shouldBe(visible)
+                    .click();
         }
         return this;
     }
