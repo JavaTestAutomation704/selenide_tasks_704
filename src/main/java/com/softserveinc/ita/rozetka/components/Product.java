@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.*;
 
@@ -37,6 +38,9 @@ public class Product {
 
     public ProductPage open() {
         $x(String.format(titleXpath, productNumber)).click();
+        $x("//h1[@class='product__title']")
+                .shouldBe(visible)
+                .hover();
         return new ProductPage();
     }
 
