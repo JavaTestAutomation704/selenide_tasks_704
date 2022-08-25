@@ -13,9 +13,4 @@ public enum HouseholdAppliances implements ISubcategory {
 
     @NonNull
     private final String subcategoryXpath;
-
-    @Override
-    public String getSubcategoryXpath() {
-        return subcategoryXpath;
-    }
 }
