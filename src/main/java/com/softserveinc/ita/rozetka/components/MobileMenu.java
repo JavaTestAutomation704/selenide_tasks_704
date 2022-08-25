@@ -2,33 +2,32 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 
 import static com.codeborne.selenide.Selenide.$x;
 
+import static utils.WebElementUtil.getText;
 import static utils.WebElementUtil.isVisible;
 
 public class MobileMenu {
     private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
 
-    public boolean isLoginButtonVisible() {
-        return isVisible("(" + xpathAuthentication + ")[1]");
+    public String getLoginText() {
+        return getText("(" + xpathAuthentication + ")[1]");
     }
 
-    public boolean isRegistrationButtonVisible() {
-        return isVisible("(" + xpathAuthentication + ")[2]");
+    public String getRegistrationText() {
+        return getText("(" + xpathAuthentication + ")[2]");
     }
 
-    public boolean isLocationSelectionVisible() {
-        return isVisible("//button[contains(@class,'city-toggle')]");
+    public String getHelpCenterText() {
+        return getText("//a[contains(@class,'side-menu__button') and contains(@href,'help.')]");
     }
 
-    public boolean isHelpCenterButtonVisible() {
-        return isVisible("//a[contains(@class,'side-menu__button') and contains(@href,'help.')]");
-    }
-
-    public boolean isContactUsButtonVisible() {
-        return isVisible("//a[contains(@class,'side-menu__button') and contains(@href,'t.me')]");
+    public String getContactUsText() {
+        return getText("//a[contains(@class,'side-menu__button') and contains(@href,'t.me')]");
     }
 
     public String getCity() {
@@ -39,5 +38,15 @@ public class MobileMenu {
     public Header changeCity(String city) {
         $x("//button[contains(@class, 'city-toggle')]").click();
         return new ChangeCityModal().changeCity(city);
+    }
+
+    public boolean isLanguageSelected(Language language) {
+        return isVisible(
+                String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
+    }
+
+    public Header changeLanguage() {
+        $x("(//li[contains(@class, 'lang__item')]/a)[2]").click();
+        return new Header();
     }
 }
