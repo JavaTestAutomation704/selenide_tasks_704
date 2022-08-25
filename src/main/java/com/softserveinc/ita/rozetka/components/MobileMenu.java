@@ -42,7 +42,7 @@ public class MobileMenu {
         return new ChangeCityModal().changeCity(city);
     }
 
-    public HomePage openHomePageViaLogo(){
+    public HomePage openHomePageViaLogo() {
         $x("//a[contains(@class, 'side-menu__logo')]").click();
         return new HomePage();
     }
