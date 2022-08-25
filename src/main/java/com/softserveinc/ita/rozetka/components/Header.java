@@ -7,8 +7,6 @@ import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import org.openqa.selenium.By;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -37,13 +35,7 @@ public class Header {
     }
 
     public boolean isShoppingCartCounterVisible() {
-        try {
-            return $x("//button[@rzopencart='']//span[contains(@class, 'counter')]")
-                    .shouldBe(visible, Duration.ofSeconds(3))
-                    .isDisplayed();
-        } catch (AssertionError e) {
-            return false;
-        }
+        return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]", 3);
     }
 
     public HomePage openHomePageViaLogo() {

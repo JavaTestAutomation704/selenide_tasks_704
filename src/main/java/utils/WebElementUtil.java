@@ -14,8 +14,12 @@ public class WebElementUtil {
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
 
     public static boolean isVisible(String elementXpath) {
+        return isVisible(elementXpath, TIMEOUT.getSeconds());
+    }
+
+    public static boolean isVisible(String elementXpath, long seconds) {
         try {
-            return $x(elementXpath).shouldBe(visible, TIMEOUT).isDisplayed();
+            return $x(elementXpath).shouldBe(visible, Duration.ofSeconds(seconds)).isDisplayed();
         } catch (AssertionError e) {
             return false;
         }
