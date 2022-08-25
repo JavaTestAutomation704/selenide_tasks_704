@@ -15,9 +15,4 @@ public enum LaptopsAndComputers implements ISubcategory {
 
     @NonNull
     private final String subcategoryXpath;
-
-    @Override
-    public String getSubcategoryXpath() {
-        return subcategoryXpath;
-    }
 }
