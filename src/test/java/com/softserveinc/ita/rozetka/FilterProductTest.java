@@ -1,25 +1,34 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.ResultsFilter;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static com.softserveinc.ita.rozetka.data.Category.NOTEBOOKS_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.Subcategory.NOTEBOOKS;
-import static org.testng.Assert.assertTrue;
-
 
 public class FilterProductTest extends TestRunner {
 
     @Test
     public void VerifyFilterByLoyaltyProgram() {
-        boolean isBonusIconVisible = homePage
+        int[] numbers = {1, 5, 9};
+        ResultsFilter resultsFilter = homePage
                 .openCategoryPage(NOTEBOOKS_COMPUTERS)
                 .openSubcategoryPage(NOTEBOOKS)
-                .getFilter()
-                .filter(WITH_BONUS)
-                .get(5)
-                .open()
-                .isBonusIconVisible();
-        assertTrue(isBonusIconVisible);
+                .getFilter();
+        resultsFilter.filter(AVAILABLE);
+        SearchResultsPage searchResultsPage = resultsFilter.filter(WITH_BONUS);
+        SoftAssert softAssert = new SoftAssert();
+        for (int number : numbers) {
+            ProductPage productPage = searchResultsPage
+                    .getProduct(number)
+                    .open();
+            softAssert.assertTrue(productPage.isBonusIconVisible());
+            softAssert.assertTrue(productPage.getBonusText().contains("бонус"));
+            productPage.back();
+        }
+        softAssert.assertAll();
     }
 }
