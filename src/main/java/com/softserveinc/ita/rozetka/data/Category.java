@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Category {
 
-    NOTEBOOKS_COMPUTERS("computers-notebooks"),
+    LAPTOPS_AND_COMPUTERS("computers-notebooks"),
     PHONES_TV_ELECTRONICS("telefony-tv-i-ehlektronika"),
     GAMER_PRODUCTS("game-zone"),
     HOUSEHOLD_APPLIANCES("bt");
