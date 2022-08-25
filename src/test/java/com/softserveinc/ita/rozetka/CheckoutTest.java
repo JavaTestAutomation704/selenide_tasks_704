@@ -11,13 +11,13 @@ public class CheckoutTest extends TestRunner {
 
     @Test
     public void verifyCheckoutPageComponentsVisible() {
-        int[] productNumbers = {1, 5, 60};
+        int[] numbers = {1, 5, 60};
         SubcategoryPage subcategoryPage = homePage
                 .openCategoryPage(GAMER_PRODUCTS)
                 .openSubcategoryPage(MONITORS);
-        for (int productNumber : productNumbers) {
+        for (int number : numbers) {
             subcategoryPage
-                    .get(productNumber)
+                    .getProduct(number)
                     .addToShoppingCart();
         }
         ShoppingCartModal shoppingCart = subcategoryPage
