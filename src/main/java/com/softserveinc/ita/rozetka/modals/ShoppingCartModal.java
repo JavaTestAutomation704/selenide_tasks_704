@@ -20,10 +20,8 @@ public class ShoppingCartModal {
         return this;
     }
 
-    public ShoppingCartModal removeAllProducts() {
-        $x("//div[@class='cart-header__remove']//button").click();
-        $x("(//li[contains(@class,'popup-menu')])[1]//button").click();
-        return this;
+    public boolean isRemoveAllProductsButtonVisible() {
+        return isVisible("//div[@class='cart-header__remove']//button");
     }
 
     public CheckoutPage startCheckout() {
