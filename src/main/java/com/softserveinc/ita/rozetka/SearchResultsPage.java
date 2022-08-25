@@ -33,8 +33,8 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
     
-    public Product get(int productNumber) {
-        return new Product(productNumber);
+    public Product getProduct(int number) {
+        return new Product(number);
     }
 
     public SearchResultsPage sortBy(ProductSort sort) {
