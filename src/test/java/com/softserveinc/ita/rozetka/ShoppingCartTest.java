@@ -17,14 +17,14 @@ public class ShoppingCartTest extends TestRunner {
         Assert.assertFalse(isShoppingCartEmpty);
 
         SearchResultsPage searchResultsPage = new SearchResultsPage();
-        long firstProductPrice = searchResultsPage.get(1).getPrice();
-        long secondProductPrice = searchResultsPage.get(2).getPrice();
+        long firstProductPrice = searchResultsPage.getProduct(1).getPrice();
+        long secondProductPrice = searchResultsPage.getProduct(2).getPrice();
         long actualTotalSum = firstProductPrice + secondProductPrice;
 
         searchResultsPage
-                .get(1)
+                .getProduct(1)
                 .addToShoppingCart()
-                .get(2)
+                .getProduct(2)
                 .addToShoppingCart();
 
         long expectedTotalSum = homePage

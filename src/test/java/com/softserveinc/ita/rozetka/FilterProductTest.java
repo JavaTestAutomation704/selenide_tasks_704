@@ -24,7 +24,7 @@ public class FilterProductTest extends TestRunner {
                 .openSubcategoryPage(NOTEBOOKS)
                 .getFilter()
                 .filter(WITH_BONUS)
-                .get(5)
+                .getProduct(5)
                 .open()
                 .isBonusIconVisible();
         assertTrue(isBonusIconVisible);
@@ -40,7 +40,7 @@ public class FilterProductTest extends TestRunner {
 
         List<String> productAvailability = new ArrayList<>();
         for (int i = 1; i <= 20; i++) {
-            productAvailability.add(new SearchResultsPage().get(i).getAvailability());
+            productAvailability.add(new SearchResultsPage().getProduct(i).getAvailability());
         }
 
         SoftAssert softAssert = new SoftAssert();

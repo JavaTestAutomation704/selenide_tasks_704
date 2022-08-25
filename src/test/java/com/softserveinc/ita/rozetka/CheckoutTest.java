@@ -17,7 +17,7 @@ public class CheckoutTest extends TestRunner {
                 .openSubcategoryPage(MONITORS);
         for (int productNumber : productNumbers) {
             subcategoryPage
-                    .get(productNumber)
+                    .getProduct(productNumber)
                     .addToShoppingCart();
         }
         ShoppingCartModal shoppingCart = subcategoryPage
