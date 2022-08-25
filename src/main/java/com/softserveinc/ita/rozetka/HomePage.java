@@ -26,4 +26,9 @@ public class HomePage extends BasePage {
         $x(String.format("//div[@class = 'fat-wrap']//a[contains(@href, '%s')]", category.getCategoryXpath())).click();
         return new CategoryPage();
     }
+
+    public HomePage closeSmallCartSection(){
+        $x("//button[contains(@class, 'main-notification__close')]").click();
+        return this;
+    }
 }
