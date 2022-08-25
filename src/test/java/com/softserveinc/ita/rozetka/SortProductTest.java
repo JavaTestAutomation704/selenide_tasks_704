@@ -2,7 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductSort;
-import com.softserveinc.ita.rozetka.data.Subcategory;
+import com.softserveinc.ita.rozetka.data.subcategory.modal.LaptopsAndComputers;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -10,13 +10,12 @@ import static org.testng.Assert.*;
 public class SortProductTest extends TestRunner {
     @Test
     public void verifyUserCanSortProductsInDescendingOrderByPriceTest() {
-        Subcategory subcategory = Subcategory.ASUS;
         String subcategoryName = "asus";
 
         SubcategoryPage products = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(Category.NOTEBOOKS_COMPUTERS, subcategory);
+                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputers.ASUS);
 
         String firstProductTitle = products.getProduct(1).getTitle();
         String lastProductTitle = products.getProduct("last").getTitle();

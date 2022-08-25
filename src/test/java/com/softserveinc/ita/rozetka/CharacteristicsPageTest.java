@@ -2,7 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.Subcategory;
+import com.softserveinc.ita.rozetka.data.subcategory.page.HouseholdAppliances;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -11,7 +11,7 @@ public class CharacteristicsPageTest extends TestRunner {
     public void verifyUserCanOpenCharacteristicsPageTest() {
         Product product = homePage
                 .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
-                .openSubcategoryPage(Subcategory.REFRIGERATORS)
+                .openSubcategoryPage(HouseholdAppliances.REFRIGERATORS)
                 .getProduct("last");
         String productTitle = product.getTitle();
 
