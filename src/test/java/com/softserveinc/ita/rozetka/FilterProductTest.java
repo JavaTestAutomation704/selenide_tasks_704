@@ -16,16 +16,16 @@ public class FilterProductTest extends TestRunner {
 
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertTrue(searchResultsPage.get(1).isOnSale());
-        softAssert.assertTrue(searchResultsPage.get(59).isOnSale());
+        softAssert.assertTrue(searchResultsPage.getProduct(1).isOnSale());
+        softAssert.assertTrue(searchResultsPage.getProduct(59).isOnSale());
 
         searchResultsPage = searchResultsPage
                 .sortBy(ProductSort.RATING)
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
-        softAssert.assertTrue(searchResultsPage.get(2).isOnSale());
-        softAssert.assertTrue(searchResultsPage.get(60).isOnSale());
+        softAssert.assertTrue(searchResultsPage.getProduct(2).isOnSale());
+        softAssert.assertTrue(searchResultsPage.getProduct(60).isOnSale());
 
         softAssert.assertAll();
     }
