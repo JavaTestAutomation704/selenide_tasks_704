@@ -10,7 +10,8 @@ public enum Category {
 
     NOTEBOOKS_COMPUTERS("computers-notebooks"),
     PHONES_TV_ELECTRONICS("telefony-tv-i-ehlektronika"),
-    GAMER_PRODUCTS("game-zone");
+    GAMER_PRODUCTS("game-zone"),
+    HOUSEHOLD_APPLIANCES("bt");
 
     @NonNull
     private final String categoryXpath;

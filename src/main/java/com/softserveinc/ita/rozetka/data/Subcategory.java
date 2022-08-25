@@ -10,7 +10,9 @@ public enum Subcategory {
 
     NOTEBOOKS("/notebooks"),
     COMPUTERS_("/computers/"),
-    MONITORS("monitors");
+    MONITORS("monitors"),
+    ASUS("asus"),
+    REFRIGERATORS("refrigerators");
 
     @NonNull
     private final String subcategoryXpath;

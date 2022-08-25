@@ -1,5 +1,19 @@
 package com.softserveinc.ita.rozetka.modals;
-import static com.codeborne.selenide.Selenide.$;
+
+import com.softserveinc.ita.rozetka.SubcategoryPage;
+import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.Subcategory;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class CatalogModal {
+    public SubcategoryPage openSubcategory(Category category, Subcategory subcategory) {
+        String categoryXpath = String.format("//a[contains(@href, %s)]/ancestor::li[contains(@class, 'menu-categories__item')]", category.getCategoryXpath());
+        $x(categoryXpath).hover();
+        $x(String.format("%s//div[@class='menu__main-cats-inner']//a[contains(@href, '%s')]", categoryXpath, subcategory.getSubcategoryXpath()))
+                .shouldBe(visible)
+                .click();
+        return new SubcategoryPage();
+    }
 }
