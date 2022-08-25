@@ -38,4 +38,9 @@ public class Product {
     public boolean isUsed() {
         return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%d]", productNumber));
     }
+
+    public boolean isOnSale() {
+        return isVisible(String.format("(//div[@class='goods-tile__inner'])[%s]//span[contains(@class, 'promo-label_type_popularity')]", productNumber))
+                || isVisible(String.format("(//div[@class='goods-tile__inner'])[%s]//span[contains(@class, 'promo-label_type_action')]", productNumber));
+    }
 }

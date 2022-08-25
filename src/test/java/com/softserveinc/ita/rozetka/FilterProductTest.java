@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import org.testng.annotations.Test;
@@ -7,27 +8,24 @@ import org.testng.asserts.SoftAssert;
 
 public class FilterProductTest extends TestRunner {
     @Test
-    public void saleSortTest() {
-        String searchItem = "laptop";
-        SearchResultsPage searchResultsPage = homePage
-                .getHeader()
-                .search(searchItem)
+    public void verifySaleSortTest() {
+        Header header = homePage.getHeader();
+        SearchResultsPage searchResultsPage = header
+                .search("laptop")
                 .sortBy(ProductSort.PROMOTION);
+
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertTrue(searchResultsPage.isOnSale(1));
-        softAssert.assertTrue(searchResultsPage.isOnSale(15));
-        softAssert.assertTrue(searchResultsPage.isOnSale(60));
+        softAssert.assertTrue(searchResultsPage.get(1).isOnSale());
+        softAssert.assertTrue(searchResultsPage.get(59).isOnSale());
 
         searchResultsPage = searchResultsPage
-                .getHeader()
-                .search(searchItem)
+                .sortBy(ProductSort.RATING)
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
-        softAssert.assertTrue(searchResultsPage.isOnSale(2));
-        softAssert.assertTrue(searchResultsPage.isOnSale(15));
-        softAssert.assertTrue(searchResultsPage.isOnSale(58));
+        softAssert.assertTrue(searchResultsPage.get(2).isOnSale());
+        softAssert.assertTrue(searchResultsPage.get(60).isOnSale());
 
         softAssert.assertAll();
     }
