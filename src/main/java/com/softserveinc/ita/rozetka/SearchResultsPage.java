@@ -3,13 +3,8 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.components.ResultsFilter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
-import utils.WebElementUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isVisible;
 
 
 public class SearchResultsPage extends BasePage {
