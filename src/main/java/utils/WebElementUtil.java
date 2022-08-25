@@ -1,10 +1,9 @@
 package utils;
 
+import com.codeborne.selenide.Condition;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
@@ -36,5 +35,15 @@ public class WebElementUtil {
             return $x(elementXpath).text();
         }
         return "";
+    }
+
+    public static String getBorderColor(String elementXpath, String color) {
+        try {
+            return $x(elementXpath)
+                    .shouldHave(Condition.cssValue("border-color", color))
+                    .getCssValue("border-color");
+        } catch (AssertionError e) {
+            return "";
+        }
     }
 }
