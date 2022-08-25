@@ -10,7 +10,7 @@ import static com.softserveinc.ita.rozetka.data.Subcategory.MONITORS;
 public class CheckoutTest extends TestRunner {
 
     @Test
-    public void VerifyCheckoutPageComponentsVisible() {
+    public void verifyCheckoutPageComponentsVisible() {
         int[] productNumbers = {1, 5, 60};
         SubcategoryPage subcategoryPage = homePage
                 .openCategoryPage(GAMER_PRODUCTS)
