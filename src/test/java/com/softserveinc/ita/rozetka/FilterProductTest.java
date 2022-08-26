@@ -1,10 +1,15 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.util.List;
+
+import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 
 public class FilterProductTest extends TestRunner {
     @Test
@@ -29,8 +34,9 @@ public class FilterProductTest extends TestRunner {
         softAssert.assertTrue(searchResultsPage.getProduct(2).isOnSale());
         softAssert.assertTrue(searchResultsPage.getProduct(40).isOnSale());
         softAssert.assertTrue(searchResultsPage.getProduct(60).isOnSale());
-    }
 
+        softAssert.assertAll();
+    }
 
 
     @Test
