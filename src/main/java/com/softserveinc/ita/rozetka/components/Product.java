@@ -9,36 +9,36 @@ import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.*;
 
 public class Product {
-    private final String productNumber;
-    private final String titleXpath = "(//span[@class='goods-tile__title'])[%d]";
+    private final String productXpath;
+    private final String titleXpath = "//span[@class='goods-tile__title']";
 
     public Product(int productNumber) {
-        this.productNumber = Integer.toString(productNumber);
+        this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
     }
 
-    public Product(String product) {
-        if (product.equals("last")) {
-            this.productNumber = "last()";
+    public Product(String productNumber) {
+        if (productNumber.equals("last")) {
+            this.productXpath = "(//rz-catalog-tile)[last()]";
         } else {
-            this.productNumber = product;
+            this.productXpath = String.format("(//rz-catalog-tile)[%s]", productNumber);
         }
     }
 
     public String getTitle() {
-        return getText(String.format(titleXpath, productNumber)).toLowerCase();
+        return getText(productXpath + titleXpath).toLowerCase();
     }
 
     public long getPrice() {
-        return getLong(String.format("(//span[@class='goods-tile__price-value'])[%s]", productNumber));
+        return getLong(productXpath + "//span[@class='goods-tile__price-value']");
     }
 
     public SearchResultsPage addToShoppingCart() {
-        $x(String.format("(//button[contains(@class, 'buy-button')])[%s]", productNumber)).click();
+        $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
         return new SearchResultsPage();
     }
 
     public ProductPage open() {
-        $x(String.format(titleXpath, productNumber)).click();
+        $x(productXpath + titleXpath).click();
         $x("//h1[@class='product__title']")
                 .shouldBe(visible)
                 .hover();
@@ -46,11 +46,11 @@ public class Product {
     }
 
     public boolean isUsed() {
-        return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%s]", productNumber));
+        return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_used')]");
     }
 
     public Availability getAvailability() {
-        String availability = getText(String.format("(//rz-catalog-tile)[%s]//div[contains(@class, 'availability')]", productNumber));
+        String availability = getText(productXpath + "//div[contains(@class, 'availability')]");
         return Availability.getByValue(availability);
     }
 
