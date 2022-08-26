@@ -9,7 +9,7 @@ import static utils.WebElementUtil.isVisible;
 public class CreditModal {
 
     public CreditModal open() {
-        $x("//rz-product-credit").click();
+        $x("//rz-product-credit").hover().click();
         return this;
     }
 
@@ -17,12 +17,12 @@ public class CreditModal {
         return isVisible("//credit-modal");
     }
 
-    public CreditPage readDetailedInfo() {
+    public CreditPage openCreditPage() {
         $x("//a[contains(@class, 'caption-link')]").click();
         return new CreditPage();
     }
 
-    public CheckoutPage chooseCreditVariant(int number) {
+    public CheckoutPage selectCreditVariant(int number) {
         $x(String.format("(//rz-credit-variant//div//button)[%d]", number)).click();
         return new CheckoutPage();
     }
