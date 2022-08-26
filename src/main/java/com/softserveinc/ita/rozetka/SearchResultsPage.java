@@ -6,6 +6,8 @@ import com.softserveinc.ita.rozetka.data.ProductSort;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.getCollectionSize;
+
 import static utils.WebElementUtil.*;
 
 public class SearchResultsPage extends BasePage {
@@ -47,7 +49,7 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public int getProductsAmount(){
-        return getCollectionSize("//ul[contains(@class,'catalog-grid')]/li");
+    public int getProductsSize(){
+        return getCollectionSize("//div[contains(@class, 'goods-tile ')]");
     }
 }
