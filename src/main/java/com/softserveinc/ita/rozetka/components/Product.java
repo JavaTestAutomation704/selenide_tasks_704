@@ -11,7 +11,7 @@ import static utils.WebElementUtil.isVisible;
 @RequiredArgsConstructor
 public class Product {
     private final int productNumber;
-    private String titleXpath = "(//span[@class='goods-tile__title'])[%d]";
+    private final String titleXpath = "(//span[@class='goods-tile__title'])[%d]";
 
     public String getTitle() {
         return getText(String.format(titleXpath, productNumber)).toLowerCase();
