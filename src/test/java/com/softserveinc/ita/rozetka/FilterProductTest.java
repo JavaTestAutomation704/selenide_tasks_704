@@ -32,7 +32,7 @@ public class FilterProductTest extends TestRunner {
         statuses.add(Availability.RUNNING_OUT_OF_STOCK);
         SoftAssertions softly = new SoftAssertions();
 
-        for (int i = 1; i <= Math.min(searchResultsPage.getProductAmount(), 20); i++) {
+        for (int i = 1; i <= Math.min(searchResultsPage.getProductsSize(), 20); i++) {
             Availability actualAvailability = searchResultsPage
                     .getProduct(i)
                     .getAvailability();

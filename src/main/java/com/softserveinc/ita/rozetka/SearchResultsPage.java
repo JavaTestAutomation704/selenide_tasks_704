@@ -28,10 +28,6 @@ public class SearchResultsPage extends BasePage {
                         .replaceAll("[^0-9]", ""));
     }
 
-    public int getProductAmount() {
-        return getCollectionSize("(//rz-catalog-tile)");
-    }
-
     public SearchResultsPage resetFilters() {
         $x("//button[contains(@class, 'reset')]").click();
         return this;
@@ -54,7 +50,7 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public int getProductsSize(){
+    public int getProductsSize() {
         return getCollectionSize("//div[contains(@class, 'goods-tile ')]");
     }
 }
