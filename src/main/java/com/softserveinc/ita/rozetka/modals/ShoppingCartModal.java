@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka.modals;
 
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.*;
@@ -25,10 +24,8 @@ public class ShoppingCartModal {
             List<SelenideElement> cartItems = $$x(cartItemActionButtonXpath)
                     .shouldBe(sizeGreaterThanOrEqual(1));
             for (SelenideElement item : cartItems) {
-                item.shouldBe(visible).click();
-                $x("//div[contains(@id, 'cartProductActions')]//button")
-                        .shouldBe(visible)
-                        .click();
+                item.click();
+                $x("//div[contains(@id, 'cartProductActions')]//button").click();
             }
         }
         return this;
