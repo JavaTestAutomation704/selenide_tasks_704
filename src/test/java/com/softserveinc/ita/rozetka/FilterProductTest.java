@@ -25,7 +25,8 @@ public class FilterProductTest extends TestRunner {
         resultsFilter.filter(AVAILABLE);
         SearchResultsPage searchResultsPage = resultsFilter.filter(WITH_BONUS);
         int productsAmount = 9;
-        Assert.assertTrue(productsAmount <= searchResultsPage.getProductsAmount());
+
+        Assert.assertTrue(productsAmount <= searchResultsPage.getProductsSize());
 
         for (int i = 1; i < productsAmount; i += 2) {
             ProductPage productPage = searchResultsPage
