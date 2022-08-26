@@ -17,6 +17,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public boolean isOrderModalVisible() {
-        return isVisible("rz-checkout-order");
+        return isVisible("//rz-checkout-order");
     }
 }
