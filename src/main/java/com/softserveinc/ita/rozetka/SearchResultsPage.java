@@ -46,4 +46,8 @@ public class SearchResultsPage extends BasePage {
         $x(firstResultXpath).shouldNotHave(text(firstResultText));
         return this;
     }
+
+    public int getProductsAmount(){
+        return getCollectionSize("//ul[contains(@class,'catalog-grid')]/li");
+    }
 }
