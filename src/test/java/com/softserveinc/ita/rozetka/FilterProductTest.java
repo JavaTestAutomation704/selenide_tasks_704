@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.ResultsFilter;
+import com.softserveinc.ita.rozetka.components.Filter;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -18,14 +18,14 @@ public class FilterProductTest extends TestRunner {
 
         int resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 
-        ResultsFilter resultsFilter = searchResultsPage.getFilter();
+        Filter filter = searchResultsPage.getFilter();
 
-        int resultsAmountAfterFilters = resultsFilter
+        int resultsAmountAfterFilters = filter
                 .filter(List.of(WHITE_COLOR, ROZETKA_SELLER, AVAILABLE))
                 .getResultsAmount();
 
         searchResultsPage.resetFilters();
-        resultsFilter.filter(MICROSOFT_BRAND);
+        filter.filter(MICROSOFT_BRAND);
 
         int resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 

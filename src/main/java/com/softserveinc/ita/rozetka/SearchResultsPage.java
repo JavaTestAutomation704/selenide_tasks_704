@@ -1,15 +1,15 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Product;
-import com.softserveinc.ita.rozetka.components.ResultsFilter;
+import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultsPage extends BasePage {
 
-    public ResultsFilter getFilter() {
-        return new ResultsFilter();
+    public Filter getFilter() {
+        return new Filter();
     }
 
     public ProductPage openProductPage(int number) {
