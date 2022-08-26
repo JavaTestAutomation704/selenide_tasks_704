@@ -3,36 +3,57 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.MobileMenu;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import static com.softserveinc.ita.rozetka.data.Language.RU;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
+import static org.assertj.core.api.Assertions.*;
 
 public class MobileMenuTest extends TestRunner {
 
     @Test
-    public void verifyIsLanguageSwitches() {
+    public void verifyLanguageSwitch() {
         Header header = homePage.getHeader();
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(header.isLanguageSelected(UA), "Should be UA");
-        softAssert.assertFalse(header.isLanguageSelected(RU), "Should not be RU");
+
+        assertThat(header.isLanguageSelected(UA))
+                .as("Should be UA")
+                .isTrue();
+        assertThat(header.isLanguageSelected(RU))
+                .as("Should not be RU")
+                .isFalse();
+
         MobileMenu mobileMenu = header.openMobileMenu();
-        softAssert.assertTrue(mobileMenu.isLanguageSelected(UA), "Should be UA");
-        softAssert.assertFalse(mobileMenu.isLanguageSelected(RU), "Should not be RU");
-        softAssert.assertEquals(mobileMenu.getLoginText(), "Вхід");
-        softAssert.assertEquals(mobileMenu.getRegistrationText(), "Реєстрація");
-        softAssert.assertEquals(mobileMenu.getHelpCenterText(), "Довідковий центр");
-        softAssert.assertEquals(mobileMenu.getContactUsText(), "Зв'язатися з нами");
-        mobileMenu.changeLanguage();
-        softAssert.assertFalse(header.isLanguageSelected(UA), "Should not be UA");
-        softAssert.assertTrue(header.isLanguageSelected(RU), "Should be RU");
+
+        assertThat(mobileMenu.isLanguageSelected(UA))
+                .as("Should be UA")
+                .isTrue();
+        assertThat(mobileMenu.isLanguageSelected(RU))
+                .as("Should not be RU")
+                .isFalse();
+        assertThat(mobileMenu.getLoginButtonName()).isEqualTo("Вхід");
+        assertThat(mobileMenu.getRegistrationButtonName()).isEqualTo("Реєстрація");
+        assertThat(mobileMenu.getHelpCenterButtonName()).isEqualTo("Довідковий центр");
+        assertThat(mobileMenu.getContactUsButtonName()).isEqualTo("Зв'язатися з нами");
+
+        mobileMenu.changeLanguage(RU);
+
+        assertThat(header.isLanguageSelected(UA))
+                .as("Should not be UA")
+                .isFalse();
+        assertThat(header.isLanguageSelected(RU))
+                .as("Should be RU")
+                .isTrue();
+
         header.openMobileMenu();
-        softAssert.assertFalse(mobileMenu.isLanguageSelected(UA), "Should not be UA");
-        softAssert.assertTrue(mobileMenu.isLanguageSelected(RU), "Should be RU");
-        softAssert.assertEquals(mobileMenu.getLoginText(), "Вход");
-        softAssert.assertEquals(mobileMenu.getRegistrationText(), "Регистрация");
-        softAssert.assertEquals(mobileMenu.getHelpCenterText(), "Справочный центр");
-        softAssert.assertEquals(mobileMenu.getContactUsText(), "Связаться с нами");
-        softAssert.assertAll();
+
+        assertThat(mobileMenu.isLanguageSelected(UA))
+                .as("Should not be UA")
+                .isFalse();
+        assertThat(mobileMenu.isLanguageSelected(RU))
+                .as("Should be RU")
+                .isTrue();
+        assertThat(mobileMenu.getLoginButtonName()).isEqualTo("Вход");
+        assertThat(mobileMenu.getRegistrationButtonName()).isEqualTo("Регистрация");
+        assertThat(mobileMenu.getHelpCenterButtonName()).isEqualTo("Справочный центр");
+        assertThat(mobileMenu.getContactUsButtonName()).isEqualTo("Связаться с нами");
     }
 }

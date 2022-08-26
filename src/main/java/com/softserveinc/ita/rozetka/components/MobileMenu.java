@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 
@@ -14,19 +13,19 @@ import static utils.WebElementUtil.isVisible;
 public class MobileMenu {
     private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
 
-    public String getLoginText() {
+    public String getLoginButtonName() {
         return getText("(" + xpathAuthentication + ")[1]");
     }
 
-    public String getRegistrationText() {
+    public String getRegistrationButtonName() {
         return getText("(" + xpathAuthentication + ")[2]");
     }
 
-    public String getHelpCenterText() {
+    public String getHelpCenterButtonName() {
         return getText("//a[contains(@class,'side-menu__button') and contains(@href,'help.')]");
     }
 
-    public String getContactUsText() {
+    public String getContactUsButtonName() {
         return getText("//a[contains(@class,'side-menu__button') and contains(@href,'t.me')]");
     }
 
@@ -45,8 +44,8 @@ public class MobileMenu {
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
     }
 
-    public Header changeLanguage() {
-        $x("(//li[contains(@class, 'lang__item')]/a)[2]").click();
+    public Header changeLanguage(Language language) {
+        $x(String.format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();
     }
 }
