@@ -9,7 +9,7 @@ import static utils.WebElementUtil.*;
 
 public class Product {
     private final String productNumber;
-    private final String titleXpath = "(//span[@class='goods-tile__title'])[%s]";
+    private final String titleXpath = "(//span[@class='goods-tile__title'])[%d]";
 
     public Product(int productNumber) {
         this.productNumber = Integer.toString(productNumber);
