@@ -12,7 +12,7 @@ public class ShoppingCartTest extends TestRunner {
         Header header = homePage.getHeader();
         SearchResultsPage searchResultsPage = header.search("coffee");
 
-        Assert.assertTrue(searchResultsPage.productsSize() >= 5);
+        Assert.assertTrue(searchResultsPage.getProductsSize() >= 5);
 
         searchResultsPage
                 .getProduct(1)
