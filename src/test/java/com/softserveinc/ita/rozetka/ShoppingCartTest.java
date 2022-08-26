@@ -10,12 +10,12 @@ public class ShoppingCartTest extends TestRunner {
     @Test
     public void verifyDeleteProductsFromShoppingCart() {
         Header header = homePage.getHeader();
-        var searchResultsPage = header
-                .search("coffee");
+        SearchResultsPage searchResultsPage = header.search("coffee");
 
         Assert.assertTrue(searchResultsPage.productsSize() >= 5);
 
-        searchResultsPage.getProduct(1)
+        searchResultsPage
+                .getProduct(1)
                 .addToShoppingCart()
                 .getProduct(5)
                 .addToShoppingCart();
