@@ -18,7 +18,7 @@ public class ProductPage extends BasePage {
 
     public ShoppingCartModal addToCart() {
         $x("//ul[@class='product-buttons']//button[contains(@class,'buy-button')]").click();
-        if(!isVisible("//rz-shopping-cart")) {
+        if(!isVisible("//rz-shopping-cart", 3)) {
             this.getHeader().openShoppingCartModal();
         }
         return new ShoppingCartModal();
