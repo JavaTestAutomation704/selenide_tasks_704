@@ -33,7 +33,7 @@ public class ShoppingCartTest extends TestRunner {
 
         int productNumber = 1;
         while (!results.getProduct(productNumber).isAvailable()
-                && productNumber < results.getProductsQuantity()) {
+                && productNumber < results.getProductsSize()) {
             productNumber++;
         }
 
