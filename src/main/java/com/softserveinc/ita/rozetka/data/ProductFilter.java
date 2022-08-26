@@ -15,7 +15,8 @@ public enum ProductFilter {
     OTHER_SELLERS("Інші продавці"),
     NEW("Новий"),
     PRE_USED("Б/в"),
-    PROMOTION("Акція");
+    PROMOTION("Акція"),
+    MICROSOFT_BRAND("Microsoft");
 
     @NonNull
     private final String filterXpath;

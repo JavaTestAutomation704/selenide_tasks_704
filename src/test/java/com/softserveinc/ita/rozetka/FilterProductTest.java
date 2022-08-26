@@ -29,6 +29,33 @@ public class FilterProductTest extends TestRunner {
         softAssert.assertTrue(searchResultsPage.getProduct(2).isOnSale());
         softAssert.assertTrue(searchResultsPage.getProduct(40).isOnSale());
         softAssert.assertTrue(searchResultsPage.getProduct(60).isOnSale());
+    }
+
+
+
+    @Test
+    public void verifyResettingFilters() {
+        SearchResultsPage searchResultsPage = homePage
+                .getHeader()
+                .search("Xbox");
+
+        int resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
+
+        Filter filter = searchResultsPage.getFilter();
+
+        int resultsAmountAfterFilters = filter
+                .filter(List.of(WHITE_COLOR, ROZETKA_SELLER, AVAILABLE))
+                .getResultsAmount();
+
+        searchResultsPage.resetFilters();
+        filter.filter(MICROSOFT_BRAND);
+
+        int resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
+
+        SoftAssert softAssert = new SoftAssert();
+
+        softAssert.assertTrue(resultsAmountAfterResetting > resultsAmountAfterFilters);
+        softAssert.assertTrue(resultsAmountAfterResetting == resultsAmountAfterSearch);
 
         softAssert.assertAll();
     }
