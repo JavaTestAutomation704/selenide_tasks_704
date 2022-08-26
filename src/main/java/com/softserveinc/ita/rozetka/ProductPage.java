@@ -1,7 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.codeborne.selenide.Selenide;
-import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 
@@ -42,10 +40,5 @@ public class ProductPage extends BasePage {
 
     public String getBonusText() {
         return $x("//div[contains(@class,'bonuses__info')]").text();
-    }
-
-    public Header back() {
-        Selenide.back();
-        return new Header();
     }
 }

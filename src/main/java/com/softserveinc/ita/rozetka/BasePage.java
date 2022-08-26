@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.softserveinc.ita.rozetka.components.Header;
 
@@ -16,5 +17,10 @@ public abstract class BasePage {
 
     public boolean isShoppingCartModalVisible() {
         return isVisible("//div[contains(@class, 'modal__holder')]");
+    }
+
+    public Header back() {
+        Selenide.back();
+        return new Header();
     }
 }
