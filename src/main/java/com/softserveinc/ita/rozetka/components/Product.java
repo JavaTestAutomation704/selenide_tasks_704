@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.data.Availability;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -44,11 +45,15 @@ public class Product {
         return new ProductPage();
     }
 
-    public String getAvailability() {
+    public String getStatus() {
         return getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%s]", productNumber));
     }
 
     public boolean isUsed() {
         return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%s]", productNumber));
+    }
+
+    public boolean isAvailable() {
+        return Availability.getByValue(this.getStatus()) != null;
     }
 }

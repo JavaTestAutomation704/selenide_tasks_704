@@ -43,6 +43,10 @@ public class WebElementUtil {
         return "";
     }
 
+    public static void waitTillVisible(String elementXpath) {
+        isVisible(elementXpath);
+    }
+
     public static long getLong(String elementXpath) {
         return Long.parseLong($x(elementXpath).shouldBe(visible, TIMEOUT)
                 .text()
