@@ -53,7 +53,7 @@ public class Product {
         return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%s]", productNumber));
     }
 
-    public Availability[] getAvailability() {
-        return Availability.values();
+    public Availability getAvailability() {
+        return Availability.getByValue(getStatus());
     }
 }

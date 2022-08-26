@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.beust.ah.A;
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.Availability;
@@ -9,6 +10,7 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,16 +25,18 @@ public class FilterProductTest extends TestRunner {
                 .openSubcategoryPage(LaptopsAndComputers.NOTEBOOKS)
                 .getFilter()
                 .filter(AVAILABLE);
+
+        List<Availability> statuses = new ArrayList<>();
+        statuses.add(Availability.AVAILABLE);
+        statuses.add(Availability.READY_TO_BE_DELIVERED);
+        statuses.add(Availability.RUNNING_OUT_OF_STOCK);
         SoftAssertions softly = new SoftAssertions();
 
         for (int i = 1; i <= Math.min(searchResultsPage.getProductAmount(), 20); i++) {
-            Product product = searchResultsPage.getProduct(i);
-            String status = product.getStatus();
-            softly.assertThat(Arrays.stream(product.getAvailability())
-                            .anyMatch(availability -> availability
-                                    .getFilterValue()
-                                    .contains(status)))
-                    .isTrue();
+            Availability actualAvailability = searchResultsPage
+                    .getProduct(i)
+                    .getAvailability();
+            softly.assertThat(statuses).contains(actualAvailability);
         }
         softly.assertAll();
     }
