@@ -20,13 +20,16 @@ public class ShoppingCartModal {
     }
 
     public ShoppingCartModal clear() {
-        List<SelenideElement> cartItems = $$x("//button[contains(@id, 'cartProductActions')]")
-                .shouldBe(sizeGreaterThanOrEqual(1));
-        for (SelenideElement item: cartItems) {
-            item.shouldBe(visible).click();
-            $x("//div[contains(@id, 'cartProductActions')]//button")
-                    .shouldBe(visible)
-                    .click();
+        String cartItemActionButtonXpath = "//button[contains(@id, 'cartProductActions')]";
+        if (isVisible(cartItemActionButtonXpath)) {
+            List<SelenideElement> cartItems = $$x(cartItemActionButtonXpath)
+                    .shouldBe(sizeGreaterThanOrEqual(1));
+            for (SelenideElement item : cartItems) {
+                item.shouldBe(visible).click();
+                $x("//div[contains(@id, 'cartProductActions')]//button")
+                        .shouldBe(visible)
+                        .click();
+            }
         }
         return this;
     }
