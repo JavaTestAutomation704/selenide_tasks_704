@@ -25,6 +25,10 @@ public class SearchResultsPage extends BasePage {
                         .replaceAll("[^0-9]", ""));
     }
 
+    public int getProductsQuantity() {
+        return getCollectionSize("//rz-catalog-tile");
+    }
+
     public SearchResultsPage resetFilters() {
         $x("//button[contains(@class, 'reset')]").click();
         return this;

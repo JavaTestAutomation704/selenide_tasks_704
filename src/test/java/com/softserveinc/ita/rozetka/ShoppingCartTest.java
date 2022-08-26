@@ -9,15 +9,15 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class ShoppingCartTest extends TestRunner {
+    Header header;
+
     @BeforeMethod
     public void clearShoppingCart() {
-        boolean isShoppingCartCounterVisible = homePage
-                .getHeader()
-                .isShoppingCartCounterVisible();
+        header = homePage.getHeader();
+        boolean isShoppingCartCounterVisible = header.isShoppingCartCounterVisible();
 
         if (isShoppingCartCounterVisible) {
-            homePage
-                    .getHeader()
+            header
                     .openShoppingCartModal()
                     .clear()
                     .close();
@@ -25,36 +25,40 @@ public class ShoppingCartTest extends TestRunner {
     }
 
     @Test
-    public void verifyUserCanAddSearchedProductToShoppingCartTest() {
+    public void verifyUserCanAddSearchedProductToShoppingCart() {
         String searchPhrase = "samsung a52";
 
-        Product firstProduct = homePage
-                .getHeader()
-                .search(searchPhrase)
-                .getProduct(1);
+        SearchResultsPage results = header
+                .search(searchPhrase);
 
-        String firstProductTitle = firstProduct.getTitle();
-        long firstProductPrice = firstProduct.getPrice();
+        int productNumber = 1;
+        while (!results.getProduct(productNumber).isAvailable()
+                && productNumber < results.getProductsQuantity()) {
+            productNumber++;
+        }
+
+        Product firstAvailableProduct = results.getProduct(productNumber);
+        String productTitle = firstAvailableProduct.getTitle();
+        long productPrice = firstAvailableProduct.getPrice();
 
         SoftAssert softAssert = new SoftAssert();
         for (String word : searchPhrase.split(" ")) {
-            softAssert.assertTrue(firstProductTitle.contains(word),
+            softAssert.assertTrue(productTitle.contains(word),
                     "First search result title does not contain " + word);
         }
 
-        ProductPage firstProductPage = firstProduct.open();
-        softAssert.assertEquals(firstProductPage.getTitle(), firstProductTitle);
-        softAssert.assertEquals(firstProductPage.getPrice(), firstProductPrice);
+        ProductPage productPage = firstAvailableProduct.open();
+        softAssert.assertEquals(productPage.getTitle(), productTitle);
+        softAssert.assertEquals(productPage.getPrice(), productPrice);
 
-        ShoppingCartModal cart = firstProductPage.addToCart();
-        softAssert.assertEquals(cart.get(1).getTitle(), firstProductTitle);
-        softAssert.assertEquals(cart.getTotalSum(), firstProductPrice);
+        ShoppingCartModal cart = productPage.addToCart();
+        softAssert.assertEquals(cart.get(1).getTitle(), productTitle);
+        softAssert.assertEquals(cart.getTotalSum(), productPrice);
         softAssert.assertAll();
     }
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
-        Header header = homePage.getHeader();
         SearchResultsPage searchResultsPage = header.search("starbucks");
 
         boolean isShoppingCartEmpty = header.isShoppingCartCounterVisible();

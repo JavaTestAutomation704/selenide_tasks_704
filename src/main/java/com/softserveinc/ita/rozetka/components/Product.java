@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.data.Availability;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -44,11 +45,19 @@ public class Product {
         return new ProductPage();
     }
 
-    public String getAvailability() {
-        return getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%s]", productNumber));
-    }
-
     public boolean isUsed() {
         return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%s]", productNumber));
+    }
+
+    public Availability getAvailability() {
+        String availability = getText(String.format("(//rz-catalog-tile)[%s]//div[contains(@class, 'availability')]", productNumber));
+        return Availability.getByValue(availability);
+    }
+
+    public boolean isAvailable() {
+        Availability availability = getAvailability();
+        return availability == Availability.AVAILABLE
+                || availability == Availability.READY_TO_BE_DELIVERED
+                || availability == Availability.RUNNING_OUT_OF_STOCK;
     }
 }
