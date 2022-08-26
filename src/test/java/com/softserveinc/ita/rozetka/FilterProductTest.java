@@ -1,12 +1,15 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
+import com.softserveinc.ita.rozetka.components.Product;
+import com.softserveinc.ita.rozetka.data.Availability;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
@@ -23,9 +26,12 @@ public class FilterProductTest extends TestRunner {
         SoftAssertions softly = new SoftAssertions();
 
         for (int i = 1; i <= Math.min(searchResultsPage.getProductAmount(), 20); i++) {
-            softly.assertThat(searchResultsPage
-                            .getProduct(i)
-                            .isAvailable())
+            Product product = searchResultsPage.getProduct(i);
+            String status = product.getStatus();
+            softly.assertThat(Arrays.stream(product.getAvailability())
+                            .anyMatch(availability -> availability
+                                    .getFilterValue()
+                                    .contains(status)))
                     .isTrue();
         }
         softly.assertAll();
