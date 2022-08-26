@@ -2,17 +2,23 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class ShoppingCartTest extends TestRunner {
     @Test
-    public void verifyDeleteProductsTest() {
+    public void verifyDeleteProductsFromShoppingCart() {
         Header header = homePage.getHeader();
-        header
-                .search("coffee")
-                .addToCart(1)
-                .addToCart(5);
+        var searchResultsPage = header
+                .search("coffee");
+
+        Assert.assertTrue(searchResultsPage.productSize() >= 5);
+
+        searchResultsPage.getProduct(1)
+                .addToShoppingCart()
+                .getProduct(5)
+                .addToShoppingCart();
 
         ShoppingCartModal shoppingCart = header
                 .openShoppingCartModal()

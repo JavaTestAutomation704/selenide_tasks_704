@@ -3,12 +3,10 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.components.ResultsFilter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
-import utils.WebElementUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.getCollectionSize;
+
 
 public class SearchResultsPage extends BasePage {
     private final String productXpath = "(//div[contains(@class, 'goods-tile ')])[%d]";
@@ -41,5 +39,9 @@ public class SearchResultsPage extends BasePage {
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
         return this;
+    }
+
+    public int productSize(){
+        return getCollectionSize("//div[contains(@class, 'goods-tile ')]");
     }
 }
