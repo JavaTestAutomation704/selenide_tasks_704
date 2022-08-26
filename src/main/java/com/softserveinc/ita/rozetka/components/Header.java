@@ -30,7 +30,7 @@ public class Header {
 
     public ShoppingCartModal openShoppingCartModal() {
         $x("//button[@rzopencart='']").click();
-        $x("//div[contains(@class, 'modal__holder')]").shouldBe(visible);
+        $x("//rz-shopping-cart").shouldBe(visible);
         return new ShoppingCartModal();
     }
 

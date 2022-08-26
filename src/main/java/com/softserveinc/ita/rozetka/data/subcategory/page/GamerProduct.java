@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum GamerProducts implements ISubcategory {
+public enum GamerProduct implements ISubcategory {
 
     MONITORS("monitors");
 

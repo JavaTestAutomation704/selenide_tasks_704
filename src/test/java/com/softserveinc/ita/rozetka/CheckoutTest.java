@@ -1,23 +1,27 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import static com.softserveinc.ita.rozetka.data.Category.GAMER_PRODUCTS;
 import static com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers.MONITORS;
+import static org.assertj.core.api.Assertions.*;
 
 public class CheckoutTest extends TestRunner {
 
     @Test
     public void verifyCheckoutPageComponents() {
-        int[] numbers = {1, 5, 60};
         SubcategoryPage subcategoryPage = homePage
                 .openCategoryPage(GAMER_PRODUCTS)
                 .openSubcategoryPage(MONITORS);
-        for (int number : numbers) {
+        int productsAmount = 60;
+
+        Assert.assertTrue(productsAmount <= subcategoryPage.getProductsSize());
+
+        for (int i = 1; i < productsAmount; i += 10) {
             subcategoryPage
-                    .getProduct(number)
+                    .getProduct(i)
                     .addToShoppingCart();
         }
         ShoppingCartModal shoppingCart = subcategoryPage
@@ -26,13 +30,19 @@ public class CheckoutTest extends TestRunner {
         long totalSum = shoppingCart.getTotalSum();
         CheckoutPage checkoutPage = shoppingCart.startCheckout();
         long orderTotalSum = checkoutPage.getTotalSum();
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(orderTotalSum, totalSum,
-                "Total sum in shopping cart should be equals total sum in checkout page");
-        softAssert.assertTrue(checkoutPage.isHeaderVisible(), "Header should be visible");
-        softAssert.assertTrue(checkoutPage.isOrderModalVisible(), "Order modal should be visible");
-        softAssert.assertTrue(checkoutPage.isContactsModalVisible(), "Contacts modal should be visible");
-        softAssert.assertTrue(checkoutPage.isTotalModalVisible(), "Total modal should be visible");
-        softAssert.assertAll();
+
+        assertThat(orderTotalSum).isEqualTo(totalSum);
+        assertThat(checkoutPage.isHeaderVisible())
+                .as("Header should be visible")
+                .isTrue();
+        assertThat(checkoutPage.isOrderModalVisible())
+                .as("Order modal should be visible")
+                .isTrue();
+        assertThat(checkoutPage.isContactsModalVisible())
+                .as("Contacts modal should be visible")
+                .isTrue();
+        assertThat(checkoutPage.isTotalModalVisible())
+                .as("Total modal should be visible")
+                .isTrue();
     }
 }
