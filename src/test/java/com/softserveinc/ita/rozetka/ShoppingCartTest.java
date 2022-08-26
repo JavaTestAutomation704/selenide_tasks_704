@@ -13,7 +13,7 @@ public class ShoppingCartTest extends TestRunner {
         var searchResultsPage = header
                 .search("coffee");
 
-        Assert.assertTrue(searchResultsPage.productSize() >= 5);
+        Assert.assertTrue(searchResultsPage.productsSize() >= 5);
 
         searchResultsPage.getProduct(1)
                 .addToShoppingCart()

@@ -50,7 +50,7 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public int productSize(){
+    public int productsSize(){
         return getCollectionSize("//div[contains(@class, 'goods-tile ')]");
     }
 }
