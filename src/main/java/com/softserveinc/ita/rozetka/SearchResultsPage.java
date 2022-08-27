@@ -13,6 +13,7 @@ public class SearchResultsPage extends BasePage {
     public Filter getFilter() {
         return new Filter();
     }
+
     public int getProductsSize() {
         return getCollectionSize("//div[contains(@class, 'goods-tile ')]");
     }
