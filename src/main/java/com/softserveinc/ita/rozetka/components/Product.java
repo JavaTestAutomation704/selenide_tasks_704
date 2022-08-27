@@ -9,7 +9,7 @@ import static utils.WebElementUtil.*;
 
 public class Product {
     private final String productNumber;
-    private final String titleXpath = "(//span[@class='goods-tile__title'])[%d]";
+    private final String titleXpath = "(//span[@class='goods-tile__title'])[%s]";
 
     public Product(int productNumber) {
         this.productNumber = Integer.toString(productNumber);
@@ -24,7 +24,7 @@ public class Product {
     }
 
     public String getTitle() {
-        return getText(String.format(titleXpath, productNumber)).toLowerCase();
+        return getText(String.format(titleXpath, productNumber));
     }
 
     public long getPrice() {
