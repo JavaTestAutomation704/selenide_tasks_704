@@ -5,27 +5,29 @@ import com.softserveinc.ita.rozetka.data.ProductSort;
 import com.softserveinc.ita.rozetka.data.subcategory.page.HouseholdAppliances;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.testng.Assert.*;
 
 public class SortProductTest extends TestRunner {
     @Test
     public void verifyUserCanSortProductsInAscendingOrderByPriceTest() {
-        SubcategoryPage products = homePage
-                .getHeader()
-                .openCatalogModal()
-                .openSubcategory(Category.HOUSEHOLD_APPLIANCES, HouseholdAppliances.REFRIGERATORS);
+        SearchResultsPage products = homePage
+                .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
+                .openSubcategoryPage(HouseholdAppliances.REFRIGERATORS);
 
         products.sortBy(ProductSort.PRICE_ASCENDING);
 
-        long firstProductPrice = products.getProduct(1).getPrice();
-        long secondProductPrice = products.getProduct(2).getPrice();
-        long thirdProductPrice = products.getProduct(3).getPrice();
+        List<Long> productPrice = new ArrayList<>(products.getProductsSize());
 
-        assertTrue(firstProductPrice < secondProductPrice,
-                String.format("Second product price: %d, should be higher than first: %d\n",
-                        firstProductPrice, secondProductPrice));
-        assertTrue(secondProductPrice < thirdProductPrice,
-                String.format("Third product price: %d, should be higher than second: %d\n",
-                        secondProductPrice, thirdProductPrice));
+        for (int i = 1; i < products.getProductsSize(); i++) {
+            productPrice.add(products.getProduct(i).getPrice());
+            if ((i % 3 == 0) && (i > 2)) {
+                assertTrue(productPrice.get(i - 1) >= productPrice.get(i - 2),
+                        String.format("%d product price should be higher than %d",
+                                productPrice.get(i - 1), productPrice.get(i - 2)));
+            }
+        }
     }
 }
