@@ -30,7 +30,7 @@ public class SortProductTest extends TestRunner {
 
         long currentProductPrice = 0;
         int step = 8;
-        for (int i = 1; i < products.getProductsSize() - step; i += step) {
+        for (int i = 1; i <= products.getProductsSize() - step; i += step) {
             currentProductPrice = products.getProduct(i).getPrice();
             softly.assertThat(currentProductPrice)
                     .as("Current product price in comparison to next")
