@@ -5,8 +5,7 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.getText;
-import static utils.WebElementUtil.isVisible;
+import static utils.WebElementUtil.*;
 
 @RequiredArgsConstructor
 public class Product {
@@ -18,7 +17,7 @@ public class Product {
     }
 
     public long getPrice() {
-        return Long.parseLong(getText(String.format("(//span[@class='goods-tile__price-value'])[%d]", productNumber)));
+        return getLong(String.format("(//span[@class='goods-tile__price-value'])[%d]", productNumber));
     }
 
     public SearchResultsPage addToShoppingCart() {
