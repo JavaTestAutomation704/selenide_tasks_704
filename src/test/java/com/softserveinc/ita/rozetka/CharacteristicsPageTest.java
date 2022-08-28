@@ -29,11 +29,14 @@ public class CharacteristicsPageTest extends TestRunner {
                 .as("Characteristics page title")
                 .contains("характеристики");
         softly.assertThat(characteristicsPage.isCharacteristicsTabHighlighted())
-                .as("Product characteristics tab should be highlighted")
+                .as("Product characteristics tab is highlighted")
                 .isTrue();
         softly.assertThat(url)
                 .as("Page url")
                 .contains("characteristics");
+        softly.assertThat(characteristicsPage.isCharacteristicsSectionVisible())
+                .as("Product characteristics section is present")
+                .isTrue();
 
         characteristicsPage.addToComparison();
 

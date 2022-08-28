@@ -20,6 +20,10 @@ public class ProductCharacteristicsPage extends BasePage {
                 && characteristicsTabBottomBorderColor.contains("rgb(0, 160, 70)");
     }
 
+    public boolean isCharacteristicsSectionVisible() {
+        return isVisible("//rz-product-tab-characteristics");
+    }
+
     public ProductCharacteristicsPage addToComparison() {
         $x("//app-compare-button").click();
         return this;
