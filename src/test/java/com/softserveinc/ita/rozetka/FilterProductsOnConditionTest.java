@@ -1,33 +1,37 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
-import com.softserveinc.ita.rozetka.data.Subcategory;
+import com.softserveinc.ita.rozetka.data.subcategory.modal.LaptopsAndComputers;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class FilterProductsOnConditionTest extends TestRunner {
 
     @Test
     public void verifyProductConditionFilter() {
         SearchResultsPage searchResultsPage = homePage
-                .openCategoryPage(Category.NOTEBOOKS_COMPUTERS)
-                .openSubcategoryPage(Subcategory.NOTEBOOKS)
-                .getFilter()
-                .filter(ProductFilter.PRE_USED);
+                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(LaptopsAndComputers.NOTEBOOKS);
+        Filter filterSidebar = searchResultsPage.getFilter();
+        filterSidebar.filter(ProductFilter.PRE_USED);
 
-        SoftAssert softAssert = new SoftAssert();
-        for (int i = 1; i <= 60; i = i + 10) {
-            softAssert.assertTrue(searchResultsPage.getProduct(i).isUsed());
+        SoftAssertions softly = new SoftAssertions();
+        for (int i = 1; i <= searchResultsPage.getProductsSize(); i = i + 10) {
+            softly.assertThat(searchResultsPage.getProduct(i).isUsed())
+                    .as("Product is used")
+                    .isTrue();
         }
 
-        searchResultsPage
-                .resetFilters()
-                .getFilter()
-                .filter(ProductFilter.NEW);
+        searchResultsPage.resetFilters();
+        filterSidebar.filter(ProductFilter.NEW);
 
-        for (int i = 1; i <= 60; i = i + 10) {
-            softAssert.assertFalse(searchResultsPage.getProduct(i).isUsed());
+        for (int i = 1; i <= searchResultsPage.getProductsSize(); i = i + 10) {
+            softly.assertThat(searchResultsPage.getProduct(i).isUsed())
+                    .as("Product is new")
+                    .isFalse();
         }
+        softly.assertAll();
     }
 }
