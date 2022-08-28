@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.modals.RegistrationModal;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -18,7 +19,7 @@ public class RegistrationTest extends TestRunner{
 
         assertTrue(registrationModal.isOpen());
 
-        SoftAssert softAssert = new SoftAssert();
+        SoftAssertions softAssert = new SoftAssertions();
 
         String actualFirstNameErrorMessage = registrationModal
                 .getFirstNameErrorMessage();
@@ -29,14 +30,22 @@ public class RegistrationTest extends TestRunner{
         String actualEmailErrorMessage = registrationModal
                 .getEmailErrorMessage();
 
-        softAssert.assertEquals(actualFirstNameErrorMessage,
-                "Введіть своє ім'я кирилицею");
-        softAssert.assertEquals(actualLastNameErrorMessage,
-                "Введіть своє прізвище кирилицею");
-        softAssert.assertEquals(actualPhoneNumberErrorMessage,
-                "Введіть номер мобільного телефону");
-        softAssert.assertEquals(actualEmailErrorMessage,
-                "Введіть свою ел. пошту");
+
+        softAssert
+                .assertThat(actualFirstNameErrorMessage)
+                .isEqualTo("Введіть своє ім'я кирилицею");
+
+        softAssert
+                .assertThat(actualLastNameErrorMessage)
+                .isEqualTo("Введіть своє прізвище кирилицею");
+
+        softAssert
+                .assertThat(actualPhoneNumberErrorMessage)
+                .isEqualTo("Введіть номер мобільного телефону");
+
+        softAssert
+                .assertThat(actualEmailErrorMessage)
+                .isEqualTo("Введіть свою ел. пошту");
 
         final String redColor = "rgb(248, 65, 71)";
 
@@ -46,11 +55,11 @@ public class RegistrationTest extends TestRunner{
         String actualEmailBorderColor = registrationModal.getEmailBorderColor(redColor);
         String actualPasswordBorderColor = registrationModal.getPasswordBorderColor(redColor);
 
-        softAssert.assertEquals(actualFirstNameBorderColor, redColor);
-        softAssert.assertEquals(actualLastNameBorderColor, redColor);
-        softAssert.assertEquals(actualPhoneNumberBorderColor, redColor);
-        softAssert.assertEquals(actualEmailBorderColor, redColor);
-        softAssert.assertEquals(actualPasswordBorderColor, redColor);
+        softAssert.assertThat(actualFirstNameBorderColor).isEqualTo(redColor);
+        softAssert.assertThat(actualLastNameBorderColor).isEqualTo(redColor);
+        softAssert.assertThat(actualPhoneNumberBorderColor).isEqualTo(redColor);
+        softAssert.assertThat(actualEmailBorderColor).isEqualTo(redColor);
+        softAssert.assertThat(actualPasswordBorderColor).isEqualTo(redColor);
 
         softAssert.assertAll();
     }
