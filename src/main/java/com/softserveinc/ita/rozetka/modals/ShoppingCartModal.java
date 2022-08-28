@@ -1,17 +1,40 @@
 package com.softserveinc.ita.rozetka.modals;
 
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isVisible;
+import static utils.WebElementUtil.*;
 
+import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
+import com.softserveinc.ita.rozetka.components.Header;
 
 import static utils.WebElementUtil.getText;
+import java.util.List;
 
 public class ShoppingCartModal {
-    public boolean isShoppingCartEmpty() {
+    public boolean isEmpty() {
         return isVisible("//div[@data-testid='empty-cart']");
+    }
+
+    public ShoppingCartModal clear() {
+        String cartItemActionButtonXpath = "//button[contains(@id, 'cartProductActions')]";
+        if (isVisible(cartItemActionButtonXpath)) {
+            List<SelenideElement> cartItems = $$x(cartItemActionButtonXpath)
+                    .shouldBe(sizeGreaterThanOrEqual(1));
+            for (SelenideElement item : cartItems) {
+                item.click();
+                $x("//div[contains(@id, 'cartProductActions')]//button").click();
+            }
+        }
+        return this;
+    }
+
+    public Header close() {
+        $x("//button[contains(@class, 'modal__close')]").click();
+        return new Header();
     }
 
     public ShoppingCartModal remove(int productNumber) {
@@ -20,10 +43,8 @@ public class ShoppingCartModal {
         return this;
     }
 
-    public ShoppingCartModal removeAllProducts() {
-        $x("//div[@class='cart-header__remove']//button").click();
-        $x("(//li[contains(@class,'popup-menu')])[1]//button").click();
-        return this;
+    public boolean isRemoveAllProductsButtonVisible() {
+        return isVisible("//div[@class='cart-header__remove']//button");
     }
 
     public CheckoutPage startCheckout() {
@@ -36,6 +57,6 @@ public class ShoppingCartModal {
     }
 
     public long getTotalSum() {
-        return Long.parseLong(getText("//div[contains(@class,'sum-price')]/span[1]"));
+        return getLong("//div[contains(@class,'sum-price')]");
     }
 }

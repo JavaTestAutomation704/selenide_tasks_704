@@ -3,9 +3,12 @@ package utils;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -14,8 +17,12 @@ public class WebElementUtil {
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
 
     public static boolean isVisible(String elementXpath) {
+        return isVisible(elementXpath, TIMEOUT.getSeconds());
+    }
+
+    public static boolean isVisible(String elementXpath, long seconds) {
         try {
-            return $x(elementXpath).shouldBe(visible, TIMEOUT).isDisplayed();
+            return $x(elementXpath).shouldBe(visible, Duration.ofSeconds(seconds)).isDisplayed();
         } catch (AssertionError e) {
             return false;
         }
@@ -40,5 +47,15 @@ public class WebElementUtil {
         return Long.parseLong($x(elementXpath).shouldBe(visible, TIMEOUT)
                 .text()
                 .replaceAll("[^0-9]", ""));
+    }
+
+    public static String getBorderColor(String elementXpath, String color) {
+        try {
+            return $x(elementXpath)
+                    .shouldHave(cssValue("border-color", color))
+                    .getCssValue("border-color");
+        } catch (AssertionError e) {
+            return "";
+        }
     }
 }
