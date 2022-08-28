@@ -3,11 +3,10 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.modals.RegistrationModal;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import static org.testng.Assert.assertTrue;
 
-public class RegistrationTest extends TestRunner{
+public class RegistrationTest extends TestRunner {
     @Test
     public void verifyRegistrationCapability() {
 
@@ -29,7 +28,6 @@ public class RegistrationTest extends TestRunner{
                 .getPhoneNumberErrorMessage();
         String actualEmailErrorMessage = registrationModal
                 .getEmailErrorMessage();
-
 
         softAssert
                 .assertThat(actualFirstNameErrorMessage)
@@ -55,11 +53,25 @@ public class RegistrationTest extends TestRunner{
         String actualEmailBorderColor = registrationModal.getEmailBorderColor(redColor);
         String actualPasswordBorderColor = registrationModal.getPasswordBorderColor(redColor);
 
-        softAssert.assertThat(actualFirstNameBorderColor).isEqualTo(redColor);
-        softAssert.assertThat(actualLastNameBorderColor).isEqualTo(redColor);
-        softAssert.assertThat(actualPhoneNumberBorderColor).isEqualTo(redColor);
-        softAssert.assertThat(actualEmailBorderColor).isEqualTo(redColor);
-        softAssert.assertThat(actualPasswordBorderColor).isEqualTo(redColor);
+        softAssert
+                .assertThat(actualFirstNameBorderColor)
+                .isEqualTo(redColor);
+
+        softAssert
+                .assertThat(actualLastNameBorderColor)
+                .isEqualTo(redColor);
+
+        softAssert
+                .assertThat(actualPhoneNumberBorderColor)
+                .isEqualTo(redColor);
+
+        softAssert
+                .assertThat(actualEmailBorderColor)
+                .isEqualTo(redColor);
+
+        softAssert
+                .assertThat(actualPasswordBorderColor)
+                .isEqualTo(redColor);
 
         softAssert.assertAll();
     }
