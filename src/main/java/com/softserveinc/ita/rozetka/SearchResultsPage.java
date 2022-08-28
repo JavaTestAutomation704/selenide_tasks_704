@@ -40,11 +40,8 @@ public class SearchResultsPage extends BasePage {
     }
 
     public SearchResultsPage sortBy(ProductSort sort) {
-//        String firstResultXpath = "(//div[contains(@class, 'goods-tile ')])[1]";
-//        String firstResultText = getText(firstResultXpath);
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
-//        $x(firstResultXpath).shouldNotHave(text(firstResultText));
         return this;
     }
 }
