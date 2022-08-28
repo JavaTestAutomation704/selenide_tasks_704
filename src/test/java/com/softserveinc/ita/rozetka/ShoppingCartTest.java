@@ -2,9 +2,9 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class ShoppingCartTest extends TestRunner {
     @Test
@@ -23,15 +23,20 @@ public class ShoppingCartTest extends TestRunner {
         ShoppingCartModal shoppingCart = header
                 .openShoppingCartModal()
                 .remove(1);
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(shoppingCart.isEmpty(), "Shopping cart is empty");
-        softAssert.assertFalse(shoppingCart.isRemoveAllProductsButtonVisible(), "Button \"Remove all\" is visible");
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(shoppingCart.isEmpty())
+                .withFailMessage("Shopping cart is empty")
+                .isFalse();
+        softAssertions.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
+                .withFailMessage("Button \"Remove all\" is visible")
+                .isFalse();
 
         shoppingCart.remove(1);
 
-        softAssert.assertTrue(shoppingCart.isEmpty(), "Shopping cart isn't empty");
-        softAssert.assertAll();
+        softAssertions.assertThat(shoppingCart.isEmpty())
+                .withFailMessage("Shopping cart isn't empty")
+                .isTrue();
+        softAssertions.assertAll();
     }
 
 
