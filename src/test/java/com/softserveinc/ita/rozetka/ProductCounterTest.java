@@ -3,18 +3,20 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class ProductCounterTest extends TestRunner {
 
     @Test
     public void verifyProductCounterWorks() {
         Header header = homePage.getHeader();
-        boolean isShoppingCartEmpty = header.isShoppingCartCounterVisible();
+        boolean doesShoppingCartContainsProducts = header.isShoppingCartCounterVisible();
 
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(isShoppingCartEmpty);
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(doesShoppingCartContainsProducts)
+                .as("Shopping cart is empty")
+                .isFalse();
 
         Product product = header
                 .search("kipling")
@@ -31,14 +33,22 @@ public class ProductCounterTest extends TestRunner {
         cartItem.increment();
         int increasedQuantity = cartItem.getQuantity();
 
-        softAssert.assertTrue(initialQuantity + 1 == increasedQuantity, "1");
-        softAssert.assertTrue(price + price == cartItem.getTotalPrice(), "2");
+        softly.assertThat(increasedQuantity)
+                .as("Quantity increased by 1")
+                .isEqualTo(initialQuantity + 1);
+        softly.assertThat(price + price)
+                .as(" Total price increased by product`s price")
+                .isEqualTo(cartItem.getTotalPrice());
 
         cartItem.decrement();
         int decreasedQuantity = cartItem.getQuantity();
 
-        softAssert.assertTrue(decreasedQuantity == increasedQuantity - 1, "3");
-        softAssert.assertTrue(price == cartItem.getTotalPrice(), "4");
-        softAssert.assertAll();
+        softly.assertThat(decreasedQuantity)
+                .as("Quantity decreased by 1")
+                .isEqualTo(increasedQuantity - 1);
+        softly.assertThat(price)
+                .as(" Total price decreased by product`s price")
+                .isEqualTo(cartItem.getTotalPrice());
+        softly.assertAll();
     }
 }
