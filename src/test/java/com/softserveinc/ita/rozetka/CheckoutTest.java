@@ -19,7 +19,7 @@ public class CheckoutTest extends TestRunner {
 
         Assert.assertTrue(productsAmount <= subcategoryPage.getProductsSize());
 
-        for (int i = 1; i < productsAmount; i += 10) {
+        for (int i = 10; i <= productsAmount; i += 10) {
             subcategoryPage
                     .getProduct(i)
                     .addToShoppingCart();
