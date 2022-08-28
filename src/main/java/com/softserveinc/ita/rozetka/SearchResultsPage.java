@@ -4,8 +4,11 @@ import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
+import static utils.WebElementUtil.getCollectionSize;
+
 import static utils.WebElementUtil.*;
 
 
@@ -43,5 +46,9 @@ public class SearchResultsPage extends BasePage {
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
         return this;
+    }
+
+    public int getProductsSize(){
+        return getCollectionSize("//div[contains(@class, 'goods-tile ')]");
     }
 }
