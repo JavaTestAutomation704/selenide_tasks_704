@@ -3,8 +3,8 @@ package com.softserveinc.ita.rozetka.MobileMenuTests;
 import com.softserveinc.ita.rozetka.TestRunner;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.MobileMenu;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class ChangeCityTest extends TestRunner {
     @Test()
@@ -19,8 +19,10 @@ public class ChangeCityTest extends TestRunner {
         String actualCityViaMobileMenu = mobileMenu
                 .getCity();
 
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(actualCityViaMobileMenu, expectedCityViaMobileMenu);
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(actualCityViaMobileMenu)
+                .isEqualTo(expectedCityViaMobileMenu)
+                .withFailMessage("Cities isn't equal");
 
         String expectedCityViaProductPage = "Дніпро";
         header = header
@@ -33,7 +35,9 @@ public class ChangeCityTest extends TestRunner {
         String actualCityViaProductPage = mobileMenu
                 .getCity();
 
-        softAssert.assertEquals(actualCityViaProductPage, expectedCityViaProductPage);
-        softAssert.assertAll();
+        softAssertions.assertThat(actualCityViaProductPage)
+                .isEqualTo(expectedCityViaProductPage)
+                .withFailMessage("Cities isn't equal");
+        softAssertions.assertAll();
     }
 }
