@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -20,7 +21,7 @@ public class FilterProductTest extends TestRunner {
                 .search("laptop")
                 .sortBy(ProductSort.PROMOTION);
 
-        //will be added assert on product count after merge
+        Assert.assertTrue(searchResultsPage.getProductsSize() >= 60, "There aren't 60 products");
         SoftAssertions softAssertions = new SoftAssertions();
         String errorMessage = "Product with number \"%s\" isn't on sale";
         int productNumber = 1;
