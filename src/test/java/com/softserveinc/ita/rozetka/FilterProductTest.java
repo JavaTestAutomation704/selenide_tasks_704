@@ -7,7 +7,6 @@ import com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
@@ -26,13 +25,9 @@ public class FilterProductTest extends TestRunner {
         int productsAmount = searchResultsPage.getResultsAmount();
 
         assertThat(productsAmount)
-                .as("Products amount should be at least 20 items")
+                .as("Products amount should be at least 20")
                 .isGreaterThanOrEqualTo(20);
 
-        List<Availability> statuses = new ArrayList<>();
-        statuses.add(Availability.AVAILABLE);
-        statuses.add(Availability.READY_TO_BE_DELIVERED);
-        statuses.add(Availability.RUNNING_OUT_OF_STOCK);
         SoftAssertions softly = new SoftAssertions();
 
         for (int i = 1; i <= 20; i++) {
@@ -42,7 +37,9 @@ public class FilterProductTest extends TestRunner {
 
             softly.assertThat(actualAvailability)
                     .as("Product should be available")
-                    .isIn(statuses);
+                    .isIn(List.of(Availability.AVAILABLE,
+                            Availability.READY_TO_BE_DELIVERED,
+                            Availability.RUNNING_OUT_OF_STOCK));
         }
         softly.assertAll();
     }
