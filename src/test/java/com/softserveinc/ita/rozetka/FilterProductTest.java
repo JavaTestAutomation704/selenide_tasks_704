@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
-import com.softserveinc.ita.rozetka.data.Availability;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers;
 import org.assertj.core.api.SoftAssertions;
@@ -22,24 +21,21 @@ public class FilterProductTest extends TestRunner {
                 .getFilter()
                 .filter(AVAILABLE);
 
-        int productsAmount = searchResultsPage.getResultsAmount();
+        int productsQuantity = searchResultsPage.getProductsQuantity();
+        int productsQuantityToCheck = 20;
 
-        assertThat(productsAmount)
-                .as("Products amount should be at least 20")
-                .isGreaterThanOrEqualTo(20);
+        assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
 
         SoftAssertions softly = new SoftAssertions();
 
-        for (int i = 1; i <= 20; i++) {
-            Availability actualAvailability = searchResultsPage
-                    .getProduct(i)
-                    .getAvailability();
-
-            softly.assertThat(actualAvailability)
+        for (int i = 1; i <= productsQuantityToCheck; i++) {
+            softly.assertThat(searchResultsPage
+                            .getProduct(i)
+                            .isAvailable())
                     .as("Product should be available")
-                    .isIn(List.of(Availability.AVAILABLE,
-                            Availability.READY_TO_BE_DELIVERED,
-                            Availability.RUNNING_OUT_OF_STOCK));
+                    .isTrue();
         }
         softly.assertAll();
     }

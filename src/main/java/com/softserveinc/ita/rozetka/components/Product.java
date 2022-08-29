@@ -45,10 +45,6 @@ public class Product {
         return new ProductPage();
     }
 
-    public String getStatus() {
-        return getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%s]", productNumber));
-    }
-
     public boolean isUsed() {
         return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_used')]");
     }
@@ -63,9 +59,5 @@ public class Product {
         return availability == Availability.AVAILABLE
                 || availability == Availability.READY_TO_BE_DELIVERED
                 || availability == Availability.RUNNING_OUT_OF_STOCK;
-    }
-
-    public Availability getAvailability() {
-        return Availability.getByValue(getStatus());
     }
 }
