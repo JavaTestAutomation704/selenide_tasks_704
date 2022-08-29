@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -18,23 +17,30 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyFilterByLoyaltyProgram() {
-        Filter resultsFilter = homePage
+        Filter filter = homePage
                 .openCategoryPage(LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(NOTEBOOKS)
                 .getFilter();
-        resultsFilter.filter(AVAILABLE);
-        SearchResultsPage searchResultsPage = resultsFilter.filter(WITH_BONUS);
-        int productsAmount = 9;
+        filter.filter(AVAILABLE);
+        SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
+        int productsAmount = 7;
 
-        Assert.assertTrue(productsAmount <= searchResultsPage.getProductsSize());
+        assertThat(productsAmount)
+                .as("Index of the last product to verify should be less than or equal to the total number " +
+                        "of products on the page")
+                .isLessThanOrEqualTo(searchResultsPage.getProductsSize());
 
         for (int i = 1; i < productsAmount; i += 2) {
             ProductPage productPage = searchResultsPage
                     .getProduct(i)
                     .open();
 
-            assertThat(productPage.isBonusIconVisible()).isTrue();
-            assertThat(productPage.getBonusText()).contains("бонус");
+            assertThat(productPage.isBonusIconVisible())
+                    .as("Bonus icon should be displayed")
+                    .isTrue();
+            assertThat(productPage.getBonusText())
+                    .as("The specified text is incorrect")
+                    .contains("бонус");
 
             productPage.back();
         }
