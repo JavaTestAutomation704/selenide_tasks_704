@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.GAMER_PRODUCTS;
@@ -17,7 +16,9 @@ public class CheckoutTest extends TestRunner {
                 .openSubcategoryPage(MONITORS);
         int productsAmount = 60;
 
-        Assert.assertTrue(productsAmount <= subcategoryPage.getProductsSize());
+        assertThat(productsAmount)
+                .as("Product amount should be sufficient")
+                .isLessThanOrEqualTo(subcategoryPage.getProductsSize());
 
         for (int i = 10; i <= productsAmount; i += 10) {
             subcategoryPage
@@ -27,22 +28,24 @@ public class CheckoutTest extends TestRunner {
         ShoppingCartModal shoppingCart = subcategoryPage
                 .getHeader()
                 .openShoppingCartModal();
-        long totalSum = shoppingCart.getTotalSum();
+        long shoppingCartTotalSum = shoppingCart.getTotalSum();
         CheckoutPage checkoutPage = shoppingCart.startCheckout();
-        long orderTotalSum = checkoutPage.getTotalSum();
+        long checkoutPageTotalSum = checkoutPage.getTotalSum();
 
-        assertThat(orderTotalSum).isEqualTo(totalSum);
+        assertThat(checkoutPageTotalSum)
+                .as("Shopping cart order sum should be equal to checkout order sum")
+                .isEqualTo(shoppingCartTotalSum);
         assertThat(checkoutPage.isHeaderVisible())
                 .as("Header should be visible")
                 .isTrue();
         assertThat(checkoutPage.isOrderModalVisible())
-                .as("Order modal should be visible")
+                .as("Order component should be visible")
                 .isTrue();
         assertThat(checkoutPage.isContactsModalVisible())
-                .as("Contacts modal should be visible")
+                .as("Contacts component should be visible")
                 .isTrue();
         assertThat(checkoutPage.isTotalModalVisible())
-                .as("Total modal should be visible")
+                .as("Total component should be visible")
                 .isTrue();
     }
 }
