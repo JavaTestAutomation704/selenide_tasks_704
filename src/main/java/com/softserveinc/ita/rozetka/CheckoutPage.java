@@ -9,15 +9,15 @@ public class CheckoutPage extends BasePage {
         return isVisible("//h1");
     }
 
-    public boolean isTotalModalVisible() {
+    public boolean isTotalComponentVisible() {
         return isVisible("//div[@class='checkout-total']");
     }
 
-    public boolean isContactsModalVisible() {
+    public boolean isContactsComponentVisible() {
         return isVisible("//rz-checkout-contact-info");
     }
 
-    public boolean isOrderModalVisible() {
+    public boolean isOrderComponentVisible() {
         return isVisible("//rz-checkout-order");
     }
 
