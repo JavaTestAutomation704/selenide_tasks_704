@@ -7,7 +7,6 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import org.openqa.selenium.By;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -16,9 +15,9 @@ import static utils.WebElementUtil.isVisible;
 
 public class Header {
 
-    public MobileMenu openMobileMenu() {
+    public MainSidebar openMobileMenu() {
         $x("//rz-mobile-user-menu/button").click();
-        return new MobileMenu();
+        return new MainSidebar();
     }
 
     public LogInModal startLoggingIn() {

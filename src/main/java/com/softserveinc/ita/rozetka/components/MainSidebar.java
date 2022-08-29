@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.getText;
 import static utils.WebElementUtil.isVisible;
 
-public class MobileMenu {
+public class MainSidebar {
     private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
 
     public String getLoginButtonName() {
