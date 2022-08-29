@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class SortProductTest extends TestRunner {
     @Test
-    public void verifyUserCanSortProductsInAscendingOrderByPrice() {
+    public void verifyProductsSortingInAscendingOrderByPrice() {
         SubcategoryPage subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
@@ -16,16 +16,18 @@ public class SortProductTest extends TestRunner {
 
         subcategoryPage.sortBy(ProductSort.PRICE_ASCENDING);
         SoftAssertions softAssert = new SoftAssertions();
+        int step = 4;
 
         softAssert.assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
-                .isGreaterThanOrEqualTo(2);
+                .isGreaterThanOrEqualTo(step + 1);
 
-        for (int i = 2; i < subcategoryPage.getProductsQuantity(); i++) {
+        for (int i = step + 1; i < subcategoryPage.getProductsQuantity(); i += step) {
             softAssert
-                    .assertThat(subcategoryPage.getProduct(i).getPrice() >= subcategoryPage.getProduct(i - 1).getPrice())
-                    .as(String.format("%d product price should be higher than %d",
-                            subcategoryPage.getProduct(i).getPrice(), subcategoryPage.getProduct(i).getPrice()));
+                    .assertThat(subcategoryPage.getProduct(i).getPrice())
+                    .as("%sth product price should be higher than %sth", i, i - step)
+                    .isGreaterThanOrEqualTo(subcategoryPage.getProduct(i - step).getPrice());
         }
+        softAssert.assertAll();
     }
 }
