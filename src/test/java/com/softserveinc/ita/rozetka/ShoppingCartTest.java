@@ -43,7 +43,7 @@ public class ShoppingCartTest extends TestRunner {
         SoftAssertions softly = new SoftAssertions();
         for (String word : searchPhrase.split(" ")) {
             softly.assertThat(firstAvailableProductTitle)
-                    .as("First available product title should contain '%s'.", word)
+                    .as("First available product title should contain searched keyword.")
                     .contains(word);
         }
 
