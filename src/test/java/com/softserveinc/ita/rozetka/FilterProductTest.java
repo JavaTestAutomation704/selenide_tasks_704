@@ -7,7 +7,6 @@ import com.softserveinc.ita.rozetka.data.ProductSort;
 import org.assertj.core.api.SoftAssertions;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers;
-import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class FilterProductTest extends TestRunner {
                 .sortBy(ProductSort.PROMOTION);
 
         SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(searchResultsPage.getProductsSize())
+        softAssertions.assertThat(searchResultsPage.getProductsQuantity())
                 .isGreaterThanOrEqualTo(60)
                 .as("Products should be 60 or more");
 
