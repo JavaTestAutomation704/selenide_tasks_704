@@ -17,17 +17,21 @@ public class ProductTitleTest extends TestRunner {
         SoftAssertions softAssert = new SoftAssertions();
         String expectedText = "ноутбук";
 
-        softAssert.assertThat(subcategoryPage.getProductsQuantity())
-                .as("Products quantity should be sufficient")
-                .isGreaterThanOrEqualTo(2);
+        int productsQuantity = 20;
 
-        for (int i = 1; i <= subcategoryPage.getProductsQuantity(); i++) {
-                String actualTitle = subcategoryPage
-                        .getProduct(i)
-                        .getTitle();
+        softAssert.assertThat(productsQuantity)
+                .as("Products amount should be sufficient")
+                .isLessThanOrEqualTo(subcategoryPage.getProductsQuantity());
 
-                softAssert.assertThat(actualTitle).contains(expectedText);
-            }
-            softAssert.assertAll();
+        for (int i = 1; i <= productsQuantity; i += 2) {
+            ProductPage productPage = subcategoryPage
+                    .getProduct(i).open();
+
+            softAssert.assertThat(productPage.getTitle().matches(expectedText))
+                    .as("Product title should contain %s text", expectedText)
+                    .isTrue();
+
+            productPage.back();
+        }
     }
 }
