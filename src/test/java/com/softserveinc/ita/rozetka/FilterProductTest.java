@@ -33,11 +33,11 @@ public class FilterProductTest extends TestRunner {
 
         softAssert
                 .assertThat(resultsAmountAfterResetting)
-                .withFailMessage("Results amount after resetting should be grater than after filters")
+                .as("Results amount after resetting should be grater than after filters")
                 .isGreaterThan(resultsAmountAfterFilters);
         softAssert
                 .assertThat(resultsAmountAfterResetting)
-                .withFailMessage("Results amount after resetting should be the same as after search")
+                .as("Results amount after resetting should be the same as after search")
                 .isEqualTo(resultsAmountAfterSearch);
 
         softAssert.assertAll();
