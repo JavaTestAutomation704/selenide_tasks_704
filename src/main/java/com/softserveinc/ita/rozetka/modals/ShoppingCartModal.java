@@ -14,7 +14,7 @@ import com.softserveinc.ita.rozetka.components.Header;
 import java.util.List;
 
 public class ShoppingCartModal {
-    public boolean isShoppingCartEmpty() {
+    public boolean isEmpty() {
         return isVisible("//div[@data-testid='empty-cart']");
     }
 
@@ -42,10 +42,8 @@ public class ShoppingCartModal {
         return this;
     }
 
-    public ShoppingCartModal removeAllProducts() {
-        $x("//div[@class='cart-header__remove']//button").click();
-        $x("(//li[contains(@class,'popup-menu')])[1]//button").click();
-        return this;
+    public boolean isRemoveAllProductsButtonVisible() {
+        return isVisible("//div[@class='cart-header__remove']//button");
     }
 
     public CheckoutPage startCheckout() {
@@ -59,5 +57,9 @@ public class ShoppingCartModal {
 
     public long getTotalSum() {
         return getLong("//div[contains(@class,'sum-price')]");
+    }
+
+    public boolean isOpened() {
+        return isVisible("//rz-shopping-cart", 3);
     }
 }

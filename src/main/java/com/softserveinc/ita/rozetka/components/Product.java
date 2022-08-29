@@ -2,53 +2,62 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.data.Availability;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static utils.WebElementUtil.*;
 
 public class Product {
-    private final String productNumber;
-    private final String titleXpath = "(//span[@class='goods-tile__title'])[%s]";
+    private final String productXpath;
+    private final String titleXpath = "//span[@class='goods-tile__title']";
 
     public Product(int productNumber) {
-        this.productNumber = Integer.toString(productNumber);
+        this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
     }
 
-    public Product(String product) {
-        if (product.equals("last")) {
-            this.productNumber = "last()";
+    public Product(String productNumber) {
+        if (productNumber.equals("last")) {
+            this.productXpath = "(//rz-catalog-tile)[last()]";
         } else {
-            this.productNumber = product;
+            this.productXpath = String.format("(//rz-catalog-tile)[%s]", productNumber);
         }
     }
 
     public String getTitle() {
-        return getText(String.format(titleXpath, productNumber));
+        return getText(productXpath + titleXpath).toLowerCase();
     }
 
     public long getPrice() {
-        return getLong(String.format("(//span[@class='goods-tile__price-value'])[%s]", productNumber));
+        return getLong(productXpath + "//span[@class='goods-tile__price-value']");
     }
 
     public SearchResultsPage addToShoppingCart() {
-        $x(String.format("(//button[contains(@class, 'buy-button')])[%s]", productNumber)).click();
+        $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
         return new SearchResultsPage();
     }
 
     public ProductPage open() {
-        $x(String.format(titleXpath, productNumber)).click();
+        $x(productXpath + titleXpath).click();
         $x("//h1[@class='product__title']")
                 .shouldBe(visible)
                 .hover();
         return new ProductPage();
     }
 
-    public String getAvailability() {
-        return getText(String.format("(//div[contains(@class, 'goods-tile__availability')])[%s]", productNumber));
+    public boolean isUsed() {
+        return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_used')]");
     }
 
-    public boolean isUsed() {
-        return isVisible(String.format("(//span[contains(@class, 'promo-label_type_used')])[%s]", productNumber));
+    public Availability getAvailability() {
+        String availability = getText(productXpath + "//div[contains(@class, 'availability')]");
+        return Availability.getByValue(availability);
+    }
+
+    public boolean isAvailable() {
+        Availability availability = getAvailability();
+        return availability == Availability.AVAILABLE
+                || availability == Availability.READY_TO_BE_DELIVERED
+                || availability == Availability.RUNNING_OUT_OF_STOCK;
     }
 }
