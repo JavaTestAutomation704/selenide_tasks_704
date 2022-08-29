@@ -24,7 +24,7 @@ public class BuyOnCreditTest extends TestRunner {
         CreditModal creditModal = productPage.startPurchaseOnCredit();
 
         assertThat(creditModal.isOpen())
-                .withFailMessage("Credit modal did not open")
+                .as("Credit modal should be open")
                 .isTrue();
 
         SoftAssertions softAssert = new SoftAssertions();
@@ -34,7 +34,7 @@ public class BuyOnCreditTest extends TestRunner {
                 .isOpen();
 
         softAssert.assertThat(isCreditPageOpen)
-                .withFailMessage("Credit page did not open")
+                .as("Credit page should be open")
                 .isTrue();
 
         Selenide.back();
@@ -46,7 +46,7 @@ public class BuyOnCreditTest extends TestRunner {
 
         softAssert
                 .assertThat(isCheckoutPageOpen)
-                .withFailMessage("Checkout page did not open")
+                .as("Checkout page should be open")
                 .isTrue();
 
         softAssert.assertAll();
