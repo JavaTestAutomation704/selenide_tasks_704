@@ -29,7 +29,7 @@ public class ShoppingCartTest extends TestRunner {
         String searchPhrase = "samsung a52";
         SearchResultsPage searchResultsPage = header.search(searchPhrase);
 
-        int productsSize = searchResultsPage.getProductsSize();
+        int productsSize = searchResultsPage.getProductsQuantity();
         int productNumber = 1;
         while (!searchResultsPage.getProduct(productNumber).isAvailable()
                 && productNumber < productsSize) {
@@ -72,7 +72,7 @@ public class ShoppingCartTest extends TestRunner {
     public void verifyDeleteProductsFromShoppingCart() {
         SearchResultsPage searchResultsPage = header.search("coffee");
 
-        Assert.assertTrue(searchResultsPage.getProductsSize() >= 5);
+        Assert.assertTrue(searchResultsPage.getProductsQuantity() >= 5);
 
         searchResultsPage
                 .getProduct(1)
