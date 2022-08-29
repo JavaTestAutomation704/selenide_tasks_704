@@ -11,8 +11,10 @@ import static utils.WebElementUtil.*;
 public class Product {
     private final String productXpath;
     private final String titleXpath = "//span[@class='goods-tile__title']";
+    private int productNumber;
 
     public Product(int productNumber) {
+        this.productNumber = productNumber;
         this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
     }
 
@@ -62,7 +64,7 @@ public class Product {
     }
 
     public boolean isOnSale() {
-        return isVisible(String.format("(//div[@class='goods-tile__inner'])[%s]//span[contains(@class, 'promo-label_type_popularity')]", productNumber))
-                || isVisible(String.format("(//div[@class='goods-tile__inner'])[%s]//span[contains(@class, 'promo-label_type_action')]", productNumber));
+        return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
+                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]");
     }
 }
