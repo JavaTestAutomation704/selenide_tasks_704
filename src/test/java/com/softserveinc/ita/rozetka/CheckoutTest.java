@@ -3,7 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import org.testng.annotations.Test;
 
-import static com.softserveinc.ita.rozetka.data.Category.GOODS_FOR_GAMER;
+import static com.softserveinc.ita.rozetka.data.Category.GOODS_FOR_GAMERS;
 import static com.softserveinc.ita.rozetka.data.subcategory.page.GoodsForGamers.MONITORS;
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,7 +12,7 @@ public class CheckoutTest extends TestRunner {
     @Test
     public void verifyCheckoutPageComponents() {
         SubcategoryPage subcategoryPage = homePage
-                .openCategoryPage(GOODS_FOR_GAMER)
+                .openCategoryPage(GOODS_FOR_GAMERS)
                 .openSubcategoryPage(MONITORS);
         int productsAmount = 60;
 
