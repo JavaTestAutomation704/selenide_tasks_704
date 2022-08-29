@@ -21,7 +21,7 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization shouldn't be switched to RU")
                 .isFalse();
 
-        MainSidebar mainSidebar = header.openMobileMenu();
+        MainSidebar mainSidebar = header.openSidebar();
 
         assertThat(mainSidebar.isLanguageSelected(UA))
                 .as("Localization should be switched to UA")
@@ -51,7 +51,7 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization should be switched to RU")
                 .isTrue();
 
-        header.openMobileMenu();
+        header.openSidebar();
 
         assertThat(mainSidebar.isLanguageSelected(UA))
                 .as("Localization shouldn't be switched to UA")

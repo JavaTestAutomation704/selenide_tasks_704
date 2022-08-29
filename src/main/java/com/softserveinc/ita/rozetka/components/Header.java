@@ -15,7 +15,7 @@ import static utils.WebElementUtil.isVisible;
 
 public class Header {
 
-    public MainSidebar openMobileMenu() {
+    public MainSidebar openSidebar() {
         $x("//rz-mobile-user-menu/button").click();
         return new MainSidebar();
     }
