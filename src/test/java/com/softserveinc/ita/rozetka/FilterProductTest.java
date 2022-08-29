@@ -3,7 +3,6 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Filter;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
@@ -26,8 +25,7 @@ public class FilterProductTest extends TestRunner {
         int productsAmount = 7;
 
         assertThat(productsAmount)
-                .as("Index of the last product to verify should be less than or equal to the total number " +
-                        "of products on the page")
+                .as("Products amount should be sufficient")
                 .isLessThanOrEqualTo(searchResultsPage.getProductsSize());
 
         for (int i = 1; i < productsAmount; i += 2) {
