@@ -25,7 +25,7 @@ public class SearchFunctionalityTest extends TestRunner {
 
         for (int i = 1; i <= productsQuantityToCheck; i = i + 5) {
             softly.assertThat(searchResultsPage.getProduct(i).getTitle())
-                    .as("Product title should contain: " + searchPhrase)
+                    .as("Product title should contain searched keyword")
                     .contains(searchPhrase);
         }
         softly.assertAll();
