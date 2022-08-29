@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
+
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
@@ -50,14 +51,15 @@ public class FilterProductTest extends TestRunner {
                 .openSubcategoryPage(NOTEBOOKS)
                 .getFilter();
         filter.filter(AVAILABLE);
+        filter.filter(RUNNING_OUT);
         SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
-        int productsAmount = 5;
+        int productsQuantity = 7;
 
-        assertThat(productsAmount)
+        assertThat(productsQuantity)
                 .as("Products amount should be sufficient")
                 .isLessThanOrEqualTo(searchResultsPage.getProductsQuantity());
 
-        for (int i = 1; i <= productsAmount; i += 2) {
+        for (int i = 1; i <= productsQuantity; i += 2) {
             ProductPage productPage = searchResultsPage
                     .getProduct(i)
                     .open();
@@ -66,7 +68,7 @@ public class FilterProductTest extends TestRunner {
                     .as("Bonus icon should be displayed")
                     .isTrue();
             assertThat(productPage.getBonusText())
-                    .as("The specified text is incorrect")
+                    .as("Incorrect bonus quantity text")
                     .contains("бонус");
 
             productPage.back();

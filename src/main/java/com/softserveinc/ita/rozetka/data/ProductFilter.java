@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 public enum ProductFilter {
 
     AVAILABLE("Є в наявності"),
+    RUNNING_OUT("Закінчується"),
     OUT_OF_STOCK("Немає в наявності"),
     WHITE_COLOR("Білий"),
     ROZETKA_SELLER("Rozetka"),
