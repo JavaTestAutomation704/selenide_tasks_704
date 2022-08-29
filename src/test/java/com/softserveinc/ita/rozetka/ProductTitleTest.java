@@ -1,7 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.subcategory.page.HouseholdAppliances;
+import com.softserveinc.ita.rozetka.data.subcategory.modal.LaptopsAndComputers;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -9,20 +9,23 @@ public class ProductTitleTest extends TestRunner {
     @Test
     public void verifyThatProductTitleContainsTheSameTitleAsCard() {
 
-        SearchResultsPage searchResultsPage = homePage
-                .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
-                .openSubcategoryPage(HouseholdAppliances.REFRIGERATORS);
+        SubcategoryPage subcategoryPage = homePage
+                .getHeader()
+                .openCatalogModal()
+                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputers.ASUS);
 
         SoftAssertions softAssert = new SoftAssertions();
-        String expectedText = "Холодильник";
+        String expectedText = "ноутбук";
 
-        for (int i = 1; i <= searchResultsPage.getProductsSize(); i++) {
-             String actualTitle = searchResultsPage
-                    .getProduct(i)
-                    .getTitle();
+        if(subcategoryPage.getProductsQuantity() >= 1) {
+            for (int i = 1; i <= subcategoryPage.getProductsQuantity(); i++) {
+                String actualTitle = subcategoryPage
+                        .getProduct(i)
+                        .getTitle();
 
-            softAssert.assertThat(actualTitle).contains(expectedText);
+                softAssert.assertThat(actualTitle).contains(expectedText);
+            }
+            softAssert.assertAll();
         }
-        softAssert.assertAll();
     }
 }
