@@ -10,7 +10,7 @@ public enum Category {
 
     LAPTOPS_AND_COMPUTERS("computers-notebooks"),
     PHONES_TV_ELECTRONICS("telefony-tv-i-ehlektronika"),
-    GAMER_PRODUCTS("game-zone"),
+    GOODS_FOR_GAMER("game-zone"),
     HOUSEHOLD_APPLIANCES("bt");
 
     @NonNull

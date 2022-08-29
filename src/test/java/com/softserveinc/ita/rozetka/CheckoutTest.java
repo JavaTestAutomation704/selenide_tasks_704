@@ -3,8 +3,8 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import org.testng.annotations.Test;
 
-import static com.softserveinc.ita.rozetka.data.Category.GAMER_PRODUCTS;
-import static com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers.MONITORS;
+import static com.softserveinc.ita.rozetka.data.Category.GOODS_FOR_GAMER;
+import static com.softserveinc.ita.rozetka.data.subcategory.page.GoodsForGamers.MONITORS;
 import static org.assertj.core.api.Assertions.*;
 
 public class CheckoutTest extends TestRunner {
@@ -12,12 +12,12 @@ public class CheckoutTest extends TestRunner {
     @Test
     public void verifyCheckoutPageComponents() {
         SubcategoryPage subcategoryPage = homePage
-                .openCategoryPage(GAMER_PRODUCTS)
+                .openCategoryPage(GOODS_FOR_GAMER)
                 .openSubcategoryPage(MONITORS);
         int productsAmount = 60;
 
         assertThat(productsAmount)
-                .as("Product amount should be sufficient")
+                .as("Product quantity should be sufficient")
                 .isLessThanOrEqualTo(subcategoryPage.getProductsQuantity());
 
         for (int i = 10; i <= productsAmount; i += 10) {
