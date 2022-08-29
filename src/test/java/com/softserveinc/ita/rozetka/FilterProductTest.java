@@ -34,8 +34,7 @@ public class FilterProductTest extends TestRunner {
                     .getProduct(productNumber)
                     .isOnSale();
 
-            softAssertions
-                    .assertThat(isProductOnSale)
+            softAssertions.assertThat(isProductOnSale)
                     .as(errorMessage, productNumber)
                     .isTrue();
         }
@@ -50,8 +49,7 @@ public class FilterProductTest extends TestRunner {
                     .getProduct(productNumber)
                     .isOnSale();
 
-            softAssertions
-                    .assertThat(isProductOnSale)
+            softAssertions.assertThat(isProductOnSale)
                     .as(errorMessage, productNumber)
                     .isTrue();
         }
