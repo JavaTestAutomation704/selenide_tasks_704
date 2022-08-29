@@ -18,7 +18,7 @@ public class CheckoutTest extends TestRunner {
 
         assertThat(productsAmount)
                 .as("Product amount should be sufficient")
-                .isLessThanOrEqualTo(subcategoryPage.getProductsSize());
+                .isLessThanOrEqualTo(subcategoryPage.getProductsQuantity());
 
         for (int i = 10; i <= productsAmount; i += 10) {
             subcategoryPage
