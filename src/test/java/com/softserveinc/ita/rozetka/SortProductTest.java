@@ -6,28 +6,22 @@ import com.softserveinc.ita.rozetka.data.subcategory.page.HouseholdAppliances;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SortProductTest extends TestRunner {
     @Test
-    public void verifyUserCanSortProductsInAscendingOrderByPriceTest() {
-        SearchResultsPage products = homePage
+    public void verifyUserCanSortProductsInAscendingOrderByPrice() {
+        SearchResultsPage searchResultsPage = homePage
                 .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
                 .openSubcategoryPage(HouseholdAppliances.REFRIGERATORS);
 
-        products.sortBy(ProductSort.PRICE_ASCENDING);
-
-        List<Long> productPrice = new ArrayList<>(products.getProductsSize());
+        searchResultsPage.sortBy(ProductSort.PRICE_ASCENDING);
         SoftAssertions softAssert = new SoftAssertions();
 
-        for (int i = 1; i < products.getProductsSize(); i++) {
-            productPrice.add(products.getProduct(i).getPrice());
-            if ((i % 3 == 0) && (i > 2)) {
+        if (searchResultsPage.getProductsSize() >= 1) {
+            for (int i = 2; i < searchResultsPage.getProductsSize(); i++) {
                 softAssert
-                        .assertThat(productPrice.get(i - 1) >= productPrice.get(i - 2))
+                        .assertThat(searchResultsPage.getProduct(i).getPrice() >= searchResultsPage.getProduct(i-1).getPrice())
                         .withFailMessage(String.format("%d product price should be higher than %d",
-                                productPrice.get(i - 1), productPrice.get(i - 2)));
+                                searchResultsPage.getProduct(i).getPrice(), searchResultsPage.getProduct(i).getPrice()));
             }
         }
     }
