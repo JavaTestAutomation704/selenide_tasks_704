@@ -9,13 +9,13 @@ import org.testng.annotations.Test;
 public class CharacteristicsPageTest extends TestRunner {
     @Test
     public void verifyProductAdditionToComparisonListOnCharacteristicsPage() {
-        Product product = homePage
+        Product lastProduct = homePage
                 .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
                 .openSubcategoryPage(HouseholdAppliances.REFRIGERATORS)
                 .getProduct("last");
-        String productTitle = product.getTitle();
+        String lastProductTitle = lastProduct.getTitle();
 
-        ProductCharacteristicsPage characteristicsPage = product
+        ProductCharacteristicsPage characteristicsPage = lastProduct
                 .open()
                 .openCharacteristicsPage();
         String characteristicsPageUrl = characteristicsPage.getUrl();
@@ -23,8 +23,8 @@ public class CharacteristicsPageTest extends TestRunner {
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(characteristicsPageTitle)
-                .as("Characteristics page title should contain product title.")
-                .contains(productTitle);
+                .as("Characteristics page title should contain last product title.")
+                .contains(lastProductTitle);
         softly.assertThat(characteristicsPageTitle)
                 .as("Characteristics page title should contain keyword.")
                 .contains("характеристики");
