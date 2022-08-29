@@ -5,7 +5,6 @@ import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import org.assertj.core.api.SoftAssertions;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -15,49 +14,33 @@ import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 
 public class FilterProductTest extends TestRunner {
     @Test
-    public void verifySaleSort() {
+    public void verifyUserCanSortProductsByPromotion() {
         Header header = homePage.getHeader();
         SearchResultsPage searchResultsPage = header
                 .search("laptop")
                 .sortBy(ProductSort.PROMOTION);
 
-        Assert.assertTrue(searchResultsPage.getProductsSize() >= 60, "There aren't 60 products");
         SoftAssertions softAssertions = new SoftAssertions();
-        String errorMessage = "Product with number \"%s\" isn't on sale";
-        int productNumber = 1;
-        softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
-                .withFailMessage(String.format(errorMessage, productNumber))
-                .isTrue();
+        softAssertions.assertThat(searchResultsPage.getProductsSize())
+                .isGreaterThanOrEqualTo(60)
+                .as("Products should be 60 or more");
 
-        productNumber = 25;
-        softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
-                .withFailMessage(String.format(errorMessage, productNumber))
-                .isTrue();
-
-        productNumber = 59;
-        softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
-                .withFailMessage(String.format(errorMessage, productNumber))
-                .isTrue();
+        for (int productNumber : new int[]{1, 25, 59}) {
+            softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
+                    .isTrue()
+                    .as(String.format("Product with number %s should be on sale", productNumber));
+        }
 
         searchResultsPage = searchResultsPage
                 .sortBy(ProductSort.RATING)
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
-        productNumber = 2;
-        softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
-                .withFailMessage(String.format(errorMessage, productNumber))
-                .isTrue();
-
-        productNumber = 40;
-        softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
-                .withFailMessage(String.format(errorMessage, productNumber))
-                .isTrue();
-
-        productNumber = 60;
-        softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
-                .withFailMessage(String.format(errorMessage, productNumber))
-                .isTrue();
+        for (int productNumber : new int[]{2, 40, 60}) {
+            softAssertions.assertThat(searchResultsPage.getProduct(productNumber).isOnSale())
+                    .isTrue()
+                    .as(String.format("Product with number %s should be on sale", productNumber));
+        }
 
         softAssertions.assertAll();
     }
