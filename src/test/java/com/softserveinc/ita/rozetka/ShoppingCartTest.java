@@ -98,12 +98,6 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
-        Header header = homePage.getHeader();
-
-        assertThat(header.isShoppingCartCounterVisible())
-                .as("Shopping cart should be empty")
-                .isFalse();
-
         SearchResultsPage searchResultsPage = header.search("starbucks");
 
         assertThat(searchResultsPage.getProductsQuantity())
