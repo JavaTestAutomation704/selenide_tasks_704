@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class SortProductTest extends TestRunner {
     @Test
-    public void verifyUserCanSortProductsInDescendingOrderByPrice() {
+    public void verifyProductsSortingInDescendingOrderByPrice() {
         SubcategoryPage subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
@@ -35,7 +35,7 @@ public class SortProductTest extends TestRunner {
         for (int i = 1; i <= productsQuantity - step; i += step) {
             currentProductPrice = subcategoryPage.getProduct(i).getPrice();
             softly.assertThat(currentProductPrice)
-                    .as("Current product price should be higher than %sth next product price.", step)
+                    .as("Current product price should be higher than next %dth product price.", step)
                     .isGreaterThan(subcategoryPage.getProduct(i + step).getPrice());
         }
 
