@@ -17,10 +17,7 @@ public class ProductPage extends BasePage {
     }
 
     public ShoppingCartModal addToCart() {
-        $x("//ul[@class='product-buttons']//button[contains(@class,'buy-button')]").click();
-        if(!isVisible("//rz-shopping-cart", 3)) {
-            this.getHeader().openShoppingCartModal();
-        }
+        $x("//rz-product-tab-main//button[contains(@class,'buy-button')]").click();
         return new ShoppingCartModal();
     }
 

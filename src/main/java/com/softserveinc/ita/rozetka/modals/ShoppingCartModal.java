@@ -11,7 +11,6 @@ import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 
-import static utils.WebElementUtil.getText;
 import java.util.List;
 
 public class ShoppingCartModal {
@@ -58,5 +57,9 @@ public class ShoppingCartModal {
 
     public long getTotalSum() {
         return getLong("//div[contains(@class,'sum-price')]");
+    }
+
+    public boolean isOpened() {
+        return isVisible("//rz-shopping-cart", 3);
     }
 }

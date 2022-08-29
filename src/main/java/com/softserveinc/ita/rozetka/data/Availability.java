@@ -23,6 +23,6 @@ public enum Availability {
                 return availability;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Can't get Availability enum for value: " + value);
     }
 }
