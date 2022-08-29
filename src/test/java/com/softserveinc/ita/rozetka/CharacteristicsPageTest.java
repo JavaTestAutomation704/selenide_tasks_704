@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class CharacteristicsPageTest extends TestRunner {
     @Test
-    public void verifyUserCanAddProductToComparisonOnCharacteristicsPage() {
+    public void verifyProductAdditionToComparisonListOnCharacteristicsPage() {
         Product product = homePage
                 .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
                 .openSubcategoryPage(HouseholdAppliances.REFRIGERATORS)
@@ -18,7 +18,7 @@ public class CharacteristicsPageTest extends TestRunner {
         ProductCharacteristicsPage characteristicsPage = product
                 .open()
                 .openCharacteristicsPage();
-        String url = characteristicsPage.getUrl();
+        String characteristicsPageUrl = characteristicsPage.getUrl();
         String characteristicsPageTitle = characteristicsPage.getTitle();
 
         SoftAssertions softly = new SoftAssertions();
@@ -29,19 +29,19 @@ public class CharacteristicsPageTest extends TestRunner {
                 .as("Characteristics page title should contain keyword.")
                 .contains("характеристики");
         softly.assertThat(characteristicsPage.isCharacteristicsTabHighlighted())
-                .as("Product characteristics tab should be highlighted.")
+                .as("Characteristics tab should be highlighted.")
                 .isTrue();
-        softly.assertThat(url)
-                .as("Page url should contain keyword.")
+        softly.assertThat(characteristicsPageUrl)
+                .as("Characteristics page url should contain keyword.")
                 .contains("characteristics");
         softly.assertThat(characteristicsPage.isCharacteristicsSectionVisible())
-                .as("Product characteristics section should be present.")
+                .as("Characteristics page should contain characteristics section.")
                 .isTrue();
 
         characteristicsPage.addToComparison();
 
         softly.assertThat(characteristicsPage.isComparisonCounterVisible())
-                .as("Comparison counter should be visible.")
+                .as("Product should be added to comparison list.")
                 .isTrue();
         softly.assertAll();
     }
