@@ -3,12 +3,10 @@ package utils;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Condition.cssValue;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -53,7 +51,8 @@ public class WebElementUtil {
                 .replaceAll("[^0-9]", ""));
     }
 
-    public static String getBorderColor(String elementXpath, String color) {
+    public static String getBorderColor(String elementXpath, String colorRGB) {
+        String color = String.format("rgb(%s)", colorRGB);
         try {
             return $x(elementXpath)
                     .shouldHave(cssValue("border-color", color))

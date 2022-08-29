@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -41,22 +42,23 @@ public class LogInTest extends TestRunner {
                         "when submitting empty fields on the Log In modal")
                 .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
 
-        final String redColor = "rgb(248, 65, 71)";
 
-        String actualEmailBorderColor = logInModal.getEmailBorderColor(redColor);
-        String actualPasswordBorderColor = logInModal.getPasswordBorderColor(redColor);
+        String redColorRGB = Color.RED.getRgb();
+
+        String actualEmailBorderColor = logInModal.getEmailBorderColor(redColorRGB);
+        String actualPasswordBorderColor = logInModal.getPasswordBorderColor(redColorRGB);
 
         softAssert
                 .assertThat(actualEmailBorderColor)
                 .as("Email border color should be red " +
                         "after submitting empty fields on the Log In modal")
-                .isEqualTo(redColor);
+                .contains(redColorRGB);
 
         softAssert
                 .assertThat(actualPasswordBorderColor)
                 .as("Password border color should be red " +
                         "after submitting empty fields on the Log In modal")
-                .isEqualTo(redColor);
+                .contains(redColorRGB);
 
         boolean isRegistrationModalOpen = logInModal
                 .startRegistration()
