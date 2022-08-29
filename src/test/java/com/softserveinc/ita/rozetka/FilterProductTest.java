@@ -12,7 +12,6 @@ import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers.NOTEBOOKS;
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends TestRunner {
@@ -52,11 +51,11 @@ public class FilterProductTest extends TestRunner {
                 .getFilter();
         filter.filter(AVAILABLE);
         SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
-        int productsAmount = 7;
+        int productsAmount = 5;
 
         assertThat(productsAmount)
                 .as("Products amount should be sufficient")
-                .isLessThanOrEqualTo(searchResultsPage.getProductsSize());
+                .isLessThanOrEqualTo(searchResultsPage.getProductsQuantity());
 
         for (int i = 1; i < productsAmount; i += 2) {
             ProductPage productPage = searchResultsPage
