@@ -21,6 +21,6 @@ public enum Availability {
                 return availability;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Availability enum doesn't contain value");
     }
 }
