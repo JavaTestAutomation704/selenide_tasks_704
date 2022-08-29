@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class ChangeCityTest extends TestRunner {
     @Test()
-    public void verifyChangeCity() {
+    public void verifyChangeCityViaSideBarAndProductPage() {
         String expectedCityViaMobileMenu = "Одеса";
         Header header = homePage.getHeader();
         MobileMenu mobileMenu = header
@@ -16,28 +16,25 @@ public class ChangeCityTest extends TestRunner {
                 .changeCity(expectedCityViaMobileMenu)
                 .openMobileMenu();
 
-        String actualCityViaMobileMenu = mobileMenu
-                .getCity();
+        String actualCityViaMobileMenu = mobileMenu.getCity();
 
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(actualCityViaMobileMenu)
                 .isEqualTo(expectedCityViaMobileMenu)
-                .withFailMessage("Cities isn't equal");
+                .as("Cities should be equal");
 
         String expectedCityViaProductPage = "Дніпро";
-        header = header
+        header
                 .search("Планшети")
                 .openProductPage(1)
-                .changeCity(expectedCityViaProductPage)
-                .getHeader();
+                .changeCity(expectedCityViaProductPage);
         mobileMenu = header.openMobileMenu();
 
-        String actualCityViaProductPage = mobileMenu
-                .getCity();
+        String actualCityViaProductPage = mobileMenu.getCity();
 
         softAssertions.assertThat(actualCityViaProductPage)
                 .isEqualTo(expectedCityViaProductPage)
-                .withFailMessage("Cities isn't equal");
+                .as("Cities should be equal");
         softAssertions.assertAll();
     }
 }
