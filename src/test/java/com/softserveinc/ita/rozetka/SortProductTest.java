@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import com.softserveinc.ita.rozetka.data.subcategory.modal.LaptopsAndComputers;
@@ -9,37 +10,38 @@ import org.testng.annotations.Test;
 public class SortProductTest extends TestRunner {
     @Test
     public void verifyUserCanSortProductsInDescendingOrderByPrice() {
-        SubcategoryPage products = homePage
+        SubcategoryPage subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
                 .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputers.ASUS);
 
-        String firstProductTitle = products.getProduct(1).getTitle();
-        String lastProductTitle = products.getProduct("last").getTitle();
+        String firstProductTitle = subcategoryPage.getProduct(1).getTitle();
+        Product lastProduct = subcategoryPage.getProduct("last");
         String categoryKeyword = "asus";
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(firstProductTitle)
-                .as("First product title")
+                .as("First product title should contain keyword.")
                 .contains(categoryKeyword);
-        softly.assertThat(lastProductTitle)
-                .as("Last product title")
+        softly.assertThat( lastProduct.getTitle())
+                .as("Last product title should contain keyword.")
                 .contains(categoryKeyword);
 
-        products.sortBy(ProductSort.PRICE_DESCENDING);
+        subcategoryPage.sortBy(ProductSort.PRICE_DESCENDING);
 
         long currentProductPrice = 0;
         int step = 8;
-        for (int i = 1; i <= products.getProductsSize() - step; i += step) {
-            currentProductPrice = products.getProduct(i).getPrice();
+        int productsQuantity = subcategoryPage.getProductsQuantity();
+        for (int i = 1; i <= productsQuantity - step; i += step) {
+            currentProductPrice = subcategoryPage.getProduct(i).getPrice();
             softly.assertThat(currentProductPrice)
-                    .as("Current product price in comparison to next")
-                    .isGreaterThan(products.getProduct(i + step).getPrice());
+                    .as("Current product price should be higher than %sth next product price.", step)
+                    .isGreaterThan(subcategoryPage.getProduct(i + step).getPrice());
         }
-        long lastProductPrice = products.getProduct("last").getPrice();
+
         softly.assertThat(currentProductPrice)
-                .as("Current product price in comparison to next")
-                .isGreaterThan(lastProductPrice);
+                .as("Current product price should be higher than last product price.")
+                .isGreaterThan(lastProduct.getPrice());
         softly.assertAll();
     }
 }
