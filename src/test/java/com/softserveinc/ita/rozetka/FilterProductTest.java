@@ -1,8 +1,8 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -65,10 +65,16 @@ public class FilterProductTest extends TestRunner {
 
         int resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 
-        SoftAssert softAssert = new SoftAssert();
+        SoftAssertions softAssert = new SoftAssertions();
 
-        softAssert.assertTrue(resultsAmountAfterResetting > resultsAmountAfterFilters);
-        softAssert.assertTrue(resultsAmountAfterResetting == resultsAmountAfterSearch);
+        softAssert
+                .assertThat(resultsAmountAfterResetting)
+                .as("Results amount after resetting should be grater than after filters")
+                .isGreaterThan(resultsAmountAfterFilters);
+        softAssert
+                .assertThat(resultsAmountAfterResetting)
+                .as("Results amount after resetting should be the same as after search")
+                .isEqualTo(resultsAmountAfterSearch);
 
         softAssert.assertAll();
     }
