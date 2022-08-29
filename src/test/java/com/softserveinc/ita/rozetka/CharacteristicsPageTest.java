@@ -23,25 +23,25 @@ public class CharacteristicsPageTest extends TestRunner {
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(characteristicsPageTitle)
-                .as("Characteristics page title")
+                .as("Characteristics page title should contain product title.")
                 .contains(productTitle);
         softly.assertThat(characteristicsPageTitle)
-                .as("Characteristics page title")
+                .as("Characteristics page title should contain keyword.")
                 .contains("характеристики");
         softly.assertThat(characteristicsPage.isCharacteristicsTabHighlighted())
-                .as("Product characteristics tab is highlighted")
+                .as("Product characteristics tab should be highlighted.")
                 .isTrue();
         softly.assertThat(url)
-                .as("Page url")
+                .as("Page url should contain keyword.")
                 .contains("characteristics");
         softly.assertThat(characteristicsPage.isCharacteristicsSectionVisible())
-                .as("Product characteristics section is present")
+                .as("Product characteristics section should be present.")
                 .isTrue();
 
         characteristicsPage.addToComparison();
 
         softly.assertThat(characteristicsPage.isComparisonCounterVisible())
-                .as("Comparison counter is visible")
+                .as("Comparison counter should be visible.")
                 .isTrue();
         softly.assertAll();
     }
