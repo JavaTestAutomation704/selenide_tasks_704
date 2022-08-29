@@ -57,7 +57,7 @@ public class FilterProductTest extends TestRunner {
                 .as("Products amount should be sufficient")
                 .isLessThanOrEqualTo(searchResultsPage.getProductsQuantity());
 
-        for (int i = 1; i < productsAmount; i += 2) {
+        for (int i = 1; i <= productsAmount; i += 2) {
             ProductPage productPage = searchResultsPage
                     .getProduct(i)
                     .open();
