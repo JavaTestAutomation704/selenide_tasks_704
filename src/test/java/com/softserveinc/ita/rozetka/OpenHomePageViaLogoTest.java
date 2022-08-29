@@ -1,37 +1,62 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.Header;
+import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.Subcategory;
+import com.softserveinc.ita.rozetka.data.subcategory.modal.LaptopsAndComputers;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class OpenHomePageViaLogoTest extends TestRunner {
 
     @Test
-    public void verifyHomePageIsOpen() {
-        homePage
-                .openCategoryPage(Category.NOTEBOOKS_COMPUTERS)
-                .openSubcategoryPage(Subcategory.NOTEBOOKS)
-                .addToCart(1)
-                .getHeader()
-                .openHomePageViaLogo()
-                .closeSmallCartSection()
-                .openCategoryPage(Category.NOTEBOOKS_COMPUTERS)
-                .getHeader()
-                .openHomePageViaLogo();
+    public void verifyOpeningHomePageViaLogo() {
+        Header header = homePage.getHeader();
+        SmallCart smallCart = homePage.getSmallCart();
 
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(homePage.isSmallCartSectionVisible(), "Small cart is not visible.");
-        softAssert.assertTrue(homePage.isMainCategoriesSectionVisible(), "Main categories is not visible.");
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(header.isShoppingCartCounterVisible())
+                .as("Cart should be empty")
+                .isFalse();
+        softly.assertThat(smallCart.isOpen())
+                .as("Small cart should not be visible")
+                .isFalse();
 
         homePage
-                .closeSmallCartSection()
-                .getHeader()
+                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(LaptopsAndComputers.NOTEBOOKS)
+                .getProduct(1)
+                .addToShoppingCart();
+
+        header.openHomePageViaLogo();
+
+        softly.assertThat(smallCart.isOpen())
+                .as("Small cart should be visible")
+                .isTrue();
+        softly.assertThat(homePage.isMainCategoriesSectionVisible())
+                .as("Main categories should be visible")
+                .isTrue();
+
+        smallCart
+                .close()
+                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS);
+        header.openHomePageViaLogo();
+
+        softly.assertThat(smallCart.isOpen())
+                .as("Small cart should be visible")
+                .isTrue();
+        softly.assertThat(homePage.isMainCategoriesSectionVisible())
+                .as("Main categories should be visible")
+                .isTrue();
+
+        smallCart.close();
+        header
                 .openMobileMenu()
                 .openHomePageViaLogo();
 
-        softAssert.assertFalse(homePage.isSmallCartSectionVisible(), "Small cart is visible.");
-        softAssert.assertTrue(homePage.isMainCategoriesSectionVisible(), "Main categories is not visible.");
-        softAssert.assertAll();
+        softly.assertThat(smallCart.isOpen())
+                .as("Small cart should not be visible")
+                .isFalse();
+        softly.assertAll();
     }
 }

@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.Selenide;
+import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -14,10 +15,6 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public boolean isSmallCartSectionVisible() {
-        return isVisible("//rz-app-small-cart");
-    }
-
     public boolean isMainCategoriesSectionVisible() {
         return isVisible("//rz-app-fat-menu-tablet");
     }
@@ -27,8 +24,7 @@ public class HomePage extends BasePage {
         return new CategoryPage();
     }
 
-    public HomePage closeSmallCartSection() {
-        $x("//button[contains(@class, 'main-notification__close')]").click();
-        return this;
+    public SmallCart getSmallCart() {
+        return new SmallCart();
     }
 }
