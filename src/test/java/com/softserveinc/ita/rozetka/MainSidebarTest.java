@@ -30,16 +30,16 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization shouldn't be switched to RU")
                 .isFalse();
         assertThat(mainSidebar.getLoginButtonName())
-                .as("'Login' button name is incorrect")
+                .as("Incorrect login button name")
                 .isEqualTo("Вхід");
         assertThat(mainSidebar.getRegistrationButtonName())
-                .as("'Registration' button name is incorrect")
+                .as("Incorrect registration button name")
                 .isEqualTo("Реєстрація");
         assertThat(mainSidebar.getHelpCenterButtonName())
-                .as("'Help center' button name is incorrect")
+                .as("Incorrect help center button name")
                 .isEqualTo("Довідковий центр");
         assertThat(mainSidebar.getContactUsButtonName())
-                .as("'Contact us' button name is incorrect")
+                .as("Incorrect contact us button name")
                 .isEqualTo("Зв'язатися з нами");
 
         mainSidebar.changeLanguage(RU);
@@ -60,16 +60,16 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization should be switched to RU")
                 .isTrue();
         assertThat(mainSidebar.getLoginButtonName())
-                .as("'Login' button name is incorrect")
+                .as("Incorrect login button name")
                 .isEqualTo("Вход");
         assertThat(mainSidebar.getRegistrationButtonName())
-                .as("'Registration' button name is incorrect")
+                .as("Incorrect registration button name")
                 .isEqualTo("Регистрация");
         assertThat(mainSidebar.getHelpCenterButtonName())
-                .as("'Help center' button name is incorrect")
+                .as("Incorrect help center button name")
                 .isEqualTo("Справочный центр");
         assertThat(mainSidebar.getContactUsButtonName())
-                .as("'Contact us' button name is incorrect")
+                .as("Incorrect contact us button name")
                 .isEqualTo("Связаться с нами");
     }
 }
