@@ -10,7 +10,9 @@ public enum Availability {
 
     AVAILABLE("Є в наявності"),
     READY_TO_BE_DELIVERED("Готовий до відправлення"),
-    RUNNING_OUT_OF_STOCK("Закінчується");
+    RUNNING_OUT_OF_STOCK ("Закінчується"),
+    OUT_OF_STOCK("Немає в наявності"),
+    COMING_SOON("Очікується");
 
     @NonNull
     private final String filterValue;
@@ -21,6 +23,6 @@ public enum Availability {
                 return availability;
             }
         }
-        throw new IllegalArgumentException("Availability enum doesn't contain value: " + value);
+        throw new IllegalArgumentException("Can't get Availability enum for value: " + value);
     }
 }
