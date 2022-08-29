@@ -11,25 +11,34 @@ public class FilterProductsOnConditionTest extends TestRunner {
 
     @Test
     public void verifyProductConditionFilter() {
-        SearchResultsPage searchResultsPage = homePage
+        SubcategoryPage subcategoryPage = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(LaptopsAndComputers.NOTEBOOKS);
-        Filter filterSidebar = searchResultsPage.getFilter();
-        filterSidebar.filter(ProductFilter.PRE_USED);
+        Filter filter = subcategoryPage.getFilter();
+        filter.filter(ProductFilter.PRE_USED);
+        int productsQuantity = subcategoryPage.getProductsQuantity();
+        int productsQuantityToCheck = 10;
 
         SoftAssertions softly = new SoftAssertions();
-        for (int i = 1; i <= searchResultsPage.getProductsSize(); i = i + 10) {
-            softly.assertThat(searchResultsPage.getProduct(i).isUsed())
-                    .as("Product is used")
+
+        softly.assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+        for (int i = 1; i <= productsQuantity; i = i + 10) {
+            softly.assertThat(subcategoryPage.getProduct(i).isUsed())
+                    .as("Product should be used")
                     .isTrue();
         }
 
-        searchResultsPage.resetFilters();
-        filterSidebar.filter(ProductFilter.NEW);
+        subcategoryPage.resetFilters();
+        filter.filter(ProductFilter.NEW);
 
-        for (int i = 1; i <= searchResultsPage.getProductsSize(); i = i + 10) {
-            softly.assertThat(searchResultsPage.getProduct(i).isUsed())
-                    .as("Product is new")
+        softly.assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+        for (int i = 1; i <= subcategoryPage.getProductsQuantity(); i = i + 10) {
+            softly.assertThat(subcategoryPage.getProduct(i).isUsed())
+                    .as("Product should be new")
                     .isFalse();
         }
         softly.assertAll();
