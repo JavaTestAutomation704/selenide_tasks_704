@@ -5,7 +5,7 @@ import static utils.WebElementUtil.*;
 
 public class RegistrationModal {
     private final String registerButtonXpath = "//button[@class='button button--large button--green auth-modal__submit']";
-    private final String errorMessage = "(//p[@class='validation-message ng-star-inserted'])[%s]";
+    private final String errorMessageXpathTemplate = "(//p[@class='validation-message ng-star-inserted'])[%s]";
 
     public RegistrationModal open() {
         $x("//rz-user").click();
@@ -43,18 +43,18 @@ public class RegistrationModal {
     }
 
     public String getFirstNameErrorMessage() {
-        return getText(String.format(errorMessage,1));
+        return getText(String.format(errorMessageXpathTemplate,1));
     }
 
     public String getLastNameErrorMessage() {
-        return getText(String.format(errorMessage,2));
+        return getText(String.format(errorMessageXpathTemplate,2));
     }
 
     public String getPhoneNumberErrorMessage() {
-        return getText(String.format(errorMessage,3));
+        return getText(String.format(errorMessageXpathTemplate,3));
     }
 
     public String getEmailErrorMessage() {
-        return getText(String.format(errorMessage,4));
+        return getText(String.format(errorMessageXpathTemplate,4));
     }
 }
