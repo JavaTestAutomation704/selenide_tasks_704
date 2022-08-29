@@ -11,11 +11,11 @@ public class ProductCounterTest extends TestRunner {
     @Test
     public void verifyProductCounterWorks() {
         Header header = homePage.getHeader();
-        boolean doesShoppingCartContainsProducts = header.isShoppingCartCounterVisible();
+        boolean doesShoppingCartContainProducts = header.isShoppingCartCounterVisible();
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(doesShoppingCartContainsProducts)
-                .as("Shopping cart is empty")
+        softly.assertThat(doesShoppingCartContainProducts)
+                .as("Shopping cart should be empty")
                 .isFalse();
 
         Product product = header
@@ -34,20 +34,20 @@ public class ProductCounterTest extends TestRunner {
         int increasedQuantity = cartItem.getQuantity();
 
         softly.assertThat(increasedQuantity)
-                .as("Quantity increased by 1")
+                .as("Quantity should be increased by 1")
                 .isEqualTo(initialQuantity + 1);
         softly.assertThat(price + price)
-                .as(" Total price increased by product`s price")
+                .as(" Total price should be increased by product`s price")
                 .isEqualTo(cartItem.getTotalPrice());
 
         cartItem.decrement();
         int decreasedQuantity = cartItem.getQuantity();
 
         softly.assertThat(decreasedQuantity)
-                .as("Quantity decreased by 1")
+                .as("Quantity should be decreased by 1")
                 .isEqualTo(increasedQuantity - 1);
         softly.assertThat(price)
-                .as(" Total price decreased by product`s price")
+                .as(" Total price should be decreased by product`s price")
                 .isEqualTo(cartItem.getTotalPrice());
         softly.assertAll();
     }

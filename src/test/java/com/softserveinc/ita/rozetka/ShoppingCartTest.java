@@ -59,7 +59,7 @@ public class ShoppingCartTest extends TestRunner {
         if (!cart.isOpened()) {
             header.openShoppingCartModal();
         }
-        softly.assertThat(cart.get(1).getTitle())
+        softly.assertThat(cart.getItem(1).getTitle())
                 .as("Product page title should be equal to Cart item title.")
                 .isEqualTo(firstAvailableProductTitle);
         softly.assertThat(cart.getTotalSum())
