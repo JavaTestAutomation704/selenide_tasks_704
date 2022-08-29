@@ -1,18 +1,78 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
+import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class ShoppingCartTest extends TestRunner {
+    Header header;
+
+    @BeforeMethod
+    public void clearShoppingCart() {
+        header = homePage.getHeader();
+
+        if (header.isShoppingCartCounterVisible()) {
+            header
+                    .openShoppingCartModal()
+                    .clear()
+                    .close();
+        }
+    }
+
+    @Test
+    public void verifyUserCanAddSearchedProductToShoppingCart() {
+        String searchPhrase = "samsung a52";
+        SearchResultsPage searchResultsPage = header.search(searchPhrase);
+
+        int productsSize = searchResultsPage.getProductsQuantity();
+        int productNumber = 1;
+        while (!searchResultsPage.getProduct(productNumber).isAvailable()
+                && productNumber < productsSize) {
+            productNumber++;
+        }
+
+        Product firstAvailableProduct = searchResultsPage.getProduct(productNumber);
+        String firstAvailableProductTitle = firstAvailableProduct.getTitle();
+        long firstAvailableProductPrice = firstAvailableProduct.getPrice();
+
+        SoftAssertions softly = new SoftAssertions();
+        for (String word : searchPhrase.split(" ")) {
+            softly.assertThat(firstAvailableProductTitle)
+                    .as("First available product title should contain searched keyword.")
+                    .contains(word);
+        }
+
+        ProductPage productPage = firstAvailableProduct.open();
+        softly.assertThat(productPage.getTitle())
+                .as("Search result title should be equal to Product page title.")
+                .isEqualTo(firstAvailableProductTitle);
+        softly.assertThat(productPage.getPrice())
+                .as("Search result price should be equal to Product page price.")
+                .isEqualTo(firstAvailableProductPrice);
+
+        ShoppingCartModal cart = productPage.addToCart();
+        if (!cart.isOpened()) {
+            header.openShoppingCartModal();
+        }
+        softly.assertThat(cart.get(1).getTitle())
+                .as("Product page title should be equal to Cart item title.")
+                .isEqualTo(firstAvailableProductTitle);
+        softly.assertThat(cart.getTotalSum())
+                .as("Product page price should be equal to Cart item price.")
+                .isEqualTo(firstAvailableProductPrice);
+        softly.assertAll();
+    }
+
     @Test
     public void verifyDeleteProductsFromShoppingCart() {
-        Header header = homePage.getHeader();
         SearchResultsPage searchResultsPage = header.search("coffee");
 
-        Assert.assertTrue(searchResultsPage.getProductsSize() >= 5);
+        Assert.assertTrue(searchResultsPage.getProductsQuantity() >= 5);
 
         searchResultsPage
                 .getProduct(1)
@@ -33,7 +93,6 @@ public class ShoppingCartTest extends TestRunner {
         softAssert.assertTrue(shoppingCart.isEmpty(), "Shopping cart isn't empty");
         softAssert.assertAll();
     }
-
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
