@@ -20,8 +20,8 @@ public class ChangeCityTest extends TestRunner {
 
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(actualCityViaMobileMenu)
-                .isEqualTo(expectedCityViaMobileMenu)
-                .as("Cities should be equal");
+                .as("Cities should be equal")
+                .isEqualTo(expectedCityViaMobileMenu);
 
         String expectedCityViaProductPage = "Дніпро";
         header
@@ -33,8 +33,8 @@ public class ChangeCityTest extends TestRunner {
         String actualCityViaProductPage = mobileMenu.getCity();
 
         softAssertions.assertThat(actualCityViaProductPage)
-                .isEqualTo(expectedCityViaProductPage)
-                .as("Cities should be equal");
+                .as("Cities should be equal")
+                .isEqualTo(expectedCityViaProductPage);
         softAssertions.assertAll();
     }
 }
