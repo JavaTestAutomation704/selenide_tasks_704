@@ -60,4 +60,8 @@ public class Product {
                 || availability == Availability.READY_TO_BE_DELIVERED
                 || availability == Availability.RUNNING_OUT_OF_STOCK;
     }
+
+    public boolean isAddedToShoppingCart(){
+        return isVisible(productXpath + "//button[contains(@class, 'buy-button_state_in-cart')]");
+    }
 }
