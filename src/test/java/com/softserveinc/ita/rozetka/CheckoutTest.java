@@ -38,14 +38,14 @@ public class CheckoutTest extends TestRunner {
         assertThat(checkoutPage.isHeaderVisible())
                 .as("Header should be visible")
                 .isTrue();
-        assertThat(checkoutPage.isOrderComponentVisible())
-                .as("Order component should be visible")
+        assertThat(checkoutPage.isOrderModalVisible())
+                .as("Order modal should be visible")
                 .isTrue();
-        assertThat(checkoutPage.isContactsComponentVisible())
-                .as("Contacts component should be visible")
+        assertThat(checkoutPage.isContactsModalVisible())
+                .as("Contacts modal should be visible")
                 .isTrue();
-        assertThat(checkoutPage.isTotalComponentVisible())
-                .as("Total component should be visible")
+        assertThat(checkoutPage.isTotalModalVisible())
+                .as("Total modal should be visible")
                 .isTrue();
     }
 }

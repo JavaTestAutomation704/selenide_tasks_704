@@ -38,7 +38,7 @@ public class BuyOnCreditTest extends TestRunner {
 
         boolean isCheckoutPageOpen = creditModal
                 .selectCreditVariant(1)
-                .isOrderComponentVisible();
+                .isOrderModalVisible();
 
         softAssert.assertTrue(isCheckoutPageOpen);
 
