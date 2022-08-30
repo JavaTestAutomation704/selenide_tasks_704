@@ -6,7 +6,7 @@ import com.softserveinc.ita.rozetka.data.Availability;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class Product {
     private final String productXpath;
@@ -66,5 +66,9 @@ public class Product {
     public boolean isOnSale() {
         return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
                 || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]");
+    }
+
+    public boolean isInShoppingCart() {
+        return isVisible(productXpath + "//button[contains(@class, 'buy-button_state_in-cart')]");
     }
 }
