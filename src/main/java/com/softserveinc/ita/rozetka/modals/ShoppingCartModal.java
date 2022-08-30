@@ -10,6 +10,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
+import io.qameta.allure.Step;
 
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class ShoppingCartModal {
         return isVisible("//div[@class='cart-header__remove']//button");
     }
 
+    @Step("Checkout page: start checkout and move to checkout page")
     public CheckoutPage startCheckout() {
         $x("//a[contains(@data-testid,'order')]").click();
         return new CheckoutPage();
