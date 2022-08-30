@@ -6,7 +6,7 @@ import com.softserveinc.ita.rozetka.data.Availability;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class Product {
     private final String productXpath;

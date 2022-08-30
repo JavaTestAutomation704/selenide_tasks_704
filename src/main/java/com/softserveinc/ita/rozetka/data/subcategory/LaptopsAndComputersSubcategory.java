@@ -1,13 +1,12 @@
-package com.softserveinc.ita.rozetka.data.subcategory.modal;
+package com.softserveinc.ita.rozetka.data.subcategory;
 
-import com.softserveinc.ita.rozetka.data.subcategory.ISubcategory;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum LaptopsAndComputers implements ISubcategory {
+public enum LaptopsAndComputersSubcategory implements ISubcategory {
 
     NOTEBOOKS("/notebooks"),
     ASUS("asus"),
