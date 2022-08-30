@@ -11,10 +11,8 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 public class Product {
     private final String productXpath;
     private final String titleXpath = "//span[@class='goods-tile__title']";
-    private int productNumber;
 
     public Product(int productNumber) {
-        this.productNumber = productNumber;
         this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
     }
 
