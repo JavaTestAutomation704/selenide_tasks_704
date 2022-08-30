@@ -6,9 +6,8 @@ import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 
 import static com.codeborne.selenide.Selenide.$x;
-
-import static utils.WebElementUtil.getText;
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class MainSidebar {
     private final String buttonXpathTemplateAuthentication = "(//button[contains(@class,'side-menu__auth-button')])[%d]";
