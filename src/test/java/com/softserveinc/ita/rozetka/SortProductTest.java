@@ -25,7 +25,7 @@ public class SortProductTest extends TestRunner {
         for (int i = step + 1; i < subcategoryPage.getProductsQuantity(); i += step) {
             softAssert
                     .assertThat(subcategoryPage.getProduct(i).getPrice())
-                    .as("%sth product price should be higher than %sth", i, i - step)
+                    .as(i + "th product price should be higher than th" + (i - step))
                     .isGreaterThanOrEqualTo(subcategoryPage.getProduct(i - step).getPrice());
         }
         softAssert.assertAll();
