@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -22,13 +23,18 @@ public class ProductCounterTest extends TestRunner {
         SearchResultsPage searchResultsPage = header
                 .search("kipling");
 
-        assertThat(searchResultsPage.getProductsQuantity())
+        softly.assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
         Product product = searchResultsPage
                 .getProduct(1);
         product.addToShoppingCart();
+
+        softly.assertThat(product.isInShoppingCart())
+                .as("First product should be added to shopping cart")
+                .isTrue();
+
         long price = product.getPrice();
 
         CartItem cartItem = header
