@@ -16,10 +16,6 @@ public class RegistrationTest extends TestRunner {
 
         SoftAssertions softAssert = new SoftAssertions();
 
-        softAssert.assertThat(registrationModal.isOpen())
-                .as("Register modal should be open")
-                .isTrue();
-
         String actualFirstNameErrorMessage = registrationModal.getFirstNameErrorMessage();
         softAssert
                 .assertThat(actualFirstNameErrorMessage)
@@ -43,6 +39,10 @@ public class RegistrationTest extends TestRunner {
                 .assertThat(actualEmailErrorMessage)
                 .as("Error message doesn't appear")
                 .isEqualTo("Введіть свою ел. пошту");
+
+        softAssert.assertThat(registrationModal.isOpen())
+                .as("Register modal should be open")
+                .isTrue();
 
         final String redColor = "rgb(248, 65, 71)";
 
@@ -75,6 +75,10 @@ public class RegistrationTest extends TestRunner {
                 .assertThat(actualPasswordBorderColor)
                 .as("Password border color should be red")
                 .isEqualTo(redColor);
+
+        softAssert.assertThat(registrationModal.isOpen())
+                .as("Register modal should be open")
+                .isTrue();
 
         softAssert.assertAll();
     }
