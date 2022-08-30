@@ -17,11 +17,10 @@ public class SortProductTest extends TestRunner {
                 .openCatalogModal()
                 .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
 
-        int step = 6;
         int productsQuantity = subcategoryPage.getProductsQuantity();
         assertThat(productsQuantity)
                 .as("Products quantity should be sufficient.")
-                .isGreaterThan(step);
+                .isGreaterThanOrEqualTo(20);
 
         subcategoryPage.sortBy(ProductSort.PRICE_DESCENDING);
 
@@ -33,6 +32,7 @@ public class SortProductTest extends TestRunner {
                         .getProduct("last")
                         .getPrice());
 
+        int step = 6;
         SoftAssertions softly = new SoftAssertions();
         for (int i = 1; i <= productsQuantity - step; i += step) {
             softly.assertThat(subcategoryPage
