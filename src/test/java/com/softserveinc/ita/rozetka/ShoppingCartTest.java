@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class ShoppingCartTest extends TestRunner {
     Header header;
 
@@ -96,27 +98,36 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
-        Header header = homePage.getHeader();
         SearchResultsPage searchResultsPage = header.search("starbucks");
 
-        boolean isShoppingCartEmpty = header.isShoppingCartCounterVisible();
-        Assert.assertFalse(isShoppingCartEmpty);
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(2);
 
         long firstProductPrice = searchResultsPage.getProduct(1).getPrice();
         long secondProductPrice = searchResultsPage.getProduct(2).getPrice();
-        long actualTotalSum = firstProductPrice + secondProductPrice;
+        long expectedTotalSum = firstProductPrice + secondProductPrice;
 
-        searchResultsPage
-                .getProduct(1)
-                .addToShoppingCart()
-                .getProduct(2)
-                .addToShoppingCart();
+        Product firstProduct = searchResultsPage.getProduct(1);
+        firstProduct.addToShoppingCart();
 
-        long expectedTotalSum = header
+        assertThat(firstProduct.isInShoppingCart())
+                .as("First product should be added to shopping cart")
+                .isTrue();
+
+        Product secondProduct = searchResultsPage.getProduct(2);
+        secondProduct.addToShoppingCart();
+
+        assertThat(secondProduct.isInShoppingCart())
+                .as("Second product should be added to shopping cart")
+                .isTrue();
+
+        long actualTotalSum = header
                 .openShoppingCartModal()
                 .getTotalSum();
 
-        Assert.assertEquals(actualTotalSum, expectedTotalSum,
-                "Order total sum calculation in shopping cart is not correct");
+        assertThat(actualTotalSum)
+                .as("Total sum in shopping cart should be equal to products prices sum")
+                .isEqualTo(expectedTotalSum);
     }
 }
