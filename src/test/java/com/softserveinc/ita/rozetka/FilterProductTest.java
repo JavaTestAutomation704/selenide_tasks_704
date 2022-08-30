@@ -13,7 +13,7 @@ import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
-import static com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers.NOTEBOOKS;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends TestRunner {

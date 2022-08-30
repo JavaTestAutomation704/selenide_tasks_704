@@ -6,8 +6,6 @@ import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
-import static utils.WebElementUtil.isVisible;
-import static utils.WebElementUtil.*;
 
 public class ProductPage extends BasePage {
     public String getTitle() {
