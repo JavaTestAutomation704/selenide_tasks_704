@@ -1,10 +1,11 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
-import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import com.softserveinc.ita.rozetka.modals.LogInModal;
+import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -38,6 +39,7 @@ public class Header {
         return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]", 3);
     }
 
+    @Step("Home page: open home page via logo")
     public HomePage openHomePageViaLogo() {
         $x(("//a[@class='header__logo']")).click();
         return new HomePage();
