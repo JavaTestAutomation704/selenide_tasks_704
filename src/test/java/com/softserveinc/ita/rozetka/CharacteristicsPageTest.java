@@ -2,7 +2,8 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.subcategory.page.HouseholdAppliances;
+import com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesSubcategory;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -11,7 +12,7 @@ public class CharacteristicsPageTest extends TestRunner {
     public void verifyProductAdditionToComparisonListOnCharacteristicsPage() {
         Product lastProduct = homePage
                 .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
-                .openSubcategoryPage(HouseholdAppliances.REFRIGERATORS)
+                .openSubcategoryPage(HouseholdAppliancesSubcategory.REFRIGERATORS)
                 .getProduct("last");
         String lastProductTitle = lastProduct.getTitle();
 

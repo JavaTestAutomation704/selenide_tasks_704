@@ -3,8 +3,8 @@ package deprecated.dankomax;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isVisible;
-import static utils.WebElementUtil.getCollectionSize;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
 
 
 public class SearchResultsPage {

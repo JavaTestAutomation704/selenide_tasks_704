@@ -2,7 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class ProductCharacteristicsPage extends BasePage {
     public String getTitle() {

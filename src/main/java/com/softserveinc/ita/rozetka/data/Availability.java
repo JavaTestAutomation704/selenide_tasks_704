@@ -10,9 +10,10 @@ public enum Availability {
 
     AVAILABLE("Є в наявності"),
     READY_TO_BE_DELIVERED("Готовий до відправлення"),
-    RUNNING_OUT_OF_STOCK ("Закінчується"),
-    OUT_OF_STOCK("Немає в наявності"),
-    COMING_SOON("Очікується");
+    RUNNING_OUT_OF_STOCK("Закінчується"),
+    NOT_AVAILABLE("Немає в наявності"),
+    COMING_SOON("Очікується"),
+    OUT_OF_STOCK("Закінчився");
 
     @NonNull
     private final String filterValue;
