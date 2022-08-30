@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class CreditPage {
 

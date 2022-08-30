@@ -3,7 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.codeborne.selenide.WebDriverRunner;
 import com.softserveinc.ita.rozetka.components.Header;
 
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public abstract class BasePage {
     public String getUrl() {
