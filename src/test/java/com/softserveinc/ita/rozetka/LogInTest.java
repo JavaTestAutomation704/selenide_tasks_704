@@ -38,27 +38,24 @@ public class LogInTest extends TestRunner {
 
         softAssert
                 .assertThat(actualEmailErrorMessage)
-                .as("Error message should be displayed " +
-                        "when submitting empty fields on the Log In modal")
+                .as("Error message should be displayed when submitting empty fields on the Log In modal")
                 .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
 
 
-        String redColorRGB = Color.RED.getRgb();
+        String redColor = Color.RED.getRgb();
 
-        String actualEmailBorderColor = logInModal.getEmailBorderColor(redColorRGB);
-        String actualPasswordBorderColor = logInModal.getPasswordBorderColor(redColorRGB);
-
-        softAssert
-                .assertThat(actualEmailBorderColor)
-                .as("Email border color should be red " +
-                        "after submitting empty fields on the Log In modal")
-                .contains(redColorRGB);
+        boolean isActualEmailBorderColorCorrect = logInModal.isEmailBorderColorCorrect(redColor);
+        boolean isActualPasswordBorderColorCorrect = logInModal.isPasswordBorderColorCorrect(redColor);
 
         softAssert
-                .assertThat(actualPasswordBorderColor)
-                .as("Password border color should be red " +
-                        "after submitting empty fields on the Log In modal")
-                .contains(redColorRGB);
+                .assertThat(isActualEmailBorderColorCorrect)
+                .as("Email border color should be red after submitting empty fields on the Log In modal")
+                .isTrue();
+
+        softAssert
+                .assertThat(isActualPasswordBorderColorCorrect)
+                .as("Password border color should be red after submitting empty fields on the Log In modal")
+                .isTrue();
 
         boolean isRegistrationModalOpen = logInModal
                 .startRegistration()
