@@ -21,58 +21,56 @@ public class RegistrationTest extends TestRunner {
                 .isTrue();
 
         String actualFirstNameErrorMessage = registrationModal.getFirstNameErrorMessage();
-        String actualLastNameErrorMessage = registrationModal.getLastNameErrorMessage();
-        String actualPhoneNumberErrorMessage = registrationModal.getPhoneNumberErrorMessage();
-        String actualEmailErrorMessage = registrationModal.getEmailErrorMessage();
-
         softAssert
                 .assertThat(actualFirstNameErrorMessage)
-                .as("Error message (Введіть своє ім'я кирилицею) doesn't appear")
+                .as("Error message doesn't appear")
                 .isEqualTo("Введіть своє ім'я кирилицею");
 
+        String actualLastNameErrorMessage = registrationModal.getLastNameErrorMessage();
         softAssert
                 .assertThat(actualLastNameErrorMessage)
-                .as("Error message (Введіть своє прізвище кирилицею) doesn't appear")
+                .as("Error message doesn't appear")
                 .isEqualTo("Введіть своє прізвище кирилицею");
 
+        String actualPhoneNumberErrorMessage = registrationModal.getPhoneNumberErrorMessage();
         softAssert
                 .assertThat(actualPhoneNumberErrorMessage)
-                .as("Error message (Введіть номер мобільного телефону) doesn't appear")
+                .as("Error message doesn't appear")
                 .isEqualTo("Введіть номер мобільного телефону");
 
+        String actualEmailErrorMessage = registrationModal.getEmailErrorMessage();
         softAssert
                 .assertThat(actualEmailErrorMessage)
-                .as("Error message (Введіть свою ел. пошту) doesn't appear")
+                .as("Error message doesn't appear")
                 .isEqualTo("Введіть свою ел. пошту");
 
         final String redColor = "rgb(248, 65, 71)";
 
         String actualFirstNameBorderColor = registrationModal.getFirstNameBorderColor(redColor);
-        String actualLastNameBorderColor = registrationModal.getLastNameBorderColor(redColor);
-        String actualPhoneNumberBorderColor = registrationModal.getPhoneNumberBorderColor(redColor);
-        String actualEmailBorderColor = registrationModal.getEmailBorderColor(redColor);
-        String actualPasswordBorderColor = registrationModal.getPasswordBorderColor(redColor);
-
         softAssert
                 .assertThat(actualFirstNameBorderColor)
                 .as("FirstName border color should be red")
                 .isEqualTo(redColor);
 
+        String actualLastNameBorderColor = registrationModal.getLastNameBorderColor(redColor);
         softAssert
                 .assertThat(actualLastNameBorderColor)
                 .as("LastName border color should be red")
                 .isEqualTo(redColor);
 
+        String actualPhoneNumberBorderColor = registrationModal.getPhoneNumberBorderColor(redColor);
         softAssert
                 .assertThat(actualPhoneNumberBorderColor)
                 .as("PhoneNumber border color should be red")
                 .isEqualTo(redColor);
 
+        String actualEmailBorderColor = registrationModal.getEmailBorderColor(redColor);
         softAssert
                 .assertThat(actualEmailBorderColor)
                 .as("Email border color should be red")
                 .isEqualTo(redColor);
 
+        String actualPasswordBorderColor = registrationModal.getPasswordBorderColor(redColor);
         softAssert
                 .assertThat(actualPasswordBorderColor)
                 .as("Password border color should be red")
