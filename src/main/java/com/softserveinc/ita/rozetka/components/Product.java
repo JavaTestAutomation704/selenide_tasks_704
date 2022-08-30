@@ -38,7 +38,7 @@ public class Product {
         return new SearchResultsPage();
     }
 
-    @Step("Product: open product page")
+    @Step("Product page: open product page")
     public ProductPage open() {
         $x(productXpath + titleXpath).click();
         $x("//h1[@class='product__title']")

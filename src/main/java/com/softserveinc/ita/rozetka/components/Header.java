@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
-    @Step("Header: open main sidebar")
+    @Step("Main sidebar: open main sidebar")
     public MainSidebar openMainSidebar() {
         $x("//rz-mobile-user-menu/button").click();
         return new MainSidebar();
@@ -49,7 +49,7 @@ public class Header {
                 ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
 
-    @Step("Header: open catalog modal")
+    @Step("Catalog modal: open catalog modal")
     public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
         $x("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]")

@@ -33,7 +33,7 @@ public class ShoppingCartModal {
         return this;
     }
 
-    @Step("Shopping cart modal: close shopping cart modal")
+    @Step("Header: close shopping cart modal")
     public Header close() {
         $x("//button[contains(@class, 'modal__close')]").click();
         return new Header();

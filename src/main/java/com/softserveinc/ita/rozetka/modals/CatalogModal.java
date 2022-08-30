@@ -8,7 +8,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class CatalogModal {
-    @Step("Catalog modal: open {subcategory} page of {category}")
+    @Step("Subcategory page: open {subcategory} page of {category}")
     public SubcategoryPage openSubcategory(Category category, ISubcategory subcategory) {
         String categoryXpath = String.format("//a[contains(@href, %s)]/ancestor::li[contains(@class, 'menu-categories__item')]", category.getCategoryXpath());
         $x(categoryXpath).hover();
