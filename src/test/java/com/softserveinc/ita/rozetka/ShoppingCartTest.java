@@ -6,13 +6,17 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class ShoppingCartTest extends TestRunner {
     @Test
     public void verifyDeleteProductsFromShoppingCart() {
         Header header = homePage.getHeader();
         SearchResultsPage searchResultsPage = header.search("coffee");
 
-        Assert.assertTrue(searchResultsPage.getProductsSize() >= 5);
+        assertThat(searchResultsPage.getProductsSize())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(5);
 
         searchResultsPage
                 .getProduct(1)
