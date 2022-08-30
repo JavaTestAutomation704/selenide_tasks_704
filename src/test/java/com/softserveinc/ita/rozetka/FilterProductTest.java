@@ -53,11 +53,11 @@ public class FilterProductTest extends TestRunner {
         filter.filter(AVAILABLE);
         filter.filter(RUNNING_OUT);
         SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
-        int productsQuantity = 7;
+        int productsQuantity = 5;
 
-        assertThat(productsQuantity)
+        assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
-                .isLessThanOrEqualTo(searchResultsPage.getProductsQuantity());
+                .isGreaterThanOrEqualTo(productsQuantity);
 
         for (int i = 1; i <= productsQuantity; i += 2) {
             ProductPage productPage = searchResultsPage
