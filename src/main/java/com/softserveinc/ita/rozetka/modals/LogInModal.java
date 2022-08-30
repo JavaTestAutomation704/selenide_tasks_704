@@ -1,7 +1,7 @@
 package com.softserveinc.ita.rozetka.modals;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class LogInModal {
     private final String logInButtonXpath = "//button[contains(@class, 'auth-modal__submit')]";

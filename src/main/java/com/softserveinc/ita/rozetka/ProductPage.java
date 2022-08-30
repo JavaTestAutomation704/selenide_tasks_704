@@ -5,7 +5,7 @@ import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ProductPage extends BasePage {
     public String getTitle() {
@@ -17,8 +17,7 @@ public class ProductPage extends BasePage {
     }
 
     public ShoppingCartModal addToCart() {
-        $x("//ul[@class='product-buttons']//button[contains(@class,'buy-button')]").click();
-        $x("//div[contains(@class, 'modal__holder')]").shouldBe(visible);
+        $x("//rz-product-tab-main//button[contains(@class,'buy-button')]").click();
         return new ShoppingCartModal();
     }
 

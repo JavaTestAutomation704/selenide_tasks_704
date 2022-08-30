@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
+import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class Filter extends Header {
         $x(String.format("//a[@data-id = '%s']", type.getFilterXpath()))
                 .scrollIntoView(false)
                 .click();
+        WebElementUtil.waitTillVisible(String.format("//a[@data-id = '%s'][contains(@class, 'link--checked')]",
+                type.getFilterXpath()));
         return new SearchResultsPage();
     }
 

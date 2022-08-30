@@ -2,11 +2,12 @@ package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.Selenide;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
-import static org.testng.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BuyOnCreditTest extends TestRunner {
 
@@ -23,15 +24,19 @@ public class BuyOnCreditTest extends TestRunner {
 
         CreditModal creditModal = productPage.startPurchaseOnCredit();
 
-        assertTrue(creditModal.isOpen());
+        assertThat(creditModal.isOpen())
+                .as("Credit modal should be open")
+                .isTrue();
 
-        SoftAssert softAssert = new SoftAssert();
+        SoftAssertions softAssert = new SoftAssertions();
 
         boolean isCreditPageOpen = creditModal
                 .openCreditPage()
                 .isOpen();
 
-        softAssert.assertTrue(isCreditPageOpen);
+        softAssert.assertThat(isCreditPageOpen)
+                .as("Credit page should be open")
+                .isTrue();
 
         Selenide.back();
         productPage.startPurchaseOnCredit();
@@ -40,7 +45,10 @@ public class BuyOnCreditTest extends TestRunner {
                 .selectCreditVariant(1)
                 .isOrderModalVisible();
 
-        softAssert.assertTrue(isCheckoutPageOpen);
+        softAssert
+                .assertThat(isCheckoutPageOpen)
+                .as("Checkout page should be open")
+                .isTrue();
 
         softAssert.assertAll();
     }
