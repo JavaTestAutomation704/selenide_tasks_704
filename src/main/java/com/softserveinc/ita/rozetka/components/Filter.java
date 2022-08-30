@@ -2,7 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
-import utils.WebElementUtil;
+import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 
 import java.util.List;
 
