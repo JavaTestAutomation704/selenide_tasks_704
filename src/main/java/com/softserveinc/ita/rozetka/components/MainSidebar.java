@@ -11,14 +11,14 @@ import static utils.WebElementUtil.getText;
 import static utils.WebElementUtil.isVisible;
 
 public class MainSidebar {
-    private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
+    private final String buttonXpathTemplateAuthentication = "(//button[contains(@class,'side-menu__auth-button')])[%d]";
 
     public String getLoginButtonName() {
-        return getText("(" + xpathAuthentication + ")[1]");
+        return getText(String.format(buttonXpathTemplateAuthentication, 1));
     }
 
     public String getRegistrationButtonName() {
-        return getText("(" + xpathAuthentication + ")[2]");
+        return getText(String.format(buttonXpathTemplateAuthentication, 2));
     }
 
     public String getHelpCenterButtonName() {
