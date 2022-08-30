@@ -1,4 +1,4 @@
-package utils;
+package com.softserveinc.ita.rozetka.utils;
 
 import lombok.experimental.UtilityClass;
 
@@ -41,6 +41,10 @@ public class WebElementUtil {
             return $x(elementXpath).text();
         }
         return "";
+    }
+
+    public static void waitTillVisible(String elementXpath) {
+        isVisible(elementXpath);
     }
 
     public static long getLong(String elementXpath) {

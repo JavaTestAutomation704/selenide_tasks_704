@@ -1,13 +1,12 @@
-package com.softserveinc.ita.rozetka.data.subcategory.page;
+package com.softserveinc.ita.rozetka.data.subcategory;
 
-import com.softserveinc.ita.rozetka.data.subcategory.ISubcategory;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum HouseholdAppliances implements ISubcategory {
+public enum HouseholdAppliancesSubcategory implements ISubcategory {
 
     REFRIGERATORS("refrigerators");
 

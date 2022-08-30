@@ -1,6 +1,6 @@
-package com.softserveinc.ita.rozetka.MobileMenuTests;
+package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.TestRunner;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import com.softserveinc.ita.rozetka.components.Header;
 import org.testng.Assert;
 import org.testng.annotations.Test;

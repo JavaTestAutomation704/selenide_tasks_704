@@ -4,14 +4,13 @@ package com.softserveinc.ita.rozetka.modals;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 
-import static utils.WebElementUtil.getText;
 import java.util.List;
 
 public class ShoppingCartModal {
@@ -58,5 +57,9 @@ public class ShoppingCartModal {
 
     public long getTotalSum() {
         return getLong("//div[contains(@class,'sum-price')]");
+    }
+
+    public boolean isOpened() {
+        return isVisible("//rz-shopping-cart", 3);
     }
 }

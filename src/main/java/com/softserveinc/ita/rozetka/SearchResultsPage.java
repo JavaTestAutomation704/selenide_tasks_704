@@ -7,9 +7,9 @@ import com.softserveinc.ita.rozetka.data.ProductSort;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.getCollectionSize;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
 
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class SearchResultsPage extends BasePage {
 
@@ -50,7 +50,7 @@ public class SearchResultsPage extends BasePage {
         return this;
     }
 
-    public int getProductsSize(){
-        return getCollectionSize("//div[contains(@class, 'goods-tile ')]");
+    public int getProductsQuantity() {
+        return getCollectionSize("//rz-catalog-tile");
     }
 }
