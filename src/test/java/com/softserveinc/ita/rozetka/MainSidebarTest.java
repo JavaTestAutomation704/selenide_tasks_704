@@ -20,7 +20,7 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        MainSidebar mainSidebar = header.openSidebar();
+        MainSidebar mainSidebar = header.openMainSidebar();
 
         SoftAssertions softAssertions = new SoftAssertions();
         assertThat(mainSidebar.isLanguageSelected(UA))
@@ -45,7 +45,7 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization should be switched to RU")
                 .isTrue();
 
-        header.openSidebar();
+        header.openMainSidebar();
 
         assertThat(mainSidebar.isLanguageSelected(RU))
                 .as("Localization should be switched to RU")

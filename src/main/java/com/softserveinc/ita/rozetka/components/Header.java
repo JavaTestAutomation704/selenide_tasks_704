@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 
@@ -15,7 +16,8 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
 
-    public MainSidebar openSidebar() {
+    @Step("Main sidebar: open main sidebar")
+    public MainSidebar openMainSidebar() {
         $x("//rz-mobile-user-menu/button").click();
         return new MainSidebar();
     }

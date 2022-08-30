@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
@@ -43,6 +44,7 @@ public class MainSidebar {
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
     }
 
+    @Step("Header: change language to {language}")
     public Header changeLanguage(Language language) {
         $x(String.format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();
