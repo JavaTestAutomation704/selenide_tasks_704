@@ -1,8 +1,8 @@
 package deprecated.ytarasovych;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.getCollectionSize;
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class GoogleSearchResultPage {
     private final String inputFieldXpath = "//input[@class='gLFyf gsfi']";

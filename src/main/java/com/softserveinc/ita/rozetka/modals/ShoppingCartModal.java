@@ -4,7 +4,7 @@ package com.softserveinc.ita.rozetka.modals;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;

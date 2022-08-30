@@ -2,7 +2,8 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.subcategory.page.LaptopsAndComputers;
+import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -21,7 +22,7 @@ public class FilterProductTest extends TestRunner {
     public void verifyProductAvailabilityFilter() {
         SearchResultsPage searchResultsPage = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
-                .openSubcategoryPage(LaptopsAndComputers.NOTEBOOKS)
+                .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS)
                 .getFilter()
                 .filter(AVAILABLE);
 

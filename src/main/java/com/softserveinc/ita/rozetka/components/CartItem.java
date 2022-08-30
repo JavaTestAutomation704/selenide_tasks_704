@@ -5,7 +5,7 @@ import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 
 @RequiredArgsConstructor
 public class CartItem {

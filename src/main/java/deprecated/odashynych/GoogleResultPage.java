@@ -1,6 +1,6 @@
 package deprecated.odashynych;
 
-import utils.WebElementUtil;
+import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
 

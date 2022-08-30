@@ -1,6 +1,7 @@
-package com.softserveinc.ita.rozetka;
+package com.softserveinc.ita.rozetka.utils;
 
 import com.codeborne.selenide.Configuration;
+import com.softserveinc.ita.rozetka.HomePage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
