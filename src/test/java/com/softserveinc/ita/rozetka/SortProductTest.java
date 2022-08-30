@@ -19,7 +19,7 @@ public class SortProductTest extends TestRunner {
 
         int productsQuantity = subcategoryPage.getProductsQuantity();
         assertThat(productsQuantity)
-                .as("Products quantity should be sufficient.")
+                .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(20);
 
         subcategoryPage.sortBy(ProductSort.PRICE_DESCENDING);
@@ -27,7 +27,7 @@ public class SortProductTest extends TestRunner {
         assertThat(subcategoryPage
                         .getProduct(1)
                         .getPrice())
-                .as("First product price should be higher than last product price.")
+                .as("First product price should be higher than last product price")
                 .isGreaterThan(subcategoryPage
                         .getProduct("last")
                         .getPrice());
@@ -38,12 +38,12 @@ public class SortProductTest extends TestRunner {
             softly.assertThat(subcategoryPage
                             .getProduct(i)
                             .getTitle())
-                    .as(i + "th product title should contain keyword.")
+                    .as(i + "th product title should contain keyword")
                     .contains("asus");
             softly.assertThat(subcategoryPage
                             .getProduct(i)
                             .getPrice())
-                    .as("%dth product price should be higher than %dth product price.", i, i + step)
+                    .as("%dth product price should be higher than %dth product price", i, i + step)
                     .isGreaterThan(subcategoryPage
                             .getProduct(i + step)
                             .getPrice());
