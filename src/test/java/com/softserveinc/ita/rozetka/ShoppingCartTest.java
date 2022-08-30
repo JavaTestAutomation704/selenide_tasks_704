@@ -111,14 +111,14 @@ public class ShoppingCartTest extends TestRunner {
         Product firstProduct = searchResultsPage.getProduct(1);
         firstProduct.addToShoppingCart();
 
-        assertThat(firstProduct.isAddedToShoppingCart())
+        assertThat(firstProduct.isInShoppingCart())
                 .as("First product should be added to shopping cart")
                 .isTrue();
 
         Product secondProduct = searchResultsPage.getProduct(2);
         secondProduct.addToShoppingCart();
 
-        assertThat(secondProduct.isAddedToShoppingCart())
+        assertThat(secondProduct.isInShoppingCart())
                 .as("Second product should be added to shopping cart")
                 .isTrue();
 

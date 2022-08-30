@@ -61,7 +61,7 @@ public class Product {
                 || availability == Availability.RUNNING_OUT_OF_STOCK;
     }
 
-    public boolean isAddedToShoppingCart(){
+    public boolean isInShoppingCart() {
         return isVisible(productXpath + "//button[contains(@class, 'buy-button_state_in-cart')]");
     }
 }
