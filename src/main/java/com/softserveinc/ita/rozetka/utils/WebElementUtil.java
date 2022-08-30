@@ -1,4 +1,4 @@
-package utils;
+package com.softserveinc.ita.rozetka.utils;
 
 import lombok.experimental.UtilityClass;
 

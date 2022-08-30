@@ -6,7 +6,7 @@ import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class MobileMenu {
     private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";

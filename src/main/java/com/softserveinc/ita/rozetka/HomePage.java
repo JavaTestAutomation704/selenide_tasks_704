@@ -5,7 +5,7 @@ import com.softserveinc.ita.rozetka.data.Category;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class HomePage extends BasePage {
 
