@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 public class CheckoutTest extends TestRunner {
 
     @Test
-    public void verifyCheckoutCorrectlyWorks() {
+    public void verifyCheckoutFunctionalityWorks() {
         SubcategoryPage subcategoryPage = homePage
                 .openCategoryPage(GOODS_FOR_GAMERS)
                 .openSubcategoryPage(MONITORS);
@@ -19,7 +19,7 @@ public class CheckoutTest extends TestRunner {
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
-                .isLessThanOrEqualTo(productsQuantity);
+                .isGreaterThanOrEqualTo(productsQuantity);
 
         for (int i = 10; i <= productsQuantity; i += 10) {
             subcategoryPage
