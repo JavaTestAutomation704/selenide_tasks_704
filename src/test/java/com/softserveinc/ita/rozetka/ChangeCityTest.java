@@ -6,6 +6,9 @@ import com.softserveinc.ita.rozetka.components.MobileMenu;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 public class ChangeCityTest extends TestRunner {
     @Test()
     public void verifyCityChangeViaSideBarAndProductPage() {
@@ -16,27 +19,29 @@ public class ChangeCityTest extends TestRunner {
                 .changeCity(expectedCityViaMobileMenu)
                 .openMobileMenu();
 
-        String actualCityViaMobileMenu = mobileMenu.getCity();
-
         String errorMessage = "City names should be equal";
 
         SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(actualCityViaMobileMenu)
+        softAssertions.assertThat(mobileMenu.getCity())
                 .as(errorMessage)
                 .isEqualTo(expectedCityViaMobileMenu);
 
+        SearchResultsPage searchResultsPage = header.search("Планшети");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
         String expectedCityViaProductPage = "Дніпро";
-        header
-                .search("Планшети")
+        searchResultsPage
                 .openProductPage(1)
                 .changeCity(expectedCityViaProductPage);
         mobileMenu = header.openMobileMenu();
 
-        String actualCityViaProductPage = mobileMenu.getCity();
-
-        softAssertions.assertThat(actualCityViaProductPage)
+        softAssertions.assertThat(mobileMenu.getCity())
                 .as(errorMessage)
                 .isEqualTo(expectedCityViaProductPage);
+
         softAssertions.assertAll();
     }
 }
