@@ -38,6 +38,7 @@ public class SearchResultsPage extends BasePage {
         return new Product(number);
     }
 
+    @Step("Search results page: get product {number}")
     public Product getProduct(String number) {
         return new Product(number);
     }
