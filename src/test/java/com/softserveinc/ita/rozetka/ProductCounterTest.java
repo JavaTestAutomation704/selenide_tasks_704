@@ -6,6 +6,8 @@ import com.softserveinc.ita.rozetka.components.Product;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class ProductCounterTest extends TestRunner {
 
     @Test
@@ -17,12 +19,16 @@ public class ProductCounterTest extends TestRunner {
         softly.assertThat(doesShoppingCartContainProducts)
                 .as("Shopping cart should be empty")
                 .isFalse();
+        SearchResultsPage searchResultsPage = header
+                .search("kipling");
 
-        Product product = header
-                .search("kipling")
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        Product product = searchResultsPage
                 .getProduct(1);
         product.addToShoppingCart();
-
         long price = product.getPrice();
 
         CartItem cartItem = header
@@ -34,20 +40,20 @@ public class ProductCounterTest extends TestRunner {
         int increasedQuantity = cartItem.getQuantity();
 
         softly.assertThat(increasedQuantity)
-                .as("Quantity should be increased by 1")
+                .as("Quantity should be increased")
                 .isEqualTo(initialQuantity + 1);
         softly.assertThat(price + price)
-                .as(" Total price should be increased by product`s price")
+                .as(" Total price should be increased")
                 .isEqualTo(cartItem.getTotalPrice());
 
         cartItem.decrement();
         int decreasedQuantity = cartItem.getQuantity();
 
         softly.assertThat(decreasedQuantity)
-                .as("Quantity should be decreased by 1")
+                .as("Quantity should be decreased")
                 .isEqualTo(increasedQuantity - 1);
         softly.assertThat(price)
-                .as(" Total price should be decreased by product`s price")
+                .as(" Total price should be decreased")
                 .isEqualTo(cartItem.getTotalPrice());
         softly.assertAll();
     }
