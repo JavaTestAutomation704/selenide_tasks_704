@@ -5,14 +5,11 @@ import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import org.assertj.core.api.SoftAssertions;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
-import org.assertj.core.api.SoftAssertions;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShoppingCartTest extends TestRunner {
     Header header;
@@ -90,19 +87,22 @@ public class ShoppingCartTest extends TestRunner {
         ShoppingCartModal shoppingCart = header
                 .openShoppingCartModal()
                 .remove(1);
+
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(shoppingCart.isEmpty())
-                .withFailMessage("Shopping cart is empty")
+                .as("Shopping cart should not be empty")
                 .isFalse();
+
         softAssertions.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
-                .withFailMessage("Button \"Remove all\" is visible")
+                .as("Button \"Remove all\" should not be visible")
                 .isFalse();
 
         shoppingCart.remove(1);
 
         softAssertions.assertThat(shoppingCart.isEmpty())
-                .withFailMessage("Shopping cart isn't empty")
+                .as("Shopping cart should be empty")
                 .isTrue();
+
         softAssertions.assertAll();
     }
 
