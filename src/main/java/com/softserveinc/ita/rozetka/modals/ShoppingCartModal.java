@@ -10,6 +10,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
+import io.qameta.allure.Step;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class ShoppingCartModal {
         return isVisible("//div[@data-testid='empty-cart']");
     }
 
+    @Step("Shopping cart modal: clear shopping cart")
     public ShoppingCartModal clear() {
         String cartItemActionButtonXpath = "//button[contains(@id, 'cartProductActions')]";
         if (isVisible(cartItemActionButtonXpath)) {
@@ -31,6 +33,7 @@ public class ShoppingCartModal {
         return this;
     }
 
+    @Step("Shopping cart modal: close shopping cart modal")
     public Header close() {
         $x("//button[contains(@class, 'modal__close')]").click();
         return new Header();

@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -13,10 +14,10 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
-
-    public MobileMenu openMobileMenu() {
+    @Step("Header: open main sidebar")
+    public MainSidebar openMainSidebar() {
         $x("//rz-mobile-user-menu/button").click();
-        return new MobileMenu();
+        return new MainSidebar();
     }
 
     public LogInModal startLoggingIn() {
@@ -48,6 +49,7 @@ public class Header {
                 ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
 
+    @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
         $x("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]")

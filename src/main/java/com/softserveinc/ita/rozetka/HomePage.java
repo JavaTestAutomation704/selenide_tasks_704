@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.Selenide;
 import com.softserveinc.ita.rozetka.data.Category;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -9,6 +10,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class HomePage extends BasePage {
 
+    @Step("Home page: open home page")
     public HomePage open() {
         Selenide.open("https://rozetka.com.ua/ua/");
         return this;
