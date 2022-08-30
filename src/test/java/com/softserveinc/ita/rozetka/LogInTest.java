@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.modals.LogInModal;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
