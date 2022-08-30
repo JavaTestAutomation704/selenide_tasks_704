@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.GOODS_FOR_GAMERS;

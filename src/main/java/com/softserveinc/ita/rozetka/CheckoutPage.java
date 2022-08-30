@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import static utils.WebElementUtil.getText;
-import static utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class CheckoutPage extends BasePage {
