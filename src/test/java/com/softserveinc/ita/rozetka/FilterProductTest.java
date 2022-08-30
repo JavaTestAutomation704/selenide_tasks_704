@@ -3,7 +3,6 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
-import com.softserveinc.ita.rozetka.data.ProductSort;
 import org.assertj.core.api.SoftAssertions;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
@@ -17,41 +16,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends TestRunner {
     @Test
-    public void verifyProductsSortingByPromotion() {
+    public void verifyProductsSaleFilter() {
         Header header = homePage.getHeader();
-        SearchResultsPage searchResultsPage = header
-                .search("laptop")
-                .sortBy(ProductSort.PROMOTION);
+        SearchResultsPage searchResultsPage = header.search("laptop");
 
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(searchResultsPage.getProductsQuantity())
+        assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(60);
 
-        String errorMessage = "Product with number %s should be on sale";
-
-        for (int productNumber : new int[]{1, 25, 59}) {
-            boolean isProductOnSale = searchResultsPage
-                    .getProduct(productNumber)
-                    .isOnSale();
-
-            softAssertions.assertThat(isProductOnSale)
-                    .as(errorMessage, productNumber)
-                    .isTrue();
-        }
-
         searchResultsPage = searchResultsPage
-                .sortBy(ProductSort.RATING)
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
+        SoftAssertions softAssertions = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
             boolean isProductOnSale = searchResultsPage
                     .getProduct(productNumber)
                     .isOnSale();
 
             softAssertions.assertThat(isProductOnSale)
-                    .as(errorMessage, productNumber)
+                    .as("Product with number %s should be on sale", productNumber)
                     .isTrue();
         }
 
