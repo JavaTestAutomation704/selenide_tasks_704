@@ -51,14 +51,15 @@ public class WebElementUtil {
                 .replaceAll("[^0-9]", ""));
     }
 
-    public static String getBorderColor(String elementXpath, String colorRGB) {
-        String color = String.format("rgb(%s)", colorRGB);
+    public static boolean isBorderColorCorrect(String elementXpath, String colorRgb) {
+        String expectedColor = String.format("rgb(%s)", colorRgb);
         try {
-            return $x(elementXpath)
-                    .shouldHave(cssValue("border-color", color))
+            String actualColor = $x(elementXpath)
+                    .shouldHave(cssValue("border-color", expectedColor))
                     .getCssValue("border-color");
+            return actualColor.equals(expectedColor);
         } catch (AssertionError e) {
-            return "";
+            return false;
         }
     }
 }

@@ -34,12 +34,12 @@ public class LogInModal {
         return isVisible(registerButtonXpath);
     }
 
-    public String getEmailBorderColor(String colorRGB) {
-        return getBorderColor("//input[@type='email']", colorRGB);
+    public boolean isEmailBorderColorCorrect(String colorRgb) {
+        return isBorderColorCorrect("//input[@type='email']", colorRgb);
     }
 
-    public String getPasswordBorderColor(String colorRGB) {
-        return getBorderColor("//input[@type='password']", colorRGB);
+    public boolean isPasswordBorderColorCorrect(String colorRgb) {
+        return isBorderColorCorrect("//input[@type='password']", colorRgb);
     }
 
     public String getEmailErrorMessage() {
