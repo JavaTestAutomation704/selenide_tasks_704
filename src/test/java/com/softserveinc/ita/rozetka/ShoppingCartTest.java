@@ -31,10 +31,10 @@ public class ShoppingCartTest extends TestRunner {
         String searchPhrase = "samsung a52";
         SearchResultsPage searchResultsPage = header.search(searchPhrase);
 
-        int productsSize = searchResultsPage.getProductsQuantity();
+        int productsQuantity = searchResultsPage.getProductsQuantity();
         int productNumber = 1;
         while (!searchResultsPage.getProduct(productNumber).isAvailable()
-                && productNumber < productsSize) {
+                && productNumber < productsQuantity) {
             productNumber++;
         }
 

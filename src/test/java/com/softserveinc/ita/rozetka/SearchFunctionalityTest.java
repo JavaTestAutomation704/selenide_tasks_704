@@ -1,26 +1,33 @@
 package com.softserveinc.ita.rozetka;
 
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchFunctionalityTest extends TestRunner {
 
     @Test
     public void verifySearchFunctionalityWorks() {
+        String searchPhrase = "starbucks";
         SearchResultsPage searchResultsPage = homePage
                 .getHeader()
-                .search("starbucks");
+                .search(searchPhrase);
 
-        List<String> productTitles = new ArrayList<>();
-        for (int i = 1; i <= 20; i = i + 5) {
-            productTitles.add(searchResultsPage.getProduct(i).getTitle());
+        int productsQuantity = searchResultsPage.getProductsQuantity();
+        int productsQuantityToCheck = 20;
+
+        assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        SoftAssertions softly = new SoftAssertions();
+
+        for (int i = 1; i <= productsQuantityToCheck; i = i + 5) {
+            softly.assertThat(searchResultsPage.getProduct(i).getTitle())
+                    .as("Product title should contain searched keyword")
+                    .contains(searchPhrase);
         }
-        SoftAssert softAssert = new SoftAssert();
-        productTitles.forEach(productTitle -> softAssert.assertTrue(productTitle.contains("starbucks"),
-                "Product title doesn't contain 'starbucks'"));
-        softAssert.assertAll();
+        softly.assertAll();
     }
 }
