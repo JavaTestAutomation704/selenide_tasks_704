@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.modals.RegistrationModal;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -10,7 +11,7 @@ public class RegistrationTest extends TestRunner {
 
         RegistrationModal registrationModal = homePage
                 .getHeader()
-                .startLoggingIn()
+                .startLogging()
                 .startRegistration()
                 .register();
 

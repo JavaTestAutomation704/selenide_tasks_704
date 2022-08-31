@@ -1,8 +1,7 @@
 package com.softserveinc.ita.rozetka.modals;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class RegistrationModal {
     private final String registerButtonXpath = "//button[@class='button button--large button--green auth-modal__submit']";
