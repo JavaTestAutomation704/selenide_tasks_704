@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -42,6 +43,7 @@ public class MobileMenu {
         return new ChangeCityModal().changeCity(city);
     }
 
+    @Step("Home page: open home page via logo")
     public HomePage openHomePageViaLogo() {
         $x("//a[contains(@class, 'side-menu__logo')]").click();
         return new HomePage();

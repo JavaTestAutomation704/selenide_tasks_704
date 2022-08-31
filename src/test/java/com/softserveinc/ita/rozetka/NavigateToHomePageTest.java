@@ -9,7 +9,7 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-public class OpenHomePageViaLogoTest extends TestRunner {
+public class NavigateToHomePageTest extends TestRunner {
 
     @Test
     public void verifyOpeningHomePageViaLogo() {
