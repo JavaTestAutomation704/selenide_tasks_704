@@ -1,25 +1,19 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.components.Filter;
+import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import io.qameta.allure.Step;
-
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 
 public class SearchResultsPage extends BasePage {
 
     public Filter getFilter() {
         return new Filter();
-    }
-
-    public ProductPage openProductPage(int number) {
-        return new Product(number).open();
     }
 
     public int getResultsAmount() {
@@ -29,6 +23,7 @@ public class SearchResultsPage extends BasePage {
                         .replaceAll("[^0-9]", ""));
     }
 
+    @Step("Search results page: reset filters")
     public SearchResultsPage resetFilters() {
         $x("//button[contains(@class, 'reset')]").click();
         return this;

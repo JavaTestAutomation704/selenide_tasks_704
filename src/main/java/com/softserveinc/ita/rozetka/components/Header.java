@@ -1,10 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
-import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import com.softserveinc.ita.rozetka.modals.LogInModal;
+import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -20,7 +20,8 @@ public class Header {
         return new MainSidebar();
     }
 
-    public LogInModal startLoggingIn() {
+    @Step("Log In modal: start logging")
+    public LogInModal startLogging() {
         return new LogInModal().open();
     }
 
