@@ -1,12 +1,15 @@
 package com.softserveinc.ita.rozetka.modals;
 
+import io.qameta.allure.Step;
+
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class LogInModal {
     private final String logInButtonXpath = "//button[contains(@class, 'auth-modal__submit')]";
     private final String registerButtonXpath = "//button[contains(@class, 'auth-modal__register')]";
 
+    @Step("Log In modal: open")
     public LogInModal open() {
         $x("//rz-user").click();
         return this;
@@ -16,11 +19,13 @@ public class LogInModal {
         return isVisible("//rz-user-identification");
     }
 
+    @Step("Log In modal: log in")
     public LogInModal logIn() {
         $x(logInButtonXpath).click();
         return this;
     }
 
+    @Step("Registration modal: start registration")
     public RegistrationModal startRegistration() {
         $x(registerButtonXpath).click();
         return new RegistrationModal();

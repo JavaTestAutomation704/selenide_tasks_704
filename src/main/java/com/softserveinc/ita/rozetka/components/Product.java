@@ -3,10 +3,11 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class Product {
     private final String productXpath;
@@ -37,6 +38,7 @@ public class Product {
         return new SearchResultsPage();
     }
 
+    @Step("Product page: open product page")
     public ProductPage open() {
         $x(productXpath + titleXpath).click();
         $x("//h1[@class='product__title']")
@@ -59,5 +61,9 @@ public class Product {
         return availability == Availability.AVAILABLE
                 || availability == Availability.READY_TO_BE_DELIVERED
                 || availability == Availability.RUNNING_OUT_OF_STOCK;
+    }
+
+    public boolean isInShoppingCart() {
+        return isVisible(productXpath + "//button[contains(@class, 'buy-button_state_in-cart')]");
     }
 }

@@ -1,7 +1,7 @@
 package deprecated.ozakharchuk;
 
 import com.codeborne.selenide.SelenideElement;
-import utils.WebElementUtil;
+import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$x;
 
