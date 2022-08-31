@@ -10,7 +10,6 @@ import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import com.softserveinc.ita.rozetka.modals.CatalogModal;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
