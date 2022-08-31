@@ -24,12 +24,15 @@ public class ProductTitleTest extends TestRunner {
                 .isGreaterThanOrEqualTo(productsQuantity);
 
         for (int i = 1; i <= productsQuantity; i += 5) {
-            ProductPage productPage = subcategoryPage.getProduct(i).open();
+            ProductPage productPage = subcategoryPage
+                    .getProduct(i)
+                    .open();
 
-            String actualText = productPage.getTitle();
-            softAssert.assertThat(actualText.contains(expectedText))
-                    .as(actualText + "Product title should contain %s text", expectedText)
-                    .isTrue();
+            String actualProductTitle = productPage.getTitle();
+
+            softAssert.assertThat(actualProductTitle)
+                    .contains(expectedText)
+                    .as(actualProductTitle + " should contain %s text" ,expectedText);
 
             productPage.back();
         }
