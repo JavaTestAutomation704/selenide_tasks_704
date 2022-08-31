@@ -62,5 +62,6 @@ public class MainSidebarTest extends TestRunner {
         softAssertions.assertThat(mainSidebar.getContactUsButtonName())
                 .as("Incorrect contact us button name")
                 .isEqualTo("Связаться с нами");
+        softAssertions.assertAll();
     }
 }
