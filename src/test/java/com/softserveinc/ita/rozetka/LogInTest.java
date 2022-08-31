@@ -6,6 +6,7 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LogInTest extends TestRunner {
@@ -33,6 +34,14 @@ public class LogInTest extends TestRunner {
                 .as("Registration button should be displayed on the Log In modal")
                 .isTrue();
 
+        boolean isUaLanguageSelected = homePage
+                .getHeader()
+                .isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
         String actualEmailErrorMessage = logInModal
                 .logIn()
                 .getEmailErrorMessage();
@@ -52,6 +61,7 @@ public class LogInTest extends TestRunner {
                 .assertThat(isActualEmailBorderColorCorrect)
                 .as("Email border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
+
 
         softAssert
                 .assertThat(isActualPasswordBorderColorCorrect)
