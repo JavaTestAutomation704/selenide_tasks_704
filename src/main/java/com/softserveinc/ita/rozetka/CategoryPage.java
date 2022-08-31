@@ -10,7 +10,7 @@ public class CategoryPage extends BasePage {
     public SubcategoryPage openSubcategoryPage(ISubcategory subcategory) {
         $x(String.format("(//div[@class='tile-cats']//a[contains(@href, '%s')])[1]",
                 subcategory.getSubcategoryXpath()))
-                .scrollTo()
+                .scrollIntoView(false)
                 .click();
         return new SubcategoryPage();
     }
