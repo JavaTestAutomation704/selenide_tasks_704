@@ -1,11 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import static org.testng.Assert.assertTrue;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LogInTest extends TestRunner {
 
@@ -16,33 +18,64 @@ public class LogInTest extends TestRunner {
                 .getHeader()
                 .startLogging();
 
-        assertTrue(logInModal.isOpen());
+        assertThat(logInModal.isOpen())
+                .as("Log In modal should be open")
+                .isTrue();
 
-        SoftAssert softAssert = new SoftAssert();
+        SoftAssertions softAssert = new SoftAssertions();
 
-        softAssert.assertTrue(logInModal.isLogInButtonVisible());
-        softAssert.assertTrue(logInModal.isRegistrationButtonVisible());
+        softAssert
+                .assertThat(logInModal.isLogInButtonVisible())
+                .as("Log In button should be displayed on the Log In modal")
+                .isTrue();
+
+        softAssert
+                .assertThat(logInModal.isRegistrationButtonVisible())
+                .as("Registration button should be displayed on the Log In modal")
+                .isTrue();
+
+        boolean isUaLanguageSelected = homePage
+                .getHeader()
+                .isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
 
         String actualEmailErrorMessage = logInModal
                 .logIn()
                 .getEmailErrorMessage();
 
-        softAssert.assertEquals(actualEmailErrorMessage,
-                "Введено невірну адресу ел. пошти або номер телефону");
+        softAssert
+                .assertThat(actualEmailErrorMessage)
+                .as("Error message should be displayed when submitting empty fields on the Log In modal")
+                .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
 
-        final String redColor = "rgb(248, 65, 71)";
 
-        String actualEmailBorderColor = logInModal.getEmailBorderColor(redColor);
-        String actualPasswordBorderColor = logInModal.getPasswordBorderColor(redColor);
+        String redColor = Color.RED.getRgb();
 
-        softAssert.assertEquals(actualEmailBorderColor, redColor);
-        softAssert.assertEquals(actualPasswordBorderColor, redColor);
+        boolean isActualEmailBorderColorCorrect = logInModal.isEmailBorderColorCorrect(redColor);
+        boolean isActualPasswordBorderColorCorrect = logInModal.isPasswordBorderColorCorrect(redColor);
 
-        boolean isRegistrationAvailable = logInModal
+        softAssert
+                .assertThat(isActualEmailBorderColorCorrect)
+                .as("Email border color should be red after submitting empty fields on the Log In modal")
+                .isTrue();
+
+
+        softAssert
+                .assertThat(isActualPasswordBorderColorCorrect)
+                .as("Password border color should be red after submitting empty fields on the Log In modal")
+                .isTrue();
+
+        boolean isRegistrationModalOpen = logInModal
                 .startRegistration()
                 .isOpen();
 
-        softAssert.assertTrue(isRegistrationAvailable);
+        softAssert
+                .assertThat(isRegistrationModalOpen)
+                .as("Registration modal should be open")
+                .isTrue();
 
         softAssert.assertAll();
     }

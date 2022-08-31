@@ -1,9 +1,12 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.modals.RegistrationModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
+
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 
 public class RegistrationTest extends TestRunner {
     @Test
@@ -16,6 +19,18 @@ public class RegistrationTest extends TestRunner {
                 .register();
 
         SoftAssertions softAssert = new SoftAssertions();
+        boolean isUaLanguageSelected = homePage
+                .getHeader()
+                .isLanguageSelected(UA);
+
+        softAssert.assertThat(isUaLanguageSelected)
+                .as("Localization should in ukrainian language")
+                .isTrue();
+
+        softAssert
+                .assertThat(registrationModal.isOpen())
+                .as("Registration modal should be open")
+                .isTrue();
 
         String actualFirstNameErrorMessage = registrationModal.getFirstNameErrorMessage();
         softAssert
@@ -45,40 +60,36 @@ public class RegistrationTest extends TestRunner {
                 .as("Register modal should be open")
                 .isTrue();
 
-        final String redColor = "rgb(248, 65, 71)";
+        String redColor = Color.RED.getRgb();
+        boolean actualFirstNameBorderColor = registrationModal.isFirstNameBorderColorCorrect(redColor);
 
-        String actualFirstNameBorderColor = registrationModal.getFirstNameBorderColor(redColor);
         softAssert
                 .assertThat(actualFirstNameBorderColor)
                 .as("FirstName border color should be red")
-                .isEqualTo(redColor);
+                .isTrue();
 
-        String actualLastNameBorderColor = registrationModal.getLastNameBorderColor(redColor);
+        boolean actualLastNameBorderColor = registrationModal.isLastNameBorderColorCorrect(redColor);
         softAssert
                 .assertThat(actualLastNameBorderColor)
                 .as("LastName border color should be red")
-                .isEqualTo(redColor);
+                .isTrue();
 
-        String actualPhoneNumberBorderColor = registrationModal.getPhoneNumberBorderColor(redColor);
+        boolean actualPhoneNumberBorderColor = registrationModal.isPhoneNumberBorderColorCorrect(redColor);
         softAssert
                 .assertThat(actualPhoneNumberBorderColor)
                 .as("PhoneNumber border color should be red")
-                .isEqualTo(redColor);
+                .isTrue();
 
-        String actualEmailBorderColor = registrationModal.getEmailBorderColor(redColor);
+        boolean actualEmailBorderColor = registrationModal.isEmailBorderColorCorrect(redColor);
         softAssert
                 .assertThat(actualEmailBorderColor)
                 .as("Email border color should be red")
-                .isEqualTo(redColor);
+                .isTrue();
 
-        String actualPasswordBorderColor = registrationModal.getPasswordBorderColor(redColor);
+        boolean actualPasswordBorderColor = registrationModal.isPasswordBorderColorCorrect(redColor);
         softAssert
                 .assertThat(actualPasswordBorderColor)
                 .as("Password border color should be red")
-                .isEqualTo(redColor);
-
-        softAssert.assertThat(registrationModal.isOpen())
-                .as("Register modal should be open")
                 .isTrue();
 
         softAssert.assertAll();
