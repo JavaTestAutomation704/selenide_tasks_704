@@ -37,6 +37,7 @@ public class SearchResultsPage extends BasePage {
         return new Product(number);
     }
 
+    @Step("Search results page: sort search results by {sort}")
     public SearchResultsPage sortBy(ProductSort sort) {
         String firstResultXpath = "(//div[contains(@class, 'goods-tile ')])[1]";
         String firstResultText = getText(firstResultXpath);
