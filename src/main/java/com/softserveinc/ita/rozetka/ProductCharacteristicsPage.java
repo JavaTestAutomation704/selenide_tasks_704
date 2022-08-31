@@ -1,5 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
+import io.qameta.allure.Step;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
@@ -24,6 +26,7 @@ public class ProductCharacteristicsPage extends BasePage {
         return isVisible("//rz-product-tab-characteristics");
     }
 
+    @Step("Product characteristics page: add product to comparison list")
     public ProductCharacteristicsPage addToComparison() {
         $x("//app-compare-button").click();
         return this;
