@@ -19,6 +19,7 @@ public class ShoppingCartModal {
         return isVisible("//div[@data-testid='empty-cart']");
     }
 
+    @Step("Shopping cart modal: clear shopping cart")
     public ShoppingCartModal clear() {
         String cartItemActionButtonXpath = "//button[contains(@id, 'cartProductActions')]";
         if (isVisible(cartItemActionButtonXpath)) {
@@ -32,6 +33,7 @@ public class ShoppingCartModal {
         return this;
     }
 
+    @Step("Header: close shopping cart modal")
     public Header close() {
         $x("//button[contains(@class, 'modal__close')]").click();
         return new Header();

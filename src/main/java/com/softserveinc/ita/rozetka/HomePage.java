@@ -10,6 +10,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class HomePage extends BasePage {
 
+    @Step("Home page: open home page")
     public HomePage open() {
         Selenide.open("https://rozetka.com.ua/ua/");
         return this;
