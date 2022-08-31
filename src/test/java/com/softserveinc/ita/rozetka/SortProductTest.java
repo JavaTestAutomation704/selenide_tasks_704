@@ -17,12 +17,13 @@ public class SortProductTest extends TestRunner {
         subcategoryPage.sortBy(ProductSort.PRICE_ASCENDING);
         SoftAssertions softAssert = new SoftAssertions();
         int step = 4;
+        int subcategoryProductQuantity = subcategoryPage.getProductsQuantity();
 
-        softAssert.assertThat(subcategoryPage.getProductsQuantity())
+        softAssert.assertThat(subcategoryProductQuantity)
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(step + 1);
 
-        for (int i = step + 1; i < subcategoryPage.getProductsQuantity(); i += step) {
+        for (int i = step + 1; i < subcategoryProductQuantity; i += step) {
             softAssert
                     .assertThat(subcategoryPage.getProduct(i).getPrice())
                     .as(i + "th product price should be higher than th" + (i - step))
