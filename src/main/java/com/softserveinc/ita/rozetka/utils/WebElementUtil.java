@@ -3,12 +3,10 @@ package com.softserveinc.ita.rozetka.utils;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Condition.cssValue;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 

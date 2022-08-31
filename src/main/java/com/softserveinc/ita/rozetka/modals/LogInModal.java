@@ -46,6 +46,7 @@ public class LogInModal {
     public boolean isPasswordBorderColorCorrect(String colorRgb) {
         return isBorderColorCorrect("//input[@type='password']", colorRgb);
     }
+
     public String getEmailErrorMessage() {
         return getText("//p[contains(@class, 'error-message')]");
     }

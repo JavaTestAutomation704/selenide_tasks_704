@@ -47,18 +47,18 @@ public class RegistrationModal {
     }
 
     public String getFirstNameErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate,1));
+        return getText(String.format(errorMessageXpathTemplate, 1));
     }
 
     public String getLastNameErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate,2));
+        return getText(String.format(errorMessageXpathTemplate, 2));
     }
 
     public String getPhoneNumberErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate,3));
+        return getText(String.format(errorMessageXpathTemplate, 3));
     }
 
     public String getEmailErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate,4));
+        return getText(String.format(errorMessageXpathTemplate, 4));
     }
 }
