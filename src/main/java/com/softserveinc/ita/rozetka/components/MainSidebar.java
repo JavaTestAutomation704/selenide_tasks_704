@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class MobileMenu {
+public class MainSidebar {
     private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
 
     public boolean isLoginButtonVisible() {
