@@ -2,7 +2,7 @@ package deprecated.mvynokur;
 
 import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
-import utils.WebElementUtil;
+import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 
 import static com.codeborne.selenide.Selenide.$;
 
