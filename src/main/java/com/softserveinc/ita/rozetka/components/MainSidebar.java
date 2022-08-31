@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class MobileMenu {
+public class MainSidebar {
     private final String xpathAuthentication = "//button[contains(@class,'side-menu__auth-button')]";
 
     public boolean isLoginButtonVisible() {
@@ -37,7 +37,7 @@ public class MobileMenu {
         SelenideElement citySpan = $x("//span[@class='city-toggle__text']").shouldBe(Condition.visible);
         return citySpan.text();
     }
-
+    @Step("Header: change city to {city}")
     public Header changeCity(String city) {
         $x("//button[contains(@class, 'city-toggle')]").click();
         return new ChangeCityModal().changeCity(city);
