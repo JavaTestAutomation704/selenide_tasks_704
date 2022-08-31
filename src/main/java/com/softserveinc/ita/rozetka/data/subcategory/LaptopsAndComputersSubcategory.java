@@ -10,7 +10,7 @@ public enum LaptopsAndComputersSubcategory implements ISubcategory {
 
     NOTEBOOKS("/notebooks"),
     ASUS("asus"),
-    COMPUTERS_("/computers/"),
+    COMPUTERS("/computers/"),
     MONITORS("monitors");
 
     @NonNull
