@@ -12,7 +12,6 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 
 public class SearchResultsPage extends BasePage {
 
-    @Step("Filter: get filter")
     public Filter getFilter() {
         return new Filter();
     }
