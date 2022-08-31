@@ -40,7 +40,9 @@ public class Product {
 
     @Step("Product page: open product page")
     public ProductPage open() {
-        $x(productXpath + titleXpath).click();
+        $x(productXpath + titleXpath)
+                .scrollIntoView(false)
+                .click();
         $x("//h1[@class='product__title']")
                 .shouldBe(visible)
                 .hover();

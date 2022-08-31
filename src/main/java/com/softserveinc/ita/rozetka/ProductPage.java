@@ -35,4 +35,12 @@ public class ProductPage extends BasePage {
     public CreditModal startPurchaseOnCredit() {
         return new CreditModal().open();
     }
+
+    public boolean isBonusIconVisible() {
+        return isVisible("//div[contains(@class, 'bonuses__icons')]");
+    }
+
+    public String getBonusText() {
+        return $x("//div[contains(@class,'bonuses__info')]").text();
+    }
 }
