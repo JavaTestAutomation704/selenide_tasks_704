@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class CatalogModal {
     @Step("Subcategory page: open {subcategory} page of {category}")
     public SubcategoryPage openSubcategory(Category category, ISubcategory subcategory) {
-        String categoryXpath = String.format("//a[contains(@href, %s)]/ancestor::li[contains(@class, 'menu-categories__item')]", category.getCategoryXpath());
+        String categoryXpath = String.format("//ul[contains(@class, 'menu-categories')]/li/a[contains(@class, 'link') and contains(@href, '%s')]/parent::li", category.getCategoryXpath());
         $x(categoryXpath).hover();
         $x(String.format("%s//div[@class='menu__main-cats-inner']//a[contains(@href, '%s')]", categoryXpath, subcategory.getSubcategoryXpath())).click();
         return new SubcategoryPage();

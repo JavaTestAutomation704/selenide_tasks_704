@@ -8,12 +8,14 @@ import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
@@ -67,5 +69,15 @@ public class Header {
     public boolean isLanguageSelected(Language language) {
         return isVisible(
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
+    }
+
+    public int getNumberOfProductsInComparisonList() {
+        return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
+    }
+
+    @Step("Comparison list modal: open comparison list")
+    public ComparisonListModal openComparisonList() {
+        $x("//rz-comparison").click();
+        return new ComparisonListModal();
     }
 }

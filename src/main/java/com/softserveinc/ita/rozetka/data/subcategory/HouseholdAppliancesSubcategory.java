@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum HouseholdAppliancesSubcategory implements ISubcategory {
 
-    REFRIGERATORS("refrigerators");
+    REFRIGERATORS("refrigerators", "Холодильники");
 
     @NonNull
     private final String subcategoryXpath;
+    @NonNull
+    private final String subcategoryUkrainianName;
 }
