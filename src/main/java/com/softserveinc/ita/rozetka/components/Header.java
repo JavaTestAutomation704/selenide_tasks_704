@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -23,6 +24,7 @@ public class Header {
         return new LogInModal().open();
     }
 
+    @Step("Search results page: search for {product}")
     public SearchResultsPage search(String product) {
         $(By.name("search")).val(product).pressEnter();
         return new SearchResultsPage();
