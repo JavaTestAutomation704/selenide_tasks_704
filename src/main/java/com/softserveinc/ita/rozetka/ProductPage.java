@@ -6,8 +6,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLong;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ProductPage extends BasePage {
     public String getTitle() {
@@ -34,5 +33,13 @@ public class ProductPage extends BasePage {
     @Step("Credit modal: start purchase on credit")
     public CreditModal startPurchaseOnCredit() {
         return new CreditModal().open();
+    }
+
+    public boolean isBonusIconVisible() {
+        return isVisible("//div[contains(@class, 'bonuses__icons')]");
+    }
+
+    public String getBonusText() {
+        return $x("//div[contains(@class,'bonuses__info')]").text();
     }
 }
