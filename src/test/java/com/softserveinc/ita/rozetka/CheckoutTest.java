@@ -5,7 +5,7 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.GOODS_FOR_GAMERS;
-import static com.softserveinc.ita.rozetka.data.subcategory.page.GoodsForGamers.MONITORS;
+import static com.softserveinc.ita.rozetka.data.subcategory.page.GamersGoodsSubcategory.MONITORS;
 import static org.assertj.core.api.Assertions.*;
 
 public class CheckoutTest extends TestRunner {
