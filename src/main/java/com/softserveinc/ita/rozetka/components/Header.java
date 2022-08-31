@@ -24,11 +24,13 @@ public class Header {
         return new LogInModal().open();
     }
 
+    @Step("Search results page: search for {product}")
     public SearchResultsPage search(String product) {
         $(By.name("search")).val(product).pressEnter();
         return new SearchResultsPage();
     }
 
+    @Step("Shopping cart modal: open shopping cart modal")
     public ShoppingCartModal openShoppingCartModal() {
         $x("//button[@rzopencart='']").click();
         $x("//rz-shopping-cart").shouldBe(visible);

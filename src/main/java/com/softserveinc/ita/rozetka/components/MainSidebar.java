@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.components;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -35,7 +36,7 @@ public class MainSidebar {
         SelenideElement citySpan = $x("//span[@class='city-toggle__text']").shouldBe(Condition.visible);
         return citySpan.text();
     }
-
+    @Step("Header: change city to {city}")
     public Header changeCity(String city) {
         $x("//button[contains(@class, 'city-toggle')]").click();
         return new ChangeCityModal().changeCity(city);

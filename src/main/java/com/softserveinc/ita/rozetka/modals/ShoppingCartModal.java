@@ -38,7 +38,7 @@ public class ShoppingCartModal {
         $x("//button[contains(@class, 'modal__close')]").click();
         return new Header();
     }
-
+    @Step("ShoppingCartModal: remove product with number {productNumber}")
     public ShoppingCartModal remove(int productNumber) {
         $x(String.format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
         $x("//button[contains(@class, 'context-menu-actions__button')]").click();
