@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends TestRunner {
     @Test
-    public void verifyProductsSaleFilter() {
+    public void verifySaleFilterFunctionality() {
         Header header = homePage.getHeader();
         SearchResultsPage searchResultsPage = header.search("laptop");
 
@@ -35,7 +35,7 @@ public class FilterProductTest extends TestRunner {
                     .isOnSale();
 
             softAssertions.assertThat(isProductOnSale)
-                    .as("Product with number %s should be on sale", productNumber)
+                    .as(productNumber + " product should be on sale")
                     .isTrue();
         }
 
