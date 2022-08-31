@@ -45,6 +45,7 @@ public class MainSidebar {
     public HomePage openHomePageViaLogo() {
         $x("//a[contains(@class, 'side-menu__logo')]").click();
         return new HomePage();
+    }
 
     public boolean isLanguageSelected(Language language) {
         return isVisible(
