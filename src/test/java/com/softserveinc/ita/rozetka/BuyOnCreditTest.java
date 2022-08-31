@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.testng.Assert.assertTrue;
 
 public class BuyOnCreditTest extends TestRunner {
 
@@ -32,7 +31,9 @@ public class BuyOnCreditTest extends TestRunner {
 
         CreditModal creditModal = productPage.startPurchaseOnCredit();
 
-        assertTrue(creditModal.isOpen());
+        assertThat(creditModal.isOpen())
+                .as("Credit modal should be open")
+                .isTrue();
 
         SoftAssertions softAssert = new SoftAssertions();
 
