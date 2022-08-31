@@ -62,7 +62,7 @@ public class NavigateToHomePageTest extends TestRunner {
 
         smallCart.close();
         header
-                .openMobileMenu()
+                .openMainSidebar()
                 .openHomePageViaLogo();
 
         softly.assertThat(smallCart.isOpen())
