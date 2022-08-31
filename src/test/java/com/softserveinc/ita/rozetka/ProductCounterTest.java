@@ -7,8 +7,6 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class ProductCounterTest extends TestRunner {
 
     @Test
@@ -20,15 +18,13 @@ public class ProductCounterTest extends TestRunner {
         softly.assertThat(doesShoppingCartContainProducts)
                 .as("Shopping cart should be empty")
                 .isFalse();
-        SearchResultsPage searchResultsPage = header
-                .search("kipling");
+        SearchResultsPage searchResultsPage = header.search("kipling");
 
         softly.assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        Product product = searchResultsPage
-                .getProduct(1);
+        Product product = searchResultsPage.getProduct(1);
         product.addToShoppingCart();
 
         softly.assertThat(product.isInShoppingCart())
