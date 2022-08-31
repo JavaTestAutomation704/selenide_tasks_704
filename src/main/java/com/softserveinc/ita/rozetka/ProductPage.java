@@ -1,10 +1,8 @@
 package com.softserveinc.ita.rozetka;
 
-import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
-import org.openqa.selenium.NoSuchElementException;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -43,8 +41,8 @@ public class ProductPage extends BasePage {
 
     public String getBonusText() {
         String xpathBonusText = "//div[contains(@class,'bonuses__info')]";
-        if (isVisible(xpathBonusText)){
-          return $x(xpathBonusText).text();
+        if (isVisible(xpathBonusText)) {
+            return $x(xpathBonusText).text();
         } else {
             return "";
         }
