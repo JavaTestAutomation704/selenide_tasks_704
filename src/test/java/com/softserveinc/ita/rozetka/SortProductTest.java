@@ -8,7 +8,6 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import com.softserveinc.ita.rozetka.data.subcategory.modal.LaptopsAndComputers;
 
 public class SortProductTest extends TestRunner {
 
@@ -17,7 +16,7 @@ public class SortProductTest extends TestRunner {
         SubcategoryPage subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputers.ASUS);
+                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
 
         subcategoryPage.sortBy(ProductSort.PRICE_ASCENDING);
         SoftAssertions softAssert = new SoftAssertions();
@@ -35,7 +34,7 @@ public class SortProductTest extends TestRunner {
                     .isGreaterThanOrEqualTo(subcategoryPage.getProduct(i - step).getPrice());
         }
         softAssert.assertAll();
-}
+    }
 
     @Test
     public void verifyProductsSortingInDescendingOrderByPrice() {
@@ -52,8 +51,8 @@ public class SortProductTest extends TestRunner {
         subcategoryPage.sortBy(ProductSort.PRICE_DESCENDING);
 
         assertThat(subcategoryPage
-                        .getProduct(1)
-                        .getPrice())
+                .getProduct(1)
+                .getPrice())
                 .as("First product price should be higher than last product price")
                 .isGreaterThan(subcategoryPage
                         .getProduct("last")
