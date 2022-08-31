@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -31,7 +32,7 @@ public class ProductPage extends BasePage {
     public CreditModal startPurchaseOnCredit() {
         return new CreditModal().open();
     }
-
+    @Step("ProductPage: change city to {city}")
     public ProductPage changeCity(String city) {
         $x("//div[@class='product-about__block-heading']//button").click();
         new ChangeCityModal().changeCity(city);

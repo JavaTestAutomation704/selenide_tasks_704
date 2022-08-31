@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ChangeCityTest extends TestRunner {
-    @Test()
+    @Test
     public void verifyCityChangeViaSideBarAndProductPage() {
         String expectedCityViaMobileMenu = "Одеса";
         Header header = homePage.getHeader();
