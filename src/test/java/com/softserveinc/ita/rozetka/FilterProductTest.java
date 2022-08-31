@@ -60,20 +60,22 @@ public class FilterProductTest extends TestRunner {
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
+        SoftAssertions softAssertions = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i += 2) {
             ProductPage productPage = searchResultsPage
                     .getProduct(i)
                     .open();
 
-            assertThat(productPage.isBonusIconVisible())
+            softAssertions.assertThat(productPage.isBonusIconVisible())
                     .as("Bonus icon should be displayed")
                     .isTrue();
-            assertThat(productPage.getBonusText())
+            softAssertions.assertThat(productPage.getBonusText())
                     .as("Incorrect bonus quantity text")
                     .contains("бонус");
 
             productPage.back();
         }
+        softAssertions.assertAll();
     }
 
     @Test
