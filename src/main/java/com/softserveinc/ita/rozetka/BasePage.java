@@ -1,7 +1,9 @@
 package com.softserveinc.ita.rozetka;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.softserveinc.ita.rozetka.components.Header;
+import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -16,5 +18,11 @@ public abstract class BasePage {
 
     public boolean isShoppingCartModalVisible() {
         return isVisible("//div[contains(@class, 'modal__holder')]");
+    }
+
+    @Step("Header: go back to the previous page")
+    public Header back() {
+        Selenide.back();
+        return new Header();
     }
 }

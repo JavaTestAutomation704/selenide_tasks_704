@@ -1,9 +1,12 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
+
+import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
+
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -14,6 +17,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
+
     @Step("Main sidebar: open main sidebar")
     public MainSidebar openMainSidebar() {
         $x("//rz-mobile-user-menu/button").click();
@@ -58,5 +62,10 @@ public class Header {
         $x("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]")
                 .shouldBe(visible);
         return new CatalogModal();
+    }
+
+    public boolean isLanguageSelected(Language language) {
+        return isVisible(
+                String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
     }
 }
