@@ -11,9 +11,9 @@ public class ChangeCityTest extends TestRunner {
         String expectedCity = "Одеса";
         Header header = homePage
                 .getHeader()
-                .openMobileMenu()
+                .openMainSidebar()
                 .changeCity(expectedCity);
-        String actualCity = header.openMobileMenu().getCity();
+        String actualCity = header.openMainSidebar().getCity();
         Assert.assertEquals(actualCity, expectedCity);
         // will be added one more assert after merge
     }
