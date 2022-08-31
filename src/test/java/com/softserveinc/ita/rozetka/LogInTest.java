@@ -15,7 +15,7 @@ public class LogInTest extends TestRunner {
 
         LogInModal logInModal = homePage
                 .getHeader()
-                .startLoggingIn();
+                .startLogging();
 
         assertThat(logInModal.isOpen())
                 .as("Log In modal should be open")
