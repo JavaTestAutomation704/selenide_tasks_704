@@ -27,7 +27,7 @@ public class SearchFunctionalityTest extends TestRunner {
         SoftAssertions softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i = i + 5) {
-            softly.assertThat(searchResultsPage.getProduct(i).getTitle())
+            softly.assertThat(searchResultsPage.getProduct(i).getTitleLowerCase())
                     .as("Product title should contain searched keyword")
                     .contains(searchPhrase);
         }
@@ -44,11 +44,12 @@ public class SearchFunctionalityTest extends TestRunner {
                 .isGreaterThanOrEqualTo(1);
 
         Product firstSearchedProduct = searchResultsPage.getProduct(1);
+        String firstSearchedProductName = firstSearchedProduct.getTitle();
         firstSearchedProduct.open();
         header.openHomePageViaLogo();
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(firstSearchedProduct.isLastSeen())
+        softly.assertThat(firstSearchedProduct.isLastSeen(firstSearchedProductName))
                 .as("First searched product should be displayed in 'last seen' section at first position")
                 .isTrue();
 
@@ -59,17 +60,17 @@ public class SearchFunctionalityTest extends TestRunner {
                 .isGreaterThanOrEqualTo(2);
 
         Product secondSearchedProduct = searchResultsPage.getProduct(2);
+        String secondSearchedProductName = secondSearchedProduct.getTitle();
         secondSearchedProduct.open();
         header.openHomePageViaLogo();
 
-        softly.assertThat(firstSearchedProduct.isLastSeen())
-                .as("First searched product should not be displayed in 'last seen' section at first position")
-                .isFalse();
-
-        softly.assertThat(secondSearchedProduct.isLastSeen())
+        softly.assertThat(secondSearchedProduct.isLastSeen(secondSearchedProductName))
                 .as("Second searched product should be displayed in 'last seen' section at first position")
                 .isTrue();
 
+        softly.assertThat(firstSearchedProduct.isPreviousSeen(firstSearchedProductName))
+                .as("First searched product should be displayed in 'last seen' section at second position")
+                .isTrue();
         softly.assertAll();
     }
 }
