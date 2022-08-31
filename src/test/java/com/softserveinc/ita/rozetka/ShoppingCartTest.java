@@ -20,10 +20,14 @@ public class ShoppingCartTest extends TestRunner {
         header = homePage.getHeader();
 
         if (header.isShoppingCartCounterVisible()) {
-            header
+            ShoppingCartModal shoppingCartModal = header
                     .openShoppingCartModal()
-                    .clear()
-                    .close();
+                    .clear();
+            if(shoppingCartModal.isCloseButtonVisible()) {
+                shoppingCartModal.close();
+            } else {
+                header.back();
+            }
         }
     }
 

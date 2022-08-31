@@ -63,5 +63,7 @@ public class MainSidebarTest extends TestRunner {
                 .as("Incorrect contact us button name")
                 .isEqualTo("Связаться с нами");
         softAssertions.assertAll();
+
+        mainSidebar.changeLanguage(UA);
     }
 }

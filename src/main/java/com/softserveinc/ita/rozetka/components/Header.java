@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.BasePage;
 import com.softserveinc.ita.rozetka.HomePage;
 
 import com.softserveinc.ita.rozetka.data.Language;
@@ -16,7 +17,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class Header {
+public class Header extends BasePage {
 
     @Step("Main sidebar: open main sidebar")
     public MainSidebar openMainSidebar() {
