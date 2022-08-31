@@ -54,14 +54,14 @@ public class FilterProductTest extends TestRunner {
         filter.filter(AVAILABLE);
         filter.filter(RUNNING_OUT);
         SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
-        int productsQuantity = 5;
+        int productsQuantity = searchResultsPage.getProductsQuantity();
 
-        assertThat(searchResultsPage.getProductsQuantity())
+        assertThat(productsQuantity)
                 .as("Products amount should be sufficient")
-                .isGreaterThanOrEqualTo(productsQuantity);
+                .isGreaterThanOrEqualTo(1);
 
         SoftAssertions softAssertions = new SoftAssertions();
-        for (int i = 1; i <= productsQuantity; i += 2) {
+        for (int i = 1; i <= productsQuantity; i++) {
             ProductPage productPage = searchResultsPage
                     .getProduct(i)
                     .open();
@@ -74,6 +74,7 @@ public class FilterProductTest extends TestRunner {
                     .contains("бонус");
 
             productPage.back();
+            if (i >= 10) break;
         }
         softAssertions.assertAll();
     }
