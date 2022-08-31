@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.ProductSort;
+import io.qameta.allure.Step;
 
 
 import static com.codeborne.selenide.Condition.text;
@@ -42,6 +43,7 @@ public class SearchResultsPage extends BasePage {
         return new Product(number);
     }
 
+    @Step("Search results page: sort search results by {sort}")
     public SearchResultsPage sortBy(ProductSort sort) {
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
