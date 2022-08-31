@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -37,6 +38,7 @@ public class Product {
         return new SearchResultsPage();
     }
 
+    @Step("Product page: open product page")
     public ProductPage open() {
         $x(productXpath + titleXpath)
                 .scrollIntoView(false)
