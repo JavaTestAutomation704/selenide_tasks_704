@@ -15,7 +15,10 @@ import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
+import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
+import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLET;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends TestRunner {
@@ -138,5 +141,60 @@ public class FilterProductTest extends TestRunner {
                 .isEqualTo(resultsAmountAfterSearch);
 
         softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyFilterByPrice() {
+        var subcategoryPage = homePage
+                .openCategoryPage(LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(TABLET);
+        subcategoryPage.sortBy(PRICE_ASCENDING);
+
+        SoftAssertions softAssertions = new SoftAssertions();
+
+        long cheapestProductPrice = subcategoryPage
+                .getProduct(1)
+                .getPrice();
+
+        var priceFilter = subcategoryPage
+                .getFilter()
+                .getPriceFilter();
+
+        softAssertions.assertThat(cheapestProductPrice)
+                .as("Product price should be correct")
+                .isGreaterThanOrEqualTo(priceFilter.getMinPrice());
+
+        subcategoryPage.sortBy(PRICE_DESCENDING);
+
+        long mostExpensiveProductPrice = subcategoryPage
+                .getProduct(1)
+                .getPrice();
+
+        softAssertions.assertThat(mostExpensiveProductPrice)
+                .as("Product price should be correct")
+                .isLessThanOrEqualTo(priceFilter.getMaxPrice());
+
+        long minPrice = 1500;
+        long maxPrice = 2500;
+
+        priceFilter.setMinPrice(minPrice);
+        priceFilter.setMaxPrice(maxPrice);
+        int productsQuantity = 5;
+
+        assertThat(subcategoryPage.getProductsQuantity())
+                .as("Products amount should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantity);
+
+        for (int i = 1; i <= productsQuantity; i++) {
+            long productPrice = subcategoryPage
+                    .getProduct(i)
+                    .getPrice();
+
+            softAssertions.assertThat(productPrice)
+                    .as("Product price should be correct")
+                    .isGreaterThanOrEqualTo(minPrice)
+                    .isLessThanOrEqualTo(maxPrice);
+        }
+        softAssertions.assertAll();
     }
 }

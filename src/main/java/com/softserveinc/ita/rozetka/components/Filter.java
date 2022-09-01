@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.data.PriceFilter;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 import io.qameta.allure.Step;
@@ -27,5 +28,9 @@ public class Filter extends Header {
                 .scrollIntoView(false)
                 .click());
         return new SearchResultsPage();
+    }
+
+    public PriceFilter getPriceFilter() {
+        return new PriceFilter();
     }
 }

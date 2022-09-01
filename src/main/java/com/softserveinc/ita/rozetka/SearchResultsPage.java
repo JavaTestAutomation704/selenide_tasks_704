@@ -7,8 +7,10 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.codeborne.selenide.Selenide.webdriver;
+import static com.codeborne.selenide.WebDriverConditions.url;
+import static com.codeborne.selenide.WebDriverConditions.urlContaining;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 
 public class SearchResultsPage extends BasePage {
@@ -42,6 +44,7 @@ public class SearchResultsPage extends BasePage {
     public SearchResultsPage sortBy(ProductSort sort) {
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
+        waitUntilUrlContains(String.format("sort=%s", sort.getOptionXpath()));
         return this;
     }
 
