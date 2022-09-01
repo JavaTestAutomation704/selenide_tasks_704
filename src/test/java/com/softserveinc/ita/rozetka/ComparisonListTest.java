@@ -45,12 +45,12 @@ public class ComparisonListTest extends TestRunner {
         product.addToComparisonList();
 
         int comparisonProductQuantity = 6;
-        assertThat(header.getNumberOfProductsInComparisonList())
+        assertThat(header.getComparisonListProductQuantity())
                 .as("Incorrect number of products in comparison list")
                 .isEqualTo(comparisonProductQuantity);
 
         ComparisonPage comparisonPage = header
-                .openComparisonList()
+                .openComparisonListModal()
                 .openComparisonPage(CAMERAS);
 
         assertThat(comparisonPage.getComparisonItemQuantity())

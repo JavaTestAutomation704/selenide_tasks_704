@@ -71,12 +71,12 @@ public class Header {
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
     }
 
-    public int getNumberOfProductsInComparisonList() {
+    public int getComparisonListProductQuantity() {
         return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
     }
 
     @Step("Comparison list modal: open comparison list")
-    public ComparisonListModal openComparisonList() {
+    public ComparisonListModal openComparisonListModal() {
         $x("//rz-comparison").click();
         return new ComparisonListModal();
     }

@@ -13,5 +13,5 @@ public enum GamersGoodsSubcategory implements ISubcategory {
     @NonNull
     private final String subcategoryXpath;
     @NonNull
-    private final String subcategoryUkrainianName;
+    private final String subcategoryNameUa;
 }
