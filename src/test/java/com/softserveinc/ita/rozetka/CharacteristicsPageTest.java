@@ -14,7 +14,7 @@ public class CharacteristicsPageTest extends TestRunner {
                 .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
                 .openSubcategoryPage(HouseholdAppliancesSubcategory.REFRIGERATORS)
                 .getProduct("last");
-        String lastProductTitle = lastProduct.getTitle();
+        String lastProductTitle = lastProduct.getTitleLowerCase();
 
         ProductCharacteristicsPage characteristicsPage = lastProduct
                 .open()
