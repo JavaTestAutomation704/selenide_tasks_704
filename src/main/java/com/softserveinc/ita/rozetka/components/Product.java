@@ -26,7 +26,11 @@ public class Product {
     }
 
     public String getTitle() {
-        return getText(productXpath + titleXpath).toLowerCase();
+        return getText(productXpath + titleXpath);
+    }
+
+    public String getTitleLowerCase() {
+        return getTitle().toLowerCase();
     }
 
     public long getPrice() {
@@ -73,5 +77,15 @@ public class Product {
 
     public boolean isInShoppingCart() {
         return isVisible(productXpath + "//button[contains(@class, 'buy-button_state_in-cart')]");
+    }
+
+    public boolean isLastSeen(String name) {
+        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
+                "//a[contains(text(), '%s')]", name));
+    }
+
+    public boolean isPreviouslySeen(String name) {
+        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
+                "//a[contains(text(), '%s')]", name));
     }
 }
