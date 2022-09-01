@@ -10,7 +10,7 @@ public class ComparisonItem {
     private final int itemNumber;
 
     public String getItemTitle() {
-        return getText(String.format("(//rz-compare-tile//a)[%d]", itemNumber)).toLowerCase();
+        return getText(String.format("(//rz-compare-tile//a)[%d]", itemNumber));
     }
 
     public long getItemPrice() {
