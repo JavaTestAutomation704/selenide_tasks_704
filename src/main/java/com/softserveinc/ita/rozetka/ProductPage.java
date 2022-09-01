@@ -32,7 +32,7 @@ public class ProductPage extends BasePage {
         return new ProductCharacteristicsPage();
     }
 
-    @Step("Credit modal: start purchase on credit")
+    @Step("Product page: start purchase on credit")
     public CreditModal startPurchaseOnCredit() {
         $x(titleXpath).hover();
         return new CreditModal().open();
