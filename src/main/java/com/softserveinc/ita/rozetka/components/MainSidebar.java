@@ -41,7 +41,7 @@ public class MainSidebar {
         return new ChangeCityModal().changeCity(city);
     }
 
-    @Step("Home page: open home page via logo")
+    @Step("Main Sidebar: open home page via logo")
     public HomePage openHomePageViaLogo() {
         $x("//a[contains(@class, 'side-menu__logo')]").click();
         return new HomePage();

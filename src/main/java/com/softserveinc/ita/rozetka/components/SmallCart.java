@@ -12,7 +12,7 @@ public class SmallCart {
         return isVisible("//rz-app-small-cart");
     }
 
-    @Step("Home page: close small cart")
+    @Step("Small cart: close small cart")
     public HomePage close() {
         $x("//button[contains(@class, 'main-notification__close')]").click();
         return new HomePage();

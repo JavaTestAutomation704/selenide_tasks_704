@@ -46,7 +46,7 @@ public class Header {
         return isVisible("//button[@rzopencart='']//span[contains(@class, 'counter')]", 3);
     }
 
-    @Step("Home page: open home page via logo")
+    @Step("Header: open home page via logo")
     public HomePage openHomePageViaLogo() {
         $x(("//a[@class='header__logo']")).click();
         return new HomePage();
