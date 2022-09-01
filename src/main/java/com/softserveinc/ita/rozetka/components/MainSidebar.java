@@ -2,7 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-
+import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import io.qameta.allure.Step;
@@ -39,6 +39,12 @@ public class MainSidebar {
     public Header changeCity(String city) {
         $x("//button[contains(@class, 'city-toggle')]").click();
         return new ChangeCityModal().changeCity(city);
+    }
+
+    @Step("Main Sidebar: open home page via logo")
+    public HomePage openHomePageViaLogo() {
+        $x("//a[contains(@class, 'side-menu__logo')]").click();
+        return new HomePage();
     }
 
     public boolean isLanguageSelected(Language language) {

@@ -1,11 +1,11 @@
 package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.Selenide;
+import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
-
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class HomePage extends BasePage {
@@ -28,5 +28,9 @@ public class HomePage extends BasePage {
     public CategoryPage openCategoryPage(Category category) {
         $x(String.format("//div[@class = 'fat-wrap']//a[contains(@href, '%s')]", category.getCategoryXpath())).click();
         return new CategoryPage();
+    }
+
+    public SmallCart getSmallCart() {
+        return new SmallCart();
     }
 }
