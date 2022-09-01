@@ -2,7 +2,11 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.ClickOptions;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
+import java.sql.DataTruncation;
+
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -36,10 +40,10 @@ public class SearchMenu {
     }
 
     public boolean isLastSearched(String keyword) {
-        return isVisible(String.format("%s[1]", keyword));
+        return isVisible(String.format(searchRequestXpathTemplate + "[1]", keyword));
     }
 
     public boolean isPreviouslySearched(String keyword) {
-        return isVisible(String.format("%s[2]", keyword));
+        return isVisible(String.format(searchRequestXpathTemplate + "[2]", keyword));
     }
 }
