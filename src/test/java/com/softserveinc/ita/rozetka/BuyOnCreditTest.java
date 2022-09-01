@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.codeborne.selenide.Selenide;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
@@ -14,12 +13,20 @@ public class BuyOnCreditTest extends TestRunner {
     @Test
     public void verifyPurchaseOnCreditCapability() {
 
-        ProductPage productPage = homePage
+        SearchResultsPage searchResultsPage = homePage
                 .getHeader()
                 .search("Xbox")
                 .getFilter()
-                .filter(ROZETKA_SELLER)
-                .getProduct(1)
+                .filter(ROZETKA_SELLER);
+
+        int productNumber = 1;
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as(String.format("There should be at least %d product on the search results page", productNumber))
+                .isGreaterThanOrEqualTo(productNumber);
+
+        ProductPage productPage = searchResultsPage
+                .getProduct(productNumber)
                 .open();
 
         CreditModal creditModal = productPage.startPurchaseOnCredit();
@@ -38,7 +45,7 @@ public class BuyOnCreditTest extends TestRunner {
                 .as("Credit page should be open")
                 .isTrue();
 
-        Selenide.back();
+        homePage.back();
         productPage.startPurchaseOnCredit();
 
         boolean isCheckoutPageOpen = creditModal
