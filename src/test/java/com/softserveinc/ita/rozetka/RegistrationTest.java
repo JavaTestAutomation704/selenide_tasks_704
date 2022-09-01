@@ -10,7 +10,7 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 
 public class RegistrationTest extends TestRunner {
     @Test
-    public void verifyRegistrationCapability() {
+    public void verifyRegistrationCapabilityWithEmptyFields() {
 
         RegistrationModal registrationModal = homePage
                 .getHeader()
@@ -61,34 +61,34 @@ public class RegistrationTest extends TestRunner {
                 .isTrue();
 
         String redColor = Color.RED.getRgb();
-        boolean actualFirstNameBorderColor = registrationModal.isFirstNameBorderColorCorrect(redColor);
+        boolean isActualFirstNameBorderInCorrectColor = registrationModal.isFirstNameBorderColorCorrect(redColor);
 
         softAssert
-                .assertThat(actualFirstNameBorderColor)
+                .assertThat(isActualFirstNameBorderInCorrectColor)
                 .as("FirstName border color should be red")
                 .isTrue();
 
-        boolean actualLastNameBorderColor = registrationModal.isLastNameBorderColorCorrect(redColor);
+        boolean isActualLastNameBorderInCorrectColor = registrationModal.isLastNameBorderColorCorrect(redColor);
         softAssert
-                .assertThat(actualLastNameBorderColor)
+                .assertThat(isActualLastNameBorderInCorrectColor)
                 .as("LastName border color should be red")
                 .isTrue();
 
-        boolean actualPhoneNumberBorderColor = registrationModal.isPhoneNumberBorderColorCorrect(redColor);
+        boolean isPhoneNumberBorderInCorrectColor = registrationModal.isPhoneNumberBorderColorCorrect(redColor);
         softAssert
-                .assertThat(actualPhoneNumberBorderColor)
+                .assertThat(isPhoneNumberBorderInCorrectColor)
                 .as("PhoneNumber border color should be red")
                 .isTrue();
 
-        boolean actualEmailBorderColor = registrationModal.isEmailBorderColorCorrect(redColor);
+        boolean isEmailBorderInCorrectColor = registrationModal.isEmailBorderColorCorrect(redColor);
         softAssert
-                .assertThat(actualEmailBorderColor)
+                .assertThat(isEmailBorderInCorrectColor)
                 .as("Email border color should be red")
                 .isTrue();
 
-        boolean actualPasswordBorderColor = registrationModal.isPasswordBorderColorCorrect(redColor);
+        boolean isPasswordBorderInCorrectColor = registrationModal.isPasswordBorderColorCorrect(redColor);
         softAssert
-                .assertThat(actualPasswordBorderColor)
+                .assertThat(isPasswordBorderInCorrectColor)
                 .as("Password border color should be red")
                 .isTrue();
 

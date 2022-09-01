@@ -20,7 +20,7 @@ public class RegistrationModal {
         return isVisible("//div[@class='modal__holder modal__holder_show_animation modal__holder--medium']");
     }
 
-    @Step("RegistrationModal: register")
+    @Step("Registration modal: register")
     public RegistrationModal register() {
         $x(registerButtonXpath).click();
         return this;
