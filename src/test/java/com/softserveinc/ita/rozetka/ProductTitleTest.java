@@ -10,13 +10,13 @@ public class ProductTitleTest extends TestRunner {
     @Test
     public void verifyThatProductTitleContainsTheSameTitleAsCard() {
 
-        SubcategoryPage subcategoryPage = homePage
+        var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
                 .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
 
-        SoftAssertions softAssert = new SoftAssertions();
-        String expectedText = "ноутбук";
+        var softAssert = new SoftAssertions();
+        var expectedText = "ноутбук";
 
         int productsQuantity = 10;
 
@@ -25,11 +25,11 @@ public class ProductTitleTest extends TestRunner {
                 .isGreaterThanOrEqualTo(productsQuantity);
 
         for (int i = 1; i <= productsQuantity; i += 5) {
-            ProductPage productPage = subcategoryPage
+            var productPage = subcategoryPage
                     .getProduct(i)
                     .open();
 
-            String actualProductTitle = productPage.getTitle();
+            var actualProductTitle = productPage.getTitle();
 
             softAssert.assertThat(actualProductTitle)
                     .contains(expectedText)

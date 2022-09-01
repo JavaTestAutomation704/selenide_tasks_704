@@ -13,13 +13,13 @@ public class SortProductTest extends TestRunner {
 
     @Test
     public void verifyProductsSortingInAscendingOrderByPrice() {
-        SubcategoryPage subcategoryPage = homePage
+        var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
                 .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
 
         subcategoryPage.sortBy(ProductSort.PRICE_ASCENDING);
-        SoftAssertions softAssert = new SoftAssertions();
+        var softAssert = new SoftAssertions();
         int step = 4;
         int subcategoryProductQuantity = subcategoryPage.getProductsQuantity();
 
