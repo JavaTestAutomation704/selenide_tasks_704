@@ -2,11 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.ClickOptions;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 
-import java.sql.DataTruncation;
-
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -23,6 +19,7 @@ public class SearchMenu {
 
     @Step("Search menu: clean search request {keyword}")
     public SearchMenu cleanSearchRequest(String keyword) {
+        $x(String.format("//span[contains(text(), '%s')]", keyword)).hover();
         $x(String.format("//li[contains(@data-name, '%s')]/button", keyword)).click();
         return this;
     }
