@@ -4,14 +4,13 @@ import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
-import org.testng.Assert;
+import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class ShoppingCartTest extends TestRunner {
     Header header;
@@ -74,9 +73,12 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyDeleteProductsFromShoppingCart() {
+        // Test could fail because button "Remove all" should not be visible
         SearchResultsPage searchResultsPage = header.search("coffee");
 
-        Assert.assertTrue(searchResultsPage.getProductsQuantity() >= 5);
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(5);
 
         searchResultsPage
                 .getProduct(1)
@@ -88,14 +90,22 @@ public class ShoppingCartTest extends TestRunner {
                 .openShoppingCartModal()
                 .remove(1);
 
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(shoppingCart.isEmpty(), "Shopping cart is empty");
-        softAssert.assertFalse(shoppingCart.isRemoveAllProductsButtonVisible(), "Button \"Remove all\" is visible");
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(shoppingCart.isEmpty())
+                .as("Shopping cart should not be empty")
+                .isFalse();
+
+        softAssertions.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
+                .as("Button 'Remove all' should not be visible")
+                .isFalse();
 
         shoppingCart.remove(1);
 
-        softAssert.assertTrue(shoppingCart.isEmpty(), "Shopping cart isn't empty");
-        softAssert.assertAll();
+        softAssertions.assertThat(shoppingCart.isEmpty())
+                .as("Shopping cart should be empty")
+                .isTrue();
+
+        softAssertions.assertAll();
     }
 
     @Test
