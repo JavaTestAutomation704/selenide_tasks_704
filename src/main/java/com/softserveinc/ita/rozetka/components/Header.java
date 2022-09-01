@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.softserveinc.ita.rozetka.BasePage;
 import com.softserveinc.ita.rozetka.HomePage;
 
 import com.softserveinc.ita.rozetka.data.Language;
@@ -21,7 +20,9 @@ public class Header {
 
     @Step("Main sidebar: open main sidebar")
     public MainSidebar openMainSidebar() {
-        $x("//rz-mobile-user-menu/button").click();
+        if (!isVisible("//div[contains(@class, 'side-menu__body')]")) {
+            $x("//rz-mobile-user-menu/button").click();
+        }
         return new MainSidebar();
     }
 

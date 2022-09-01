@@ -12,17 +12,17 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.*;
 
 public class MainSidebarTest extends TestRunner {
-    MainSidebar mainSidebar;
+    private Header header;
 
     @Test
     public void verifyLocalizationSwitchingFunctionalityWorks() {
-        Header header = homePage.getHeader();
+        header = homePage.getHeader();
 
         assertThat(header.isLanguageSelected(UA))
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        mainSidebar = header.openMainSidebar();
+        MainSidebar mainSidebar = header.openMainSidebar();
 
         SoftAssertions softAssertions = new SoftAssertions();
         assertThat(mainSidebar.isLanguageSelected(UA))
@@ -69,6 +69,10 @@ public class MainSidebarTest extends TestRunner {
 
     @AfterMethod
     public void resetLanguage() {
-        mainSidebar.changeLanguage(UA);
+        if (!header.isLanguageSelected(UA)) {
+            header
+                    .openMainSidebar()
+                    .changeLanguage(UA);
+        }
     }
 }
