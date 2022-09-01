@@ -16,6 +16,7 @@ public enum ProductFilter {
     OTHER_SELLERS("Інші продавці"),
     NEW("Новий"),
     PRE_USED("Б/в"),
+    PROMOTION("Акція"),
     WITH_BONUS("З бонусами"),
     MICROSOFT_BRAND("Microsoft");
 
