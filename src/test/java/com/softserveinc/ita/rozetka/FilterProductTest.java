@@ -9,11 +9,11 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
-import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
-import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
+import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends TestRunner {
@@ -48,17 +48,16 @@ public class FilterProductTest extends TestRunner {
     @Test
     public void verifyFilterByLoyaltyProgram() {
         Filter filter = homePage
-                .openCategoryPage(LAPTOPS_AND_COMPUTERS)
-                .openSubcategoryPage(NOTEBOOKS)
+                .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
+                .openSubcategoryPage(MOBILE_PHONES)
                 .getFilter();
         filter.filter(AVAILABLE);
-        filter.filter(RUNNING_OUT);
         SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
-        int productsQuantity = searchResultsPage.getProductsQuantity();
+        int productsQuantity = 5;
 
-        assertThat(productsQuantity)
+        assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
-                .isGreaterThanOrEqualTo(1);
+                .isGreaterThanOrEqualTo(productsQuantity);
 
         SoftAssertions softAssertions = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i++) {
@@ -74,7 +73,6 @@ public class FilterProductTest extends TestRunner {
                     .contains("бонус");
 
             productPage.back();
-            if (i >= 10) break;
         }
         softAssertions.assertAll();
     }
