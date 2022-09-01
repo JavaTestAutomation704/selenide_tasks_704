@@ -63,7 +63,7 @@ public class SortProductTest extends TestRunner {
         for (int i = 1; i <= productsQuantity - step; i += step) {
             softly.assertThat(subcategoryPage
                             .getProduct(i)
-                            .getTitle())
+                            .getTitleLowerCase())
                     .as(i + "th product title should contain keyword")
                     .contains("asus");
             softly.assertThat(subcategoryPage

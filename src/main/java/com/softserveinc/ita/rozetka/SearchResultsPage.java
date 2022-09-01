@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 
+
 public class SearchResultsPage extends BasePage {
 
     public Filter getFilter() {
@@ -39,11 +40,8 @@ public class SearchResultsPage extends BasePage {
 
     @Step("Search results page: sort search results by {sort}")
     public SearchResultsPage sortBy(ProductSort sort) {
-        String firstResultXpath = "(//div[contains(@class, 'goods-tile ')])[1]";
-        String firstResultText = getText(firstResultXpath);
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
-        $x(firstResultXpath).shouldNotHave(text(firstResultText));
         return this;
     }
 
