@@ -3,12 +3,10 @@ package com.softserveinc.ita.rozetka.utils;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Condition.cssValue;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -53,13 +51,15 @@ public class WebElementUtil {
                 .replaceAll("[^0-9]", ""));
     }
 
-    public static String getBorderColor(String elementXpath, String color) {
+    public static boolean isBorderColorCorrect(String elementXpath, String colorRgb) {
+        String expectedColor = String.format("rgb(%s)", colorRgb);
         try {
-            return $x(elementXpath)
-                    .shouldHave(cssValue("border-color", color))
+            String actualColor = $x(elementXpath)
+                    .shouldHave(cssValue("border-color", expectedColor))
                     .getCssValue("border-color");
+            return actualColor.equals(expectedColor);
         } catch (AssertionError e) {
-            return "";
+            return false;
         }
     }
 }
