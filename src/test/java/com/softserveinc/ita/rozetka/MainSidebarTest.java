@@ -4,6 +4,7 @@ import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.MainSidebar;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Language.RU;
@@ -11,6 +12,7 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.*;
 
 public class MainSidebarTest extends TestRunner {
+    MainSidebar mainSidebar;
 
     @Test
     public void verifyLocalizationSwitchingFunctionalityWorks() {
@@ -20,7 +22,7 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        MainSidebar mainSidebar = header.openMainSidebar();
+        mainSidebar = header.openMainSidebar();
 
         SoftAssertions softAssertions = new SoftAssertions();
         assertThat(mainSidebar.isLanguageSelected(UA))
@@ -63,7 +65,10 @@ public class MainSidebarTest extends TestRunner {
                 .as("Incorrect contact us button name")
                 .isEqualTo("Связаться с нами");
         softAssertions.assertAll();
+    }
 
+    @AfterMethod
+    public void resetLanguage() {
         mainSidebar.changeLanguage(UA);
     }
 }

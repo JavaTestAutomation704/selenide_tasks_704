@@ -23,10 +23,10 @@ public class ShoppingCartTest extends TestRunner {
             ShoppingCartModal shoppingCartModal = header
                     .openShoppingCartModal()
                     .clear();
-            if(shoppingCartModal.isCloseButtonVisible()) {
+            if (shoppingCartModal.isCloseButtonVisible()) {
                 shoppingCartModal.close();
             } else {
-                header.back();
+                homePage.back();
             }
         }
     }
