@@ -46,7 +46,7 @@ public class MainSidebar {
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
     }
 
-    @Step("Header: change language to {language}")
+    @Step("Main sidebar: change language to {language}")
     public Header changeLanguage(Language language) {
         $x(String.format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();

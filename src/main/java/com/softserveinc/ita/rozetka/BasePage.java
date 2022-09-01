@@ -20,7 +20,7 @@ public abstract class BasePage {
         return isVisible("//div[contains(@class, 'modal__holder')]");
     }
 
-    @Step("Header: go back to the previous page")
+    @Step("Base page: go back to the previous page")
     public Header back() {
         Selenide.back();
         return new Header();

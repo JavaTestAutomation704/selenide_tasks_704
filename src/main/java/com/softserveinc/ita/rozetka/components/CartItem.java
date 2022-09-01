@@ -23,19 +23,19 @@ public class CartItem {
         return Integer.parseInt($x(String.format(quantityInputXpath, numberCartItem)).val());
     }
 
-    @Step("Shopping cart modal: increase the product quantity by one")
+    @Step("Cart item: increase the product quantity by one")
     public ShoppingCartModal increment() {
         $x(String.format("(//button[contains(@data-testid, 'increment')])[%d]", numberCartItem)).click();
         return new ShoppingCartModal();
     }
 
-    @Step("Shopping cart modal: reduce the product quantity by one")
+    @Step("Cart item: decrease the product quantity by one")
     public ShoppingCartModal decrement() {
         $x(String.format("(//button[contains(@data-testid, 'decrement')])[%d]", numberCartItem)).click();
         return new ShoppingCartModal();
     }
 
-    @Step("Shopping cart modal: set product quantity {quantity}")
+    @Step("Cart item: set product quantity {quantity}")
     public ShoppingCartModal setQuantity(String quantity) {
         SelenideElement quantityInput = $x(String.format(quantityInputXpath, numberCartItem));
         quantityInput.clear();
