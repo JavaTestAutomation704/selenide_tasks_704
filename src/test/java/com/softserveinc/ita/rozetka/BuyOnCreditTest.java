@@ -22,7 +22,7 @@ public class BuyOnCreditTest extends TestRunner {
         int productNumber = 1;
 
         assertThat(searchResultsPage.getProductsQuantity())
-                .as(String.format("There should be at least %d product on the search results page", productNumber))
+                .as(String.format("There should be at least %d product(-s) on the search results page", productNumber))
                 .isGreaterThanOrEqualTo(productNumber);
 
         ProductPage productPage = searchResultsPage
