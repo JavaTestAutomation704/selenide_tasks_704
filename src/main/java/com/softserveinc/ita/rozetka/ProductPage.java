@@ -9,8 +9,10 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ProductPage extends BasePage {
+    private final String titleXpath = "//h1[@class='product__title']";
+
     public String getTitle() {
-        return getText("//h1[@class='product__title']").toLowerCase();
+        return getText(titleXpath).toLowerCase();
     }
 
     public long getPrice() {
@@ -32,6 +34,7 @@ public class ProductPage extends BasePage {
 
     @Step("Credit modal: start purchase on credit")
     public CreditModal startPurchaseOnCredit() {
+        $x(titleXpath).hover();
         return new CreditModal().open();
     }
 
