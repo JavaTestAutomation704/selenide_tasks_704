@@ -49,7 +49,7 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyProductAvailabilityFilter() {
-        SearchResultsPage searchResultsPage = homePage
+        var searchResultsPage = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS)
                 .getFilter()
@@ -62,7 +62,7 @@ public class FilterProductTest extends TestRunner {
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantityToCheck);
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i++) {
             softly.assertThat(searchResultsPage

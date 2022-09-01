@@ -18,6 +18,8 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
 
+    private final String searchFieldCss = "search";
+
     @Step("Main sidebar: open main sidebar")
     public MainSidebar openMainSidebar() {
         $x("//rz-mobile-user-menu/button").click();
@@ -29,13 +31,13 @@ public class Header {
         return new LogInModal().open();
     }
 
-    @Step("Search results page: search for {product}")
+    @Step("Header: search for {product}")
     public SearchResultsPage search(String product) {
-        $(By.name("search")).val(product).pressEnter();
+        $(By.name(searchFieldCss)).val(product).pressEnter();
         return new SearchResultsPage();
     }
 
-    @Step("Shopping cart modal: open shopping cart modal")
+    @Step("Header: open shopping cart modal")
     public ShoppingCartModal openShoppingCartModal() {
         $x("//button[@rzopencart='']").click();
         $x("//rz-shopping-cart").shouldBe(visible);
@@ -68,5 +70,11 @@ public class Header {
     public boolean isLanguageSelected(Language language) {
         return isVisible(
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
+    }
+
+    @Step("Search menu: open search menu")
+    public SearchMenu openSearchMenu() {
+        $(By.name(searchFieldCss)).click();
+        return new SearchMenu();
     }
 }

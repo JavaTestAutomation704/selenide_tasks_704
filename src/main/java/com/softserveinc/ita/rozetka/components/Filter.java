@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Filter extends Header {
 
-    @Step("Search results page: select filter {type}")
+    @Step("Filter: select filter {type}")
     public SearchResultsPage filter(ProductFilter type) {
         $x(String.format("//a[@data-id = '%s']", type.getFilterXpath()))
                 .scrollIntoView(false)
@@ -21,7 +21,7 @@ public class Filter extends Header {
         return new SearchResultsPage();
     }
 
-    @Step("Search results page: select filters {types}")
+    @Step("Filter: select filters {types}")
     public SearchResultsPage filter(List<ProductFilter> types) {
         types.forEach(filter -> $x(String.format("//a[@data-id = '%s']", filter.getFilterXpath()))
                 .scrollIntoView(false)
