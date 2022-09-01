@@ -25,7 +25,7 @@ public class RegistrationTest extends TestRunner {
 
         softAssert
                 .assertThat(isUaLanguageSelected)
-                .as("Localization should in ukrainian language")
+                .as("Localization should be in ukrainian language")
                 .isTrue();
 
         softAssert
