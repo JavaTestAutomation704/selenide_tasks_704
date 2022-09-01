@@ -79,7 +79,7 @@ public class Product {
                 "//a[contains(text(), '%s')]", name));
     }
 
-    public boolean isPreviousSeen(String name) {
+    public boolean isPreviouslySeen(String name) {
         return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
                 "//a[contains(text(), '%s')]", name));
     }

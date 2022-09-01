@@ -68,7 +68,7 @@ public class SearchFunctionalityTest extends TestRunner {
                 .as("Second searched product should be displayed in 'last seen' section at first position")
                 .isTrue();
 
-        softly.assertThat(firstSearchedProduct.isPreviousSeen(firstSearchedProductName))
+        softly.assertThat(firstSearchedProduct.isPreviouslySeen(firstSearchedProductName))
                 .as("First searched product should be displayed in 'last seen' section at second position")
                 .isTrue();
         softly.assertAll();
