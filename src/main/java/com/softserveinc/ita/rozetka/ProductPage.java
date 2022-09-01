@@ -35,7 +35,7 @@ public class ProductPage extends BasePage {
     public CreditModal startPurchaseOnCredit() {
         return new CreditModal().open();
     }
-    @Step("ProductPage: change city to {city}")
+    @Step("Product page: change city to {city}")
     public ProductPage changeCity(String city) {
         $x("//div[@class='product-about__block-heading']//button").click();
         new ChangeCityModal().changeCity(city);

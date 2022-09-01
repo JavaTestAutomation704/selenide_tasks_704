@@ -35,7 +35,7 @@ public class MainSidebar {
         return citySpan.text();
     }
 
-    @Step("Header: change city to {city}")
+    @Step("Main sidebar: change city to {city}")
     public Header changeCity(String city) {
         $x("//button[contains(@class, 'city-toggle')]").click();
         return new ChangeCityModal().changeCity(city);
