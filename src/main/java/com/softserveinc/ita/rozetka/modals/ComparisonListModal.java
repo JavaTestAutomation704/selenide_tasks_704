@@ -7,7 +7,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ComparisonListModal {
-    @Step("Comparison page: open comparison page for {subcategory}")
+    @Step("Comparison list modal: open comparison page for {subcategory}")
     public ComparisonPage openComparisonPage(ISubcategory subcategory) {
         $x(String.format("//rz-comparison-modal//a[contains(text(), '%s')]", subcategory.getSubcategoryNameUa())).click();
         return new ComparisonPage();

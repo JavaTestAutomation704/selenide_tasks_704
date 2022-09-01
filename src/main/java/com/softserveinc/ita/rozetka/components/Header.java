@@ -58,7 +58,7 @@ public class Header {
                 ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
 
-    @Step("Catalog modal: open catalog modal")
+    @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
         $x("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]")
@@ -75,7 +75,7 @@ public class Header {
         return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
     }
 
-    @Step("Comparison list modal: open comparison list")
+    @Step("Header: open comparison list modal")
     public ComparisonListModal openComparisonListModal() {
         $x("//rz-comparison").click();
         return new ComparisonListModal();

@@ -70,7 +70,7 @@ public class Product {
         return isVisible(productXpath + "//button[contains(@class, 'buy-button_state_in-cart')]");
     }
 
-    @Step("Search results page: add product to comparison list")
+    @Step("Product: add product to comparison list")
     public SearchResultsPage addToComparisonList() {
         $x(productXpath + "//button[contains(@class, 'compare')]").click();
         return new SearchResultsPage();
