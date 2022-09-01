@@ -40,7 +40,7 @@ public class ShoppingCartTest extends TestRunner {
         }
 
         Product firstAvailableProduct = searchResultsPage.getProduct(productNumber);
-        String firstAvailableProductTitle = firstAvailableProduct.getTitle();
+        String firstAvailableProductTitle = firstAvailableProduct.getTitleLowerCase();
         long firstAvailableProductPrice = firstAvailableProduct.getPrice();
 
         SoftAssertions softly = new SoftAssertions();
