@@ -152,7 +152,7 @@ public class FilterProductTest extends TestRunner {
 
         var softAssertions = new SoftAssertions();
 
-        long cheapestProductPrice = subcategoryPage
+        var cheapestProductPrice = subcategoryPage
                 .getProduct(1)
                 .getPrice();
 
@@ -165,7 +165,7 @@ public class FilterProductTest extends TestRunner {
 
         subcategoryPage.sortBy(PRICE_DESCENDING);
 
-        long mostExpensiveProductPrice = subcategoryPage
+        var mostExpensiveProductPrice = subcategoryPage
                 .getProduct(1)
                 .getPrice();
 
@@ -173,8 +173,8 @@ public class FilterProductTest extends TestRunner {
                 .as("Product price should be correct")
                 .isLessThanOrEqualTo(filter.getMaxPrice());
 
-        long minPrice = 1500;
-        long maxPrice = 2500;
+        var minPrice = 1500;
+        var maxPrice = 2500;
 
         filter.setMinPrice(minPrice);
         filter.setMaxPrice(maxPrice);
@@ -185,7 +185,7 @@ public class FilterProductTest extends TestRunner {
                 .isGreaterThanOrEqualTo(productsQuantity);
 
         for (int i = 1; i <= productsQuantity; i++) {
-            long productPrice = subcategoryPage
+            var productPrice = subcategoryPage
                     .getProduct(i)
                     .getPrice();
 

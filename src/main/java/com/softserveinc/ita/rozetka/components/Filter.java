@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.utils.WebElementUtil;
@@ -45,7 +44,7 @@ public class Filter extends Header {
 
     @Step("Price filter: set in minimum price field {price}")
     public SearchResultsPage setMinPrice(long price) {
-        SelenideElement quantityInput = $x(xpathMinPriceInput);
+        var quantityInput = $x(xpathMinPriceInput);
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(price));
         quantityInput.pressEnter();
@@ -55,7 +54,7 @@ public class Filter extends Header {
 
     @Step("Price filter: set in maximum price field {price}")
     public SearchResultsPage setMaxPrice(long price) {
-        SelenideElement quantityInput = $x(xpathMaxPriceInput);
+        var quantityInput = $x(xpathMaxPriceInput);
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(price));
         quantityInput.pressEnter();
