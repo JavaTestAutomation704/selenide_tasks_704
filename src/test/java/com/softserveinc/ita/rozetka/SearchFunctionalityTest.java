@@ -84,7 +84,7 @@ public class SearchFunctionalityTest extends TestRunner {
         var firstPhrase = "purina";
         var searchResultsPage = header.search(firstPhrase);
 
-        assertThat(searchResultsPage.isSearchPerformed(firstPhrase))
+        assertThat(searchResultsPage.doesTitleContain(firstPhrase))
                 .as("Search should be performed")
                 .isTrue();
 
@@ -104,7 +104,7 @@ public class SearchFunctionalityTest extends TestRunner {
         var secondPhrase = "whiskas";
         header.search(secondPhrase);
 
-        assertThat(searchResultsPage.isSearchPerformed(secondPhrase))
+        assertThat(searchResultsPage.doesTitleContain(secondPhrase))
                 .as("Search should be performed")
                 .isTrue();
 

@@ -53,7 +53,7 @@ public class SearchResultsPage extends BasePage {
         return getCollectionSize("//rz-catalog-tile");
     }
 
-    public boolean isSearchPerformed(String keyword) {
+    public boolean doesTitleContain(String keyword) {
         return isVisible(String.format("//h1[contains(text(), '%s')]", keyword));
     }
 }
