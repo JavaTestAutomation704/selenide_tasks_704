@@ -2,11 +2,21 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchFunctionalityTest extends TestRunner {
+
+    @BeforeMethod
+    public void clearSearchHistory() {
+        var header = homePage.getHeader();
+        var searchMenu = header.openSearchMenu();
+        if(!searchMenu.isHistoryCleaned()) {
+            searchMenu.clearSearchHistory();
+        }
+    }
 
     @Test
     public void verifySearchFunctionalityWorks() {
