@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.modals.ActionTermsModal;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
@@ -56,5 +57,15 @@ public class ProductPage extends BasePage {
             return $x(xpathBonusText).text();
         }
         return "";
+    }
+
+    @Step("Product page: open action terms page modal")
+    public ActionTermsModal openActionTermsModal() {
+        $x("//button[contains(@class, 'promotion')]").click();
+        return new ActionTermsModal();
+    }
+
+    public boolean isOpenActionTermsModalButtonVisible() {
+        return isVisible("//button[contains(@class, 'promotion')]");
     }
 }
