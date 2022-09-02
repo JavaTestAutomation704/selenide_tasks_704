@@ -10,7 +10,7 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 
 public class RegistrationTest extends TestRunner {
     @Test
-    public void verifyRegistrationCapabilityWithEmptyFields() {
+    public void verifyThatBordersAreRedAndErrorMessageAppearsAfterLeavingEmptyFields() {
 
         RegistrationModal registrationModal = homePage
                 .getHeader()
