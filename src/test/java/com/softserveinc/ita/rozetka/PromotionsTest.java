@@ -17,7 +17,7 @@ public class PromotionsTest extends TestRunner {
                 .as("Promotions page should be open")
                 .isTrue();
 
-        int promotionNumber = 2;
+        int promotionNumber = 1;
 
         assertThat(promotionsPage.getPromotionsQuantity())
                 .as("The promotions quantity should be sufficient on the promotions page")
@@ -33,10 +33,15 @@ public class PromotionsTest extends TestRunner {
                 .as("The products quantity should be sufficient on the promotion page")
                 .isGreaterThanOrEqualTo(productNumber);
 
-        var actionTermsModal = promotionPage
+        var productPage = promotionPage
                 .getProduct(productNumber)
-                .open()
-                .openActionTermsModal();
+                .open();
+
+        assertThat(productPage.isOpenActionTermsModalButtonVisible())
+                .as("There should be open action terms modal button on the product page")
+                .isTrue();
+
+        var actionTermsModal = productPage.openActionTermsModal();
 
         assertThat(actionTermsModal.isOpen())
                 .as("Action terms modal should be open")

@@ -64,4 +64,8 @@ public class ProductPage extends BasePage {
         $x("//button[contains(@class, 'promotion')]").click();
         return new ActionTermsModal();
     }
+
+    public boolean isOpenActionTermsModalButtonVisible() {
+        return isVisible("//button[contains(@class, 'promotion')]");
+    }
 }
