@@ -64,6 +64,12 @@ public class MainSidebarTest extends TestRunner {
         softAssertions.assertThat(mainSidebar.getContactUsButtonName())
                 .as("Incorrect contact us button name")
                 .isEqualTo("Связаться с нами");
+
+        mainSidebar.changeLanguage(UA);
+
+        softAssertions.assertThat(header.isLanguageSelected(UA))
+                .as("Localization should be switched to UA")
+                .isTrue();
         softAssertions.assertAll();
     }
 
