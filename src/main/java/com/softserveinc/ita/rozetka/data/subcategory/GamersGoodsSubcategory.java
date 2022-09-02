@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum GamersGoodsSubcategory implements ISubcategory {
 
-    MONITORS("monitors");
+    MONITORS("monitors", "Монітори");
 
     @NonNull
     private final String subcategoryXpath;
+    @NonNull
+    private final String subcategoryNameUa;
 }

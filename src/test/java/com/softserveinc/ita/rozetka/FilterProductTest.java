@@ -2,15 +2,16 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.data.ProductFilter;
-import org.assertj.core.api.SoftAssertions;
 import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
@@ -19,6 +20,7 @@ import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLET;
+import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends TestRunner {
@@ -52,7 +54,7 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyProductAvailabilityFilter() {
-        SearchResultsPage searchResultsPage = homePage
+        var searchResultsPage = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS)
                 .getFilter()
@@ -65,7 +67,7 @@ public class FilterProductTest extends TestRunner {
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantityToCheck);
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i++) {
             softly.assertThat(searchResultsPage
@@ -80,11 +82,10 @@ public class FilterProductTest extends TestRunner {
     @Test
     public void verifyFilterByLoyaltyProgram() {
         Filter filter = homePage
-                .openCategoryPage(LAPTOPS_AND_COMPUTERS)
-                .openSubcategoryPage(NOTEBOOKS)
+                .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
+                .openSubcategoryPage(MOBILE_PHONES)
                 .getFilter();
         filter.filter(AVAILABLE);
-        filter.filter(RUNNING_OUT);
         SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
         int productsQuantity = 5;
 
@@ -93,7 +94,7 @@ public class FilterProductTest extends TestRunner {
                 .isGreaterThanOrEqualTo(productsQuantity);
 
         SoftAssertions softAssertions = new SoftAssertions();
-        for (int i = 1; i <= productsQuantity; i += 2) {
+        for (int i = 1; i <= productsQuantity; i++) {
             ProductPage productPage = searchResultsPage
                     .getProduct(i)
                     .open();
@@ -112,13 +113,14 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyResettingFilters() {
-        SearchResultsPage searchResultsPage = homePage
+
+        var searchResultsPage = homePage
                 .getHeader()
                 .search("Xbox");
 
         int resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 
-        Filter filter = searchResultsPage.getFilter();
+        var filter = searchResultsPage.getFilter();
 
         int resultsAmountAfterFilters = filter
                 .filter(List.of(WHITE_COLOR, ROZETKA_SELLER, AVAILABLE))

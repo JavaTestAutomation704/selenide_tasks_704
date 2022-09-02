@@ -24,7 +24,7 @@ public class HomePage extends BasePage {
         return isVisible("//rz-app-fat-menu-tablet");
     }
 
-    @Step("Category page: open category page {category}")
+    @Step("Home page: open category page {category}")
     public CategoryPage openCategoryPage(Category category) {
         $x(String.format("//div[@class = 'fat-wrap']//a[contains(@href, '%s')]", category.getCategoryXpath())).click();
         return new CategoryPage();
