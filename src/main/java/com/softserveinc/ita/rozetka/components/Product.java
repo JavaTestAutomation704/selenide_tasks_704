@@ -37,13 +37,13 @@ public class Product {
         return getLong(productXpath + "//span[@class='goods-tile__price-value']");
     }
 
-    @Step("Search result page: add product to shopping cart")
+    @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
         $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
         return new SearchResultsPage();
     }
 
-    @Step("Product page: open product page")
+    @Step("Product: open product page")
     public ProductPage open() {
         $x(productXpath + titleXpath)
                 .scrollIntoView(false)

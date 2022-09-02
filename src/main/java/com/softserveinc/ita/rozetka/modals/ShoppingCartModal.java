@@ -36,13 +36,13 @@ public class ShoppingCartModal {
         return this;
     }
 
-    @Step("Header: close shopping cart modal")
+    @Step("Shopping cart modal: close shopping cart modal")
     public Header close() {
         $x(closeButtonXpath).click();
         return new Header();
     }
 
-    @Step("ShoppingCartModal: remove product with number {productNumber}")
+    @Step("Shopping cart modal: remove product with number {productNumber}")
     public ShoppingCartModal remove(int productNumber) {
         $x(String.format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
         $x("//button[contains(@class, 'context-menu-actions__button')]").click();
