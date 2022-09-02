@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.testng.annotations.Test;
 
@@ -12,7 +11,7 @@ public class CheckoutTest extends TestRunner {
 
     @Test
     public void verifyCheckoutFunctionalityWorks() {
-        SubcategoryPage subcategoryPage = homePage
+        var subcategoryPage = homePage
                 .openCategoryPage(GAMERS_GOODS)
                 .openSubcategoryPage(MONITORS);
         int productsQuantity = 60;
@@ -26,11 +25,11 @@ public class CheckoutTest extends TestRunner {
                     .getProduct(i)
                     .addToShoppingCart();
         }
-        ShoppingCartModal shoppingCart = subcategoryPage
+        var shoppingCart = subcategoryPage
                 .getHeader()
                 .openShoppingCartModal();
         long shoppingCartTotalSum = shoppingCart.getTotalSum();
-        CheckoutPage checkoutPage = shoppingCart.startCheckout();
+        var checkoutPage = shoppingCart.startCheckout();
         long checkoutPageTotalSum = checkoutPage.getTotalSum();
 
         assertThat(checkoutPageTotalSum)
