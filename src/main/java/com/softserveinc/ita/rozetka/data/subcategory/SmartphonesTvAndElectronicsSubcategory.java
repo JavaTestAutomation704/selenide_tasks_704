@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SmartphonesTvAndElectronicsSubcategory implements ISubcategory {
 
-    MOBILE_PHONES("mobile");
+    MOBILE_PHONES("mobile", "Мобільні телефони");
 
     @NonNull
     private final String subcategoryXpath;
+    @NonNull
+    private final String subcategoryNameUa;
 }

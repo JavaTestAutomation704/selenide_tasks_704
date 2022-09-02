@@ -57,20 +57,19 @@ public class ComparisonListTest extends TestRunner {
                 .as("Comparison item quantity should be equal to quantity of products added for comparison")
                 .isEqualTo(comparisonProductQuantity);
 
-        ComparisonItem comparisonItem;
         SoftAssertions softly = new SoftAssertions();
         for (int i = 1; i <= comparisonProductQuantity; i++) {
-            comparisonItem = comparisonPage.getComparisonItem(i);
+        ComparisonItem comparisonItem = comparisonPage.getComparisonItem(i);
             assertThat(comparisonItem.getItemTitle())
                     .as("Comparison item title should be in a list of added for comparison product titles")
                     .isIn(productTitles);
 
             int reverseOrderProductNumber = comparisonProductQuantity - i;
             softly.assertThat(comparisonItem.getItemTitle())
-                    .as("Comparison %s item title should be equal to product title", i)
+                    .as(i + " comparison item title should be equal to product title")
                     .isEqualTo(productTitles.get(reverseOrderProductNumber));
             softly.assertThat(comparisonItem.getItemPrice())
-                    .as("Comparison %s item price should be equal to product price", i)
+                    .as(i + " comparison item price should be equal to product price")
                     .isEqualTo(productPrices.get(reverseOrderProductNumber));
         }
         softly.assertAll();
