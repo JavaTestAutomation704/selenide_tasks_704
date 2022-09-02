@@ -2,17 +2,18 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.data.ProductFilter;
-import org.assertj.core.api.SoftAssertions;
 import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
@@ -108,13 +109,14 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyResettingFilters() {
-        SearchResultsPage searchResultsPage = homePage
+
+        var searchResultsPage = homePage
                 .getHeader()
                 .search("Xbox");
 
         int resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 
-        Filter filter = searchResultsPage.getFilter();
+        var filter = searchResultsPage.getFilter();
 
         int resultsAmountAfterFilters = filter
                 .filter(List.of(WHITE_COLOR, ROZETKA_SELLER, AVAILABLE))
