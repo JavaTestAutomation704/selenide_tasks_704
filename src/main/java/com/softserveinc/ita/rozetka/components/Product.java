@@ -88,4 +88,10 @@ public class Product {
         return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
                 "//a[contains(text(), '%s')]", name));
     }
+
+    @Step("Product: add product to comparison list")
+    public SearchResultsPage addToComparisonList() {
+        $x(productXpath + "//button[contains(@class, 'compare')]").click();
+        return new SearchResultsPage();
+    }
 }

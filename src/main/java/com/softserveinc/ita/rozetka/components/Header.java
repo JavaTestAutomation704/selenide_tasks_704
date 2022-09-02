@@ -6,12 +6,14 @@ import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
@@ -57,7 +59,7 @@ public class Header {
                 ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
     }
 
-    @Step("Catalog modal: open catalog modal")
+    @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
         $x("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]")
@@ -68,5 +70,15 @@ public class Header {
     public boolean isLanguageSelected(Language language) {
         return isVisible(
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
+    }
+
+    public int getComparisonListProductQuantity() {
+        return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
+    }
+
+    @Step("Header: open comparison list modal")
+    public ComparisonListModal openComparisonListModal() {
+        $x("//rz-comparison").click();
+        return new ComparisonListModal();
     }
 }
