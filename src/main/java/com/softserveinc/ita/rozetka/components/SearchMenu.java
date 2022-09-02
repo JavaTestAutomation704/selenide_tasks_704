@@ -2,9 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.ClickOptions;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -12,7 +10,7 @@ public class SearchMenu {
 
     private final String searchRequestXpathTemplate = "//li[%d]/a/span[contains(text(), '%s')]";
 
-    @Step("Header: clean search history")
+    @Step("SearchMenu: clean search history")
     public Header clearSearchHistory() {
         $x("//button[contains(@class, 'search-suggest__heading-action')]")
                 .click(ClickOptions.usingJavaScript());
