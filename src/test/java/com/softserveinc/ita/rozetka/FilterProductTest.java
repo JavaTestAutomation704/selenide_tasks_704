@@ -44,14 +44,18 @@ public class FilterProductTest extends TestRunner {
         softAssertions.assertAll();
     }
 
-
     @Test
     public void verifyProductAvailabilityFilter() {
-        var searchResultsPage = homePage
+        var filter = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS)
-                .getFilter()
-                .filter(AVAILABLE);
+                .getFilter();
+
+        var searchResultsPage = filter.filter(AVAILABLE);
+
+        assertThat(filter.isSelected(AVAILABLE))
+                .as("Filter should be selected")
+                .isTrue();
 
         int productsQuantity = searchResultsPage.getProductsQuantity();
         int productsQuantityToCheck = 20;
@@ -63,6 +67,7 @@ public class FilterProductTest extends TestRunner {
         var softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i++) {
+            //TODO: This test may be failed as unavailable products might be among the results
             softly.assertThat(searchResultsPage
                             .getProduct(i)
                             .isAvailable())
