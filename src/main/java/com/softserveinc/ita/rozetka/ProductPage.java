@@ -50,6 +50,10 @@ public class ProductPage extends BasePage {
     }
 
     public String getBonusText() {
-        return $x("//div[contains(@class,'bonuses__info')]").text();
+        String xpathBonusText = "//div[contains(@class,'bonuses__info')]";
+        if (isVisible(xpathBonusText)) {
+            return $x(xpathBonusText).text();
+        }
+        return "";
     }
 }
