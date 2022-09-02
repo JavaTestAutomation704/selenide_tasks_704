@@ -123,5 +123,6 @@ public class SearchFunctionalityTest extends TestRunner {
         softly.assertThat(searchMenu.isHistoryCleaned())
                 .as("Search menu list should be empty")
                 .isTrue();
+        softly.assertAll();
     }
 }

@@ -4,7 +4,6 @@ import com.softserveinc.ita.rozetka.HomePage;
 
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
-import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
@@ -76,7 +75,7 @@ public class Header {
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
     }
 
-    @Step("Search menu: open search menu")
+    @Step("Header: open search menu")
     public SearchMenu openSearchMenu() {
         $(By.name(searchFieldCss)).click();
         return new SearchMenu();
