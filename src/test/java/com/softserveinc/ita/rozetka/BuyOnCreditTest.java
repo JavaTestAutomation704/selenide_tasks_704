@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -13,7 +12,7 @@ public class BuyOnCreditTest extends TestRunner {
     @Test
     public void verifyPurchaseOnCreditCapability() {
 
-        SearchResultsPage searchResultsPage = homePage
+        var searchResultsPage = homePage
                 .getHeader()
                 .search("Xbox")
                 .getFilter()
@@ -25,11 +24,11 @@ public class BuyOnCreditTest extends TestRunner {
                 .as("The products quantity should be sufficient on the search results page")
                 .isGreaterThanOrEqualTo(productNumber);
 
-        ProductPage productPage = searchResultsPage
+        var productPage = searchResultsPage
                 .getProduct(productNumber)
                 .open();
 
-        CreditModal creditModal = productPage.startPurchaseOnCredit();
+        var creditModal = productPage.startPurchaseOnCredit();
 
         assertThat(creditModal.isOpen())
                 .as("Credit modal should be open")

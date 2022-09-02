@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckoutTest extends TestRunner {
 

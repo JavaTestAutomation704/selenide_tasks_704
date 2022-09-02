@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
-import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -14,7 +13,7 @@ public class LogInTest extends TestRunner {
     @Test
     public void verifyLoggingCapability() {
 
-        LogInModal logInModal = homePage
+        var logInModal = homePage
                 .getHeader()
                 .startLogging();
 
@@ -42,7 +41,7 @@ public class LogInTest extends TestRunner {
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        String actualEmailErrorMessage = logInModal
+        var actualEmailErrorMessage = logInModal
                 .logIn()
                 .getEmailErrorMessage();
 
@@ -52,7 +51,7 @@ public class LogInTest extends TestRunner {
                 .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
 
 
-        String redColor = Color.RED.getRgb();
+        var redColor = Color.RED.getRgb();
 
         var isActualEmailBorderColorCorrect = logInModal.isEmailBorderColorCorrect(redColor);
         var isActualPasswordBorderColorCorrect = logInModal.isPasswordBorderColorCorrect(redColor);
