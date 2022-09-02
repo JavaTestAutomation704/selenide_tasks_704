@@ -1,11 +1,6 @@
 package com.softserveinc.ita.rozetka.modals;
 
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
-
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
@@ -13,6 +8,12 @@ import com.softserveinc.ita.rozetka.components.Header;
 import io.qameta.allure.Step;
 
 import java.util.List;
+
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
+import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLong;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class ShoppingCartModal {
     private final String closeButtonXpath = "//button[contains(@class, 'modal__close')]";

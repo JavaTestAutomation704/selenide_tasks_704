@@ -38,6 +38,7 @@ public class ProductPage extends BasePage {
         $x(titleXpath).hover();
         return new CreditModal().open();
     }
+
     @Step("Product page: change city to {city}")
     public ProductPage changeCity(String city) {
         $x("//div[@class='product-about__block-heading']//button").click();

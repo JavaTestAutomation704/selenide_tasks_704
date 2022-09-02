@@ -11,11 +11,8 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
-import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 

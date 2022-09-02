@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Language.RU;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MainSidebarTest extends TestRunner {
     private Header header;

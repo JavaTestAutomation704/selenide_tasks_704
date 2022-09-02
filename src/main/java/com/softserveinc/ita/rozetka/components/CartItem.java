@@ -13,7 +13,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 @RequiredArgsConstructor
 public class CartItem {
     private final int numberCartItem;
-    private String quantityInputXpath = "(//input[contains(@class, 'cart-counter')])[%d]";
+    private final String quantityInputXpath = "(//input[contains(@class, 'cart-counter')])[%d]";
 
     public String getTitle() {
         return getText(String.format("(//a[contains(@class, 'cart-product__title')])[%d]", numberCartItem)).toLowerCase();

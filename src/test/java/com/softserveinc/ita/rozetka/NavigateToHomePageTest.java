@@ -10,7 +10,7 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 public class NavigateToHomePageTest extends TestRunner {
-    
+
     @Test
     public void verifyOpeningHomePageViaLogo() {
         Header header = homePage.getHeader();

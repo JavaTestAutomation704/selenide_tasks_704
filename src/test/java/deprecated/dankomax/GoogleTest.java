@@ -1,9 +1,9 @@
 package deprecated.dankomax;
 
-import static org.testng.Assert.*;
-
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import static org.testng.Assert.assertTrue;
 
 
 public class GoogleTest extends TestRunner {

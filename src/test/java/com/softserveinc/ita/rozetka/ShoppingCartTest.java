@@ -4,8 +4,8 @@ import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
-import org.assertj.core.api.SoftAssertions;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
