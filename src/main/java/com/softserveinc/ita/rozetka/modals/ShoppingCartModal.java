@@ -15,6 +15,8 @@ import io.qameta.allure.Step;
 import java.util.List;
 
 public class ShoppingCartModal {
+    private final String closeButtonXpath = "//button[contains(@class, 'modal__close')]";
+
     public boolean isEmpty() {
         return isVisible("//div[@data-testid='empty-cart']");
     }
@@ -35,9 +37,10 @@ public class ShoppingCartModal {
 
     @Step("Header: close shopping cart modal")
     public Header close() {
-        $x("//button[contains(@class, 'modal__close')]").click();
+        $x(closeButtonXpath).click();
         return new Header();
     }
+
     @Step("ShoppingCartModal: remove product with number {productNumber}")
     public ShoppingCartModal remove(int productNumber) {
         $x(String.format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
@@ -49,7 +52,7 @@ public class ShoppingCartModal {
         return isVisible("//div[@class='cart-header__remove']//button");
     }
 
-    @Step("Checkout page: start checkout and move to checkout page")
+    @Step("Shopping cart modal: start checkout and move to checkout page")
     public CheckoutPage startCheckout() {
         $x("//a[contains(@data-testid,'order')]").click();
         return new CheckoutPage();
@@ -65,5 +68,9 @@ public class ShoppingCartModal {
 
     public boolean isOpened() {
         return isVisible("//rz-shopping-cart", 3);
+    }
+
+    public boolean isCloseButtonVisible() {
+        return isVisible(closeButtonXpath);
     }
 }

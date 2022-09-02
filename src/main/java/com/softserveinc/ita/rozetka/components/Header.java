@@ -16,9 +16,11 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
 
-    @Step("Main sidebar: open main sidebar")
+    @Step("Header: open main sidebar")
     public MainSidebar openMainSidebar() {
-        $x("//rz-mobile-user-menu/button").click();
+        if (!isVisible("//div[contains(@class, 'side-menu__body')]")) {
+            $x("//rz-mobile-user-menu/button").click();
+        }
         return new MainSidebar();
     }
 
