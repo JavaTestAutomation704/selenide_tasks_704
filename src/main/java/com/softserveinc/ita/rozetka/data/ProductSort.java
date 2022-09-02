@@ -15,5 +15,6 @@ public enum ProductSort {
     PROMOTION("action"),
     RATING("rank");
 
-    @NonNull private final String optionXpath;
+    @NonNull
+    private final String optionXpath;
 }

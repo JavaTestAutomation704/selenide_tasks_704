@@ -25,7 +25,7 @@ public class LogInModal {
         return this;
     }
 
-    @Step("Registration modal: start registration")
+    @Step("Log In modal: start registration")
     public RegistrationModal startRegistration() {
         $x(registerButtonXpath).click();
         return new RegistrationModal();

@@ -1,12 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
-
-import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
-
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -18,13 +16,15 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class Header {
 
-    @Step("Main sidebar: open main sidebar")
+    @Step("Header: open main sidebar")
     public MainSidebar openMainSidebar() {
-        $x("//rz-mobile-user-menu/button").click();
+        if (!isVisible("//div[contains(@class, 'side-menu__body')]")) {
+            $x("//rz-mobile-user-menu/button").click();
+        }
         return new MainSidebar();
     }
 
-    @Step("Log In modal: start logging")
+    @Step("Header: start logging")
     public LogInModal startLogging() {
         return new LogInModal().open();
     }
