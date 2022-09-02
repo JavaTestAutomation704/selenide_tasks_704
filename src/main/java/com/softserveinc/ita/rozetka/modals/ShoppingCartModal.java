@@ -49,7 +49,7 @@ public class ShoppingCartModal {
         return isVisible("//div[@class='cart-header__remove']//button");
     }
 
-    @Step("Checkout page: start checkout and move to checkout page")
+    @Step("Shopping cart modal: start checkout and move to checkout page")
     public CheckoutPage startCheckout() {
         $x("//a[contains(@data-testid,'order')]").click();
         return new CheckoutPage();
