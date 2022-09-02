@@ -22,7 +22,7 @@ public class BuyOnCreditTest extends TestRunner {
         int productNumber = 1;
 
         assertThat(searchResultsPage.getProductsQuantity())
-                .as(String.format("There should be at least %d product(-s) on the search results page", productNumber))
+                .as("The products quantity should be sufficient on the search results page")
                 .isGreaterThanOrEqualTo(productNumber);
 
         ProductPage productPage = searchResultsPage
@@ -35,9 +35,9 @@ public class BuyOnCreditTest extends TestRunner {
                 .as("Credit modal should be open")
                 .isTrue();
 
-        SoftAssertions softAssert = new SoftAssertions();
+        var softAssert = new SoftAssertions();
 
-        boolean isCreditPageOpen = creditModal
+        var isCreditPageOpen = creditModal
                 .openCreditPage()
                 .isOpen();
 
@@ -48,7 +48,7 @@ public class BuyOnCreditTest extends TestRunner {
         homePage.back();
         productPage.startPurchaseOnCredit();
 
-        boolean isCheckoutPageOpen = creditModal
+        var isCheckoutPageOpen = creditModal
                 .selectCreditVariant(1)
                 .isOrderModalVisible();
 
