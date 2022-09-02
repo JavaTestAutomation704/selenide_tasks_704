@@ -22,7 +22,7 @@ public class LogInTest extends TestRunner {
                 .as("Log In modal should be open")
                 .isTrue();
 
-        SoftAssertions softAssert = new SoftAssertions();
+        var softAssert = new SoftAssertions();
 
         softAssert
                 .assertThat(logInModal.isLogInButtonVisible())
@@ -34,7 +34,7 @@ public class LogInTest extends TestRunner {
                 .as("Registration button should be displayed on the Log In modal")
                 .isTrue();
 
-        boolean isUaLanguageSelected = homePage
+        var isUaLanguageSelected = homePage
                 .getHeader()
                 .isLanguageSelected(UA);
 
@@ -54,8 +54,8 @@ public class LogInTest extends TestRunner {
 
         String redColor = Color.RED.getRgb();
 
-        boolean isActualEmailBorderColorCorrect = logInModal.isEmailBorderColorCorrect(redColor);
-        boolean isActualPasswordBorderColorCorrect = logInModal.isPasswordBorderColorCorrect(redColor);
+        var isActualEmailBorderColorCorrect = logInModal.isEmailBorderColorCorrect(redColor);
+        var isActualPasswordBorderColorCorrect = logInModal.isPasswordBorderColorCorrect(redColor);
 
         softAssert
                 .assertThat(isActualEmailBorderColorCorrect)
@@ -68,7 +68,7 @@ public class LogInTest extends TestRunner {
                 .as("Password border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
 
-        boolean isRegistrationModalOpen = logInModal
+        var isRegistrationModalOpen = logInModal
                 .startRegistration()
                 .isOpen();
 
