@@ -35,7 +35,7 @@ public class MainSidebar {
         return citySpan.text();
     }
 
-    @Step("Header: change city to {city}")
+    @Step("Main sidebar: change city to {city}")
     public Header changeCity(String city) {
         $x("//button[contains(@class, 'city-toggle')]").click();
         return new ChangeCityModal().changeCity(city);
@@ -52,7 +52,7 @@ public class MainSidebar {
                 String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
     }
 
-    @Step("Header: change language to {language}")
+    @Step("Main sidebar: change language to {language}")
     public Header changeLanguage(Language language) {
         $x(String.format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();

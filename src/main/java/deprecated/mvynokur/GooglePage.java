@@ -1,8 +1,8 @@
 package deprecated.mvynokur;
 
 import com.codeborne.selenide.Selenide;
-import org.openqa.selenium.By;
 import com.softserveinc.ita.rozetka.utils.WebElementUtil;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
