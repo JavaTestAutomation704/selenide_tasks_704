@@ -35,6 +35,11 @@ public class SearchFunctionalityTest extends TestRunner {
     @Test
     public void verifyLastSeenProductsFunctionality() {
         var header = homePage.getHeader();
+        var searchMenu = header.openSearchMenu();
+        if (!searchMenu.isHistoryCleaned()) {
+            searchMenu.clearSearchHistory();
+        }
+
         var searchResultsPage = header.search("snickers");
 
         assertThat(searchResultsPage.getProductsQuantity())
@@ -77,7 +82,12 @@ public class SearchFunctionalityTest extends TestRunner {
         var header = homePage.getHeader();
 
         var firstPhrase = "purina";
-        header.search(firstPhrase);
+        var searchResultsPage = header.search(firstPhrase);
+
+        assertThat(searchResultsPage.isSearchPerformed(firstPhrase))
+                .as("Search should be performed")
+                .isTrue();
+
         header.openHomePageViaLogo();
 
         var searchMenu = header.openSearchMenu();
@@ -93,6 +103,11 @@ public class SearchFunctionalityTest extends TestRunner {
 
         var secondPhrase = "whiskas";
         header.search(secondPhrase);
+
+        assertThat(searchResultsPage.isSearchPerformed(secondPhrase))
+                .as("Search should be performed")
+                .isTrue();
+
         header.openHomePageViaLogo();
         header.openSearchMenu();
 
