@@ -5,13 +5,7 @@ import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
-
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.webdriver;
-import static com.codeborne.selenide.WebDriverConditions.url;
-import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 
@@ -44,11 +38,8 @@ public class SearchResultsPage extends BasePage {
 
     @Step("Search results page: sort search results by {sort}")
     public SearchResultsPage sortBy(ProductSort sort) {
-        String firstResultXpath = "(//div[contains(@class, 'goods-tile ')])[1]";
-        String firstResultText = getText(firstResultXpath);
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
-        $x(firstResultXpath).shouldNotBe(text(firstResultText), Duration.ofSeconds(3));
         waitUntilUrlContains(String.format("sort=%s", sort.getOptionXpath()));
         return this;
     }
