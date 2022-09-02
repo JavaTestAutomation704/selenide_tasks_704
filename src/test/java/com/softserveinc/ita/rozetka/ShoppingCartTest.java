@@ -114,7 +114,7 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
-        SearchResultsPage searchResultsPage = header.search("starbucks");
+        var searchResultsPage = header.search("starbucks");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
@@ -124,14 +124,14 @@ public class ShoppingCartTest extends TestRunner {
         long secondProductPrice = searchResultsPage.getProduct(2).getPrice();
         long expectedTotalSum = firstProductPrice + secondProductPrice;
 
-        Product firstProduct = searchResultsPage.getProduct(1);
+        var firstProduct = searchResultsPage.getProduct(1);
         firstProduct.addToShoppingCart();
 
         assertThat(firstProduct.isInShoppingCart())
                 .as("First product should be added to shopping cart")
                 .isTrue();
 
-        Product secondProduct = searchResultsPage.getProduct(2);
+        var secondProduct = searchResultsPage.getProduct(2);
         secondProduct.addToShoppingCart();
 
         assertThat(secondProduct.isInShoppingCart())
