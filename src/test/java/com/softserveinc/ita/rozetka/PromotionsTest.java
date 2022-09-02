@@ -20,7 +20,7 @@ public class PromotionsTest extends TestRunner {
         int promotionNumber = 2;
 
         assertThat(promotionsPage.getPromotionsQuantity())
-                .as(String.format("There should be at least %d promotion(-s) on the promotions page", promotionNumber))
+                .as("The promotions quantity should be sufficient on the promotions page")
                 .isGreaterThanOrEqualTo(promotionNumber);
 
         var promotionPage = promotionsPage
@@ -30,11 +30,11 @@ public class PromotionsTest extends TestRunner {
         int productNumber = 1;
 
         assertThat(promotionPage.getProductsQuantity())
-                .as(String.format("There should be at least %d product(-s) on the promotion page", productNumber))
+                .as("The products quantity should be sufficient on the promotion page")
                 .isGreaterThanOrEqualTo(productNumber);
 
         var actionTermsModal = promotionPage
-                .getProduct(1)
+                .getProduct(productNumber)
                 .open()
                 .openActionTermsModal();
 
@@ -51,7 +51,7 @@ public class PromotionsTest extends TestRunner {
                 .as("Promotion page should be open")
                 .isTrue();
 
-        SoftAssertions softAssertions = new SoftAssertions();
+        var softAssertions = new SoftAssertions();
 
         var pageTitle = promotionPage.getTitle();
         var promotionPeriodOnPage = promotionPage.getPromotionPeriod();

@@ -8,8 +8,8 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 public class PromotionsPage {
 
     public boolean isOpen() {
-        boolean isTitleVisible = isVisible("//h1[contains(@class, 'heading')]");
-        boolean isPromotionCardsVisible = isVisible("//ul[contains(@class, 'promo-grid')]");
+        var isTitleVisible = isVisible("//h1[contains(@class, 'heading')]");
+        var isPromotionCardsVisible = isVisible("//ul[contains(@class, 'promo-grid')]");
         return isTitleVisible && isPromotionCardsVisible;
     }
 
