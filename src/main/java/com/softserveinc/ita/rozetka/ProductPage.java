@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
@@ -32,10 +33,17 @@ public class ProductPage extends BasePage {
         return new ProductCharacteristicsPage();
     }
 
-    @Step("Credit modal: start purchase on credit")
+    @Step("Product page: start purchase on credit")
     public CreditModal startPurchaseOnCredit() {
         $x(titleXpath).hover();
         return new CreditModal().open();
+    }
+
+    @Step("Product page: change city to {city}")
+    public ProductPage changeCity(String city) {
+        $x("//div[@class='product-about__block-heading']//button").click();
+        new ChangeCityModal().changeCity(city);
+        return this;
     }
 
     public boolean isBonusIconVisible() {
@@ -43,6 +51,10 @@ public class ProductPage extends BasePage {
     }
 
     public String getBonusText() {
-        return $x("//div[contains(@class,'bonuses__info')]").text();
+        String xpathBonusText = "//div[contains(@class,'bonuses__info')]";
+        if (isVisible(xpathBonusText)) {
+            return $x(xpathBonusText).text();
+        }
+        return "";
     }
 }

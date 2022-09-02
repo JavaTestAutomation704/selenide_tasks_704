@@ -19,13 +19,13 @@ public class CreditModal {
         return isVisible("//credit-modal");
     }
 
-    @Step("Credit page: open credit page")
+    @Step("Credit modal: open credit page")
     public CreditPage openCreditPage() {
         $x("//a[contains(@class, 'caption-link')]").click();
         return new CreditPage();
     }
 
-    @Step("Checkout page: select credit variant {number}")
+    @Step("Credit modal: select credit variant {number}")
     public CheckoutPage selectCreditVariant(int number) {
         $x(String.format("(//rz-credit-variant//div//button)[%d]", number)).click();
         return new CheckoutPage();

@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum HouseholdAppliancesSubcategory implements ISubcategory {
+public enum SmartphonesTvAndElectronicsSubcategory implements ISubcategory {
 
-    REFRIGERATORS("refrigerators", "Холодильники");
+    MOBILE_PHONES("mobile", "Мобільні телефони");
 
     @NonNull
     private final String subcategoryXpath;
