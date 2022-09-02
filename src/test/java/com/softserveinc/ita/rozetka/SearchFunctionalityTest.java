@@ -1,7 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -12,8 +10,8 @@ public class SearchFunctionalityTest extends TestRunner {
 
     @Test
     public void verifySearchFunctionalityWorks() {
-        String searchPhrase = "starbucks";
-        SearchResultsPage searchResultsPage = homePage
+        var searchPhrase = "starbucks";
+        var searchResultsPage = homePage
                 .getHeader()
                 .search(searchPhrase);
 
@@ -24,7 +22,7 @@ public class SearchFunctionalityTest extends TestRunner {
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantityToCheck);
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i = i + 5) {
             softly.assertThat(searchResultsPage.getProduct(i).getTitleLowerCase())
@@ -36,19 +34,19 @@ public class SearchFunctionalityTest extends TestRunner {
 
     @Test
     public void verifyLastSeenProductsFunctionality() {
-        Header header = homePage.getHeader();
-        SearchResultsPage searchResultsPage = header.search("snickers");
+        var header = homePage.getHeader();
+        var searchResultsPage = header.search("snickers");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        Product firstSearchedProduct = searchResultsPage.getProduct(1);
-        String firstSearchedProductName = firstSearchedProduct.getTitle();
+        var firstSearchedProduct = searchResultsPage.getProduct(1);
+        var firstSearchedProductName = firstSearchedProduct.getTitle();
         firstSearchedProduct.open();
         header.openHomePageViaLogo();
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         softly.assertThat(firstSearchedProduct.isLastSeen(firstSearchedProductName))
                 .as("First searched product should be displayed in 'last seen' section at first position")
                 .isTrue();
@@ -59,8 +57,8 @@ public class SearchFunctionalityTest extends TestRunner {
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(2);
 
-        Product secondSearchedProduct = searchResultsPage.getProduct(2);
-        String secondSearchedProductName = secondSearchedProduct.getTitle();
+        var secondSearchedProduct = searchResultsPage.getProduct(2);
+        var secondSearchedProductName = secondSearchedProduct.getTitle();
         secondSearchedProduct.open();
         header.openHomePageViaLogo();
 
@@ -70,6 +68,60 @@ public class SearchFunctionalityTest extends TestRunner {
 
         softly.assertThat(firstSearchedProduct.isPreviouslySeen(firstSearchedProductName))
                 .as("First searched product should be displayed in 'last seen' section at second position")
+                .isTrue();
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifySearchHistoryFunctionality() {
+        var header = homePage.getHeader();
+
+        var firstPhrase = "purina";
+        header.search(firstPhrase);
+        header.openHomePageViaLogo();
+
+        var searchMenu = header.openSearchMenu();
+
+        assertThat(searchMenu.isOpened())
+                .as("Search menu should be opened")
+                .isTrue();
+
+        var softly = new SoftAssertions();
+        softly.assertThat(searchMenu.isLastSearched(firstPhrase))
+                .as("First search request should be displayed at first position in search menu list")
+                .isTrue();
+
+        var secondPhrase = "whiskas";
+        header.search(secondPhrase);
+        header.openHomePageViaLogo();
+        header.openSearchMenu();
+
+        assertThat(searchMenu.isOpened())
+                .as("Search menu should be opened after second search request is performed")
+                .isTrue();
+
+        softly.assertThat(searchMenu.isLastSearched(secondPhrase))
+                .as("Second search request should be displayed at first position in search menu list")
+                .isTrue();
+
+        softly.assertThat(searchMenu.isPreviouslySearched(firstPhrase))
+                .as("First search request should be displayed at second position in search menu list")
+                .isTrue();
+
+        searchMenu.cleanSearchRequest(secondPhrase);
+
+        softly.assertThat(searchMenu.isRequestRemoved(secondPhrase))
+                .as("First search request should be displayed at first position in search menu list")
+                .isTrue();
+
+        softly.assertThat(searchMenu.isLastSearched(firstPhrase))
+                .as("First search request should be displayed at first position in search menu list")
+                .isTrue();
+
+        searchMenu.clearSearchHistory();
+
+        softly.assertThat(searchMenu.isHistoryCleaned())
+                .as("Search menu list should be empty")
                 .isTrue();
         softly.assertAll();
     }
