@@ -106,7 +106,7 @@ public class FilterProductTest extends TestRunner {
                     .as("Bonus icon should be displayed")
                     .isTrue();
             softAssertions.assertThat(productPage.getBonusText())
-                    .as("Incorrect bonus quantity text")
+                    .as("Incorrect bonus text")
                     .contains("бонус");
 
             productPage.back();
