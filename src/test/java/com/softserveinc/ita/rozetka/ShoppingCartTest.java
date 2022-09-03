@@ -77,8 +77,7 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyDeleteProductsFromShoppingCart() {
-        // Test could fail because button "Remove all" should not be visible
-        SearchResultsPage searchResultsPage = header.search("coffee");
+        var searchResultsPage = header.search("coffee");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -90,15 +89,16 @@ public class ShoppingCartTest extends TestRunner {
                 .getProduct(5)
                 .addToShoppingCart();
 
-        ShoppingCartModal shoppingCart = header
+        var shoppingCart = header
                 .openShoppingCartModal()
                 .remove(1);
 
-        SoftAssertions softAssertions = new SoftAssertions();
+        var softAssertions = new SoftAssertions();
         softAssertions.assertThat(shoppingCart.isEmpty())
                 .as("Shopping cart should not be empty")
                 .isFalse();
 
+        // TODO: This test may be failed as button "Remove all" may be visible
         softAssertions.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
                 .as("Button 'Remove all' should not be visible")
                 .isFalse();

@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
-import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
@@ -19,8 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FilterProductTest extends TestRunner {
     @Test
     public void verifySaleFilterFunctionality() {
-        Header header = homePage.getHeader();
-        SearchResultsPage searchResultsPage = header.search("laptop");
+        var header = homePage.getHeader();
+        var searchResultsPage = header.search("laptop");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -30,12 +29,13 @@ public class FilterProductTest extends TestRunner {
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
-        SoftAssertions softAssertions = new SoftAssertions();
+        var softAssertions = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
-            boolean isProductOnSale = searchResultsPage
+            var isProductOnSale = searchResultsPage
                     .getProduct(productNumber)
                     .isOnSale();
 
+            // TODO: This test may be failed as product wasn't have sale label or old price
             softAssertions.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale")
                     .isTrue();
