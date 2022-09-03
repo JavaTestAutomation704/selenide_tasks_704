@@ -97,6 +97,7 @@ public class FilterProductTest extends TestRunner {
                     .getProduct(i)
                     .open();
 
+            //TODO: This test may be failed as unavailable products might be among the results
             softAssertions.assertThat(productPage.isBonusIconVisible())
                     .as("Bonus icon should be displayed")
                     .isTrue();
@@ -156,8 +157,7 @@ public class FilterProductTest extends TestRunner {
                 .getProduct(1)
                 .getPrice();
 
-        var filter = subcategoryPage
-                .getFilter();
+        var filter = subcategoryPage.getFilter();
 
         softAssertions.assertThat(cheapestProductPrice)
                 .as("Product price should be correct")
