@@ -12,7 +12,8 @@ public enum Category {
     PHONES_TV_ELECTRONICS("telefony-tv-i-ehlektronika"),
     GAMERS_GOODS("game-zone"),
     HOUSEHOLD_APPLIANCES("bt"),
-    SMARTPHONES_TV_AND_ELECTRONICS("telefony");
+    SMARTPHONES_TV_AND_ELECTRONICS("telefony"),
+    PLUMBING_AND_REPAIR("santekhnika-i-remont");
 
     @NonNull
     private final String categoryXpath;

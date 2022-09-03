@@ -11,8 +11,12 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
+import static com.softserveinc.ita.rozetka.data.Country.ITALY;
+import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
+import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -136,5 +140,60 @@ public class FilterProductTest extends TestRunner {
                 .isEqualTo(resultsAmountAfterSearch);
 
         softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyFilterByCountry() {
+        var searchResultsPage = homePage
+                .openCategoryPage(PLUMBING_AND_REPAIR)
+                .openSubcategoryPage(BATHROOM_FURNITURE)
+                .getFilter()
+                .filter(SPAIN);
+
+        int productsQuantity = 5;
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Products amount should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantity);
+
+        var softAssertions = new SoftAssertions();
+        for (int i = 1; i <= productsQuantity; i++) {
+            var productCharacteristicsPage = searchResultsPage
+                    .getProduct(i)
+                    .open()
+                    .openCharacteristicsPage();
+
+            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+                    .as("Country should be correct")
+                    .isEqualTo(SPAIN.getCountryNameInUkrainian());
+
+            productCharacteristicsPage.back();
+            productCharacteristicsPage.back();
+        }
+
+        searchResultsPage
+                .getFilter()
+                .filter(SPAIN)
+                .getFilter()
+                .filter(ITALY);
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Products amount should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantity);
+
+        for (int i = 1; i <= productsQuantity; i++) {
+            var productCharacteristicsPage = searchResultsPage
+                    .getProduct(i)
+                    .open()
+                    .openCharacteristicsPage();
+
+            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+                    .as("Country should be correct")
+                    .isEqualTo(ITALY.getCountryNameInUkrainian());
+
+            productCharacteristicsPage.back();
+            productCharacteristicsPage.back();
+        }
+        softAssertions.assertAll();
     }
 }

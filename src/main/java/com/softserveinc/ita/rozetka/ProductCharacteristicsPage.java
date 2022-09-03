@@ -35,4 +35,8 @@ public class ProductCharacteristicsPage extends BasePage {
     public boolean isComparisonCounterVisible() {
         return isVisible("//rz-comparison//rz-icon-counter");
     }
+
+    public String getCountryName() {
+        return $x("//a[contains(@href,'strana')]").text();
+    }
 }
