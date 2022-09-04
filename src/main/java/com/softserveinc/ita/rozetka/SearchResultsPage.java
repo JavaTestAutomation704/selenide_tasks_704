@@ -36,6 +36,10 @@ public class SearchResultsPage extends BasePage {
         return new Product(number);
     }
 
+    public Product getProductWithDiscount(int number) {
+        return new Product(number, "type_action");
+    }
+
     @Step("Search results page: sort search results by {sort}")
     public SearchResultsPage sortBy(ProductSort sort) {
         $x("//rz-sort//select").click();
@@ -48,6 +52,10 @@ public class SearchResultsPage extends BasePage {
         return getCollectionSize("//rz-catalog-tile");
     }
 
+    public int getProductsWithDiscountQuantity() {
+        return getCollectionSize("//rz-catalog-tile//span[contains(@class, 'label_type_action')]");
+    }
+    
     public boolean doesTitleContain(String keyword) {
         return isVisible(String.format("//h1[contains(text(), '%s')]", keyword));
     }

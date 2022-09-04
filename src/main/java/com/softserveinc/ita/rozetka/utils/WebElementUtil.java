@@ -51,6 +51,12 @@ public class WebElementUtil {
                 .replaceAll("[^0-9]", ""));
     }
 
+    public static int getInt(String elementXpath) {
+        return Integer.parseInt($x(elementXpath).shouldBe(visible, TIMEOUT)
+                .text()
+                .replaceAll("[^0-9]", ""));
+    }
+
     public static boolean isBorderColorCorrect(String elementXpath, String colorRgb) {
         String expectedColor = String.format("rgb(%s)", colorRgb);
         try {
