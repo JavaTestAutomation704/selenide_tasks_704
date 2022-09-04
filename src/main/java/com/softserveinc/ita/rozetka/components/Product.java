@@ -12,8 +12,6 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 public class Product {
     private final String productXpath;
     private final String titleXpath = "//span[@class='goods-tile__title']";
-    private final String priceXpath = "//span[@class='goods-tile__price-value']";
-
 
     public Product(int productNumber) {
         this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
@@ -41,7 +39,7 @@ public class Product {
     }
 
     public long getPrice() {
-        return getLong(productXpath + priceXpath);
+        return getLong(productXpath + "//span[@class='goods-tile__price-value']");
     }
 
     @Step("Product: add product to shopping cart")
