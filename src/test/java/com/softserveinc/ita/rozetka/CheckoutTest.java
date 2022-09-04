@@ -28,9 +28,9 @@ public class CheckoutTest extends TestRunner {
         var shoppingCart = subcategoryPage
                 .getHeader()
                 .openShoppingCartModal();
-        long shoppingCartTotalSum = shoppingCart.getTotalSum();
+        var shoppingCartTotalSum = shoppingCart.getTotalSum();
         var checkoutPage = shoppingCart.startCheckout();
-        long checkoutPageTotalSum = checkoutPage.getTotalSum();
+        var checkoutPageTotalSum = checkoutPage.getTotalSum();
 
         assertThat(checkoutPageTotalSum)
                 .as("Shopping cart order sum should be equal to checkout order sum")

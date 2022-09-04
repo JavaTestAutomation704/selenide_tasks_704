@@ -44,9 +44,9 @@ public class Filter extends Header {
         return getLongFromInput(xpathMaxPriceInput);
     }
 
-    @Step("Price filter: set in minimum price field {price}")
+    @Step("Filter: set in minimum price field {price}")
     public SearchResultsPage setMinPrice(long price) {
-        SelenideElement quantityInput = $x(xpathMinPriceInput);
+        var quantityInput = $x(xpathMinPriceInput);
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(price));
         quantityInput.pressEnter();
@@ -54,9 +54,9 @@ public class Filter extends Header {
         return new SearchResultsPage();
     }
 
-    @Step("Price filter: set in maximum price field {price}")
+    @Step("Filter: set in maximum price field {price}")
     public SearchResultsPage setMaxPrice(long price) {
-        SelenideElement quantityInput = $x(xpathMaxPriceInput);
+        var quantityInput = $x(xpathMaxPriceInput);
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(price));
         quantityInput.pressEnter();
