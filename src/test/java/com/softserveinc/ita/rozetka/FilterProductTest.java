@@ -17,7 +17,7 @@ import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
-import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLET;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLETS;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -148,7 +148,7 @@ public class FilterProductTest extends TestRunner {
     public void verifyFilterByPrice() {
         var subcategoryPage = homePage
                 .openCategoryPage(LAPTOPS_AND_COMPUTERS)
-                .openSubcategoryPage(TABLET);
+                .openSubcategoryPage(TABLETS);
         subcategoryPage.sortBy(PRICE_ASCENDING);
 
         var softAssertions = new SoftAssertions();

@@ -8,13 +8,13 @@ import io.qameta.allure.Step;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLongFromInput;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLongFromField;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitUntilUrlContains;
 
 public class Filter extends Header {
 
-    private final String xpathMinPriceInput = "//input[@formcontrolname='min']";
-    private final String xpathMaxPriceInput = "//input[@formcontrolname='max']";
+    private final String xpathMinPriceField = "//input[@formcontrolname='min']";
+    private final String xpathMaxPriceField = "//input[@formcontrolname='max']";
 
     @Step("Filter: select filter {type}")
     public SearchResultsPage filter(ProductFilter type) {
@@ -35,16 +35,16 @@ public class Filter extends Header {
     }
 
     public long getMinPrice() {
-        return getLongFromInput(xpathMinPriceInput);
+        return getLongFromField(xpathMinPriceField);
     }
 
     public long getMaxPrice() {
-        return getLongFromInput(xpathMaxPriceInput);
+        return getLongFromField(xpathMaxPriceField);
     }
 
     @Step("Filter: set in minimum price field {price}")
     public SearchResultsPage setMinPrice(long price) {
-        var quantityInput = $x(xpathMinPriceInput);
+        var quantityInput = $x(xpathMinPriceField);
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(price));
         quantityInput.pressEnter();
@@ -54,7 +54,7 @@ public class Filter extends Header {
 
     @Step("Filter: set in maximum price field {price}")
     public SearchResultsPage setMaxPrice(long price) {
-        var quantityInput = $x(xpathMaxPriceInput);
+        var quantityInput = $x(xpathMaxPriceField);
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(price));
         quantityInput.pressEnter();
