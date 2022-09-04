@@ -20,7 +20,7 @@ public class PickupPointsTest extends TestRunner {
         cityRetailPage.selectCity(City.DNIPRO);
 
         assertThat(cityRetailPage.isSelected(City.DNIPRO))
-                .as("Dnipro city should be selected")
+                .as(City.DNIPRO.getCity() + " city should be selected")
                 .isTrue();
 
         var deliveryPointsAddressesDnipro = cityRetailPage.getDeliveryPointsAddresses();
@@ -28,30 +28,26 @@ public class PickupPointsTest extends TestRunner {
 
         var softly = new SoftAssertions();
 
-        softly.assertThat(cityRetailPage.getDeliveryPointsAmount())
-                .as("Delivery points amount should be equal to pickup point amount in Dnipro city")
-                .isEqualTo(cityRetailPage.getPickupPointsAmount());
-
         softly.assertThat(deliveryPointsAddressesDnipro)
-                .as("Delivery and pickup points addresses in Dnipro city should be the same")
+                .as("Delivery and pickup points addresses should be the same in city " + City.DNIPRO.getCity())
                 .isEqualTo(pickupPointsAddressesDnipro);
 
         cityRetailPage.selectCity(City.LVIV);
 
         assertThat(cityRetailPage.isSelected(City.LVIV))
-                .as("Lviv city should be selected")
+                .as(City.LVIV.getCity() + " city should be selected")
                 .isTrue();
 
         var deliveryPointsAddressesLviv = cityRetailPage.getDeliveryPointsAddresses();
         var pickupPointsAddressesLviv = cityRetailPage.getPickupPointsAddresses();
 
-        softly.assertThat(cityRetailPage.getDeliveryPointsAmount())
-                .as("Delivery points amount should be equal to pickup point amount in Lviv city")
-                .isEqualTo(cityRetailPage.getPickupPointsAmount());
+        softly.assertThat(deliveryPointsAddressesLviv)
+                .as("Delivery and pickup points addresses should be the same in city " + City.LVIV.getCity())
+                .isEqualTo(pickupPointsAddressesLviv);
 
         softly.assertThat(deliveryPointsAddressesLviv)
-                .as("Delivery and pickup points addresses in Lviv city should be the same")
-                .isEqualTo(pickupPointsAddressesLviv);
+                .as("Addresses list should not be the same in different cities")
+                .isNotEqualTo(deliveryPointsAddressesDnipro);
 
         softly.assertAll();
     }

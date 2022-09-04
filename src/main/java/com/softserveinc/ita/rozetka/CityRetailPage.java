@@ -35,18 +35,10 @@ public class CityRetailPage extends BasePage {
         return deliveryPointsAddresses;
     }
 
-    public int getDeliveryPointsAmount() {
-        return getCollectionSize("//p[@class = 'map-popup__address']");
-    }
-
     public List<String> getPickupPointsAddresses() {
         var elementsAddressesList = $$x("//p[contains(@class, 'shop__address--bold')]");
         List<String> pickupPointsAddresses = new ArrayList<>();
         elementsAddressesList.spliterator().forEachRemaining(location -> pickupPointsAddresses.add(location.text()));
         return pickupPointsAddresses;
-    }
-
-    public int getPickupPointsAmount() {
-        return getCollectionSize("//p[contains(@class, 'shop__address--bold')]");
     }
 }
