@@ -16,8 +16,10 @@ public class SearchResultsPage extends BasePage {
     }
 
     public int getResultsAmount() {
+        String resultsAmountXpath = "//p[contains(@class, 'selection')]";
+        waitTillVisible(resultsAmountXpath);
         return Integer.parseInt(
-                $x("//p[contains(@class, 'selection')]")
+                $x(resultsAmountXpath)
                         .getText()
                         .replaceAll("[^0-9]", ""));
     }
