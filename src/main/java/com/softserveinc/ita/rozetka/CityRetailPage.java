@@ -8,7 +8,6 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class CityRetailPage extends BasePage {
