@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.ClickOptions;
-import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import io.qameta.allure.Step;
