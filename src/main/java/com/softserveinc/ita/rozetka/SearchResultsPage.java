@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
+import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
@@ -52,5 +53,9 @@ public class SearchResultsPage extends BasePage {
 
     public int getProductsQuantity() {
         return getCollectionSize("//rz-catalog-tile");
+    }
+
+    public DrinkingAgeConfirmationModal getDrinkingAgeConfirmationModal() {
+        return new DrinkingAgeConfirmationModal();
     }
 }
