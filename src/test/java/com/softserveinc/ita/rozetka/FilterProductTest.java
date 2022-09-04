@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
@@ -13,6 +12,12 @@ import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
+import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
+import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLET;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,14 +49,18 @@ public class FilterProductTest extends TestRunner {
         softAssertions.assertAll();
     }
 
-
     @Test
     public void verifyProductAvailabilityFilter() {
-        var searchResultsPage = homePage
+        var filter = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS)
-                .getFilter()
-                .filter(AVAILABLE);
+                .getFilter();
+
+        var searchResultsPage = filter.filter(AVAILABLE);
+
+        assertThat(filter.isSelected(AVAILABLE))
+                .as("Filter should be selected")
+                .isTrue();
 
         int productsQuantity = searchResultsPage.getProductsQuantity();
         int productsQuantityToCheck = 20;
@@ -63,6 +72,7 @@ public class FilterProductTest extends TestRunner {
         var softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i++) {
+            //TODO: This test may be failed as unavailable products might be among the results
             softly.assertThat(searchResultsPage
                             .getProduct(i)
                             .isAvailable())
@@ -74,21 +84,21 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyFilterByLoyaltyProgram() {
-        Filter filter = homePage
+        var filter = homePage
                 .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
                 .openSubcategoryPage(MOBILE_PHONES)
                 .getFilter();
         filter.filter(AVAILABLE);
-        SearchResultsPage searchResultsPage = filter.filter(WITH_BONUS);
+        var searchResultsPage = filter.filter(WITH_BONUS);
         int productsQuantity = 5;
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
-        SoftAssertions softAssertions = new SoftAssertions();
+        var softAssertions = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i++) {
-            ProductPage productPage = searchResultsPage
+            var productPage = searchResultsPage
                     .getProduct(i)
                     .open();
 
@@ -96,7 +106,7 @@ public class FilterProductTest extends TestRunner {
                     .as("Bonus icon should be displayed")
                     .isTrue();
             softAssertions.assertThat(productPage.getBonusText())
-                    .as("Incorrect bonus quantity text")
+                    .as("Incorrect bonus text")
                     .contains("бонус");
 
             productPage.back();
@@ -124,7 +134,7 @@ public class FilterProductTest extends TestRunner {
 
         int resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 
-        SoftAssertions softAssert = new SoftAssertions();
+        var softAssert = new SoftAssertions();
 
         softAssert
                 .assertThat(resultsAmountAfterResetting)
@@ -136,5 +146,59 @@ public class FilterProductTest extends TestRunner {
                 .isEqualTo(resultsAmountAfterSearch);
 
         softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyFilterByPrice() {
+        var subcategoryPage = homePage
+                .openCategoryPage(LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(TABLET);
+        subcategoryPage.sortBy(PRICE_ASCENDING);
+
+        var softAssertions = new SoftAssertions();
+
+        long cheapestProductPrice = subcategoryPage
+                .getProduct(1)
+                .getPrice();
+
+        var filter = subcategoryPage
+                .getFilter();
+
+        softAssertions.assertThat(cheapestProductPrice)
+                .as("Product price should be correct")
+                .isGreaterThanOrEqualTo(filter.getMinPrice());
+
+        subcategoryPage.sortBy(PRICE_DESCENDING);
+
+        long mostExpensiveProductPrice = subcategoryPage
+                .getProduct(1)
+                .getPrice();
+
+        softAssertions.assertThat(mostExpensiveProductPrice)
+                .as("Product price should be correct")
+                .isLessThanOrEqualTo(filter.getMaxPrice());
+
+        long minPrice = 1500;
+        long maxPrice = 2500;
+
+        filter.setMinPrice(minPrice);
+        filter.setMaxPrice(maxPrice);
+        int productsQuantity = 5;
+
+        assertThat(subcategoryPage.getProductsQuantity())
+                .as("Products amount should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantity);
+
+        for (int i = 1; i <= productsQuantity; i++) {
+            long productPrice = subcategoryPage
+                    .getProduct(i)
+                    .getPrice();
+
+            softAssertions.assertThat(productPrice)
+                    .as("Product price should be correct")
+                    .isGreaterThanOrEqualTo(minPrice)
+                    .isLessThanOrEqualTo(maxPrice);
+        }
+        softAssertions.assertAll();
     }
 }
