@@ -12,6 +12,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 public class Product {
     private final String productXpath;
     private final String titleXpath = "//span[@class='goods-tile__title']";
+    private final String priceXpath = "//span[@class='goods-tile__price-value']";
 
     public Product(int productNumber) {
         this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
@@ -25,6 +26,11 @@ public class Product {
         }
     }
 
+    public Product(int productNumber, String labelType) {
+        this.productXpath = String.format("(//span[contains(@class, '%s')]/ancestor::rz-catalog-tile)[%d]",
+                labelType, productNumber);
+    }
+
     public String getTitle() {
         return getText(productXpath + titleXpath);
     }
@@ -34,7 +40,7 @@ public class Product {
     }
 
     public long getPrice() {
-        return getLong(productXpath + "//span[@class='goods-tile__price-value']");
+        return getLong(productXpath + priceXpath);
     }
 
     @Step("Product: add product to shopping cart")
@@ -93,5 +99,17 @@ public class Product {
     public SearchResultsPage addToComparisonList() {
         $x(productXpath + "//button[contains(@class, 'compare')]").click();
         return new SearchResultsPage();
+    }
+
+    public int getDiscount() {
+        return getInt(productXpath + "//span[contains(@class, 'type_action')]");
+    }
+
+    public long getCurrentPrice() {
+        return getLong(productXpath + priceXpath);
+    }
+
+    public long getOldPrice() {
+        return getLong(productXpath + "//div[contains(@class, 'old price')]");
     }
 }
