@@ -14,7 +14,7 @@ public class PickupPointTest extends TestRunner {
         var pickupPointsCityPage = homePage.openPickupPointsCityPage();
 
         assertThat(pickupPointsCityPage.isOpened())
-                .as("City retail page should be opened")
+                .as("City pickup point page should be opened")
                 .isTrue();
 
         pickupPointsCityPage.selectCity(City.DNIPRO);
