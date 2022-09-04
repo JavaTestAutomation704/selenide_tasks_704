@@ -33,4 +33,10 @@ public class HomePage extends BasePage {
     public SmallCart getSmallCart() {
         return new SmallCart();
     }
+
+    @Step("Home page: open city retail page")
+    public CityRetailPage openCityRetailPage() {
+        $x("//a[contains(@href, 'retail')]").click();
+        return new CityRetailPage();
+    }
 }
