@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PickupPointsTest extends TestRunner {
+public class PickupPointTest extends TestRunner {
 
     @Test
     public void verifyAddressesCorrespondenceWhenCityIsChanged() {
