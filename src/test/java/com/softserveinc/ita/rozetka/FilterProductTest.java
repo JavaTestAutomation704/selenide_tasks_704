@@ -13,8 +13,6 @@ import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
-import static com.softserveinc.ita.rozetka.data.Country.ITALY;
-import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
@@ -165,7 +163,7 @@ public class FilterProductTest extends TestRunner {
 
             softAssertions.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
-                    .isEqualTo(SPAIN.getCountryNameInUkrainian());
+                    .isEqualTo("Іспанія");
 
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
@@ -189,7 +187,7 @@ public class FilterProductTest extends TestRunner {
 
             softAssertions.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
-                    .isEqualTo(ITALY.getCountryNameInUkrainian());
+                    .isEqualTo("Італія");
 
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();

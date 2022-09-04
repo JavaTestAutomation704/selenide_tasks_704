@@ -1,15 +1,12 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.codeborne.selenide.ClickOptions;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
-import com.softserveinc.ita.rozetka.data.Country;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 import io.qameta.allure.Step;
 
 import java.util.List;
 
-import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Filter extends Header {
@@ -29,16 +26,6 @@ public class Filter extends Header {
         types.forEach(filter -> $x(String.format("//a[@data-id = '%s']", filter.getFilterXpath()))
                 .scrollIntoView(false)
                 .click());
-        return new SearchResultsPage();
-    }
-
-    @Step("Filter: select filter {type}")
-    public SearchResultsPage filter(Country country) {
-        $x(String.format("//a[@data-id = '%s']", country.getCountryNameInUkrainian()))
-                .scrollIntoView(false)
-                .click(usingJavaScript());
-        WebElementUtil.waitTillVisible(String.format("//a[@data-id = '%s'][contains(@class, 'link--checked')]",
-                country.getCountryNameInUkrainian()));
         return new SearchResultsPage();
     }
 }
