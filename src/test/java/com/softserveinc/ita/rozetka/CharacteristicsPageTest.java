@@ -1,28 +1,28 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Product;
-import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesSubcategory;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Category.HOUSEHOLD_APPLIANCES;
+import static com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesSubcategory.REFRIGERATORS;
+
 public class CharacteristicsPageTest extends TestRunner {
     @Test
     public void verifyProductAdditionToComparisonListOnCharacteristicsPage() {
-        Product lastProduct = homePage
-                .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
-                .openSubcategoryPage(HouseholdAppliancesSubcategory.REFRIGERATORS)
+        var lastProduct = homePage
+                .openCategoryPage(HOUSEHOLD_APPLIANCES)
+                .openSubcategoryPage(REFRIGERATORS)
                 .getProduct("last");
-        String lastProductTitle = lastProduct.getTitleLowerCase();
+        var lastProductTitle = lastProduct.getTitleLowerCase();
 
-        ProductCharacteristicsPage characteristicsPage = lastProduct
+        var characteristicsPage = lastProduct
                 .open()
                 .openCharacteristicsPage();
-        String characteristicsPageUrl = characteristicsPage.getUrl();
-        String characteristicsPageTitle = characteristicsPage.getTitle();
+        var characteristicsPageUrl = characteristicsPage.getUrl();
+        var characteristicsPageTitle = characteristicsPage.getTitle();
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         softly.assertThat(characteristicsPageTitle)
                 .as("Characteristics page title should contain last product title.")
                 .contains(lastProductTitle);
