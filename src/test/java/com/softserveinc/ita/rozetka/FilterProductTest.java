@@ -111,13 +111,9 @@ public class FilterProductTest extends TestRunner {
                 .getHeader()
                 .search("Xbox");
 
-        var filter = searchResultsPage.getFilter();
-
-        if (!filter.isSelected(MICROSOFT_BRAND)) {
-            filter.filter(MICROSOFT_BRAND);
-        }
-
         int resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
+
+        var filter = searchResultsPage.getFilter();
 
         int resultsAmountAfterFilters = filter
                 .filter(List.of(WHITE_COLOR, ROZETKA_SELLER, AVAILABLE))
