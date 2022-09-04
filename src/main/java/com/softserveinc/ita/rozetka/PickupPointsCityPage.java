@@ -10,14 +10,14 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class CityRetailPage extends BasePage {
+public class PickupPointsCityPage extends BasePage {
 
     public boolean isOpened() {
         return isVisible("//section[@id = 'pickup']");
     }
 
-    @Step("City retail page: select city {city}")
-    public CityRetailPage selectCity(City city) {
+    @Step("Pickup points city page: select city {city}")
+    public PickupPointsCityPage selectCity(City city) {
         $x(String.format("//a[contains(text(), '%s')]", city.getCity())).click();
         return this;
     }
