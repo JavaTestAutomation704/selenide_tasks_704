@@ -21,7 +21,7 @@ public class PromotionTermsModal {
         return getText("(//div[contains(@class,'modal__body')]//p)[3]");
     }
 
-    @Step("Action terms modal: open promotion page")
+    @Step("Promotion terms modal: open promotion page")
     public PromotionPage openPromotionPage() {
         $x("//a[contains(@class, 'promotion-link')]").click();
         return new PromotionPage();

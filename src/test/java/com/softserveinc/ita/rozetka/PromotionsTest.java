@@ -37,20 +37,20 @@ public class PromotionsTest extends TestRunner {
                 .getProduct(productNumber)
                 .open();
 
-        assertThat(productPage.isOpenActionTermsModalButtonVisible())
-                .as("There should be open action terms modal button on the product page")
+        assertThat(productPage.isOpenPromotionTermsModalButtonVisible())
+                .as("There should be open promotion terms modal button on the product page")
                 .isTrue();
 
-        var actionTermsModal = productPage.openActionTermsModal();
+        var promotionTermsModal = productPage.openPromotionTermsModal();
 
-        assertThat(actionTermsModal.isOpen())
-                .as("Action terms modal should be open")
+        assertThat(promotionTermsModal.isOpen())
+                .as("Promotion terms modal should be open")
                 .isTrue();
 
-        var modalTitle = actionTermsModal.getTitle();
-        var promotionPeriodOnModal = actionTermsModal.getPromotionPeriod();
+        var modalTitle = promotionTermsModal.getTitle();
+        var promotionPeriodOnModal = promotionTermsModal.getPromotionPeriod();
 
-        promotionPage = actionTermsModal.openPromotionPage();
+        promotionPage = promotionTermsModal.openPromotionPage();
 
         assertThat(promotionPage.isOpen())
                 .as("Promotion page should be open")
@@ -63,12 +63,14 @@ public class PromotionsTest extends TestRunner {
 
         softAssertions
                 .assertThat(modalTitle)
-                .as("Promotion name on the action terms modal should be the same as on the promotion page")
+                .as("Promotion name on the promotion terms modal should be the same " +
+                        "as on the promotion page")
                 .isEqualTo(pageTitle);
 
         softAssertions
                 .assertThat(promotionPeriodOnModal)
-                .as("Promotion period on the action terms modal should be the same as on the promotion page")
+                .as("Promotion period on the promotion terms modal should be the same " +
+                        "as on the promotion page")
                 .isEqualTo(promotionPeriodOnPage);
 
         softAssertions.assertAll();

@@ -59,13 +59,13 @@ public class ProductPage extends BasePage {
         return "";
     }
 
-    @Step("Product page: open action terms page modal")
-    public PromotionTermsModal openActionTermsModal() {
+    @Step("Product page: open promotion terms page modal")
+    public PromotionTermsModal openPromotionTermsModal() {
         $x("//button[contains(@class, 'promotion')]").click();
         return new PromotionTermsModal();
     }
 
-    public boolean isOpenActionTermsModalButtonVisible() {
+    public boolean isOpenPromotionTermsModalButtonVisible() {
         return isVisible("//button[contains(@class, 'promotion')]");
     }
 }
