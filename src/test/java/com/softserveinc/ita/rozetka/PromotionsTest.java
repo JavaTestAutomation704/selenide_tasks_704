@@ -63,14 +63,12 @@ public class PromotionsTest extends TestRunner {
 
         softAssertions
                 .assertThat(modalTitle)
-                .as("Promotion name on the promotion terms modal should be the same " +
-                        "as on the promotion page")
+                .as("Promotion name on the promotion terms modal should be the same as on the promotion page")
                 .isEqualTo(pageTitle);
 
         softAssertions
                 .assertThat(promotionPeriodOnModal)
-                .as("Promotion period on the promotion terms modal should be the same " +
-                        "as on the promotion page")
+                .as("Promotion period on the promotion terms modal should be the same as on the promotion page")
                 .isEqualTo(promotionPeriodOnPage);
 
         softAssertions.assertAll();
