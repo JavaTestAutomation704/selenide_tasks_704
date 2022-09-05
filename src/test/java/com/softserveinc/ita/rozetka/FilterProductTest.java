@@ -146,7 +146,7 @@ public class FilterProductTest extends TestRunner {
     }
 
     @Test
-    public void verifyFilterByCountry() {
+    public void verifyFilterByProducingCountry() {
         var subcategoryPage = homePage
                 .openCategoryPage(PLUMBING_AND_REPAIR)
                 .openSubcategoryPage(BATHROOM_FURNITURE)
