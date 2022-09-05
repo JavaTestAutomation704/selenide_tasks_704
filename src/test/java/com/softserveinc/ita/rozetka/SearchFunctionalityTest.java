@@ -72,7 +72,7 @@ public class SearchFunctionalityTest extends TestRunner {
         secondSearchedProduct.open();
 
         assertThat(productPage.isOpened())
-                .as("First searched product page should be opened")
+                .as("Second searched product page should be opened")
                 .isTrue();
 
         header.openHomePageViaLogo();
