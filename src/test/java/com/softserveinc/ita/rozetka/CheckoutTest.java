@@ -1,9 +1,14 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Category.COTTAGE_GARDEN_BACKYARD;
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
+import static com.softserveinc.ita.rozetka.data.DeliveryTypes.PICK_UP_FROM_MEEST;
+import static com.softserveinc.ita.rozetka.data.DeliveryTypes.PICK_UP_FROM_UKRPOSHTA;
+import static com.softserveinc.ita.rozetka.data.subcategory.CottageGardenBackyardSubcategory.GARDEN_TECHNIQUES;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,5 +54,65 @@ public class CheckoutTest extends TestRunner {
                 .isTrue();
     }
 
+    @Test
+    public void verifyDeliveryWorksOnCheckoutPage() {
+        var shoppingCart = homePage
+                .openCategoryPage(COTTAGE_GARDEN_BACKYARD)
+                .openSubcategoryPage(GARDEN_TECHNIQUES)
+                .getProduct(1)
+                .addToShoppingCart()
+                .getHeader()
+                .openShoppingCartModal();
+
+        var shoppingCartTotalSum = shoppingCart.getTotalSum();
+        var checkoutPage = shoppingCart.startCheckout();
+        var checkoutPageTotalSum = checkoutPage.getTotalSum();
+
+        assertThat(checkoutPageTotalSum)
+                .as("Shopping cart order sum should be equal to checkout order sum")
+                .isEqualTo(shoppingCartTotalSum);
+
+        assertThat(checkoutPage.isOrderModalVisible())
+                .as("Order modal should be visible")
+                .isTrue();
+
+        checkoutPage.changeCity("Львів");
+
+        boolean isDeliverySelected = checkoutPage
+                .selectDeliveryType(PICK_UP_FROM_MEEST)
+                .isDeliverySelected(PICK_UP_FROM_MEEST);
+
+        assertThat(isDeliverySelected)
+                .as("Delivery type should be selected")
+                .isTrue();
+
+        var pickupPointName = checkoutPage
+                .selectPickupPoint(5)
+                .getPickupPointName();
+
+        var pickupPointModal = checkoutPage.openPickupPointModal();
+
+        var softAssertions = new SoftAssertions();
+        softAssertions.assertThat(pickupPointModal.getTextAtActivePickupPoint())
+                .as("Pickup point should be correct")
+                .contains("Meest")
+                .contains(pickupPointName);
+
+        pickupPointName = pickupPointModal
+                .moveToPickupPoint("Укрпошта", 1)
+                .getTextAtActivePickupPoint();
+
+        pickupPointModal.selectActivePickupPoint();
+
+        softAssertions.assertThat(checkoutPage.isDeliverySelected(PICK_UP_FROM_UKRPOSHTA))
+                .as("Delivery type should be selected")
+                .isTrue();
+
+        softAssertions.assertThat(pickupPointName)
+                .as("Pickup point should be correct")
+                .contains(checkoutPage.getPickupPointName());
+
+        softAssertions.assertAll();
+    }
 
 }
