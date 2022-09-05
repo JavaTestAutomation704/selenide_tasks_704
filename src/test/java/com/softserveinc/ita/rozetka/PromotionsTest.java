@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PromotionsTest extends TestRunner {
 
     @Test
-    public void verifyPromotionTermsCorrespondenceOnDifferentPages() {
+    public void verifyPromotionTermsAreTheSameOnDifferentPages() {
 
         var promotionsPage = homePage.openPromotionsPage();
 

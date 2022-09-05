@@ -1,8 +1,8 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.modals.ActionTermsModal;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
+import com.softserveinc.ita.rozetka.modals.PromotionTermsModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 
@@ -60,9 +60,9 @@ public class ProductPage extends BasePage {
     }
 
     @Step("Product page: open action terms page modal")
-    public ActionTermsModal openActionTermsModal() {
+    public PromotionTermsModal openActionTermsModal() {
         $x("//button[contains(@class, 'promotion')]").click();
-        return new ActionTermsModal();
+        return new PromotionTermsModal();
     }
 
     public boolean isOpenActionTermsModalButtonVisible() {
