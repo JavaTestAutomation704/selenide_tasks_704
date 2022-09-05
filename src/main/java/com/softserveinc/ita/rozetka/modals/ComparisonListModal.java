@@ -4,9 +4,9 @@ import com.softserveinc.ita.rozetka.ComparisonPage;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.subcategory.ISubcategory;
 import io.qameta.allure.Step;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
 
 import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.visible;
@@ -23,11 +23,13 @@ public class ComparisonListModal {
     @Step("Comparison list modal: clear comparison list")
     public ComparisonListModal clear() {
         var removeFirstCategoryButtonXpath = "(//button[contains(@class, 'remove')])[1]";
-        while (isVisible(removeFirstCategoryButtonXpath)) {
+        int counter = 0;
+        while (isVisible(removeFirstCategoryButtonXpath) && counter < 100) {
             try {
                 $x(removeFirstCategoryButtonXpath).shouldBe(visible, Duration.ofSeconds(2)).click();
             } catch (NoSuchElementException ignore) {
             }
+            counter++;
         }
         return this;
     }

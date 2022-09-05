@@ -21,15 +21,17 @@ public class ComparisonListTest extends TestRunner {
     @AfterMethod
     private void clearComparisonList() {
         header = homePage.getHeader();
-        while (header.isComparisonListCounterVisible()) {
+        int counter = 0;
+        while (header.isComparisonListCounterVisible() && counter < 10) {
             header
                     .openComparisonListModal()
                     .clear()
                     .close();
+            counter++;
         }
     }
 
-    @Test()
+    @Test
     public void verifyAddProductsToComparisonList() {
         var subcategoryPage = header
                 .openCatalogModal()
