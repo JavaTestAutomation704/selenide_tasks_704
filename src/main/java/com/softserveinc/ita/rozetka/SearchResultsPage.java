@@ -19,7 +19,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public int getResultsAmount() {
-        String resultsAmountXpath = "//p[contains(@class, 'selection')]";
+        var resultsAmountXpath = "//p[contains(@class, 'selection')]";
         waitTillVisible(resultsAmountXpath);
         return Integer.parseInt(
                 $x(resultsAmountXpath)
