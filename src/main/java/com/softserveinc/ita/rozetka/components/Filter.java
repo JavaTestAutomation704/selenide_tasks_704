@@ -18,6 +18,14 @@ public class Filter extends Header {
     private final String xpathMinPriceField = "//input[@formcontrolname='min']";
     private final String xpathMaxPriceField = "//input[@formcontrolname='max']";
 
+    private void setPrice(long price, String elementXpath, String urlContent) {
+        var quantityInput = $x(elementXpath);
+        quantityInput.clear();
+        quantityInput.sendKeys(String.valueOf(price));
+        quantityInput.pressEnter();
+        waitUntilUrlContains(String.format(urlContent, price));
+    }
+
     @Step("Filter: select filter {type}")
     public SearchResultsPage filter(ProductFilter type) {
         $x(String.format("//a[@data-id = '%s']", type.getFilterXpath()))
@@ -45,21 +53,13 @@ public class Filter extends Header {
 
     @Step("Filter: set in minimum price field {price}")
     public SearchResultsPage setMinPrice(long price) {
-        var quantityInput = $x(xpathMinPriceField);
-        quantityInput.clear();
-        quantityInput.sendKeys(String.valueOf(price));
-        quantityInput.pressEnter();
-        waitUntilUrlContains(String.format("price=%d", price));
+        setPrice(price, xpathMinPriceField, "price=%d");
         return new SearchResultsPage();
     }
 
     @Step("Filter: set in maximum price field {price}")
     public SearchResultsPage setMaxPrice(long price) {
-        var quantityInput = $x(xpathMaxPriceField);
-        quantityInput.clear();
-        quantityInput.sendKeys(String.valueOf(price));
-        quantityInput.pressEnter();
-        waitUntilUrlContains(String.format("-%d;", price));
+        setPrice(price, xpathMaxPriceField, "-%d;");
         return new SearchResultsPage();
     }
 

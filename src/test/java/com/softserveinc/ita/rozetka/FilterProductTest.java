@@ -158,13 +158,13 @@ public class FilterProductTest extends TestRunner {
                 .openSubcategoryPage(TABLETS);
         subcategoryPage.sortBy(PRICE_ASCENDING);
 
-        var softAssertions = new SoftAssertions();
-
         var cheapestProductPrice = subcategoryPage
                 .getProduct(1)
                 .getPrice();
 
         var filter = subcategoryPage.getFilter();
+
+        var softAssertions = new SoftAssertions();
 
         softAssertions.assertThat(cheapestProductPrice)
                 .as("Product price should be correct")

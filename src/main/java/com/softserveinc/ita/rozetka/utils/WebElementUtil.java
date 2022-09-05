@@ -65,7 +65,9 @@ public class WebElementUtil {
 
     public static long getLongFromField(String elementXpath) {
         var value = $x(elementXpath).val();
-        if (value != null) return Long.parseLong(value);
+        if (value != null) {
+            return Long.parseLong(value);
+        }
         return 0;
     }
 
