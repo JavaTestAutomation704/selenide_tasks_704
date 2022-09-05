@@ -42,7 +42,7 @@ public class WebElementUtil {
     }
 
     public static void waitTillVisible(String elementXpath) {
-        isVisible(elementXpath);
+        isVisible(elementXpath, 5);
     }
 
     public static long getLong(String elementXpath) {

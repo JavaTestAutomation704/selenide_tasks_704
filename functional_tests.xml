@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Rozetka tests" parallel="methods" thread-count="3">
+    <test name="All Tests">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.BuyOnCreditTest"/>
+            <class name="com.softserveinc.ita.rozetka.ChangeCityTest"/>
+            <class name="com.softserveinc.ita.rozetka.CharacteristicsPageTest"/>
+            <class name="com.softserveinc.ita.rozetka.CheckoutTest"/>
+            <class name="com.softserveinc.ita.rozetka.ComparisonListTest"/>
+            <class name="com.softserveinc.ita.rozetka.FilterProductOnConditionTest"/>
+            <class name="com.softserveinc.ita.rozetka.FilterProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.LogInTest"/>
+            <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
+            <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
+            <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
+            <class name="com.softserveinc.ita.rozetka.SearchFunctionalityTest"/>
+            <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
+            <class name="com.softserveinc.ita.rozetka.SortingProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
+        </classes>
+    </test>
+</suite>
