@@ -72,7 +72,8 @@ public class Product {
 
     public boolean isOnSale() {
         return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
-                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]");
+                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]")
+                || !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals("");
     }
 
     public boolean isInShoppingCart() {
