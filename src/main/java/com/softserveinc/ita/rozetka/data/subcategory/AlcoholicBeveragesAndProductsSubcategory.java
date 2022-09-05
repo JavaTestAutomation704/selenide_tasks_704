@@ -6,13 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum LaptopsAndComputersSubcategory implements ISubcategory {
+public enum AlcoholicBeveragesAndProductsSubcategory implements ISubcategory {
 
-    NOTEBOOKS("/notebooks", "Ноутбуки"),
-    ASUS("asus", "Asus"),
-    COMPUTERS("/computers/", "Комп'ютери"),
-    MONITORS("monitors", "Монітори"),
-    TABLETS("tablets", "Планшети");
+    COGNAC("konyak-i-brendi", "Коньяк"),
+    WHISKY("viski-odnosolodoviy", "Віскі односолодовий");
 
     @NonNull
     private final String subcategoryXpath;

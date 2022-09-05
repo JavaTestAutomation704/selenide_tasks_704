@@ -1,7 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.MainSidebar;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.AfterMethod;
@@ -22,9 +21,9 @@ public class MainSidebarTest extends TestRunner {
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        MainSidebar mainSidebar = header.openMainSidebar();
+        var mainSidebar = header.openMainSidebar();
 
-        SoftAssertions softAssertions = new SoftAssertions();
+        var softAssertions = new SoftAssertions();
         assertThat(mainSidebar.isLanguageSelected(UA))
                 .as("Localization should be switched to UA")
                 .isTrue();

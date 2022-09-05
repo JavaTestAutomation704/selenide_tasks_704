@@ -32,8 +32,8 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyUserCanAddSearchedProductToShoppingCart() {
-        String searchPhrase = "samsung a52";
-        SearchResultsPage searchResultsPage = header.search(searchPhrase);
+        var searchPhrase = "samsung a52";
+        var searchResultsPage = header.search(searchPhrase);
 
         int productsQuantity = searchResultsPage.getProductsQuantity();
         int productNumber = 1;
@@ -42,8 +42,8 @@ public class ShoppingCartTest extends TestRunner {
             productNumber++;
         }
 
-        Product firstAvailableProduct = searchResultsPage.getProduct(productNumber);
-        String firstAvailableProductTitle = firstAvailableProduct.getTitleLowerCase();
+        var firstAvailableProduct = searchResultsPage.getProduct(productNumber);
+        var firstAvailableProductTitle = firstAvailableProduct.getTitleLowerCase();
         long firstAvailableProductPrice = firstAvailableProduct.getPrice();
 
         SoftAssertions softly = new SoftAssertions();
@@ -53,7 +53,7 @@ public class ShoppingCartTest extends TestRunner {
                     .contains(word);
         }
 
-        ProductPage productPage = firstAvailableProduct.open();
+        var productPage = firstAvailableProduct.open();
         softly.assertThat(productPage.getTitle())
                 .as("Search result title should be equal to Product page title.")
                 .isEqualTo(firstAvailableProductTitle);
@@ -61,7 +61,7 @@ public class ShoppingCartTest extends TestRunner {
                 .as("Search result price should be equal to Product page price.")
                 .isEqualTo(firstAvailableProductPrice);
 
-        ShoppingCartModal cart = productPage.addToCart();
+        var cart = productPage.addToCart();
         if (!cart.isOpened()) {
             header.openShoppingCartModal();
         }
@@ -76,8 +76,7 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyDeleteProductsFromShoppingCart() {
-        // Test could fail because button "Remove all" should not be visible
-        SearchResultsPage searchResultsPage = header.search("coffee");
+        var searchResultsPage = header.search("coffee");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -89,15 +88,16 @@ public class ShoppingCartTest extends TestRunner {
                 .getProduct(5)
                 .addToShoppingCart();
 
-        ShoppingCartModal shoppingCart = header
+        var shoppingCart = header
                 .openShoppingCartModal()
                 .remove(1);
 
-        SoftAssertions softAssertions = new SoftAssertions();
+        var softAssertions = new SoftAssertions();
         softAssertions.assertThat(shoppingCart.isEmpty())
                 .as("Shopping cart should not be empty")
                 .isFalse();
 
+        // TODO: This test may be failed as button "Remove all" may be visible
         softAssertions.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
                 .as("Button 'Remove all' should not be visible")
                 .isFalse();
@@ -113,7 +113,7 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
-        SearchResultsPage searchResultsPage = header.search("starbucks");
+        var searchResultsPage = header.search("starbucks");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
@@ -123,14 +123,14 @@ public class ShoppingCartTest extends TestRunner {
         long secondProductPrice = searchResultsPage.getProduct(2).getPrice();
         long expectedTotalSum = firstProductPrice + secondProductPrice;
 
-        Product firstProduct = searchResultsPage.getProduct(1);
+        var firstProduct = searchResultsPage.getProduct(1);
         firstProduct.addToShoppingCart();
 
         assertThat(firstProduct.isInShoppingCart())
                 .as("First product should be added to shopping cart")
                 .isTrue();
 
-        Product secondProduct = searchResultsPage.getProduct(2);
+        var secondProduct = searchResultsPage.getProduct(2);
         secondProduct.addToShoppingCart();
 
         assertThat(secondProduct.isInShoppingCart())

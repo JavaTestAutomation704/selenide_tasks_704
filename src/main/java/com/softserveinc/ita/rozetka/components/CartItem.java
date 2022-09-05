@@ -1,12 +1,13 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.Condition;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLong;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 
 @RequiredArgsConstructor

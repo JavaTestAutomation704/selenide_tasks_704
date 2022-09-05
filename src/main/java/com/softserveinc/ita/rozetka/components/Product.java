@@ -25,6 +25,15 @@ public class Product {
         }
     }
 
+    public Product(int productNumber, boolean isWithDiscount) {
+        if (isWithDiscount) {
+            this.productXpath = String.format("(//span[contains(@class, 'type_action')]/ancestor::rz-catalog-tile)[%d]",
+                    productNumber);
+        } else {
+            this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
+        }
+    }
+
     public String getTitle() {
         return getText(productXpath + titleXpath);
     }
@@ -34,16 +43,16 @@ public class Product {
     }
 
     public long getPrice() {
-        return getLong(productXpath + "//span[@class='goods-tile__price-value']");
+        return getNumber(productXpath + "//span[@class='goods-tile__price-value']");
     }
 
-    @Step("Search result page: add product to shopping cart")
+    @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
         $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
         return new SearchResultsPage();
     }
 
-    @Step("Product page: open product page")
+    @Step("Product: open product page")
     public ProductPage open() {
         $x(productXpath + titleXpath)
                 .scrollIntoView(false)
@@ -72,7 +81,8 @@ public class Product {
 
     public boolean isOnSale() {
         return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
-                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]");
+                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]")
+                || !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals("");
     }
 
     public boolean isInShoppingCart() {
@@ -93,5 +103,13 @@ public class Product {
     public SearchResultsPage addToComparisonList() {
         $x(productXpath + "//button[contains(@class, 'compare')]").click();
         return new SearchResultsPage();
+    }
+
+    public long getDiscount() {
+        return getNumber(productXpath + "//span[contains(@class, 'type_action')]");
+    }
+
+    public long getOldPrice() {
+        return getNumber(productXpath + "//div[contains(@class, 'old price')]");
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLong;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class ShoppingCartModal {
@@ -36,13 +36,13 @@ public class ShoppingCartModal {
         return this;
     }
 
-    @Step("Header: close shopping cart modal")
+    @Step("Shopping cart modal: close shopping cart modal")
     public Header close() {
         $x(closeButtonXpath).click();
         return new Header();
     }
 
-    @Step("ShoppingCartModal: remove product with number {productNumber}")
+    @Step("Shopping cart modal: remove product with number {productNumber}")
     public ShoppingCartModal remove(int productNumber) {
         $x(String.format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
         $x("//button[contains(@class, 'context-menu-actions__button')]").click();
@@ -64,7 +64,7 @@ public class ShoppingCartModal {
     }
 
     public long getTotalSum() {
-        return getLong("//div[contains(@class,'sum-price')]");
+        return getNumber("//div[contains(@class,'sum-price')]");
     }
 
     public boolean isOpened() {

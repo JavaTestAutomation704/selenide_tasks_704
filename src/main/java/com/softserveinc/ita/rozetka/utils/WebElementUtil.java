@@ -7,8 +7,8 @@ import java.time.Duration;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 
 @UtilityClass
 public class WebElementUtil {
@@ -42,10 +42,10 @@ public class WebElementUtil {
     }
 
     public static void waitTillVisible(String elementXpath) {
-        isVisible(elementXpath);
+        isVisible(elementXpath, 5);
     }
 
-    public static long getLong(String elementXpath) {
+    public static long getNumber(String elementXpath) {
         return Long.parseLong($x(elementXpath).shouldBe(visible, TIMEOUT)
                 .text()
                 .replaceAll("[^0-9]", ""));
@@ -61,5 +61,17 @@ public class WebElementUtil {
         } catch (AssertionError e) {
             return false;
         }
+    }
+
+    public static long getLongFromField(String elementXpath) {
+        var value = $x(elementXpath).val();
+        if (value != null) {
+            return Long.parseLong(value);
+        }
+        return 0;
+    }
+
+    public static void waitUntilUrlContains(String charSequence) {
+        webdriver().shouldHave(urlContaining(charSequence), TIMEOUT);
     }
 }

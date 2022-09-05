@@ -24,7 +24,7 @@ public class HomePage extends BasePage {
         return isVisible("//rz-app-fat-menu-tablet");
     }
 
-    @Step("Category page: open category page {category}")
+    @Step("Home page: open category page {category}")
     public CategoryPage openCategoryPage(Category category) {
         $x(String.format("//div[@class = 'fat-wrap']//a[contains(@href, '%s')]", category.getCategoryXpath())).click();
         return new CategoryPage();
@@ -32,5 +32,17 @@ public class HomePage extends BasePage {
 
     public SmallCart getSmallCart() {
         return new SmallCart();
+    }
+
+    @Step("Home page: open pickup points city page")
+    public PickupPointsCityPage openPickupPointsCityPage() {
+        $x("//a[contains(@href, 'retail')]").click();
+        return new PickupPointsCityPage();
+    }
+    
+    @Step("Home page: open promotions page")
+    public PromotionsPage openPromotionsPage() {
+        $x("//a[contains(@class, 'pagination')]").click();
+        return new PromotionsPage();
     }
 }
