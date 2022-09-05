@@ -52,7 +52,7 @@ public class Header {
     }
 
     public boolean isComparisonListCounterVisible() {
-        return isVisible("//rz-comparison//rz-icon-counter");
+        return isVisible("//rz-comparison//rz-icon-counter", 2);
     }
 
     @Step("Header: open home page via logo")

@@ -39,4 +39,10 @@ public class HomePage extends BasePage {
         $x("//a[contains(@href, 'retail')]").click();
         return new PickupPointsCityPage();
     }
+    
+    @Step("Home page: open promotions page")
+    public PromotionsPage openPromotionsPage() {
+        $x("//a[contains(@class, 'pagination')]").click();
+        return new PromotionsPage();
+    }
 }
