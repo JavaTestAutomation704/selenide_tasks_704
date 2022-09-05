@@ -4,14 +4,10 @@ import com.softserveinc.ita.rozetka.ComparisonPage;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.subcategory.ISubcategory;
 import io.qameta.allure.Step;
-import org.openqa.selenium.NoSuchElementException;
-
-import java.time.Duration;
 
 import static com.codeborne.selenide.ClickOptions.usingJavaScript;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
 
 public class ComparisonListModal {
     @Step("Comparison list modal: open comparison page for {subcategory}")
@@ -22,14 +18,10 @@ public class ComparisonListModal {
 
     @Step("Comparison list modal: clear comparison list")
     public ComparisonListModal clear() {
-        var removeFirstCategoryButtonXpath = "(//button[contains(@class, 'remove')])[1]";
-        int counter = 0;
-        while (isVisible(removeFirstCategoryButtonXpath) && counter < 100) {
-            try {
-                $x(removeFirstCategoryButtonXpath).shouldBe(visible, Duration.ofSeconds(2)).click();
-            } catch (NoSuchElementException ignore) {
-            }
-            counter++;
+        var removeCategoryButtonXpath = "//button[contains(@class, 'remove')]";
+        int removeCategoryButtonsQuantity = getCollectionSize(removeCategoryButtonXpath);
+        for (int i = removeCategoryButtonsQuantity; i > 0 ; i--) {
+            $x(String.format("(%s)[%d]", removeCategoryButtonXpath, i)).click();
         }
         return this;
     }
