@@ -8,6 +8,9 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 public class LogInModal {
     private final String logInButtonXpath = "//button[contains(@class, 'auth-modal__submit')]";
     private final String registerButtonXpath = "//button[contains(@class, 'auth-modal__register')]";
+    private final String remindPasswordButtonXpath = "//a[contains(@class,'restore-link')]";
+    private final String getTemporaryPasswordButtonXpath = "//button[contains(@class,'get-pass')]";
+    private final String rememberPasswordButtonXpath = "//a[contains(@class,'remember-link')]";
 
     @Step("Log In modal: open")
     public LogInModal open() {
@@ -31,12 +34,39 @@ public class LogInModal {
         return new RegistrationModal();
     }
 
+    public LogInModal remindPassword() {
+        $x(remindPasswordButtonXpath).click();
+        return this;
+    }
+
+    public LogInModal getTemporaryPassword() {
+        $x(getTemporaryPasswordButtonXpath).click();
+        return this;
+    }
+
+    public LogInModal rememberPassword() {
+        $x(rememberPasswordButtonXpath).click();
+        return this;
+    }
+
     public boolean isLogInButtonVisible() {
         return isVisible(logInButtonXpath);
     }
 
     public boolean isRegistrationButtonVisible() {
         return isVisible(registerButtonXpath);
+    }
+
+    public boolean isRemindPasswordButtonVisible() {
+        return isVisible(remindPasswordButtonXpath);
+    }
+
+    public boolean isGetTemporaryPasswordButtonVisible() {
+        return isVisible(getTemporaryPasswordButtonXpath);
+    }
+
+    public boolean isRememberPasswordButtonVisible() {
+        return isVisible(rememberPasswordButtonXpath);
     }
 
     public boolean isEmailBorderColorCorrect(String colorRgb) {
