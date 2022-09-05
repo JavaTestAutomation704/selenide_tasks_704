@@ -48,4 +48,6 @@ public class CheckoutTest extends TestRunner {
                 .as("Total modal should be visible")
                 .isTrue();
     }
+
+
 }
