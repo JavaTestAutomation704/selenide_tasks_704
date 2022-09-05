@@ -12,7 +12,9 @@ public enum Category {
     PHONES_TV_ELECTRONICS("telefony-tv-i-ehlektronika"),
     GAMERS_GOODS("game-zone"),
     HOUSEHOLD_APPLIANCES("bt"),
-    SMARTPHONES_TV_AND_ELECTRONICS("telefony");
+    SMARTPHONES_TV_AND_ELECTRONICS("telefony"),
+    SPORT_AND_HOBBIES("sport-i-uvlecheniya"),
+    ALCOHOLIC_BEVERAGES_AND_PRODUCTS("alkoholnie-napitki-i-produkty");
 
     @NonNull
     private final String categoryXpath;

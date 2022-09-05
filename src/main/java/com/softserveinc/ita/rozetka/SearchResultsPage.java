@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
+import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
@@ -57,5 +58,9 @@ public class SearchResultsPage extends BasePage {
 
     public boolean doesTitleContain(String keyword) {
         return isVisible(String.format("//h1[contains(text(), '%s')]", keyword));
+    }
+
+    public DrinkingAgeConfirmationModal getDrinkingAgeConfirmationModal() {
+        return new DrinkingAgeConfirmationModal();
     }
 }
