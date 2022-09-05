@@ -13,6 +13,8 @@ public enum Category {
     GAMERS_GOODS("game-zone"),
     HOUSEHOLD_APPLIANCES("bt"),
     SMARTPHONES_TV_AND_ELECTRONICS("telefony"),
+    SPORT_AND_HOBBIES("sport-i-uvlecheniya"),
+    ALCOHOLIC_BEVERAGES_AND_PRODUCTS("alkoholnie-napitki-i-produkty"),
     PLUMBING_AND_REPAIR("santekhnika-i-remont");
 
     @NonNull
