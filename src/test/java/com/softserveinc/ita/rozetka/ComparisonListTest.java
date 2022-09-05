@@ -11,7 +11,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,6 +20,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.AlcoholicBeveragesAn
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static com.softserveinc.ita.rozetka.data.subcategory.PhonesTvElectronicsSubcategory.CAMERAS;
 import static com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubcategory.*;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComparisonListTest extends TestRunner {
@@ -43,9 +43,9 @@ public class ComparisonListTest extends TestRunner {
     @Test
     public void verifyRemoveCategoriesFromComparisonList() {
         var categoriesWithSubcategories = new HashMap<Category, List<ISubcategory>>();
-        categoriesWithSubcategories.put(ALCOHOLIC_BEVERAGES_AND_PRODUCTS, Arrays.asList(COGNAC, WHISKY));
-        categoriesWithSubcategories.put(SPORT_AND_HOBBIES, Arrays.asList(HOVERBOARDS, FISHING_RODS));
-        categoriesWithSubcategories.put(LAPTOPS_AND_COMPUTERS, Arrays.asList(ASUS));
+        categoriesWithSubcategories.put(ALCOHOLIC_BEVERAGES_AND_PRODUCTS, asList(COGNAC, WHISKY));
+        categoriesWithSubcategories.put(SPORT_AND_HOBBIES, asList(HOVERBOARDS, FISHING_RODS));
+        categoriesWithSubcategories.put(LAPTOPS_AND_COMPUTERS, asList(ASUS));
 
         var subcategoriesCounter = new AtomicInteger();
         categoriesWithSubcategories.forEach((category, subcategories) -> {
