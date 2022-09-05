@@ -23,8 +23,6 @@ public class PickupPointTest extends TestRunner {
                 .as(City.DNIPRO + " should be selected")
                 .isTrue();
 
-        System.out.println(City.DNIPRO);
-
         var firstCityDeliveryPointsAddresses = pickupPointsCityPage.getDeliveryPointsAddresses();
         var firstCityPickupPointsAddresses = pickupPointsCityPage.getPickupPointsAddresses();
 
