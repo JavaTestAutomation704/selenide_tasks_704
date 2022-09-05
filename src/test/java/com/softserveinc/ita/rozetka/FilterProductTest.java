@@ -147,7 +147,7 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyFilterByCountry() {
-        var searchResultsPage = homePage
+        var subcategoryPage = homePage
                 .openCategoryPage(PLUMBING_AND_REPAIR)
                 .openSubcategoryPage(BATHROOM_FURNITURE)
                 .getFilter()
@@ -155,13 +155,13 @@ public class FilterProductTest extends TestRunner {
 
         int productsQuantity = 5;
 
-        assertThat(searchResultsPage.getProductsQuantity())
+        assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
         var softAssertions = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i++) {
-            var productCharacteristicsPage = searchResultsPage
+            var productCharacteristicsPage = subcategoryPage
                     .getProduct(i)
                     .open()
                     .openCharacteristicsPage();
@@ -174,18 +174,18 @@ public class FilterProductTest extends TestRunner {
             productCharacteristicsPage.back();
         }
 
-        searchResultsPage
+        subcategoryPage
                 .getFilter()
                 .filter(PRODUCED_IN_SPAIN)
                 .getFilter()
                 .filter(PRODUCED_IN_ITALY);
 
-        assertThat(searchResultsPage.getProductsQuantity())
+        assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
         for (int i = 1; i <= productsQuantity; i++) {
-            var productCharacteristicsPage = searchResultsPage
+            var productCharacteristicsPage = subcategoryPage
                     .getProduct(i)
                     .open()
                     .openCharacteristicsPage();
