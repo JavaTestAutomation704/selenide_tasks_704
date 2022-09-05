@@ -8,10 +8,23 @@ import io.qameta.allure.Step;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLongFromField;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitUntilUrlContains;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillVisible;
 
 public class Filter extends Header {
+
+    private final String xpathMinPriceField = "//input[@formcontrolname='min']";
+    private final String xpathMaxPriceField = "//input[@formcontrolname='max']";
+
+    private void setPrice(long price, String elementXpath, String urlContent) {
+        var quantityInput = $x(elementXpath);
+        quantityInput.clear();
+        quantityInput.sendKeys(String.valueOf(price));
+        quantityInput.pressEnter();
+        waitUntilUrlContains(String.format(urlContent, price));
+    }
 
     @Step("Filter: select filter {type}")
     public SearchResultsPage filter(ProductFilter type) {
@@ -27,6 +40,26 @@ public class Filter extends Header {
         types.forEach(filter -> $x(String.format("//a[@data-id = '%s']", filter.getFilterXpath()))
                 .scrollIntoView(false)
                 .click(ClickOptions.usingJavaScript()));
+        return new SearchResultsPage();
+    }
+
+    public long getMinPrice() {
+        return getLongFromField(xpathMinPriceField);
+    }
+
+    public long getMaxPrice() {
+        return getLongFromField(xpathMaxPriceField);
+    }
+
+    @Step("Filter: set in minimum price field {price}")
+    public SearchResultsPage setMinPrice(long price) {
+        setPrice(price, xpathMinPriceField, "price=%d");
+        return new SearchResultsPage();
+    }
+
+    @Step("Filter: set in maximum price field {price}")
+    public SearchResultsPage setMaxPrice(long price) {
+        setPrice(price, xpathMaxPriceField, "-%d;");
         return new SearchResultsPage();
     }
 

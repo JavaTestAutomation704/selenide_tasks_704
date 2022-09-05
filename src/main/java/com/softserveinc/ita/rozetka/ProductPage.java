@@ -18,7 +18,7 @@ public class ProductPage extends BasePage {
     }
 
     public long getPrice() {
-        return getLong("//p[contains(@class, 'product-prices__big')]");
+        return getNumber("//p[contains(@class, 'product-prices__big')]");
     }
 
     @Step("Product page: add product to cart")
