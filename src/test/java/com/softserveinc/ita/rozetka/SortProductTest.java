@@ -76,4 +76,32 @@ public class SortProductTest extends TestRunner {
         }
         softly.assertAll();
     }
+
+
+    @Test
+    public void verifySaleSortFunctionality() {
+        var header = homePage.getHeader();
+        var searchResultsPage = header.search("laptop");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
+
+        searchResultsPage = searchResultsPage.sortBy(ProductSort.PROMOTION);
+
+        var softAssertions = new SoftAssertions();
+
+        for (int productNumber : new int[]{1, 25, 59}) {
+            var isProductOnSale = searchResultsPage
+                    .getProduct(productNumber)
+                    .isOnSale();
+
+            // TODO: This test may be failed as product wasn't have sale label or old price
+            softAssertions.assertThat(isProductOnSale)
+                    .as(productNumber + " product should be on sale")
+                    .isTrue();
+        }
+        softAssertions.assertAll();
+    }
+
 }
