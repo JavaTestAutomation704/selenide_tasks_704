@@ -17,7 +17,7 @@
             <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
             <class name="com.softserveinc.ita.rozetka.SearchFunctionalityTest"/>
             <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
-            <class name="com.softserveinc.ita.rozetka.SortingProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
         </classes>
     </test>
