@@ -140,15 +140,15 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyProductPreUsedFilter() {
-        SubcategoryPage subcategoryPage = homePage
+        var subcategoryPage = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS);
-        Filter filter = subcategoryPage.getFilter();
+        var filter = subcategoryPage.getFilter();
         filter.filter(ProductFilter.PRE_USED);
         int productsQuantity = subcategoryPage.getProductsQuantity();
         int productsQuantityToCheck = 30;
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         assertThat(productsQuantity)
                 .as("Products quantity should be sufficient")
