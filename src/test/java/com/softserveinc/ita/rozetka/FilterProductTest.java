@@ -1,7 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
@@ -224,6 +222,7 @@ public class FilterProductTest extends TestRunner {
             boolean isProductUsed = subcategoryPage
                     .getProduct(i)
                     .isUsed();
+            // TODO: This test may be failed as product wasn't have pre-used label
             softly.assertThat(isProductUsed)
                     .as("Product should be used")
                     .isTrue();
@@ -240,6 +239,7 @@ public class FilterProductTest extends TestRunner {
             boolean isProductUsed = subcategoryPage
                     .getProduct(i)
                     .isUsed();
+            // TODO: This test may be failed as product have pre-used label
             softly.assertThat(isProductUsed)
                     .as("Product should be new")
                     .isFalse();
