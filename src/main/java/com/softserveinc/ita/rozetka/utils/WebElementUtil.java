@@ -45,7 +45,7 @@ public class WebElementUtil {
         isVisible(elementXpath, 5);
     }
 
-    public static long getLong(String elementXpath) {
+    public static long getNumber(String elementXpath) {
         return Long.parseLong($x(elementXpath).shouldBe(visible, TIMEOUT)
                 .text()
                 .replaceAll("[^0-9]", ""));
