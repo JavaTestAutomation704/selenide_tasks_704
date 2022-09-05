@@ -19,8 +19,8 @@ public enum ProductFilter {
     PROMOTION("Акція"),
     WITH_BONUS("З бонусами"),
     MICROSOFT_BRAND("Microsoft"),
-    COUNTRY_SPAIN("Іспанія"),
-    COUNTRY_ITALY("Італія")    ;
+    PRODUCED_IN_SPAIN("Іспанія"),
+    PRODUCED_IN_ITALY("Італія");
 
     @NonNull
     private final String filterXpath;
