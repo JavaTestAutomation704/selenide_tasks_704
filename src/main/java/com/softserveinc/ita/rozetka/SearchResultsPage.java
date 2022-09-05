@@ -5,6 +5,9 @@ import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import io.qameta.allure.Step;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
@@ -40,11 +43,19 @@ public class SearchResultsPage extends BasePage {
     public SearchResultsPage sortBy(ProductSort sort) {
         $x("//rz-sort//select").click();
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
-        waitUntilUrlContains(String.format("sort=%s", sort.getOptionXpath()));
+
+        var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
+        if (isVisible(preloaderXpath, 3)) {
+            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+        }
         return this;
     }
 
     public int getProductsQuantity() {
         return getCollectionSize("//rz-catalog-tile");
+    }
+
+    public boolean doesTitleContain(String keyword) {
+        return isVisible(String.format("//h1[contains(text(), '%s')]", keyword));
     }
 }

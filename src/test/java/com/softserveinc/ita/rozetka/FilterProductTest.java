@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
+import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
@@ -24,8 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FilterProductTest extends TestRunner {
     @Test
     public void verifySaleFilterFunctionality() {
-        Header header = homePage.getHeader();
-        SearchResultsPage searchResultsPage = header.search("laptop");
+        var header = homePage.getHeader();
+        var searchResultsPage = header.search("laptop");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -35,12 +36,13 @@ public class FilterProductTest extends TestRunner {
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
-        SoftAssertions softAssertions = new SoftAssertions();
+        var softAssertions = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
-            boolean isProductOnSale = searchResultsPage
+            var isProductOnSale = searchResultsPage
                     .getProduct(productNumber)
                     .isOnSale();
 
+            // TODO: This test may be failed as product wasn't have sale label or old price
             softAssertions.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale")
                     .isTrue();
@@ -49,14 +51,18 @@ public class FilterProductTest extends TestRunner {
         softAssertions.assertAll();
     }
 
-
     @Test
     public void verifyProductAvailabilityFilter() {
-        var searchResultsPage = homePage
+        var filter = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS)
-                .getFilter()
-                .filter(AVAILABLE);
+                .getFilter();
+
+        var searchResultsPage = filter.filter(AVAILABLE);
+
+        assertThat(filter.isSelected(AVAILABLE))
+                .as("Filter should be selected")
+                .isTrue();
 
         int productsQuantity = searchResultsPage.getProductsQuantity();
         int productsQuantityToCheck = 20;
@@ -68,6 +74,7 @@ public class FilterProductTest extends TestRunner {
         var softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i++) {
+            //TODO: This test may be failed as unavailable products might be among the results
             softly.assertThat(searchResultsPage
                             .getProduct(i)
                             .isAvailable())
