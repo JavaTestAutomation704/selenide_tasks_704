@@ -12,7 +12,7 @@ import java.util.List;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLong;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class ShoppingCartModal {
@@ -64,7 +64,7 @@ public class ShoppingCartModal {
     }
 
     public long getTotalSum() {
-        return getLong("//div[contains(@class,'sum-price')]");
+        return getNumber("//div[contains(@class,'sum-price')]");
     }
 
     public boolean isOpened() {
