@@ -3,12 +3,12 @@ This is Java automation framework build by maven used for UI tests on 'Rozetkaâ€
 
 ## About the project
 The main aim of this project is test automation framework creation which covers general Rozetka functionality:
-- General settings (language selection, location setup etc.).
+- General settings (language selection, location setup, etc.).
 - Navigation through the site.
 - Products search and their details review.
 - Filters functionality.
-- Shopping cart manipulations;
-- Order price and discounts calculation etc.
+- Shopping cart manipulations.
+- Order price and discounts calculation, etc.
 
 ## Getting Started
 
@@ -40,9 +40,9 @@ $ git clone git@github.com:JavaTestAutomation704/selenide_tasks_704.git
 ```
 
 ### How to run tests
-To execute all tests run suite 'Rozetka tests' functional_tests.xml
+To execute all tests run suite 'Rozetka tests' in functional_tests.xml file.
 File is located by the path:
 ```
 selenide_tasks_704/functional_tests.xml
 ```
-By default, number of running threads is 3. In order to change the number open functional_tests.xml and set new value to `thread-count`.
+By default, number of running threads is 3. In order to change the number open functional_tests.xml and change `thread-count` value.
