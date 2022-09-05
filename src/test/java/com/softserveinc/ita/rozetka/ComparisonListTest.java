@@ -2,6 +2,8 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
+import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.subcategory.ISubcategory;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.AfterMethod;
@@ -9,9 +11,18 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.softserveinc.ita.rozetka.data.Category.*;
+import static com.softserveinc.ita.rozetka.data.subcategory.AlcoholicBeveragesAndProductsSubcategory.COGNAC;
+import static com.softserveinc.ita.rozetka.data.subcategory.AlcoholicBeveragesAndProductsSubcategory.WHISKY;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static com.softserveinc.ita.rozetka.data.subcategory.PhonesTvElectronicsSubcategory.CAMERAS;
+import static com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubcategory.FISHING_RODS;
+import static com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubcategory.HOVERBOARDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComparisonListTest extends TestRunner {
@@ -29,6 +40,51 @@ public class ComparisonListTest extends TestRunner {
                     .close();
             counter++;
         }
+    }
+
+    @Test
+    public void verifyRemoveCategoriesFromComparisonList() {
+        var categoriesWithSubcategories = new HashMap<Category, List<ISubcategory>>();
+        categoriesWithSubcategories.put(ALCOHOLIC_BEVERAGES_AND_PRODUCTS, new ArrayList<>(Arrays.asList(COGNAC, WHISKY)));
+        categoriesWithSubcategories.put(SPORT_AND_HOBBIES, new ArrayList<>(Arrays.asList(HOVERBOARDS, FISHING_RODS)));
+        categoriesWithSubcategories.put(LAPTOPS_AND_COMPUTERS, new ArrayList<>(Arrays.asList(ASUS)));
+
+        var subcategoriesCounter = new AtomicInteger();
+        categoriesWithSubcategories.forEach((category, subcategories) -> {
+            for (var subcategory : subcategories) {
+                var subcategoryPage = header
+                        .openCatalogModal()
+                        .openSubcategory(category, subcategory);
+                if (category.equals(ALCOHOLIC_BEVERAGES_AND_PRODUCTS)) {
+                    subcategoryPage
+                            .getDrinkingAgeConfirmationModal()
+                            .confirm();
+                }
+                subcategoryPage
+                        .getProduct(1)
+                        .addToComparisonList();
+                subcategoriesCounter.getAndIncrement();
+
+                assertThat(header.getComparisonListProductQuantity())
+                        .as("Incorrect product comparison list counter quantity")
+                        .isEqualTo(subcategoriesCounter.intValue());
+            }
+        });
+
+        var comparisonListModal = header.openComparisonListModal();
+        for (int i = subcategoriesCounter.intValue(); i > 0; i--) {
+            comparisonListModal.remove(i);
+            if (header.isComparisonListCounterVisible()) {
+                assertThat(header.getComparisonListProductQuantity())
+                        .as("Incorrect product comparison list counter quantity")
+                        .isEqualTo(i - 1);
+            }
+        }
+        comparisonListModal.close();
+
+        assertThat(header.isComparisonListCounterVisible())
+                .as("Comparison list counter should not be visible")
+                .isFalse();
     }
 
     @Test
