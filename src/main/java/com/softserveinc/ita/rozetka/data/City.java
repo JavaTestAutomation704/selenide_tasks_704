@@ -8,9 +8,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum City {
 
-    LVIV("Львів"),
-    DNIPRO("Дніпро");
+    LVIV("lviv", "Львів", "Львов"),
+    DNIPRO("dnipro", "Дніпро", "Днепр");
 
     @NonNull
     private final String city;
+    @NonNull
+    private final String cityNameUa;
+    @NonNull
+    private final String cityNameRu;
+
+    @Override
+    public String toString() {
+        return "Сity '" + city + '\'';
+    }
 }

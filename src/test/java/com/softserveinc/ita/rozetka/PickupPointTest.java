@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PickupPointTest extends TestRunner {
 
     @Test
-    public void verifyAddressesCorrespondenceWhenCityIsChanged() {
+    public void verifyDeliveryPointsAddressesAreChangingWhenCityIsChanged() {
         var pickupPointsCityPage = homePage.openPickupPointsCityPage();
 
         assertThat(pickupPointsCityPage.isOpened())
@@ -20,8 +20,10 @@ public class PickupPointTest extends TestRunner {
         pickupPointsCityPage.selectCity(City.DNIPRO);
 
         assertThat(pickupPointsCityPage.isSelected(City.DNIPRO))
-                .as(City.DNIPRO.getCity() + " city should be selected")
+                .as(City.DNIPRO + " should be selected")
                 .isTrue();
+
+        System.out.println(City.DNIPRO);
 
         var firstCityDeliveryPointsAddresses = pickupPointsCityPage.getDeliveryPointsAddresses();
         var firstCityPickupPointsAddresses = pickupPointsCityPage.getPickupPointsAddresses();
@@ -29,20 +31,20 @@ public class PickupPointTest extends TestRunner {
         var softly = new SoftAssertions();
 
         softly.assertThat(firstCityDeliveryPointsAddresses)
-                .as("Delivery and pickup points addresses should be the same in city " + City.DNIPRO.getCity())
+                .as("Delivery and pickup points addresses should be the same")
                 .isEqualTo(firstCityPickupPointsAddresses);
 
         pickupPointsCityPage.selectCity(City.LVIV);
 
         assertThat(pickupPointsCityPage.isSelected(City.LVIV))
-                .as(City.LVIV.getCity() + " city should be selected")
+                .as(City.LVIV + " should be selected")
                 .isTrue();
 
         var secondCityDeliveryPointsAddresses = pickupPointsCityPage.getDeliveryPointsAddresses();
         var secondCityPickupPointsAddresses = pickupPointsCityPage.getPickupPointsAddresses();
 
         softly.assertThat(secondCityDeliveryPointsAddresses)
-                .as("Delivery and pickup points addresses should be the same in city " + City.LVIV.getCity())
+                .as("Delivery and pickup points addresses should be the same")
                 .isEqualTo(secondCityPickupPointsAddresses);
 
         softly.assertThat(secondCityDeliveryPointsAddresses)
