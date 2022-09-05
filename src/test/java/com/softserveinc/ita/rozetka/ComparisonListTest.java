@@ -1,25 +1,39 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.ComparisonItem;
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.PHONES_TV_ELECTRONICS;
+import static com.softserveinc.ita.rozetka.data.Category.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.PhonesTvElectronicsSubcategory.CAMERAS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComparisonListTest extends TestRunner {
+    Header header;
+
+    @BeforeMethod
+    @AfterMethod
+    private void clearComparisonList() {
+        header = homePage.getHeader();
+        int counter = 0;
+        while (header.isComparisonListCounterVisible() && counter < 10) {
+            header
+                    .openComparisonListModal()
+                    .clear()
+                    .close();
+            counter++;
+        }
+    }
+
     @Test
     public void verifyAddProductsToComparisonList() {
-        Header header = homePage.getHeader();
-
-        SubcategoryPage subcategoryPage = header
+        var subcategoryPage = header
                 .openCatalogModal()
                 .openSubcategory(PHONES_TV_ELECTRONICS, CAMERAS);
 
@@ -29,8 +43,8 @@ public class ComparisonListTest extends TestRunner {
                 .isGreaterThanOrEqualTo(minimumProductQuantity);
 
         Product product;
-        List<String> productTitles = new ArrayList<>();
-        List<Long> productPrices = new ArrayList<>();
+        var productTitles = new ArrayList<>();
+        var productPrices = new ArrayList<>();
         int productNumber = 3;
         while (productNumber < minimumProductQuantity) {
             product = subcategoryPage.getProduct(productNumber);
@@ -59,7 +73,7 @@ public class ComparisonListTest extends TestRunner {
 
         SoftAssertions softly = new SoftAssertions();
         for (int i = 1; i <= comparisonProductQuantity; i++) {
-        ComparisonItem comparisonItem = comparisonPage.getComparisonItem(i);
+            var comparisonItem = comparisonPage.getComparisonItem(i);
             assertThat(comparisonItem.getItemTitle())
                     .as("Comparison item title should be in a list of added for comparison product titles")
                     .isIn(productTitles);
