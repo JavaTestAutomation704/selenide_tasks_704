@@ -137,7 +137,7 @@ public class FilterProductTest extends TestRunner {
 
         int resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 
-        SoftAssertions softAssert = new SoftAssertions();
+        var softAssert = new SoftAssertions();
 
         softAssert
                 .assertThat(resultsAmountAfterResetting)

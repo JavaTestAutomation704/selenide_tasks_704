@@ -33,4 +33,10 @@ public class HomePage extends BasePage {
     public SmallCart getSmallCart() {
         return new SmallCart();
     }
+
+    @Step("Home page: open promotions page")
+    public PromotionsPage openPromotionsPage() {
+        $x("//a[contains(@class, 'pagination')]").click();
+        return new PromotionsPage();
+    }
 }
