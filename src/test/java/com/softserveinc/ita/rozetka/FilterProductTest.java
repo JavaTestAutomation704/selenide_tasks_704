@@ -151,7 +151,7 @@ public class FilterProductTest extends TestRunner {
                 .openCategoryPage(PLUMBING_AND_REPAIR)
                 .openSubcategoryPage(BATHROOM_FURNITURE)
                 .getFilter()
-                .filter(SPAIN);
+                .filter(COUNTRY_SPAIN);
 
         int productsQuantity = 5;
 
@@ -176,9 +176,9 @@ public class FilterProductTest extends TestRunner {
 
         searchResultsPage
                 .getFilter()
-                .filter(SPAIN)
+                .filter(COUNTRY_SPAIN)
                 .getFilter()
-                .filter(ITALY);
+                .filter(COUNTRY_ITALY);
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
