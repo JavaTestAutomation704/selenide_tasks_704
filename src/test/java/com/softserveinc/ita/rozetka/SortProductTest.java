@@ -18,12 +18,11 @@ public class SortProductTest extends TestRunner {
         var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS);
-
-        subcategoryPage
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS)
                 .getFilter()
                 .filter(AVAILABLE)
                 .sortBy(PRICE_ASCENDING);
+
         var softAssert = new SoftAssertions();
         int step = 4;
         int subcategoryProductQuantity = subcategoryPage.getProductsQuantity();
@@ -46,17 +45,16 @@ public class SortProductTest extends TestRunner {
         var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS);
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS)
+                .getFilter()
+                .filter(AVAILABLE);
 
         int productsQuantity = subcategoryPage.getProductsQuantity();
         assertThat(productsQuantity)
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(20);
 
-        subcategoryPage
-                .getFilter()
-                .filter(AVAILABLE)
-                .sortBy(PRICE_DESCENDING);
+        subcategoryPage.sortBy(PRICE_DESCENDING);
 
         assertThat(subcategoryPage
                 .getProduct(1)
