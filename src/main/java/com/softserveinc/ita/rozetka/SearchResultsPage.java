@@ -9,8 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 
 public class SearchResultsPage extends BasePage {
@@ -52,5 +51,9 @@ public class SearchResultsPage extends BasePage {
 
     public int getProductsQuantity() {
         return getCollectionSize("//rz-catalog-tile");
+    }
+
+    public boolean doesTitleContain(String keyword) {
+        return isVisible(String.format("//h1[contains(text(), '%s')]", keyword));
     }
 }
