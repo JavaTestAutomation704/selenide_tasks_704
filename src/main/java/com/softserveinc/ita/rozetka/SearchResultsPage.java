@@ -9,7 +9,8 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 
 public class SearchResultsPage extends BasePage {
@@ -40,7 +41,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public Product getProductWithDiscount(int number) {
-        return new Product(number, "type_action");
+        return new Product(number, true);
     }
 
     @Step("Search results page: sort search results by {sort}")
@@ -61,5 +62,9 @@ public class SearchResultsPage extends BasePage {
 
     public boolean doesTitleContain(String keyword) {
         return isVisible(String.format("//h1[contains(text(), '%s')]", keyword));
+    }
+
+    public int getProductsWithDiscountQuantity() {
+        return getCollectionSize("//rz-catalog-tile//span[contains(@class, 'label_type_action')]");
     }
 }

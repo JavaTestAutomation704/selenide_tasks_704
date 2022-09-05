@@ -25,9 +25,13 @@ public class Product {
         }
     }
 
-    public Product(int productNumber, String labelType) {
-        this.productXpath = String.format("(//span[contains(@class, '%s')]/ancestor::rz-catalog-tile)[%d]",
-                labelType, productNumber);
+    public Product(int productNumber, boolean isWithDiscount) {
+        if (isWithDiscount) {
+            this.productXpath = String.format("(//span[contains(@class, 'type_action')]/ancestor::rz-catalog-tile)[%d]",
+                    productNumber);
+        } else {
+            this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
+        }
     }
 
     public String getTitle() {
@@ -39,7 +43,7 @@ public class Product {
     }
 
     public long getPrice() {
-        return getLong(productXpath + "//span[@class='goods-tile__price-value']");
+        return getNumber(productXpath + "//span[@class='goods-tile__price-value']");
     }
 
     @Step("Product: add product to shopping cart")
@@ -101,11 +105,11 @@ public class Product {
         return new SearchResultsPage();
     }
 
-    public int getDiscount() {
-        return getInt(productXpath + "//span[contains(@class, 'type_action')]");
+    public long getDiscount() {
+        return getNumber(productXpath + "//span[contains(@class, 'type_action')]");
     }
 
     public long getOldPrice() {
-        return getLong(productXpath + "//div[contains(@class, 'old price')]");
+        return getNumber(productXpath + "//div[contains(@class, 'old price')]");
     }
 }
