@@ -1,8 +1,14 @@
-# Test automation framework for Rozetka
-This is Java automation framework build by maven used for UI tests on 'Rozetka’ Web application.
+# Rozetka project
+This is Java automation framework build by maven used for UI tests on 'Rozetka’ Web application (https://rozetka.com.ua/ua/).
 
-## Description
--|-|-|-
+## About the project
+The main aim of this project is test automation framework creation which covers general Rozetka functionality:
+- General settings (language selection, location setup etc.).
+- Navigation through the site.
+- Products search and their details review.
+- Filters functionality.
+- Shopping cart manipulations;
+- Order price and discounts calculation etc.
 
 ## Getting Started
 
@@ -33,7 +39,7 @@ $ git clone https://github.com/JavaTestAutomation704/selenide_tasks_704.git
 $ git clone git@github.com:JavaTestAutomation704/selenide_tasks_704.git
 ```
 
-### Executing tests
+### How to run tests
 To execute all tests run suite 'Rozetka tests' functional_tests.xml
 File is located by the path:
 ```
