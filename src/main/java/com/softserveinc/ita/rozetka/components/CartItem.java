@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,7 @@ public class CartItem {
 
     @Step("Cart item: set product quantity {quantity}")
     public ShoppingCartModal setQuantity(String quantity) {
-        SelenideElement quantityInput = $x(String.format(quantityInputXpath, numberCartItem));
+        var quantityInput = $x(String.format(quantityInputXpath, numberCartItem));
         quantityInput.clear();
         quantityInput.sendKeys(quantity);
         return new ShoppingCartModal();
