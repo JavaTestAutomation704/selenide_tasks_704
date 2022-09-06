@@ -9,10 +9,11 @@ import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
+import static java.time.Duration.ofSeconds;
 
 @UtilityClass
 public class WebElementUtil {
-    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+    private static final Duration TIMEOUT = ofSeconds(10);
 
     public static boolean isVisible(String elementXpath) {
         return isVisible(elementXpath, TIMEOUT.getSeconds());
@@ -20,18 +21,22 @@ public class WebElementUtil {
 
     public static boolean isVisible(String elementXpath, long seconds) {
         try {
-            return $x(elementXpath).shouldBe(visible, Duration.ofSeconds(seconds)).isDisplayed();
+            return $x(elementXpath).shouldBe(visible, ofSeconds(seconds)).isDisplayed();
         } catch (AssertionError e) {
             return false;
         }
     }
 
-    public static int getCollectionSize(String elementsXpath) {
+    public static int getCollectionSize(String elementsXpath, long seconds) {
         try {
-            return $$x(elementsXpath).shouldBe(sizeGreaterThanOrEqual(1), TIMEOUT).size();
+            return $$x(elementsXpath).shouldBe(sizeGreaterThanOrEqual(1), ofSeconds(seconds)).size();
         } catch (AssertionError e) {
             return 0;
         }
+    }
+
+    public static int getCollectionSize(String elementsXpath) {
+        return getCollectionSize(elementsXpath, TIMEOUT.getSeconds());
     }
 
     public static String getText(String elementXpath) {

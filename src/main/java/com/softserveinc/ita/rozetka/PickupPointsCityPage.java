@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
@@ -12,6 +13,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 public class PickupPointsCityPage extends BasePage {
 
     private final String titleXpathTemplate = "(//h1[contains(text(), '%s') or contains(text(), '%s')])";
+    private final String deliveryAddressXpath = "//p[@class = 'map-popup__address']";
 
     public boolean isOpened() {
         return isVisible("//section[@id = 'pickup']");
@@ -19,8 +21,14 @@ public class PickupPointsCityPage extends BasePage {
 
     @Step("Pickup points city page: select city {city}")
     public PickupPointsCityPage selectCity(City city) {
+        var firstDeliveryAddressElement = $x(deliveryAddressXpath);
+        String address = firstDeliveryAddressElement.text();
         $x(String.format("(//a[contains(@href, 'retail/%s') and contains(@class, 'tags__link')])",
                 city.getCity())).click();
+        try {
+            firstDeliveryAddressElement.shouldNotHave(text(address));
+        } catch (AssertionError ignore) {
+        }
         return this;
     }
 
@@ -30,7 +38,7 @@ public class PickupPointsCityPage extends BasePage {
     }
 
     public List<String> getDeliveryPointsAddresses() {
-        return $$x("//p[@class = 'map-popup__address']").texts();
+        return $$x(deliveryAddressXpath).texts();
     }
 
     public List<String> getPickupPointsAddresses() {
