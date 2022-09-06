@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
+import com.softserveinc.ita.rozetka.modals.PromotionTermsModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 
@@ -56,5 +57,19 @@ public class ProductPage extends BasePage {
             return $x(xpathBonusText).text();
         }
         return "";
+    }
+
+    @Step("Product page: open promotion terms page modal")
+    public PromotionTermsModal openPromotionTermsModal() {
+        $x("//button[contains(@class, 'promotion')]").click();
+        return new PromotionTermsModal();
+    }
+
+    public boolean isOpenPromotionTermsModalButtonVisible() {
+        return isVisible("//button[contains(@class, 'promotion')]");
+    }
+
+    public boolean isOpened() {
+        return isVisible("(//div[@class = 'product-about'])[1]");
     }
 }

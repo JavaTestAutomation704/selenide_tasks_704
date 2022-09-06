@@ -1,5 +1,8 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.ContactInformationSection;
+import com.softserveinc.ita.rozetka.components.OrderSection;
+
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.DeliveryTypes;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
@@ -31,6 +34,14 @@ public class CheckoutPage extends BasePage {
 
     public long getTotalSum() {
         return Long.parseLong(getText("//dl[contains(@class, 'js-total')]/dd").replaceAll("\\D", ""));
+    }
+
+    public ContactInformationSection getContactInformationSection() {
+        return new ContactInformationSection();
+    }
+
+    public OrderSection getOrderSection() {
+        return new OrderSection();
     }
 
     public Header changeCity(String city) {
