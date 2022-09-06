@@ -1,5 +1,7 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
@@ -48,7 +50,10 @@ public class Product {
 
     @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
-        $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
+        String xpathAddToShoppingCart = productXpath + "//button[contains(@class, 'buy-button')]";
+        if (isVisible(xpathAddToShoppingCart)) {
+            $x(xpathAddToShoppingCart).click();
+        }
         return new SearchResultsPage();
     }
 
