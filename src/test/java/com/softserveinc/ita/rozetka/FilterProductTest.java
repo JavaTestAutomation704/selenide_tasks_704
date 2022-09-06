@@ -13,6 +13,8 @@ import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
+import static com.softserveinc.ita.rozetka.data.Country.ITALY;
+import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
 import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
@@ -208,11 +210,11 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyFilterByProducingCountry() {
-        var subcategoryPage = homePage
+        var filter = homePage
                 .openCategoryPage(PLUMBING_AND_REPAIR)
                 .openSubcategoryPage(BATHROOM_FURNITURE)
-                .getFilter()
-                .filter(PRODUCED_IN_SPAIN);
+                .getFilter();
+        var subcategoryPage = filter.filter(PRODUCED_IN_SPAIN);
 
         int productsQuantity = 5;
 
@@ -229,17 +231,17 @@ public class FilterProductTest extends TestRunner {
 
             softAssertions.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
-                    .isEqualTo("Іспанія");
-
+                    .isEqualTo(SPAIN.getCountryNameInUkrainian());
+            /*
+             *
+             * In order to return to the search results page, you should use the return methods twice
+             *
+             */
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
 
-        subcategoryPage
-                .getFilter()
-                .filter(PRODUCED_IN_SPAIN)
-                .getFilter()
-                .filter(PRODUCED_IN_ITALY);
+        filter.filter(List.of(PRODUCED_IN_SPAIN, PRODUCED_IN_ITALY));
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
@@ -253,8 +255,12 @@ public class FilterProductTest extends TestRunner {
 
             softAssertions.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
-                    .isEqualTo("Італія");
-
+                    .isEqualTo(ITALY.getCountryNameInUkrainian());
+            /*
+             *
+             * In order to return to the search results page, you should use the return methods twice
+             *
+             */
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
