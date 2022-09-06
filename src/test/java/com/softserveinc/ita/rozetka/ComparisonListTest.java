@@ -20,6 +20,11 @@ import static com.softserveinc.ita.rozetka.data.subcategory.AlcoholicBeveragesAn
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static com.softserveinc.ita.rozetka.data.subcategory.PhonesTvElectronicsSubcategory.CAMERAS;
 import static com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubcategory.*;
+
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.PROCESSORS;
+import static com.softserveinc.ita.rozetka.data.subcategory.PhonesTvElectronicsSubcategory.CAMERAS;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -117,7 +122,7 @@ public class ComparisonListTest extends TestRunner {
                 .as("Incorrect number of products in comparison list")
                 .isEqualTo(comparisonProductQuantity);
 
-        ComparisonPage comparisonPage = header
+        var comparisonPage = header
                 .openComparisonListModal()
                 .openComparisonPage(CAMERAS);
 
@@ -125,7 +130,7 @@ public class ComparisonListTest extends TestRunner {
                 .as("Comparison item quantity should be equal to quantity of products added for comparison")
                 .isEqualTo(comparisonProductQuantity);
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int i = 1; i <= comparisonProductQuantity; i++) {
             var comparisonItem = comparisonPage.getComparisonItem(i);
             assertThat(comparisonItem.getItemTitle())
@@ -141,5 +146,49 @@ public class ComparisonListTest extends TestRunner {
                     .isEqualTo(productPrices.get(reverseOrderProductNumber));
         }
         softly.assertAll();
+    }
+
+    @Test
+    public void verifyRemoveProductsFromComparisonPage() {
+        var subcategoryPage = header
+                .openCatalogModal()
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, PROCESSORS)
+                .getFilter()
+                .filter(asList(ROZETKA_SELLER, AVAILABLE));
+
+        int productQuantity = 6;
+        assertThat(subcategoryPage.getProductsQuantity())
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productQuantity);
+
+        for (int i = 1; i <= productQuantity; i++) {
+            subcategoryPage
+                    .getProduct(i)
+                    .addToComparisonList();
+            assertThat(header.getComparisonListProductQuantity())
+                    .as("Incorrect product comparison list counter quantity")
+                    .isEqualTo(i);
+        }
+
+        var comparisonPage = header
+                .openComparisonListModal()
+                .openComparisonPage(PROCESSORS);
+
+        assertThat(comparisonPage.getComparisonItemQuantity())
+                .as("Comparison item quantity should be equal to quantity of products added for comparison")
+                .isEqualTo(productQuantity);
+
+        for (int i = productQuantity; i > 0; i--) {
+            comparisonPage
+                    .getComparisonItem(i)
+                    .remove();
+            assertThat(comparisonPage.getComparisonItemQuantity())
+                    .as("Comparison item quantity on Comparison page should be decreased by one")
+                    .isEqualTo(i - 1);
+        }
+
+        assertThat(comparisonPage.isNothingToCompareMessageVisible())
+                .as("No products to compare message should be visible")
+                .isTrue();
     }
 }
