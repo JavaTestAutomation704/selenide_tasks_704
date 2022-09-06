@@ -53,7 +53,7 @@ public class ComparisonListTest extends TestRunner {
                 var subcategoryPage = header
                         .openCatalogModal()
                         .openSubcategory(category, subcategory);
-                if (category.equals(ALCOHOLIC_BEVERAGES_AND_PRODUCTS)) {
+                if (category == ALCOHOLIC_BEVERAGES_AND_PRODUCTS) {
                     subcategoryPage
                             .getDrinkingAgeConfirmationModal()
                             .confirm();
