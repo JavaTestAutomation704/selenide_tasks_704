@@ -147,7 +147,7 @@ public class CheckoutTest extends TestRunner {
                 .as("Courier delivery section should be opened")
                 .isTrue();
 
-        firstCourierDeliverySection.fillInDeliveryDetails("вул. Садова", "12", "12");
+        firstCourierDeliverySection.fillInDeliveryDetails("Вул", "12", "12");
 
         var softly = new SoftAssertions();
 
@@ -164,7 +164,6 @@ public class CheckoutTest extends TestRunner {
         softly.assertThat(firstCourierDeliverySection.areCopiedTo(2))
                 .as("Delivery information should be copied to second order")
                 .isTrue();
-
         softly.assertAll();
     }
 }

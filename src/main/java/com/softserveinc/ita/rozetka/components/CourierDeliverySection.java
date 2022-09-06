@@ -1,15 +1,12 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.softserveinc.ita.rozetka.data.Color;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
 import java.util.Objects;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isBorderColorCorrect;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 
 public class CourierDeliverySection {
 
@@ -28,9 +25,22 @@ public class CourierDeliverySection {
 
     @Step("Courier delivery section: fill in delivery details {street}, {house}, {flat}")
     public CourierDeliverySection fillInDeliveryDetails(String street, String house, String flat) {
-        $x(String.format(streetFieldXpathTemplate, orderNumber)).val(street).pressEnter();
-        $x(String.format(houseFieldXpathTemplate, orderNumber)).val(house).pressEnter();
-        $x(String.format(flatFieldXpathTemplate, orderNumber)).val(flat).pressEnter();
+        $x(String.format(streetFieldXpathTemplate, orderNumber)).val(street);
+        String streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
+        waitTillVisible(streetDropDownListXpath);
+        $x(streetDropDownListXpath).click();
+        waitTillPreloaderInvisible();
+        $x(String.format(houseFieldXpathTemplate, orderNumber)).sendKeys(house);
+        $x(String.format(flatFieldXpathTemplate, orderNumber)).sendKeys(flat);
+        waitTillPreloaderInvisible();
+        return this;
+    }
+
+    @Step("Courier delivery section: select nearest possible date")
+    public CourierDeliverySection selectNearestPossibleDate() {
+        $x(String.format("((//div[@class = 'checkout-order'])[%d]//label[@class = 'delivery-intervals__time'])[1]",
+                orderNumber)).click();
+        waitTillPreloaderInvisible();
         return this;
     }
 
