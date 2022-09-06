@@ -17,4 +17,14 @@ public class SmallCart {
         $x("//button[contains(@class, 'main-notification__close')]").click();
         return new HomePage();
     }
+
+    public int getProductsQuantity(){
+        return Integer.parseInt($x("//span[contains(@class, 'main-notification__heading-main')]")
+                .getText()
+                .replaceAll("[^0-9]",""));
+    }
+
+    public long getTotalPrice(){
+        return Integer.parseInt($x("//span[@class= 'main-notification__heading-caption']//span[2]").getText());
+    }
 }
