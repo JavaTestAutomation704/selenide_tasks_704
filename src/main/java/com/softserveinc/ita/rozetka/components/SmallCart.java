@@ -15,9 +15,7 @@ public class SmallCart {
 
     @Step("Small cart: close small cart")
     public HomePage close() {
-        String closeButtonXpath = "//button[contains(@class, 'main-notification__close')]";
-        $x(closeButtonXpath).shouldBe(Condition.visible);
-        $x(closeButtonXpath).click();
+        $x("//button[contains(@class, 'main-notification__close')]").shouldBe(Condition.visible).click();
         return new HomePage();
     }
 }

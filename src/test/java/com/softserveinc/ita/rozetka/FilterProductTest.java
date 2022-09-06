@@ -219,10 +219,10 @@ public class FilterProductTest extends TestRunner {
                 .isGreaterThanOrEqualTo(productsQuantityToCheck);
 
         for (int i = 1; i <= productsQuantity; i = i + 10) {
-            boolean isProductUsed = subcategoryPage
+            var isProductUsed = subcategoryPage
                     .getProduct(i)
                     .isUsed();
-            // TODO: This test may be failed as product wasn't have pre-used label
+            // TODO: This test may be failed as new products might be among the results
             softly.assertThat(isProductUsed)
                     .as("Product should be used")
                     .isTrue();
@@ -236,10 +236,10 @@ public class FilterProductTest extends TestRunner {
                 .isGreaterThanOrEqualTo(productsQuantityToCheck);
 
         for (int i = 1; i <= productsQuantity; i = i + 10) {
-            boolean isProductUsed = subcategoryPage
+            var isProductUsed = subcategoryPage
                     .getProduct(i)
                     .isUsed();
-            // TODO: This test may be failed as product have pre-used label
+            // TODO: This test may be failed as pre-used products might be among the results
             softly.assertThat(isProductUsed)
                     .as("Product should be new")
                     .isFalse();
