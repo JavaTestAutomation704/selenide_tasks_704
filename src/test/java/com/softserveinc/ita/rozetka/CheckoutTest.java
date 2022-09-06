@@ -6,8 +6,10 @@ import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.COTTAGE_GARDEN_BACKYARD;
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
-import static com.softserveinc.ita.rozetka.data.DeliveryTypes.PICK_UP_FROM_MEEST;
-import static com.softserveinc.ita.rozetka.data.DeliveryTypes.PICK_UP_FROM_UKRPOSHTA;
+import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
+import static com.softserveinc.ita.rozetka.data.City.LVIV;
+import static com.softserveinc.ita.rozetka.data.DeliveryTypes.*;
+import static com.softserveinc.ita.rozetka.data.PostOffice.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.CottageGardenBackyardSubcategory.GARDEN_TECHNIQUES;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,63 +58,102 @@ public class CheckoutTest extends TestRunner {
 
     @Test
     public void verifyDeliveryWorksOnCheckoutPage() {
-        var shoppingCart = homePage
+        var checkoutPage = homePage
                 .openCategoryPage(COTTAGE_GARDEN_BACKYARD)
                 .openSubcategoryPage(GARDEN_TECHNIQUES)
                 .getProduct(1)
                 .addToShoppingCart()
                 .getHeader()
-                .openShoppingCartModal();
-
-        var shoppingCartTotalSum = shoppingCart.getTotalSum();
-        var checkoutPage = shoppingCart.startCheckout();
-        var checkoutPageTotalSum = checkoutPage.getTotalSum();
-
-        assertThat(checkoutPageTotalSum)
-                .as("Shopping cart order sum should be equal to checkout order sum")
-                .isEqualTo(shoppingCartTotalSum);
+                .openShoppingCartModal()
+                .startCheckout();
 
         assertThat(checkoutPage.isOrderModalVisible())
                 .as("Order modal should be visible")
                 .isTrue();
 
-        checkoutPage.changeCity("Львів");
+        int orderNumber = 1;
 
-        boolean isDeliverySelected = checkoutPage
-                .selectDeliveryType(PICK_UP_FROM_MEEST)
-                .isDeliverySelected(PICK_UP_FROM_MEEST);
+        var pickupFromMeestSection = checkoutPage
+                .getOrderSection()
+                .selectPickupFromMeest(orderNumber);
 
-        assertThat(isDeliverySelected)
-                .as("Delivery type should be selected")
-                .isTrue();
+        assertThat(checkoutPage.getDeliveryTitle(1))
+                .as("Delivery should be correct")
+                .contains(PICK_UP_FROM_MEEST.getDeliveryNameInUa());
 
-        var pickupPointName = checkoutPage
-                .selectPickupPoint(5)
-                .getPickupPointName();
+        pickupFromMeestSection.changeCity(LVIV.getCityNameUa());
 
-        var pickupPointModal = checkoutPage.openPickupPointModal();
+        pickupFromMeestSection.selectPickupPoint(orderNumber, 6);
+
+        var pickupPointName = pickupFromMeestSection.getPickupPointName(orderNumber);
+
+        var pickupPointModal = pickupFromMeestSection.openPickupPointModal(orderNumber);
 
         var softAssertions = new SoftAssertions();
         softAssertions.assertThat(pickupPointModal.getTextAtActivePickupPoint())
                 .as("Pickup point should be correct")
-                .contains("Meest")
+                .contains(MEEST.getPostName())
                 .contains(pickupPointName);
 
         pickupPointName = pickupPointModal
-                .moveToPickupPoint("Укрпошта", 1)
+                .moveToPickupPoint(NOVAPOSHTA.getPostName(), 1)
                 .getTextAtActivePickupPoint();
 
         pickupPointModal.selectActivePickupPoint();
 
-        softAssertions.assertThat(checkoutPage.isDeliverySelected(PICK_UP_FROM_UKRPOSHTA))
-                .as("Delivery type should be selected")
-                .isTrue();
+        assertThat(checkoutPage.getDeliveryTitle(1))
+                .as("Delivery should be correct")
+                .contains(PICK_UP_FROM_NOVAPOSHTA.getDeliveryNameInUa());
+
+        var pickupPointNameActual = checkoutPage
+                .getOrderSection()
+                .selectPickupFromNovaPoshta(orderNumber)
+                .getPickupPointName(orderNumber);
 
         softAssertions.assertThat(pickupPointName)
                 .as("Pickup point should be correct")
-                .contains(checkoutPage.getPickupPointName());
+                .contains(pickupPointNameActual);
 
+
+        var pickupFromMobileDeliveryPoints = checkoutPage
+                .getOrderSection()
+                .selectPickupFromMobileDeliveryPoints(orderNumber);
+
+        assertThat(checkoutPage.getDeliveryTitle(1))
+                .as("Delivery should be correct")
+                .contains(PICK_UP_FROM_MOBILE_POINTS.getDeliveryNameInUa());
+
+        pickupFromMobileDeliveryPoints.changeCity(DNIPRO.getCityNameUa());
+
+        pickupFromMobileDeliveryPoints.selectPickupPoint(orderNumber, 1);
+
+        pickupPointName = pickupFromMobileDeliveryPoints.getPickupPointName(orderNumber);
+
+        pickupPointModal = pickupFromMobileDeliveryPoints.openPickupPointModal(orderNumber);
+
+        softAssertions.assertThat(pickupPointModal.getTextAtActivePickupPoint())
+                .as("Pickup point should be correct")
+                .contains(MOBILE_POINT.getPostName())
+                .contains(pickupPointName);
+
+        pickupPointName = pickupPointModal
+                .moveToPickupPoint(OUR_STORE.getPostName(), 1)
+                .getTextAtActivePickupPoint();
+
+        pickupPointModal.selectActivePickupPoint();
+
+        assertThat(checkoutPage.getDeliveryTitle(1))
+                .as("Delivery should be correct")
+                .contains(PICK_UP_FROM_OUR_STORES.getDeliveryNameInUa());
+
+        pickupPointNameActual = checkoutPage
+                .getOrderSection()
+                .selectPickupFromOurStores(orderNumber)
+                .getPickupPointName(orderNumber);
+
+        softAssertions.assertThat(pickupPointName)
+                .as("Pickup point should be correct")
+                .contains(pickupPointNameActual);
         softAssertions.assertAll();
     }
-
 }

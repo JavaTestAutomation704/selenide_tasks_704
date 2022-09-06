@@ -13,8 +13,6 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class CheckoutPage extends BasePage {
-    private final String spanXpathTemplateDelivery = "//span[contains(text(),'%s')]";
-    private final String xpathPickupPoint = "//button[contains(@class,'dropdown-button')]";
 
     public boolean isHeaderVisible() {
         return isVisible("//h1");
@@ -44,31 +42,8 @@ public class CheckoutPage extends BasePage {
         return new OrderSection();
     }
 
-    public Header changeCity(String city) {
-        $x("//span[@class='deliveries__city-title']").click();
-        return new ChangeCityModal().changeCity(city);
-    }
-
-    public CheckoutPage selectDeliveryType(DeliveryTypes deliveryType) {
-        $x(String.format(spanXpathTemplateDelivery, deliveryType.getDeliveryNameInUa())).click();
-        return this;
-    }
-
-    public boolean isDeliverySelected(DeliveryTypes deliveryType) {
-        return isVisible(String.format(spanXpathTemplateDelivery + "/../../../following-sibling::div", deliveryType));
-    }
-
-    public CheckoutPage selectPickupPoint(int number) {
-        $x(xpathPickupPoint).click();
-        $x(String.format("(//ul[contains(@class,'list-inner')]/li)[%d]", number)).click();
-        return this;
-    }
-
-    public String getPickupPointName() {
-        return $x(xpathPickupPoint).text();
-    }
-
-    public PickupPointModal openPickupPointModal() {
-        return null;
+    public String getDeliveryTitle(int orderNumber) {
+      return $x(String.format("(//div[@class='checkout-variant__content ng-star-inserted']/../../div//label)[%d]",
+              orderNumber)).text();
     }
 }

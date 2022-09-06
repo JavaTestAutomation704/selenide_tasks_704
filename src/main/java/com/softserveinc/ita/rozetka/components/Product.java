@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
@@ -48,7 +49,7 @@ public class Product {
 
     @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
-        $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
+        $x(productXpath + "//button[contains(@class, 'buy-button')]").click(usingJavaScript());
         return new SearchResultsPage();
     }
 

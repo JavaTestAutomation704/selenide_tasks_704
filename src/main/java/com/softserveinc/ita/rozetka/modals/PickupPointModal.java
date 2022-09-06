@@ -13,7 +13,9 @@ public class PickupPointModal {
 
     public PickupPointModal moveToPickupPoint(String postOffice, int number) {
         $x(String.format("(//p[@class='map-popup__section-heading' and contains(text(),'%s')])[%d]",
-                postOffice, number)).click(usingJavaScript());
+                postOffice, number))
+                .scrollIntoView(true)
+                .click(usingJavaScript());
         return this;
     }
 
