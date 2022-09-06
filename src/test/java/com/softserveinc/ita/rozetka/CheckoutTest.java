@@ -29,7 +29,7 @@ public class CheckoutTest extends TestRunner {
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
-        for (int i = 10; i <= productsQuantity; i += 2) {
+        for (int i = 10; i <= productsQuantity; i += 10) {
             subcategoryPage
                     .getProduct(i)
                     .addToShoppingCart();

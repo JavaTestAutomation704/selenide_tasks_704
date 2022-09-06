@@ -1,7 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
@@ -234,7 +232,7 @@ public class FilterProductTest extends TestRunner {
                     .isEqualTo(SPAIN.getCountryNameInUkrainian());
             /*
              *
-             * In order to return to the search results page, you should use the return methods twice
+             * In order to return to the search results page, you should use back methods twice
              *
              */
             productCharacteristicsPage.back();
@@ -258,7 +256,7 @@ public class FilterProductTest extends TestRunner {
                     .isEqualTo(ITALY.getCountryNameInUkrainian());
             /*
              *
-             * In order to return to the search results page, you should use the return methods twice
+             * In order to return to the search results page, you should use back methods twice
              *
              */
             productCharacteristicsPage.back();
