@@ -230,11 +230,9 @@ public class FilterProductTest extends TestRunner {
             softAssertions.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
                     .isEqualTo(SPAIN.getCountryNameInUkrainian());
-            /*
-             *
-             * In order to return to the search results page, you should use back methods twice
-             *
-             */
+        /*
+         * In order to return to the search results page, you should use back methods twice
+         */
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
@@ -254,11 +252,9 @@ public class FilterProductTest extends TestRunner {
             softAssertions.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
                     .isEqualTo(ITALY.getCountryNameInUkrainian());
-            /*
-             *
-             * In order to return to the search results page, you should use back methods twice
-             *
-             */
+        /*
+         * In order to return to the search results page, you should use back methods twice
+         */
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
