@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
 import static com.softserveinc.ita.rozetka.data.Country.ITALY;
@@ -126,18 +127,18 @@ public class FilterProductTest extends TestRunner {
                 .getHeader()
                 .search("Xbox");
 
-        int resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
+        long resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 
         var filter = searchResultsPage.getFilter();
 
-        int resultsAmountAfterFilters = filter
+        long resultsAmountAfterFilters = filter
                 .filter(List.of(WHITE_COLOR, ROZETKA_SELLER, AVAILABLE))
                 .getResultsAmount();
 
         searchResultsPage.resetFilters();
         filter.filter(MICROSOFT_BRAND);
 
-        int resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
+        long resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 
         var softAssert = new SoftAssertions();
 
