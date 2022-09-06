@@ -48,7 +48,12 @@ public class SearchFunctionalityTest extends TestRunner {
 
         var firstSearchedProduct = searchResultsPage.getProduct(1);
         var firstSearchedProductName = firstSearchedProduct.getTitle();
-        firstSearchedProduct.open();
+        var productPage = firstSearchedProduct.open();
+
+        assertThat(productPage.isOpened())
+                .as("First product page should be opened")
+                .isTrue();
+
         header.openHomePageViaLogo();
 
         var softly = new SoftAssertions();
@@ -65,6 +70,11 @@ public class SearchFunctionalityTest extends TestRunner {
         var secondSearchedProduct = searchResultsPage.getProduct(2);
         var secondSearchedProductName = secondSearchedProduct.getTitle();
         secondSearchedProduct.open();
+
+        assertThat(productPage.isOpened())
+                .as("Second product page should be opened")
+                .isTrue();
+
         header.openHomePageViaLogo();
 
         softly.assertThat(secondSearchedProduct.isLastSeen(secondSearchedProductName))
