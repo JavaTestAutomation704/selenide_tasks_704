@@ -101,7 +101,9 @@ public class Product {
 
     @Step("Product: add product to comparison list")
     public SearchResultsPage addToComparisonList() {
-        $x(productXpath + "//button[contains(@class, 'compare')]").click();
+        $x(productXpath + "//button[contains(@class, 'compare')]")
+                .scrollIntoView(false)
+                .click();
         return new SearchResultsPage();
     }
 
