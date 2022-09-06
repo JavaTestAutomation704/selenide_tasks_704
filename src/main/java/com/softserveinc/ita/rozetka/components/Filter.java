@@ -5,13 +5,14 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import io.qameta.allure.Step;
 
+import java.time.Duration;
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLongFromField;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitUntilUrlContains;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillVisible;
 
 public class Filter extends Header {
 
@@ -31,7 +32,10 @@ public class Filter extends Header {
         $x(String.format("//a[@data-id = '%s']", type.getFilterXpath()))
                 .scrollIntoView(false)
                 .click(ClickOptions.usingJavaScript());
-        waitTillVisible("//div[contains(@class, 'preloader') and contains(@hidden, '')]");
+        var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
+        if (isVisible(preloaderXpath, 3)) {
+            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+        }
         return new SearchResultsPage();
     }
 
