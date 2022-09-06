@@ -75,7 +75,7 @@ public class ComparisonListTest extends TestRunner {
                 .as("Comparison item quantity should be equal to quantity of products added for comparison")
                 .isEqualTo(comparisonProductQuantity);
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int i = 1; i <= comparisonProductQuantity; i++) {
             var comparisonItem = comparisonPage.getComparisonItem(i);
             assertThat(comparisonItem.getItemTitle())
