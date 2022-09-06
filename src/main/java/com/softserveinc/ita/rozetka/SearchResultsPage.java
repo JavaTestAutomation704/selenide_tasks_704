@@ -15,22 +15,22 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class SearchResultsPage extends BasePage {
 
+    private final String resultsAmountXpath = "//p[contains(@class, 'selection')]";
+
     public Filter getFilter() {
         return new Filter();
     }
 
-    public int getResultsAmount() {
-        var resultsAmountXpath = "//p[contains(@class, 'selection')]";
+    public long getResultsAmount() {
         waitTillVisible(resultsAmountXpath);
-        return Integer.parseInt(
-                $x(resultsAmountXpath)
-                        .getText()
-                        .replaceAll("[^0-9]", ""));
+        return getNumber(resultsAmountXpath);
     }
 
     @Step("Search results page: reset filters")
     public SearchResultsPage resetFilters() {
+        long resultsAmount = getResultsAmount();
         $x("//button[contains(@class, 'reset')]").click();
+        waitForTextChange(resultsAmountXpath, String.valueOf(resultsAmount));
         return this;
     }
 
