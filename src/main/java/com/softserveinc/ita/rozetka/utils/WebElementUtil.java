@@ -5,8 +5,7 @@ import lombok.experimental.UtilityClass;
 import java.time.Duration;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Condition.cssValue;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 import static java.time.Duration.ofSeconds;
@@ -48,6 +47,13 @@ public class WebElementUtil {
 
     public static void waitTillVisible(String elementXpath) {
         isVisible(elementXpath, 5);
+    }
+
+    public static void waitForTextChange(String elementXpath, String elementText) {
+        try {
+            $x(elementXpath).shouldNotHave(text(elementText));
+        } catch (AssertionError ignore) {
+        }
     }
 
     public static long getNumber(String elementXpath) {
