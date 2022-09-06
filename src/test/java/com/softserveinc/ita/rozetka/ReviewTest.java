@@ -44,7 +44,7 @@ public class ReviewTest extends TestRunner {
                     .getRating();
 
             softAssertions.assertThat(actualRating)
-                    .as(number + " review has not got this rating")
+                    .as(number + " review should have expected rating")
                     .isEqualTo(expectedRating);
         }
         softAssertions.assertAll();
@@ -52,21 +52,18 @@ public class ReviewTest extends TestRunner {
 
     @Test
     public void verifySortReviewsFunctionality() {
-        var searchResultsPage = homePage
+        homePage
                 .getHeader()
-                .search("телевізор samsung");
+                .search("Телевізор Samsung UE32T5300AUXUA");
 
-        assertThat(searchResultsPage.getProductsQuantity())
-                .as("Product quantity should be sufficient")
-                .isGreaterThanOrEqualTo(3);
+        var productPage = new ProductPage();
+        assertThat(productPage.isOpened())
+                .as("Product page should be open")
+                .isTrue();
 
-        var reviewPage = searchResultsPage
-                .getProduct(2)
-                .open()
-                .openReviewPage();
+        var reviewPage = productPage.openReviewPage();
 
-        int startQuantity = reviewPage.getReviewsQuantity();
-        assertThat(startQuantity)
+        assertThat(reviewPage.getReviewsQuantity())
                 .as("Reviews quantity should be sufficient")
                 .isGreaterThanOrEqualTo(30);
 
@@ -77,16 +74,26 @@ public class ReviewTest extends TestRunner {
                 .isGreaterThanOrEqualTo(25);
 
         var softAssertions = new SoftAssertions();
-        for (int number = 1; number < 25; number += 3) {
+        for (int number = 1; number < 18; number++) {
             var hasPhoto = reviewPage
                     .getReviewItem(number)
                     .hasPhoto();
 
-            // TODO: This test may be failed as reviews has not have photo
             softAssertions.assertThat(hasPhoto)
-                    .as(number + " review has not got photo")
+                    .as(number + " review should have a photo")
                     .isTrue();
         }
+
+        for (int number = 18; number < 25; number++) {
+            var hasPhoto = reviewPage
+                    .getReviewItem(number)
+                    .hasPhoto();
+
+            softAssertions.assertThat(hasPhoto)
+                    .as(number + " review should not have a photo")
+                    .isFalse();
+        }
+
         softAssertions.assertAll();
     }
 }

@@ -8,7 +8,7 @@ public class ReviewItem {
     private final String reviewItemXpath;
 
     public ReviewItem(int number) {
-        reviewItemXpath = String.format("(//li[contains(@class, 'product-comments__list')])[%s]", number);
+        reviewItemXpath = String.format("((//li[contains(@class, 'product-comments__list')])[%s]//div[@class='comment__inner'])[1]", number);
         $x(reviewItemXpath).scrollIntoView(false);
     }
 
@@ -17,6 +17,6 @@ public class ReviewItem {
     }
 
     public boolean hasPhoto() {
-        return isVisible(reviewItemXpath + "//img");
+        return isVisible(reviewItemXpath + "//img", 2);
     }
 }

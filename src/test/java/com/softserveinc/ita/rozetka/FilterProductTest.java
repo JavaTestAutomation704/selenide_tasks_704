@@ -1,7 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.Filter;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
@@ -35,6 +33,10 @@ public class FilterProductTest extends TestRunner {
         searchResultsPage = searchResultsPage
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
 
         var softAssertions = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
