@@ -34,16 +34,19 @@ public class LogInModal {
         return new RegistrationModal();
     }
 
+    @Step("Log In modal: remind password")
     public LogInModal remindPassword() {
         $x(remindPasswordButtonXpath).click();
         return this;
     }
 
+    @Step("Log In modal: get temporary password")
     public LogInModal getTemporaryPassword() {
         $x(getTemporaryPasswordButtonXpath).click();
         return this;
     }
 
+    @Step("Log In modal: remember password")
     public LogInModal rememberPassword() {
         $x(rememberPasswordButtonXpath).click();
         return this;
