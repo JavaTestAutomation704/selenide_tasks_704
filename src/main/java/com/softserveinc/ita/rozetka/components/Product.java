@@ -1,9 +1,12 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.codeborne.selenide.ClickOptions;
 import com.softserveinc.ita.rozetka.ProductPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
 import io.qameta.allure.Step;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -48,7 +51,13 @@ public class Product {
 
     @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
-        $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
+        var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
+        if (isVisible(preloaderXpath, 3)) {
+            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+        }
+        $x(productXpath + "//button[contains(@class, 'buy-button')]")
+                .scrollIntoView(false)
+                .click();
         return new SearchResultsPage();
     }
 
