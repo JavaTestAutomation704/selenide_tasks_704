@@ -16,7 +16,6 @@ import static com.softserveinc.ita.rozetka.data.Country.ITALY;
 import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
-import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
