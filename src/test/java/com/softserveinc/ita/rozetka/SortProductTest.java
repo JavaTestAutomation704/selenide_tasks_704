@@ -6,6 +6,7 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductSort.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,9 +18,11 @@ public class SortProductTest extends TestRunner {
         var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS);
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS)
+                .getFilter()
+                .filter(AVAILABLE)
+                .sortBy(PRICE_ASCENDING);
 
-        subcategoryPage.sortBy(PRICE_ASCENDING);
         var softAssert = new SoftAssertions();
         int step = 4;
         int subcategoryProductQuantity = subcategoryPage.getProductsQuantity();
@@ -42,7 +45,9 @@ public class SortProductTest extends TestRunner {
         var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS);
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS)
+                .getFilter()
+                .filter(AVAILABLE);
 
         int productsQuantity = subcategoryPage.getProductsQuantity();
         assertThat(productsQuantity)

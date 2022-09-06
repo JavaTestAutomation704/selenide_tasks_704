@@ -10,8 +10,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 
 public class SearchResultsPage extends BasePage {
@@ -21,8 +20,10 @@ public class SearchResultsPage extends BasePage {
     }
 
     public int getResultsAmount() {
+        var resultsAmountXpath = "//p[contains(@class, 'selection')]";
+        waitTillVisible(resultsAmountXpath);
         return Integer.parseInt(
-                $x("//p[contains(@class, 'selection')]")
+                $x(resultsAmountXpath)
                         .getText()
                         .replaceAll("[^0-9]", ""));
     }
