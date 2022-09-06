@@ -67,7 +67,7 @@ public class ComparisonListTest extends TestRunner {
                 .as("Incorrect number of products in comparison list")
                 .isEqualTo(comparisonProductQuantity);
 
-        ComparisonPage comparisonPage = header
+        var comparisonPage = header
                 .openComparisonListModal()
                 .openComparisonPage(CAMERAS);
 
@@ -115,7 +115,7 @@ public class ComparisonListTest extends TestRunner {
                     .isEqualTo(i);
         }
 
-        ComparisonPage comparisonPage = header
+        var comparisonPage = header
                 .openComparisonListModal()
                 .openComparisonPage(PROCESSORS);
 
