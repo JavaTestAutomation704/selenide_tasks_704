@@ -68,4 +68,8 @@ public class ProductPage extends BasePage {
     public boolean isOpenPromotionTermsModalButtonVisible() {
         return isVisible("//button[contains(@class, 'promotion')]");
     }
+
+    public boolean isOpened() {
+        return isVisible("(//div[@class = 'product-about'])[1]");
+    }
 }
