@@ -21,7 +21,6 @@ public class LogInTest extends TestRunner {
                 .as("Log In modal should be open")
                 .isTrue();
 
-
         assertThat(logInModal.isLogInButtonVisible())
                 .as("Log In button should be displayed on the Log In modal")
                 .isTrue();
@@ -48,12 +47,10 @@ public class LogInTest extends TestRunner {
                 .logIn()
                 .getEmailErrorMessage();
 
-
         softAssertions
                 .assertThat(actualEmailErrorMessage)
                 .as("Error message should be displayed when submitting empty fields on the Log In modal")
                 .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
-
 
         var redColor = Color.RED.getRgb();
 
@@ -65,12 +62,10 @@ public class LogInTest extends TestRunner {
                 .as("Email border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
 
-
         softAssertions
                 .assertThat(isActualPasswordBorderColorCorrect)
                 .as("Password border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
-
 
         logInModal.remindPassword();
         assertThat(logInModal.isGetTemporaryPasswordButtonVisible())
