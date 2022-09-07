@@ -10,7 +10,6 @@
             <class name="com.softserveinc.ita.rozetka.CheckoutTest"/>
             <class name="com.softserveinc.ita.rozetka.ComparisonListTest"/>
             <class name="com.softserveinc.ita.rozetka.DiscountsTest"/>
-            <class name="com.softserveinc.ita.rozetka.FilterProductOnConditionTest"/>
             <class name="com.softserveinc.ita.rozetka.FilterProductTest"/>
             <class name="com.softserveinc.ita.rozetka.LogInTest"/>
             <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>

@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.codeborne.selenide.Condition;
 import com.softserveinc.ita.rozetka.HomePage;
 import io.qameta.allure.Step;
 
@@ -14,7 +15,7 @@ public class SmallCart {
 
     @Step("Small cart: close small cart")
     public HomePage close() {
-        $x("//button[contains(@class, 'main-notification__close')]").click();
+        $x("//button[contains(@class, 'main-notification__close')]").shouldBe(Condition.visible).click();
         return new HomePage();
     }
 }

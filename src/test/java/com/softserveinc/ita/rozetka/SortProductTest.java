@@ -76,6 +76,7 @@ public class SortProductTest extends TestRunner {
                             .getProduct(i)
                             .getPrice())
                     .as("%dth product price should be higher than %dth product price", i, i + step)
+                    //TODO: Descending sort by price doesn't work correctly
                     .isGreaterThan(subcategoryPage
                             .getProduct(i + step)
                             .getPrice());

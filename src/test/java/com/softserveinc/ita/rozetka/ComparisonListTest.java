@@ -24,7 +24,6 @@ import static com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubca
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.PROCESSORS;
-import static com.softserveinc.ita.rozetka.data.subcategory.PhonesTvElectronicsSubcategory.CAMERAS;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 

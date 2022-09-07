@@ -6,8 +6,6 @@ import com.softserveinc.ita.rozetka.data.ProductSort;
 import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
@@ -15,22 +13,22 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class SearchResultsPage extends BasePage {
 
+    private final String resultsAmountXpath = "//p[contains(@class, 'selection')]";
+
     public Filter getFilter() {
         return new Filter();
     }
 
-    public int getResultsAmount() {
-        var resultsAmountXpath = "//p[contains(@class, 'selection')]";
+    public long getResultsAmount() {
         waitTillVisible(resultsAmountXpath);
-        return Integer.parseInt(
-                $x(resultsAmountXpath)
-                        .getText()
-                        .replaceAll("[^0-9]", ""));
+        return getNumber(resultsAmountXpath);
     }
 
     @Step("Search results page: reset filters")
     public SearchResultsPage resetFilters() {
+        long resultsAmount = getResultsAmount();
         $x("//button[contains(@class, 'reset')]").click();
+        waitForTextChange(resultsAmountXpath, String.valueOf(resultsAmount));
         return this;
     }
 
@@ -53,7 +51,7 @@ public class SearchResultsPage extends BasePage {
 
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
         if (isVisible(preloaderXpath, 3)) {
-            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+            $x(preloaderXpath).shouldNotBe(visible);
         }
         return this;
     }

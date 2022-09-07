@@ -2,8 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Promotion;
 
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class PromotionsPage {
 
@@ -18,6 +17,8 @@ public class PromotionsPage {
     }
 
     public int getPromotionsQuantity() {
-        return getCollectionSize("//rz-promotion-tile");
+        var promotionXpath = "//rz-promotion-tile";
+        waitTillVisible(promotionXpath);
+        return getCollectionSize(promotionXpath);
     }
 }

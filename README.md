@@ -43,6 +43,6 @@ $ git clone git@github.com:JavaTestAutomation704/selenide_tasks_704.git
 To execute all tests run suite 'Rozetka tests' in functional_tests.xml file.
 File is located by the path:
 ```
-selenide_tasks_704/functional_tests.xml
+selenide_tasks_704/src/test/resources/functional_tests.xml
 ```
 By default, number of running threads is 3. In order to change the number open functional_tests.xml and change `thread-count` value.

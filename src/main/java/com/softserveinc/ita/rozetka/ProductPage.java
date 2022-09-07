@@ -50,6 +50,10 @@ public class ProductPage extends BasePage {
         return new CreditModal().open();
     }
 
+    public boolean isBuyOnCreditButtonVisible() {
+        return isVisible("(//ul[@class='product-buttons']//li)[2]");
+    }
+
     @Step("Product page: change city to {city}")
     public ProductPage changeCity(String city) {
         $x("//div[@class='product-about__block-heading']//button").click();

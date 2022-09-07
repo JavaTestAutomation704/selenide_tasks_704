@@ -3,14 +3,9 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.ComparisonPage;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
-import static java.time.Duration.ofSeconds;
 
 public class ComparisonItem {
     private final String itemXpath;
@@ -32,11 +27,13 @@ public class ComparisonItem {
     @Step("Comparison item: remove item from comparison")
     public ComparisonPage remove() {
         var comparisonIconCounter = $x("//rz-comparison//rz-icon-counter");
-        var initialCounterText = comparisonIconCounter.text();
+        var initialCounterValue = getNumber(comparisonIconCounter);
+
         $x(itemXpath + "//button[contains(@id, 'comparisonProductActions')]").click();
-        $x("//rz-trash-icon//button").click();
-        comparisonIconCounter.shouldHave(text(initialCounterText), Duration.ofSeconds(2));
-        $x(itemXpath).shouldNotBe(visible, ofSeconds(2));
+        $x(itemXpath + "//rz-trash-icon//button").click();
+
+        waitInvisibility(itemXpath);
+        waitText(comparisonIconCounter, String.valueOf(initialCounterValue - 1));
         return new ComparisonPage();
     }
 }

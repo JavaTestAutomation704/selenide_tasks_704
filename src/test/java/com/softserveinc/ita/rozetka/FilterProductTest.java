@@ -9,11 +9,9 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
-import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLETS;
@@ -126,18 +124,18 @@ public class FilterProductTest extends TestRunner {
                 .getHeader()
                 .search("Xbox");
 
-        int resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
+        long resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 
         var filter = searchResultsPage.getFilter();
 
-        int resultsAmountAfterFilters = filter
+        long resultsAmountAfterFilters = filter
                 .filter(List.of(WHITE_COLOR, ROZETKA_SELLER, AVAILABLE))
                 .getResultsAmount();
 
         searchResultsPage.resetFilters();
         filter.filter(MICROSOFT_BRAND);
 
-        int resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
+        long resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 
         var softAssert = new SoftAssertions();
 
@@ -204,5 +202,50 @@ public class FilterProductTest extends TestRunner {
                     .isLessThanOrEqualTo(maxPrice);
         }
         softAssertions.assertAll();
+    }
+
+    @Test
+    public void verifyProductPreUsedFilter() {
+        var subcategoryPage = homePage
+                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS);
+        var filter = subcategoryPage.getFilter();
+        filter.filter(ProductFilter.PRE_USED);
+        int productsQuantity = subcategoryPage.getProductsQuantity();
+        int productsQuantityToCheck = 30;
+
+        var softly = new SoftAssertions();
+
+        assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        for (int i = 1; i <= productsQuantity; i = i + 10) {
+            var isProductUsed = subcategoryPage
+                    .getProduct(i)
+                    .isUsed();
+            // TODO: This test may be failed as new products might be among the results
+            softly.assertThat(isProductUsed)
+                    .as("Product should be used")
+                    .isTrue();
+        }
+
+        subcategoryPage.resetFilters();
+        filter.filter(ProductFilter.NEW);
+
+        softly.assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        for (int i = 1; i <= productsQuantity; i = i + 10) {
+            var isProductUsed = subcategoryPage
+                    .getProduct(i)
+                    .isUsed();
+            // TODO: This test may be failed as pre-used products might be among the results
+            softly.assertThat(isProductUsed)
+                    .as("Product should be new")
+                    .isFalse();
+        }
+        softly.assertAll();
     }
 }
