@@ -10,7 +10,6 @@
             <class name="com.softserveinc.ita.rozetka.CheckoutTest"/>
             <class name="com.softserveinc.ita.rozetka.ComparisonListTest"/>
             <class name="com.softserveinc.ita.rozetka.DiscountsTest"/>
-            <class name="com.softserveinc.ita.rozetka.FilterProductOnConditionTest"/>
             <class name="com.softserveinc.ita.rozetka.FilterProductTest"/>
             <class name="com.softserveinc.ita.rozetka.LogInTest"/>
             <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
@@ -22,6 +21,7 @@
             <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
             <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.ReviewTest"/>
         </classes>
     </test>
 </suite>
