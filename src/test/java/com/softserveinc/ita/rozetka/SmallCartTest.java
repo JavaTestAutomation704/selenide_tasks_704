@@ -1,23 +1,19 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SmallCartTest extends TestRunner {
-    Header header;
 
-    @BeforeMethod
-    public void clearShoppingCart() {
-        header = homePage.getHeader();
+    @Test
+    public void verifyUserCanAddProductsToSmallCart(){
+        var header = homePage.getHeader();
 
         if (header.isShoppingCartCounterVisible()) {
-            ShoppingCartModal shoppingCartModal = header
+            var shoppingCartModal = header
                     .openShoppingCartModal()
                     .clear();
             if (shoppingCartModal.isCloseButtonVisible()) {
@@ -26,10 +22,6 @@ public class SmallCartTest extends TestRunner {
                 homePage.back();
             }
         }
-    }
-
-    @Test
-    public void verifyUserCanAddProductsToSmallCart(){
         var smallCart = homePage.getSmallCart();
 
         var softly = new SoftAssertions();
