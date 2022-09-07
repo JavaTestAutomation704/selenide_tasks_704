@@ -51,7 +51,7 @@ public class ReviewTest extends TestRunner {
     }
 
     @Test
-    public void verifySortReviewsFunctionality() {
+    public void verifySortByPhotosReviewsFunctionality() {
         homePage
                 .getHeader()
                 .search("Телевізор Samsung UE32T5300AUXUA");
@@ -92,6 +92,47 @@ public class ReviewTest extends TestRunner {
             softAssertions.assertThat(hasPhoto)
                     .as(number + " review should not have a photo")
                     .isFalse();
+        }
+
+        softAssertions.assertAll();
+    }
+
+    @Test
+    public void verifySortByDateReviewsFunctionality() {
+        homePage
+                .getHeader()
+                .search("Крісло геймерське Barsky Sport Drive Game Black (SD-09)");
+
+        var productPage = new ProductPage();
+        assertThat(productPage.isOpened())
+                .as("Product page should be open")
+                .isTrue();
+
+        var reviewPage = productPage.openReviewPage();
+        assertThat(reviewPage.getReviewsQuantity())
+                .as("Reviews quantity should be sufficient")
+                .isGreaterThanOrEqualTo(30);
+
+        reviewPage = reviewPage.sort(ReviewsSort.BY_DATE);
+
+        assertThat(reviewPage.getReviewsQuantity())
+                .as("Reviews quantity should be sufficient")
+                .isGreaterThanOrEqualTo(25);
+
+        var softAssertions = new SoftAssertions();
+        for (int number = 1; number < 25; number += 2) {
+            var firstDate = reviewPage
+                    .getReviewItem(number)
+                    .getDate();
+
+            var secondDate = reviewPage
+                    .getReviewItem(number + 1)
+                    .getDate();
+
+
+            softAssertions.assertThat(firstDate.compareTo(secondDate))
+                    .as("Date %s should be occurs before or equal to date %s", firstDate.toString(), secondDate.toString())
+                    .isGreaterThanOrEqualTo(0);
         }
 
         softAssertions.assertAll();
