@@ -12,7 +12,6 @@ import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static org.assertj.core.api.Assertions.assertThat;
 
