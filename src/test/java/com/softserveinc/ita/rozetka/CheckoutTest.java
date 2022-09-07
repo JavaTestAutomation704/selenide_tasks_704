@@ -15,8 +15,7 @@ public class CheckoutTest extends TestRunner {
         var subcategoryPage = homePage
                 .openCategoryPage(GAMERS_GOODS)
                 .openSubcategoryPage(MONITORS);
-        var filter = subcategoryPage
-                .getFilter();
+        var filter = subcategoryPage.getFilter();
         filter.filter(AVAILABLE);
 
         assertThat(filter.isSelected(AVAILABLE))
