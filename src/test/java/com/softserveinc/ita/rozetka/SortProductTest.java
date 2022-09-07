@@ -76,6 +76,7 @@ public class SortProductTest extends TestRunner {
                             .getProduct(i)
                             .getPrice())
                     .as("%dth product price should be higher than %dth product price", i, i + step)
+                    //TODO: Descending sort by price doesn't work correctly
                     .isGreaterThan(subcategoryPage
                             .getProduct(i + step)
                             .getPrice());
@@ -94,6 +95,10 @@ public class SortProductTest extends TestRunner {
                 .isGreaterThanOrEqualTo(60);
 
         searchResultsPage = searchResultsPage.sortBy(ProductSort.PROMOTION);
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
 
         var softAssertions = new SoftAssertions();
 

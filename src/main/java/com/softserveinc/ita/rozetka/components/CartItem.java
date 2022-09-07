@@ -1,13 +1,12 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.codeborne.selenide.Condition;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static java.lang.Long.getLong;
 
 @RequiredArgsConstructor
 public class CartItem {
@@ -43,8 +42,6 @@ public class CartItem {
     }
 
     public long getTotalPrice() {
-        var priceXpath = String.format("(//p[contains(@class, 'cart-product__price')])[%d]", numberCartItem);
-        $x(priceXpath).shouldNotHave(Condition.exactText($x(priceXpath).text()));
-        return getNumber(priceXpath);
+        return getLong(String.format("(//p[contains(@class, 'cart-product__price')])[%d]", numberCartItem));
     }
 }
