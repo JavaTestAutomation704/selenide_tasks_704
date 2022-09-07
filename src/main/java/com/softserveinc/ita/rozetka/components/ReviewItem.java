@@ -27,11 +27,11 @@ public class ReviewItem {
         return parseDate($x(reviewItemXpath + "//time").text());
     }
 
-    private Date parseDate(String dateInString) {
-        String[] parse = dateInString.split(" ");
-        String result = parse[2];
-        result += Month.getByValue(parse[1]).getParseMonth();
-        result += parse[0];
+    private Date parseDate(String inputDate) {
+        String[] dateParts = inputDate.split(" ");
+        String result = dateParts[2];
+        result += Month.getByValue(dateParts[1]).getMonthValue();
+        result += dateParts[0];
 
         return Date.valueOf(result);
     }

@@ -21,12 +21,12 @@ public enum Month {
     DECEMBER("грудня", "-12-");
 
     @NonNull
-    private final String month;
-    private final String parseMonth;
+    private final String monthName;
+    private final String monthValue;
 
     public static Month getByValue(String value) {
         for (Month month : values()) {
-            if (month.month.equals(value)) {
+            if (month.monthName.equals(value)) {
                 return month;
             }
         }
