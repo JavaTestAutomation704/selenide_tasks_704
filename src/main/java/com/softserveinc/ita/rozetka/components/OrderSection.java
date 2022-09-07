@@ -32,35 +32,35 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Meest")
     public PickupFromMeestSection selectPickupFromMeest() {
-        $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[4]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[4]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new PickupFromMeestSection(orderNumber);
     }
 
     @Step("Order section: select pickup from Ukrposhta")
     public PickupFromUkrposhtaSection selectPickupFromUkrposhta() {
-        $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new PickupFromUkrposhtaSection(orderNumber);
     }
 
     @Step("Order section: select pickup from Nova Poshta")
     public PickupFromNovaPoshtaSection selectPickupFromNovaPoshta() {
-        $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new PickupFromNovaPoshtaSection(orderNumber);
     }
 
     @Step("Order section: select pickup from mobile delivery point")
     public MobileDeliveryPointSection selectPickupFromMobileDeliveryPoints() {
-        $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[3]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[3]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new MobileDeliveryPointSection(orderNumber);
     }
 
-    @Step("Order section: select pickup from mobile delivery point")
+    @Step("Order section: select pickup from Rozetka")
     public PickupFromRozetkaSection selectPickupFromRozetka() {
-        $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[1]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[1]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new PickupFromRozetkaSection(orderNumber);
     }
