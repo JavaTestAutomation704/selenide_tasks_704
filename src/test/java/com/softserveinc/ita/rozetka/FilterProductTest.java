@@ -32,6 +32,10 @@ public class FilterProductTest extends TestRunner {
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
+
         var softAssertions = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
             var isProductOnSale = searchResultsPage
@@ -198,5 +202,50 @@ public class FilterProductTest extends TestRunner {
                     .isLessThanOrEqualTo(maxPrice);
         }
         softAssertions.assertAll();
+    }
+
+    @Test
+    public void verifyProductPreUsedFilter() {
+        var subcategoryPage = homePage
+                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS);
+        var filter = subcategoryPage.getFilter();
+        filter.filter(ProductFilter.PRE_USED);
+        int productsQuantity = subcategoryPage.getProductsQuantity();
+        int productsQuantityToCheck = 30;
+
+        var softly = new SoftAssertions();
+
+        assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        for (int i = 1; i <= productsQuantity; i = i + 10) {
+            var isProductUsed = subcategoryPage
+                    .getProduct(i)
+                    .isUsed();
+            // TODO: This test may be failed as new products might be among the results
+            softly.assertThat(isProductUsed)
+                    .as("Product should be used")
+                    .isTrue();
+        }
+
+        subcategoryPage.resetFilters();
+        filter.filter(ProductFilter.NEW);
+
+        softly.assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        for (int i = 1; i <= productsQuantity; i = i + 10) {
+            var isProductUsed = subcategoryPage
+                    .getProduct(i)
+                    .isUsed();
+            // TODO: This test may be failed as pre-used products might be among the results
+            softly.assertThat(isProductUsed)
+                    .as("Product should be new")
+                    .isFalse();
+        }
+        softly.assertAll();
     }
 }

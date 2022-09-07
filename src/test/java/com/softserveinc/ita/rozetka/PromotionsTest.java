@@ -62,15 +62,14 @@ public class PromotionsTest extends TestRunner {
         var promotionPeriodOnPage = promotionPage.getPromotionPeriod();
 
         softAssertions
-                .assertThat(modalTitle)
-                .as("Promotion name on the promotion terms modal should be the same as on the promotion page")
-                .isEqualTo(pageTitle);
+                .assertThat(pageTitle)
+                .as("Promotion name on the promotion page should be the same as on the promotion terms modal")
+                .isEqualTo(modalTitle);
 
         softAssertions
-                .assertThat(promotionPeriodOnModal)
-                .as("Promotion period on the promotion terms modal should be the same as on the promotion page")
-                .isEqualTo(promotionPeriodOnPage);
-
+                .assertThat(promotionPeriodOnPage)
+                .as("Promotion period on the promotion page should be the same as on the promotion terms modal")
+                .contains(promotionPeriodOnModal);
         softAssertions.assertAll();
     }
 }

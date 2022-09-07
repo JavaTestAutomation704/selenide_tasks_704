@@ -27,17 +27,31 @@ public class ProductPage extends BasePage {
         return new ShoppingCartModal();
     }
 
+    private void openPage(String pageName) {
+        $x(String.format("//ul[@class='tabs__list']//a[contains(@href, '%s')]", pageName)).click();
+        $x("//rz-product-tab-main").shouldNotBe(visible);
+    }
+
     @Step("Product page: open product characteristics page")
     public ProductCharacteristicsPage openCharacteristicsPage() {
-        $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").click();
-        $x("//rz-product-tab-main").shouldNotBe(visible);
+        openPage("characteristics");
         return new ProductCharacteristicsPage();
+    }
+
+    @Step("Product page: open product review page")
+    public ProductReviewPage openReviewPage() {
+        openPage("comments");
+        return new ProductReviewPage();
     }
 
     @Step("Product page: start purchase on credit")
     public CreditModal startPurchaseOnCredit() {
         $x(titleXpath).hover();
         return new CreditModal().open();
+    }
+
+    public boolean isBuyOnCreditButtonVisible() {
+        return isVisible("(//ul[@class='product-buttons']//li)[2]");
     }
 
     @Step("Product page: change city to {city}")

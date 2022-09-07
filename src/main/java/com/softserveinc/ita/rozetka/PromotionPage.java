@@ -13,7 +13,9 @@ public class PromotionPage {
     }
 
     public int getProductsQuantity() {
-        return getCollectionSize("//rz-catalog-tile");
+        var productXpath = "//rz-catalog-tile";
+        waitTillVisible(productXpath);
+        return getCollectionSize(productXpath);
     }
 
     public String getTitle() {
@@ -21,7 +23,7 @@ public class PromotionPage {
     }
 
     public String getPromotionPeriod() {
-        return getText("(//div[contains(@class,'promotion__description')]//div)[2]");
+        return getText("//time");
     }
 
     public Product getProduct(int number) {
