@@ -5,7 +5,6 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -33,8 +32,8 @@ public class Filter extends Header {
                 .scrollIntoView(false)
                 .click(ClickOptions.usingJavaScript());
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
-        if (isVisible(preloaderXpath, 3)) {
-            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+        if (isVisible(preloaderXpath, 10)) {
+            $x(preloaderXpath).shouldNotBe(visible);
         }
         return new SearchResultsPage();
     }

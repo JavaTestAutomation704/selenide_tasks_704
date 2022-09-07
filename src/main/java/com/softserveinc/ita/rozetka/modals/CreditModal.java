@@ -6,12 +6,15 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillVisible;
 
 public class CreditModal {
 
     @Step("Credit modal: open")
     public CreditModal open() {
-        $x("//rz-product-credit").hover().click();
+        var buyOnCreditButtonXpath = "//rz-product-credit";
+        waitTillVisible(buyOnCreditButtonXpath);
+        $x(buyOnCreditButtonXpath).hover().click();
         return this;
     }
 

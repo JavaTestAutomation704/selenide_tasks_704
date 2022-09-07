@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.codeborne.selenide.Condition;
 import com.softserveinc.ita.rozetka.HomePage;
 import io.qameta.allure.Step;
 
@@ -14,7 +15,17 @@ public class SmallCart {
 
     @Step("Small cart: close small cart")
     public HomePage close() {
-        $x("//button[contains(@class, 'main-notification__close')]").click();
+        $x("//button[contains(@class, 'main-notification__close')]").shouldBe(Condition.visible).click();
         return new HomePage();
+    }
+
+    public int getProductsQuantity(){
+        return Integer.parseInt($x("//span[contains(@class, 'main-notification__heading-main')]")
+                .getText()
+                .replaceAll("[^0-9]",""));
+    }
+
+    public long getTotalPrice(){
+        return Integer.parseInt($x("//span[@class= 'main-notification__heading-caption']//span[2]").getText());
     }
 }

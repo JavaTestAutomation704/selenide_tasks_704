@@ -28,6 +28,10 @@ public class BuyOnCreditTest extends TestRunner {
                 .getProduct(productNumber)
                 .open();
 
+        assertThat(productPage.isBuyOnCreditButtonVisible())
+                .as("Buy on credit button should be displayed on the product page")
+                .isTrue();
+
         var creditModal = productPage.startPurchaseOnCredit();
 
         assertThat(creditModal.isOpen())

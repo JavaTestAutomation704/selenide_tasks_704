@@ -38,8 +38,8 @@ public class CheckoutPage extends BasePage {
         return new ContactInformationSection();
     }
 
-    public OrderSection getOrderSection() {
-        return new OrderSection();
+    public OrderSection getOrderSection(int orderNumber) {
+        return new OrderSection(orderNumber);
     }
 
     public String getDeliveryTitle(int orderNumber) {

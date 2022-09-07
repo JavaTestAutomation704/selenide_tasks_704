@@ -17,10 +17,12 @@
             <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
             <class name="com.softserveinc.ita.rozetka.PromotionsTest"/>
+            <class name="com.softserveinc.ita.rozetka.RegistrationTest"/>
             <class name="com.softserveinc.ita.rozetka.SearchFunctionalityTest"/>
             <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
             <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.SmallCartTest"/>
         </classes>
     </test>
 </suite>

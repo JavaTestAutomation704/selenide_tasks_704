@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.utils;
 
+import com.codeborne.selenide.SelenideElement;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
@@ -21,6 +22,18 @@ public class WebElementUtil {
     public static boolean isVisible(String elementXpath, long seconds) {
         try {
             return $x(elementXpath).shouldBe(visible, ofSeconds(seconds)).isDisplayed();
+        } catch (AssertionError e) {
+            return false;
+        }
+    }
+
+    public static boolean isVisible(SelenideElement element) {
+        return isVisible(element, TIMEOUT.getSeconds());
+    }
+
+    public static boolean isVisible(SelenideElement element, long seconds) {
+        try {
+            return element.shouldBe(visible, ofSeconds(seconds)).isDisplayed();
         } catch (AssertionError e) {
             return false;
         }
@@ -56,8 +69,19 @@ public class WebElementUtil {
         }
     }
 
+    public static void waitTillPreloaderInvisible() {
+        var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
+        if (isVisible(preloaderXpath, 3)) {
+            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+        }
+    }
+
     public static long getNumber(String elementXpath) {
-        return Long.parseLong($x(elementXpath).shouldBe(visible, TIMEOUT)
+        return getNumber($x(elementXpath));
+    }
+
+    public static long getNumber(SelenideElement element) {
+        return Long.parseLong(element.shouldBe(visible, TIMEOUT)
                 .text()
                 .replaceAll("[^0-9]", ""));
     }
@@ -84,5 +108,23 @@ public class WebElementUtil {
 
     public static void waitUntilUrlContains(String charSequence) {
         webdriver().shouldHave(urlContaining(charSequence), TIMEOUT);
+    }
+
+    public static void waitText(SelenideElement element, String text) {
+        try {
+            element.shouldHave(text(text), TIMEOUT);
+        } catch (AssertionError ignore) {
+        }
+    }
+
+    public static void waitInvisibility(SelenideElement element) {
+        try {
+            element.shouldNotBe(visible, TIMEOUT);
+        } catch (AssertionError ignore) {
+        }
+    }
+
+    public static void waitInvisibility(String elementXpath) {
+        waitInvisibility($x(elementXpath));
     }
 }

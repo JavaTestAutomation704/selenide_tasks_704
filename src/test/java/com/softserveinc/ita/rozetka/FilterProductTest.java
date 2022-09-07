@@ -10,8 +10,14 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
 import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
+import static com.softserveinc.ita.rozetka.data.Country.ITALY;
+import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
+import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLETS;
@@ -31,6 +37,10 @@ public class FilterProductTest extends TestRunner {
         searchResultsPage = searchResultsPage
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
 
         var softAssertions = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
@@ -196,6 +206,104 @@ public class FilterProductTest extends TestRunner {
                     .as("Product price should be correct")
                     .isGreaterThanOrEqualTo(minPrice)
                     .isLessThanOrEqualTo(maxPrice);
+        }
+        softAssertions.assertAll();
+    }
+
+    @Test
+    public void verifyProductPreUsedFilter() {
+        var subcategoryPage = homePage
+                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS);
+        var filter = subcategoryPage.getFilter();
+        filter.filter(ProductFilter.PRE_USED);
+        int productsQuantity = subcategoryPage.getProductsQuantity();
+        int productsQuantityToCheck = 30;
+
+        var softly = new SoftAssertions();
+
+        assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        for (int i = 1; i <= productsQuantity; i = i + 10) {
+            var isProductUsed = subcategoryPage
+                    .getProduct(i)
+                    .isUsed();
+            // TODO: This test may be failed as new products might be among the results
+            softly.assertThat(isProductUsed)
+                    .as("Product should be used")
+                    .isTrue();
+        }
+
+        subcategoryPage.resetFilters();
+        filter.filter(ProductFilter.NEW);
+
+        softly.assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        for (int i = 1; i <= productsQuantity; i = i + 10) {
+            var isProductUsed = subcategoryPage
+                    .getProduct(i)
+                    .isUsed();
+            // TODO: This test may be failed as pre-used products might be among the results
+            softly.assertThat(isProductUsed)
+                    .as("Product should be new")
+                    .isFalse();
+        }
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyFilterByProducingCountry() {
+        var filter = homePage
+                .openCategoryPage(PLUMBING_AND_REPAIR)
+                .openSubcategoryPage(BATHROOM_FURNITURE)
+                .getFilter();
+        var subcategoryPage = filter.filter(PRODUCED_IN_SPAIN);
+
+        int productsQuantity = 5;
+
+        assertThat(subcategoryPage.getProductsQuantity())
+                .as("Products amount should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantity);
+
+        var softAssertions = new SoftAssertions();
+        for (int i = 1; i <= productsQuantity; i++) {
+            var productCharacteristicsPage = subcategoryPage
+                    .getProduct(i)
+                    .open()
+                    .openCharacteristicsPage();
+
+            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+                    .as("Country should be correct")
+                    .isEqualTo(SPAIN.getCountryNameUa());
+
+         // In order to return to the search results page, you should use back methods twice
+            productCharacteristicsPage.back();
+            productCharacteristicsPage.back();
+        }
+
+        filter.filter(List.of(PRODUCED_IN_SPAIN, PRODUCED_IN_ITALY));
+
+        assertThat(subcategoryPage.getProductsQuantity())
+                .as("Products amount should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantity);
+
+        for (int i = 1; i <= productsQuantity; i++) {
+            var productCharacteristicsPage = subcategoryPage
+                    .getProduct(i)
+                    .open()
+                    .openCharacteristicsPage();
+
+            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+                    .as("Country should be correct")
+                    .isEqualTo(ITALY.getCountryNameUa());
+
+            // In order to return to the search results page, you should use back methods twice
+            productCharacteristicsPage.back();
+            productCharacteristicsPage.back();
         }
         softAssertions.assertAll();
     }
