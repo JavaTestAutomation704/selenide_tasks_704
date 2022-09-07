@@ -16,6 +16,7 @@ public class Product {
 
     public Product(int productNumber) {
         this.productXpath = format("(//rz-catalog-tile)[%d]", productNumber);
+        $x(productXpath).scrollIntoView(false);
     }
 
     public Product(String productNumber) {
@@ -83,7 +84,8 @@ public class Product {
     public boolean isOnSale() {
         return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
                 || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]")
-                || !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals("");
+                || (isVisible(productXpath + "//div[contains(@class, 'price--old')]")
+                && !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals(""));
     }
 
     public boolean isInShoppingCart() {

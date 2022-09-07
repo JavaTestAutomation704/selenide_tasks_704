@@ -96,6 +96,10 @@ public class SortProductTest extends TestRunner {
 
         searchResultsPage = searchResultsPage.sortBy(ProductSort.PROMOTION);
 
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
+
         var softAssertions = new SoftAssertions();
 
         for (int productNumber : new int[]{1, 25, 59}) {

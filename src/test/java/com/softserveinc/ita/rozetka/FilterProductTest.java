@@ -32,6 +32,10 @@ public class FilterProductTest extends TestRunner {
                 .getFilter()
                 .filter(ProductFilter.PROMOTION);
 
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
+
         var softAssertions = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
             var isProductOnSale = searchResultsPage
