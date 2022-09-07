@@ -11,5 +11,5 @@ public enum Country {
     ITALY("Італія");
 
     @NonNull
-    private final String countryNameInUA;
+    private final String countryNameUa;
 }
