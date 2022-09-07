@@ -22,15 +22,6 @@ public class PickupPointModal {
         return this;
     }
 
-    @Step("Pickup point modal: focus on pickup point delivery service {deliveryService} department address{departmentAddress}")
-    public PickupPointModal focusOnPickupPoint(String deliveryService, String departmentAddress) {
-        $x(format("//p[contains(text(),'%s')]/following-sibling::p[contains(text(),'%s')]",
-                deliveryService, departmentAddress))
-                .scrollIntoView(true)
-                .click(usingJavaScript());
-        return this;
-    }
-
     @Step("Pickup point modal: select pickup point and open checkout page")
     public CheckoutPage selectActivePickupPoint() {
         $x("//li//button[contains(@class,'map-popup__submit')]").click();

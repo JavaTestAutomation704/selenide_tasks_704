@@ -44,21 +44,21 @@ public class OrderSection {
         return new PickupFromUkrposhtaSection(orderNumber);
     }
 
-    @Step("Order section:  select pickup from Nova Poshta")
+    @Step("Order section: select pickup from Nova Poshta")
     public PickupFromNovaPoshtaSection selectPickupFromNovaPoshta() {
         $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new PickupFromNovaPoshtaSection(orderNumber);
     }
 
-    @Step("Order section:  select pickup from mobile delivery point")
+    @Step("Order section: select pickup from mobile delivery point")
     public MobileDeliveryPointSection selectPickupFromMobileDeliveryPoints() {
         $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[3]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new MobileDeliveryPointSection(orderNumber);
     }
 
-    @Step("Order section:  select pickup from mobile delivery point")
+    @Step("Order section: select pickup from mobile delivery point")
     public PickupFromRozetkaSection selectPickupFromRozetka() {
         $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[1]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();

@@ -19,18 +19,18 @@ public abstract class BaseDeliveryPickup {
         return $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).text();
     }
 
-    @Step("Base delivery pickup: select pickup point department №{departmentNumber}")
-    public PickupFromMeestSection selectPickupPointDepartment(int departmentNumber) {
+    @Step("Base delivery pickup: select Meest pickup point department №{departmentNumber}")
+    public BaseDeliveryPickup selectPickupPointDepartment(int departmentNumber) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%d')]", departmentNumber)).click();
-        return new PickupFromMeestSection(orderNumber);
+        return this;
     }
 
     @Step("Base delivery pickup: select pickup point department on {departmentAddress}")
-    public PickupFromMeestSection selectPickupPointDepartment(String departmentAddress) {
+    public BaseDeliveryPickup selectPickupPointDepartment(String departmentAddress) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%s')]", departmentAddress)).click();
-        return new PickupFromMeestSection(orderNumber);
+        return this;
     }
 
     @Step("Base delivery pickup: open pickup point modal")
@@ -41,7 +41,7 @@ public abstract class BaseDeliveryPickup {
 
     @Step("Base delivery pickup: change city to {city}")
     public Header changeCity(String city) {
-        $x("//span[@class='deliveries__city-title']").click();
+        $x(format("(//span[@class='deliveries__city-title'])[%d]", orderNumber)).click();
         return new ChangeCityModal().changeCity(city);
     }
 }

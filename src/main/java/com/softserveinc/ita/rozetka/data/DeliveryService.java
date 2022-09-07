@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum DeliveryPickup {
+public enum DeliveryService {
 
     MEEST("Meest"),
     UKRPOSHTA("Укрпошта"),
@@ -14,5 +14,5 @@ public enum DeliveryPickup {
     ROZETKA("Наш магазин");
 
     @NonNull
-    private final String postNameUa;
+    private final String nameUa;
 }

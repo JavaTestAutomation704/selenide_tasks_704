@@ -9,15 +9,14 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.softserveinc.ita.rozetka.data.Category.COTTAGE_GARDEN_BACKYARD;
-
 import java.util.List;
 
+import static com.softserveinc.ita.rozetka.data.Category.COTTAGE_GARDEN_BACKYARD;
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
 import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
 import static com.softserveinc.ita.rozetka.data.City.LVIV;
 import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
-import static com.softserveinc.ita.rozetka.data.DeliveryPickup.*;
+import static com.softserveinc.ita.rozetka.data.DeliveryService.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.CottageGardenBackyardSubcategory.GARDEN_TECHNIQUES;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
@@ -205,20 +204,20 @@ public class CheckoutTest extends TestRunner {
 
         pickupFromMeest.changeCity(LVIV.getCityNameUa());
 
-        int meestPickupDepartmentNumber = 1968;
-        pickupFromMeest.selectPickupPointDepartment(meestPickupDepartmentNumber);
+        int departmentNumber = 1968;
+        pickupFromMeest.selectPickupPointDepartment(departmentNumber);
         var pickupPointName = pickupFromMeest.getPickupPointName();
         var pickupPointModal = pickupFromMeest.openPickupPointModal();
 
         var softAssertions = new SoftAssertions();
         softAssertions.assertThat(pickupPointModal.getTextAtActivePickupPoint())
                 .as("Pickup point should be correct")
-                .contains(MEEST.getPostNameUa())
+                .contains(MEEST.getNameUa())
                 .contains(pickupPointName);
 
-        int novaPoshtaPickupDepartmentNumber = 1;
+        departmentNumber = 5;
         pickupPointName = pickupPointModal
-                .focusOnPickupPoint(NOVAPOSHTA.getPostNameUa(), novaPoshtaPickupDepartmentNumber)
+                .focusOnPickupPoint(NOVAPOSHTA.getNameUa(), departmentNumber)
                 .getTextAtActivePickupPoint();
 
         pickupPointModal.selectActivePickupPoint();
@@ -233,7 +232,7 @@ public class CheckoutTest extends TestRunner {
 
         softAssertions.assertThat(pickupPointName)
                 .as("Pickup point should be correct")
-                .contains(NOVAPOSHTA.getPostNameUa())
+                .contains(NOVAPOSHTA.getNameUa())
                 .contains(pickupPointNameActual);
 
         var pickupFromRozetka = orderSection.selectPickupFromRozetka();
@@ -244,16 +243,15 @@ public class CheckoutTest extends TestRunner {
 
         pickupFromRozetka.changeCity(DNIPRO.getCityNameUa());
 
-        String rozetkaPickupDepartmentAddress = "Кульпарківська вул., 226А";
-        pickupFromRozetka.selectPickupPointDepartment(rozetkaPickupDepartmentAddress);
+        var departmentAddress = "Кульпарківська вул., 226А";
+        pickupFromRozetka.selectPickupPointDepartment(departmentAddress);
         pickupPointName = pickupFromRozetka.getPickupPointName();
         pickupFromRozetka.openPickupPointModal();
 
         softAssertions.assertThat(pickupPointModal.getTextAtActivePickupPoint())
                 .as("Pickup point should be correct")
-                .contains(ROZETKA.getPostNameUa())
+                .contains(ROZETKA.getNameUa())
                 .contains(pickupPointName);
-
         softAssertions.assertAll();
     }
 }
