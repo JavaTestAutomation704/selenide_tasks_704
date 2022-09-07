@@ -69,6 +69,13 @@ public class WebElementUtil {
         }
     }
 
+    public static void waitTillPreloaderInvisible() {
+        var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
+        if (isVisible(preloaderXpath, 3)) {
+            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+        }
+    }
+
     public static long getNumber(String elementXpath) {
         return getNumber($x(elementXpath));
     }
