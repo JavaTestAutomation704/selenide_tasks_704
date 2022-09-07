@@ -307,4 +307,38 @@ public class FilterProductTest extends TestRunner {
         }
         softAssertions.assertAll();
     }
+
+    @Test
+    public void verifyThatProductIsReadyToBeDelivered() {
+        var subcategoryPage = homePage
+                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
+                .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS);
+
+        var filter = subcategoryPage.getFilter();
+        filter.filter(READY_TO_BE_DELIVERED);
+
+        assertThat(filter.isSelected(READY_TO_BE_DELIVERED))
+                .as("Filter should be selected")
+                .isTrue();
+
+        int productsQuantity = subcategoryPage.getProductsQuantity();
+        int productsQuantityToCheck = 10;
+
+        var softly = new SoftAssertions();
+
+        softly.assertThat(productsQuantity)
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsQuantityToCheck);
+
+        for (int i = 1; i <= productsQuantityToCheck; i++) {
+            var productReadyToBeDelivered = subcategoryPage
+                    .getProduct(i)
+                    .isAvailable();
+            //TODO: This test may be failed as unavailable products might be among the results
+            softly.assertThat(productReadyToBeDelivered)
+                    .as("Product should be ready to be delivered")
+                    .isTrue();
+        }
+        softly.assertAll();
+    }
 }
