@@ -6,14 +6,13 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum PostOffice {
+public enum DeliveryPickup {
 
     MEEST("Meest"),
     UKRPOSHTA("Укрпошта"),
     NOVAPOSHTA("Нова Пошта"),
-    MOBILE_POINT("Мобільна точка"),
-    OUR_STORE("Наш магазин");
+    ROZETKA("Наш магазин");
 
     @NonNull
-    private final String postName;
+    private final String postNameUa;
 }

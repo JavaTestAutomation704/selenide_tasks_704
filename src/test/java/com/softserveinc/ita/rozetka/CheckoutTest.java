@@ -10,13 +10,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.COTTAGE_GARDEN_BACKYARD;
+
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
 import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
 import static com.softserveinc.ita.rozetka.data.City.LVIV;
-import static com.softserveinc.ita.rozetka.data.DeliveryTypes.*;
-import static com.softserveinc.ita.rozetka.data.PostOffice.*;
+import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
+import static com.softserveinc.ita.rozetka.data.DeliveryPickup.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.CottageGardenBackyardSubcategory.GARDEN_TECHNIQUES;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
@@ -195,87 +196,64 @@ public class CheckoutTest extends TestRunner {
 
         int orderNumber = 1;
 
-        var pickupFromMeestSection = checkoutPage
-                .getOrderSection()
-                .selectPickupFromMeest(orderNumber);
+        var orderSection = checkoutPage.getOrderSection(orderNumber);
+        var pickupFromMeest = orderSection.selectPickupFromMeest();
 
-        assertThat(checkoutPage.getDeliveryTitle(1))
+        assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
-                .contains(PICK_UP_FROM_MEEST.getDeliveryNameInUa());
+                .contains(PICK_UP_FROM_MEEST.getDeliveryNameUa());
 
-        pickupFromMeestSection.changeCity(LVIV.getCityNameUa());
+        pickupFromMeest.changeCity(LVIV.getCityNameUa());
 
-        pickupFromMeestSection.selectPickupPoint(orderNumber, 6);
-
-        var pickupPointName = pickupFromMeestSection.getPickupPointName(orderNumber);
-
-        var pickupPointModal = pickupFromMeestSection.openPickupPointModal(orderNumber);
+        int meestPickupDepartmentNumber = 1968;
+        pickupFromMeest.selectPickupPointDepartment(meestPickupDepartmentNumber);
+        var pickupPointName = pickupFromMeest.getPickupPointName();
+        var pickupPointModal = pickupFromMeest.openPickupPointModal();
 
         var softAssertions = new SoftAssertions();
         softAssertions.assertThat(pickupPointModal.getTextAtActivePickupPoint())
                 .as("Pickup point should be correct")
-                .contains(MEEST.getPostName())
+                .contains(MEEST.getPostNameUa())
                 .contains(pickupPointName);
 
+        int novaPoshtaPickupDepartmentNumber = 1;
         pickupPointName = pickupPointModal
-                .moveToPickupPoint(NOVAPOSHTA.getPostName(), 1)
+                .focusOnPickupPoint(NOVAPOSHTA.getPostNameUa(), novaPoshtaPickupDepartmentNumber)
                 .getTextAtActivePickupPoint();
 
         pickupPointModal.selectActivePickupPoint();
 
-        assertThat(checkoutPage.getDeliveryTitle(1))
+        assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
-                .contains(PICK_UP_FROM_NOVAPOSHTA.getDeliveryNameInUa());
+                .contains(PICK_UP_FROM_NOVAPOSHTA.getDeliveryNameUa());
 
-        var pickupPointNameActual = checkoutPage
-                .getOrderSection()
-                .selectPickupFromNovaPoshta(orderNumber)
-                .getPickupPointName(orderNumber);
+        var pickupPointNameActual = orderSection
+                .selectPickupFromNovaPoshta()
+                .getPickupPointName();
 
         softAssertions.assertThat(pickupPointName)
                 .as("Pickup point should be correct")
+                .contains(NOVAPOSHTA.getPostNameUa())
                 .contains(pickupPointNameActual);
 
+        var pickupFromRozetka = orderSection.selectPickupFromRozetka();
 
-        var pickupFromMobileDeliveryPoints = checkoutPage
-                .getOrderSection()
-                .selectPickupFromMobileDeliveryPoints(orderNumber);
-
-        assertThat(checkoutPage.getDeliveryTitle(1))
+        assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
-                .contains(PICK_UP_FROM_MOBILE_POINTS.getDeliveryNameInUa());
+                .contains(PICK_UP_FROM_ROZETKA.getDeliveryNameUa());
 
-        pickupFromMobileDeliveryPoints.changeCity(DNIPRO.getCityNameUa());
+        pickupFromRozetka.changeCity(DNIPRO.getCityNameUa());
 
-        pickupFromMobileDeliveryPoints.selectPickupPoint(orderNumber, 1);
-
-        pickupPointName = pickupFromMobileDeliveryPoints.getPickupPointName(orderNumber);
-
-        pickupPointModal = pickupFromMobileDeliveryPoints.openPickupPointModal(orderNumber);
+        String rozetkaPickupDepartmentAddress = "Кульпарківська вул., 226А";
+        pickupFromRozetka.selectPickupPointDepartment(rozetkaPickupDepartmentAddress);
+        pickupPointName = pickupFromRozetka.getPickupPointName();
+        pickupFromRozetka.openPickupPointModal();
 
         softAssertions.assertThat(pickupPointModal.getTextAtActivePickupPoint())
                 .as("Pickup point should be correct")
-                .contains(MOBILE_POINT.getPostName())
+                .contains(ROZETKA.getPostNameUa())
                 .contains(pickupPointName);
 
-        pickupPointName = pickupPointModal
-                .moveToPickupPoint(OUR_STORE.getPostName(), 1)
-                .getTextAtActivePickupPoint();
-
-        pickupPointModal.selectActivePickupPoint();
-
-        assertThat(checkoutPage.getDeliveryTitle(1))
-                .as("Delivery should be correct")
-                .contains(PICK_UP_FROM_OUR_STORES.getDeliveryNameInUa());
-
-        pickupPointNameActual = checkoutPage
-                .getOrderSection()
-                .selectPickupFromOurStores(orderNumber)
-                .getPickupPointName(orderNumber);
-
-        softAssertions.assertThat(pickupPointName)
-                .as("Pickup point should be correct")
-                .contains(pickupPointNameActual);
         softAssertions.assertAll();
     }
 }

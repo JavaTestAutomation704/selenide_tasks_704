@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum DeliveryTypes {
+public enum DeliveryType {
 
-    PICK_UP_FROM_OUR_STORES("Самовивіз з наших магазинів"),
+    PICK_UP_FROM_ROZETKA("Самовивіз з наших магазинів"),
     COURIER_TO_YOUR_ADDRESS("Кур'єр на вашу адресу"),
     PICK_UP_FROM_MOBILE_POINTS("Самовивіз з мобільних точок видачі"),
     PICK_UP_FROM_MEEST("Самовивіз з Meest"),
@@ -17,5 +17,5 @@ public enum DeliveryTypes {
     COURIER_MEEST("Кур'єр Meest");
 
     @NonNull
-    private final String deliveryNameInUa;
+    private final String deliveryNameUa;
 }

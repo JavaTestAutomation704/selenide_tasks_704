@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka.components;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -12,8 +11,7 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 public class OrderSection {
 
-    @NonNull
-    private int orderNumber;
+    private final int orderNumber;
 
     @Step("Courier delivery section: select courier delivery")
     public CourierDeliverySection selectCourierDelivery() {
@@ -32,31 +30,38 @@ public class OrderSection {
         return new CourierDeliverySection(orderNumber);
     }
 
-    @Step("Pickup from Meest: select pickup from Meest")
-    public PickupFromMeestSection selectPickupFromMeest(int orderNumber) {
+    @Step("Order section: select pickup from Meest")
+    public PickupFromMeestSection selectPickupFromMeest() {
         $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[4]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
-        return new PickupFromMeestSection();
+        return new PickupFromMeestSection(orderNumber);
     }
 
-    @Step("Pickup from Nova Poshta: select pickup from Nova Poshta")
-    public PickupFromNovaPoshtaSection selectPickupFromNovaPoshta(int orderNumber) {
+    @Step("Order section: select pickup from Ukrposhta")
+    public PickupFromUkrposhtaSection selectPickupFromUkrposhta() {
         $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
-        return new PickupFromNovaPoshtaSection();
+        return new PickupFromUkrposhtaSection(orderNumber);
     }
 
-    @Step("Mobile delivery point: select pickup from mobile delivery point")
-    public MobileDeliveryPointSection selectPickupFromMobileDeliveryPoints(int orderNumber) {
+    @Step("Order section:  select pickup from Nova Poshta")
+    public PickupFromNovaPoshtaSection selectPickupFromNovaPoshta() {
+        $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
+                "//label[@class = 'checkout-variant__label']", orderNumber)).click();
+        return new PickupFromNovaPoshtaSection(orderNumber);
+    }
+
+    @Step("Order section:  select pickup from mobile delivery point")
+    public MobileDeliveryPointSection selectPickupFromMobileDeliveryPoints() {
         $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[3]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
-        return new MobileDeliveryPointSection();
+        return new MobileDeliveryPointSection(orderNumber);
     }
 
-    @Step("Mobile delivery point: select pickup from mobile delivery point")
-    public PickupFromOurStoresSection selectPickupFromOurStores(int orderNumber) {
+    @Step("Order section:  select pickup from mobile delivery point")
+    public PickupFromRozetkaSection selectPickupFromRozetka() {
         $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[1]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
-        return new PickupFromOurStoresSection();
+        return new PickupFromRozetkaSection(orderNumber);
     }
 }
