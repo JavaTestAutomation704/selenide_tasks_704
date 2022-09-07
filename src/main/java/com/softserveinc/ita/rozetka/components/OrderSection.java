@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
 @Getter
 @RequiredArgsConstructor
@@ -16,14 +17,14 @@ public class OrderSection {
 
     @Step("Courier delivery section: select courier delivery")
     public CourierDeliverySection selectCourierDelivery() {
-        $x(String.format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[2]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[2]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         return new CourierDeliverySection(orderNumber);
     }
 
     @Step("Order section: copy information to other orders")
     public OrderSection copyToOtherOrders() {
-        $x(String.format("(//rz-copy-order-button)[%d]/button", orderNumber)).click();
+        $x(format("(//rz-copy-order-button)[%d]/button", orderNumber)).click();
         return this;
     }
 

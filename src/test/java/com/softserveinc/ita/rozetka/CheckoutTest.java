@@ -4,9 +4,7 @@ import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.BusinessGoodsSubcategory;
 import com.softserveinc.ita.rozetka.data.subcategory.OfficeSchoolBooksSubcategory;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
-import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,14 +16,14 @@ import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcatego
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckoutTest extends TestRunner {
-    Header header;
+    private Header header;
 
     @BeforeMethod
     public void clearShoppingCart() {
         header = homePage.getHeader();
 
         if (header.isShoppingCartCounterVisible()) {
-            ShoppingCartModal shoppingCartModal = header
+            var shoppingCartModal = header
                     .openShoppingCartModal()
                     .clear();
             if (shoppingCartModal.isCloseButtonVisible()) {
@@ -102,10 +100,12 @@ public class CheckoutTest extends TestRunner {
                 .isTrue();
 
         header.openHomePageViaLogo();
-        homePage.openCategoryPage(Category.BUSINESS_GOODS)
-                .openSubcategoryPage(BusinessGoodsSubcategory.CASH_BOXES)
-                .getFilter()
-                .filter(List.of(ROZETKA_SELLER, AVAILABLE));
+
+        homePage
+                .openCategoryPage(Category.BUSINESS_GOODS)
+                .openSubcategoryPage(BusinessGoodsSubcategory.CASH_BOXES);
+
+        filter.filter(List.of(ROZETKA_SELLER, AVAILABLE));
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
@@ -149,8 +149,6 @@ public class CheckoutTest extends TestRunner {
 
         firstCourierDeliverySection.fillInDeliveryDetails("Вул", "12", "12");
 
-        var softly = new SoftAssertions();
-
         firstOrderSection.copyToOtherOrders();
 
         var secondCourierDeliverySection = checkoutPage
@@ -161,9 +159,8 @@ public class CheckoutTest extends TestRunner {
                 .as("Courier delivery section in second order should be opened")
                 .isTrue();
 
-        softly.assertThat(firstCourierDeliverySection.areCopiedTo(2))
+        assertThat(firstCourierDeliverySection.isDeliveryDataCopiedTo(2))
                 .as("Delivery information should be copied to second order")
                 .isTrue();
-        softly.assertAll();
     }
 }
