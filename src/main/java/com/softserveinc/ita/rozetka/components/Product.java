@@ -50,7 +50,11 @@ public class Product {
 
     @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
-        $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
+        waitTillPreloaderInvisible();
+        var buyButtonIconXpath = productXpath + "//button[contains(@class, 'buy-button')]";
+        if (isVisible(buyButtonIconXpath)) {
+            $x(buyButtonIconXpath).click();
+        }
         return new SearchResultsPage();
     }
 

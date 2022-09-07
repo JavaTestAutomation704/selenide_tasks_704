@@ -50,7 +50,7 @@ public class SearchResultsPage extends BasePage {
         $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
 
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
-        if (isVisible(preloaderXpath, 3)) {
+        if (isVisible(preloaderXpath, 10)) {
             $x(preloaderXpath).shouldNotBe(visible);
         }
         return this;
