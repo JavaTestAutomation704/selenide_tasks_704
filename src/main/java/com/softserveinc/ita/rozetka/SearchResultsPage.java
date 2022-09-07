@@ -6,8 +6,6 @@ import com.softserveinc.ita.rozetka.data.ProductSort;
 import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
@@ -53,7 +51,7 @@ public class SearchResultsPage extends BasePage {
 
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
         if (isVisible(preloaderXpath, 3)) {
-            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(3));
+            $x(preloaderXpath).shouldNotBe(visible);
         }
         return this;
     }
