@@ -52,9 +52,9 @@ public class Product {
 
     @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
-        String xpathButtonAddToShoppingCart = productXpath + "//button[contains(@class, 'buy-button')]";
-        if (isVisible(xpathButtonAddToShoppingCart)) {
-            $x(xpathButtonAddToShoppingCart).click();
+        var buyButtonIconXpath = productXpath + "//button[contains(@class, 'buy-button')]";
+        if (isVisible(buyButtonIconXpath)) {
+            $x(buyButtonIconXpath).click();
         }
         return new SearchResultsPage();
     }
