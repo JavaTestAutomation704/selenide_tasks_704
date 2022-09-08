@@ -26,10 +26,10 @@ public enum Month {
     private final String monthName;
     private final int monthNumber;
 
-    public static Month getByValue(String value) {
+    public static int getNumberByValue(String value) {
         for (Month month : values()) {
             if (month.monthName.equals(value)) {
-                return month;
+                return month.getMonthNumber();
             }
         }
         throw new IllegalArgumentException("Can't get Month enum for value: " + value);

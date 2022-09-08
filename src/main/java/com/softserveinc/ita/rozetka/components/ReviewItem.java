@@ -31,7 +31,7 @@ public class ReviewItem {
 
     private Date parseDate(String inputDate) {
         var dateParts = inputDate.split(" ");
-        var calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getByValue(dateParts[1]).getMonthNumber(),
+        var calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getNumberByValue(dateParts[1]),
                 Integer.parseInt(dateParts[0]));
 
         return calendar.getTime();
