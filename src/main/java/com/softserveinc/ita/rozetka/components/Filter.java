@@ -7,11 +7,8 @@ import io.qameta.allure.Step;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLongFromField;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitUntilUrlContains;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class Filter extends Header {
 
@@ -28,21 +25,17 @@ public class Filter extends Header {
 
     @Step("Filter: select filter {type}")
     public SearchResultsPage filter(ProductFilter type) {
+        waitTillVisible("//aside[@spinnerid = 'LOAD_FILTERS']");
         $x(String.format("//a[@data-id = '%s']", type.getFilterXpath()))
                 .scrollIntoView(false)
                 .click(ClickOptions.usingJavaScript());
-        var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
-        if (isVisible(preloaderXpath, 10)) {
-            $x(preloaderXpath).shouldNotBe(visible);
-        }
+        waitTillPreloaderInvisible();
         return new SearchResultsPage();
     }
 
     @Step("Filter: select filters {types}")
     public SearchResultsPage filter(List<ProductFilter> types) {
-        types.forEach(filter -> $x(String.format("//a[@data-id = '%s']", filter.getFilterXpath()))
-                .scrollIntoView(false)
-                .click(ClickOptions.usingJavaScript()));
+        types.forEach(this::filter);
         return new SearchResultsPage();
     }
 
