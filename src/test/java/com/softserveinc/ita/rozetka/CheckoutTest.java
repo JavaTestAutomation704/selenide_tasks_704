@@ -200,7 +200,7 @@ public class CheckoutTest extends TestRunner {
 
         assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
-                .contains(PICK_UP_FROM_MEEST.getDeliveryNameUa());
+                .contains(MEEST_PICK_UP.getDeliveryNameUa());
 
         pickupFromMeest.changeCity(LVIV.getCityNameUa());
 
@@ -217,14 +217,14 @@ public class CheckoutTest extends TestRunner {
 
         departmentNumber = 5;
         pickupPointName = pickupPointModal
-                .focusOnPickupPoint(NOVAPOSHTA.getNameUa(), departmentNumber)
+                .focusOnPickupPoint(NOVA_POSHTA, departmentNumber)
                 .getTextAtActivePickupPoint();
 
         pickupPointModal.selectActivePickupPoint();
 
         assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
-                .contains(PICK_UP_FROM_NOVAPOSHTA.getDeliveryNameUa());
+                .contains(NOVA_POSHTA_PICK_UP.getDeliveryNameUa());
 
         var pickupPointNameActual = orderSection
                 .selectPickupFromNovaPoshta()
@@ -232,16 +232,14 @@ public class CheckoutTest extends TestRunner {
 
         softAssertions.assertThat(pickupPointName)
                 .as("Pickup point should be correct")
-                .contains(NOVAPOSHTA.getNameUa())
+                .contains(NOVA_POSHTA.getNameUa())
                 .contains(pickupPointNameActual);
 
         var pickupFromRozetka = orderSection.selectPickupFromRozetka();
 
         assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
-                .contains(PICK_UP_FROM_ROZETKA.getDeliveryNameUa());
-
-        pickupFromRozetka.changeCity(DNIPRO.getCityNameUa());
+                .contains(ROZETKA_PICK_UP.getDeliveryNameUa());
 
         var departmentAddress = "Кульпарківська вул., 226А";
         pickupFromRozetka.selectPickupPointDepartment(departmentAddress);

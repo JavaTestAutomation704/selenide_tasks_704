@@ -3,31 +3,29 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.PickupPointModal;
 import io.qameta.allure.Step;
+import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
-public abstract class BaseDeliveryPickup {
+@RequiredArgsConstructor
+public abstract class BasePickupForm {
 
     private final int orderNumber;
-
-    public BaseDeliveryPickup(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
 
     public String getPickupPointName() {
         return $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).text();
     }
 
     @Step("Base delivery pickup: select Meest pickup point department №{departmentNumber}")
-    public BaseDeliveryPickup selectPickupPointDepartment(int departmentNumber) {
+    public BasePickupForm selectPickupPointDepartment(int departmentNumber) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%d')]", departmentNumber)).click();
         return this;
     }
 
     @Step("Base delivery pickup: select pickup point department on {departmentAddress}")
-    public BaseDeliveryPickup selectPickupPointDepartment(String departmentAddress) {
+    public BasePickupForm selectPickupPointDepartment(String departmentAddress) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%s')]", departmentAddress)).click();
         return this;

@@ -8,13 +8,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum DeliveryType {
 
-    PICK_UP_FROM_ROZETKA("Самовивіз з наших магазинів"),
-    COURIER_TO_YOUR_ADDRESS("Кур'єр на вашу адресу"),
-    PICK_UP_FROM_MOBILE_POINTS("Самовивіз з мобільних точок видачі"),
-    PICK_UP_FROM_MEEST("Самовивіз з Meest"),
-    PICK_UP_FROM_UKRPOSHTA("Самовивіз з Укрпошта"),
-    PICK_UP_FROM_NOVAPOSHTA("Самовивіз з Нової Пошти"),
-    COURIER_MEEST("Кур'єр Meest");
+    ROZETKA_PICK_UP("Самовивіз з наших магазинів"),
+    MEEST_PICK_UP("Самовивіз з Meest"),
+    NOVA_POSHTA_PICK_UP("Самовивіз з Нової Пошти");
 
     @NonNull
     private final String deliveryNameUa;

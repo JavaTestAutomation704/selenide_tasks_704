@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.modals;
 
 import com.softserveinc.ita.rozetka.CheckoutPage;
+import com.softserveinc.ita.rozetka.data.DeliveryService;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.ClickOptions.usingJavaScript;
@@ -14,9 +15,9 @@ public class PickupPointModal {
     }
 
     @Step("Pickup point modal: focus on pickup point delivery service {deliveryService} department №{departmentNumber}")
-    public PickupPointModal focusOnPickupPoint(String deliveryService, int departmentNumber) {
+    public PickupPointModal focusOnPickupPoint(DeliveryService deliveryService, int departmentNumber) {
         $x(format("//p[@class='map-popup__section-heading' and contains(text(),'%s №%d ')]",
-                deliveryService, departmentNumber))
+                deliveryService.getNameUa(), departmentNumber))
                 .scrollIntoView(true)
                 .click(usingJavaScript());
         return this;

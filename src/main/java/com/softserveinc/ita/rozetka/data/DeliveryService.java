@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 public enum DeliveryService {
 
     MEEST("Meest"),
-    UKRPOSHTA("Укрпошта"),
-    NOVAPOSHTA("Нова Пошта"),
+    NOVA_POSHTA("Нова Пошта"),
     ROZETKA("Наш магазин");
 
     @NonNull
