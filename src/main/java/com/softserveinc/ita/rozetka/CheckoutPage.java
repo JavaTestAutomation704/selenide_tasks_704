@@ -2,6 +2,8 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.ContactInformationSection;
 import com.softserveinc.ita.rozetka.components.OrderSection;
+import com.softserveinc.ita.rozetka.components.PromoCodeSection;
+import com.softserveinc.ita.rozetka.components.TotalOrderSection;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
@@ -34,5 +36,13 @@ public class CheckoutPage extends BasePage {
 
     public OrderSection getOrderSection(int orderNumber) {
         return new OrderSection(orderNumber);
+    }
+
+    public PromoCodeSection getPromoCodeSection() {
+        return new PromoCodeSection();
+    }
+
+    public TotalOrderSection getTotalOrderSection() {
+        return new TotalOrderSection();
     }
 }
