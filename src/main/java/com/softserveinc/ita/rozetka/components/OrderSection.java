@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
@@ -34,9 +32,10 @@ public class OrderSection {
         return new CourierDeliverySection(orderNumber);
     }
 
-    public List<String> getRecipientContactInformation() {
-        return List.of($x("//rz-checkout-order-recipient//input[@formcontrolname='surname']").text(),
-                $x("//rz-checkout-order-recipient//input[@formcontrolname='name']").text(),
-                $x("//rz-checkout-order-recipient//input[@formcontrolname='phone']").text());
+    public ContactInformation getRecipientContactInformation() {
+        var inputSurnameXpath = "//rz-checkout-order-recipient//input[@formcontrolname='surname']";
+        var inputNameXpath = "//rz-checkout-order-recipient//input[@formcontrolname='name']";
+        var inputPhoneXpath = "//rz-checkout-order-recipient//input[@formcontrolname='phone']";
+        return new ContactInformation(inputSurnameXpath, inputNameXpath, inputPhoneXpath);
     }
 }

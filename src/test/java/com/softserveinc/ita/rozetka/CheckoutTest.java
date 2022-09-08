@@ -17,8 +17,6 @@ import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
-import static com.softserveinc.ita.rozetka.data.Language.UA;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -149,10 +147,6 @@ public class CheckoutTest extends TestRunner {
                 .as("Order section should be opened")
                 .isTrue();
 
-        checkoutPage
-                .getContactInformationSection()
-                .fillInContactInformation("Маск", "Ілон", "0637891234");
-
         var firstOrderSection = checkoutPage.getOrderSection(1);
 
         var firstCourierDeliverySection = firstOrderSection.selectCourierDelivery();
@@ -266,9 +260,7 @@ public class CheckoutTest extends TestRunner {
     @Test
     public void verifyThatContactInformationIsCopiedToRecipientContactInformation() {
 
-        var searchResultsPage = homePage
-                .getHeader()
-                .search("Lenovo");
+        var searchResultsPage = header.search("Lenovo");
 
         int productNumber = 1;
 
@@ -276,19 +268,17 @@ public class CheckoutTest extends TestRunner {
                 .as("The products quantity should be sufficient on the search results page")
                 .isGreaterThanOrEqualTo(productNumber);
 
-        var shoppingCartModal = searchResultsPage
+        searchResultsPage
                 .getProduct(productNumber)
-                .addToShoppingCart()
-                .getHeader()
-                .openShoppingCartModal();
+                .addToShoppingCart();
+
+        var shoppingCartModal = header.openShoppingCartModal();
 
         assertThat(shoppingCartModal.isEmpty())
                 .as("There should be at least one product in the shopping cart")
                 .isFalse();
 
-        var isUaLanguageSelected = homePage
-                .getHeader()
-                .isLanguageSelected(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
         assertThat(isUaLanguageSelected)
                 .as("Localization should be switched to UA")
@@ -340,13 +330,20 @@ public class CheckoutTest extends TestRunner {
                 .as("Phone border color should be red when entering invalid data on the contact information section")
                 .isTrue();
 
+        var contactInformation = contactInformationSection.getContactInformation();
         var recipientContactInformation = checkoutPage
                 .getOrderSection(1)
                 .getRecipientContactInformation();
 
-        softAssertions.assertThat(recipientContactInformation)
-                .as("Contact information should be copied to recipient's contact information")
-                .isEqualTo(contactInformationSection.getContactInformation());
+        softAssertions.assertThat(recipientContactInformation.getSurname())
+                .as("Surname from contact information should be copied to recipient's contact information")
+                .isEqualTo(contactInformation.getSurname());
+        softAssertions.assertThat(recipientContactInformation.getName())
+                .as("Name from contact information should be copied to recipient's contact information")
+                .isEqualTo(contactInformation.getName());
+        softAssertions.assertThat(recipientContactInformation.getPhone())
+                .as("Phone from contact information should be copied to recipient's contact information")
+                .isEqualTo(contactInformation.getPhone());
 
         softAssertions.assertAll();
     }
