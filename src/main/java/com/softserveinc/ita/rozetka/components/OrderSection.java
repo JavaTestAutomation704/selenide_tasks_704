@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.softserveinc.ita.rozetka.data.DeliveryType;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import io.qameta.allure.Step;
@@ -36,25 +35,25 @@ public class OrderSection {
     }
 
     @Step("Order section: select pickup from Meest")
-    public MeestPickUpSection selectPickupFromMeest(Language pageLanguage) {
+    public MeestPickUpSection selectPickUpFromMeest(Language pageLocalization) {
         $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
-                orderNumber, MEEST_PICK_UP.getDeliveryName(pageLanguage))).click();
+                orderNumber, MEEST_PICK_UP.getDeliveryName(pageLocalization))).click();
         waitTillPreloaderInvisible();
         return new MeestPickUpSection(orderNumber);
     }
 
     @Step("Order section: select pickup from Nova Poshta")
-    public NovaPoshtaPickUpSection selectPickupFromNovaPoshta(Language pageLanguage) {
+    public NovaPoshtaPickUpSection selectPickUpFromNovaPoshta(Language pageLocalization) {
         $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
-                orderNumber, NOVA_POSHTA_PICK_UP.getDeliveryName(pageLanguage))).click();
+                orderNumber, NOVA_POSHTA_PICK_UP.getDeliveryName(pageLocalization))).click();
         waitTillPreloaderInvisible();
         return new NovaPoshtaPickUpSection(orderNumber);
     }
 
     @Step("Order section: select pickup from Rozetka")
-    public RozetkaPickUpSection selectPickupFromRozetka(Language pageLanguage) {
+    public RozetkaPickUpSection selectPickUpFromRozetka(Language pageLocalization) {
         $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
-                orderNumber, ROZETKA_PICK_UP.getDeliveryName(pageLanguage))).click();
+                orderNumber, ROZETKA_PICK_UP.getDeliveryName(pageLocalization))).click();
         waitTillPreloaderInvisible();
         return new RozetkaPickUpSection(orderNumber);
     }
