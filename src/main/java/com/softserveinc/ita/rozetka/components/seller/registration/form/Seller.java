@@ -7,7 +7,6 @@ import lombok.NonNull;
 @Getter
 @AllArgsConstructor
 public class Seller {
-
     @NonNull
     private String shopName;
     @NonNull

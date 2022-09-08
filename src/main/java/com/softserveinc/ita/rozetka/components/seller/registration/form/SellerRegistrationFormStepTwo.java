@@ -1,5 +1,7 @@
 package com.softserveinc.ita.rozetka.components.seller.registration.form;
 
+import io.qameta.allure.Step;
+
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -11,11 +13,13 @@ public class SellerRegistrationFormStepTwo extends SellerRegistrationForm {
         return isOpened(String.format(tabPanelXpathTemplate, 3));
     }
 
+    @Step("Seller registration form step two: open seller registration form step one via tab panel")
     public SellerRegistrationFormStepOne openSellerRegistrationFormStepOneViaTabPanel() {
         $x("(//div[contains(@class,'mat-step-icon')])[1]").click();
         return new SellerRegistrationFormStepOne();
     }
 
+    @Step("Seller registration form step two: fill in contact information {seller}")
     public SellerRegistrationFormStepTwo fillInContactInformation(Seller seller) {
         $x(String.format(formFieldXpathTemplate, 3)).val(seller.getFullName()).click();
         $x(String.format(formFieldXpathTemplate, 4)).val(seller.getPosition()).click();
@@ -25,6 +29,7 @@ public class SellerRegistrationFormStepTwo extends SellerRegistrationForm {
         return this;
     }
 
+    @Step("Seller registration form step two: clear all fields")
     public SellerRegistrationFormStepTwo clearAllFields() {
         clearAllFields(List.of(3, 4, 5, 6), 3);
         return this;

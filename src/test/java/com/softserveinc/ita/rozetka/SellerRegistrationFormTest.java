@@ -11,9 +11,9 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SellerRegistrationFormTest extends TestRunner {
+
     private Header header;
     private SellerRegistrationFormStepOne sellerRegistrationFormStepOne;
-
 
     private void openSellerRegistrationPage() {
         header = homePage.getHeader();
@@ -22,6 +22,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                     .openMainSidebar()
                     .changeLanguage(UA);
         }
+
         var sellOnRozetkaPage = homePage
                 .getPartnerSection()
                 .openSellOnRozetkaPage();
@@ -110,8 +111,7 @@ public class SellerRegistrationFormTest extends TestRunner {
     @Test
     public void verifyErrorMessagesAppearWhenSellerRegistrationFormFieldsAreFilledInWithInvalidData() {
         openSellerRegistrationPage();
-        Seller seller = new Seller(" ", "new adress", "ten products",
-                " ", " ", "email", "0000");
+        Seller seller = new Seller(" ", "new adress", "ten products", " ", " ", "email", "0000");
         sellerRegistrationFormStepOne.fillInShopInformation(seller);
 
         var expectedErrorMessage = "Значення не відповідає формату";

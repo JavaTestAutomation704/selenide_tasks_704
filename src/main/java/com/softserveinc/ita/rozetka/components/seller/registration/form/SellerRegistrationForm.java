@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components.seller.registration.form;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
 import java.util.List;
