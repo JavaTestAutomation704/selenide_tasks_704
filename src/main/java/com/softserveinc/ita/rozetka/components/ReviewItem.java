@@ -28,8 +28,8 @@ public class ReviewItem {
     }
 
     private Date parseDate(String inputDate) {
-        String[] dateParts = inputDate.split(" ");
-        String result = dateParts[2];
+        var dateParts = inputDate.split(" ");
+        var result = dateParts[2];
         result += Month.getByValue(dateParts[1]).getMonthValue();
         result += dateParts[0];
 
