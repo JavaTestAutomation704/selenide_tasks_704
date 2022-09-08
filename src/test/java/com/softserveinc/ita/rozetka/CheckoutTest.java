@@ -13,16 +13,14 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.COTTAGE_GARDEN_BACKYARD;
-import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
+import static com.softserveinc.ita.rozetka.data.Category.*;
 import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
-import static com.softserveinc.ita.rozetka.data.City.LVIV;
 import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
 import static com.softserveinc.ita.rozetka.data.DeliveryService.*;
-import static com.softserveinc.ita.rozetka.data.subcategory.CottageGardenBackyardSubcategory.GARDEN_TECHNIQUES;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
+import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckoutTest extends TestRunner {
@@ -269,8 +267,10 @@ public class CheckoutTest extends TestRunner {
     @Test
     public void verifyDeliveryWorksOnCheckoutPage() {
         var checkoutPage = homePage
-                .openCategoryPage(COTTAGE_GARDEN_BACKYARD)
-                .openSubcategoryPage(GARDEN_TECHNIQUES)
+                .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
+                .openSubcategoryPage(MOBILE_PHONES)
+                .getFilter()
+                .filter(AVAILABLE)
                 .getProduct(1)
                 .addToShoppingCart()
                 .getHeader()
@@ -282,10 +282,9 @@ public class CheckoutTest extends TestRunner {
                 .isTrue();
 
         int orderNumber = 1;
-
         var orderSection = checkoutPage.getOrderSection(orderNumber);
         orderSection.changeCity(DNIPRO.getCityNameUa());
-        var pickupFromMeest = orderSection.selectPickupFromMeest();
+        var pickupFromMeest = orderSection.selectPickupFromMeest(UA);
 
         assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
@@ -315,7 +314,7 @@ public class CheckoutTest extends TestRunner {
                 .contains(NOVA_POSHTA_PICK_UP.getDeliveryNameUa());
 
         var pickupPointNameActual = orderSection
-                .selectPickupFromNovaPoshta()
+                .selectPickupFromNovaPoshta(UA)
                 .getPickupPointName();
 
         softAssertions.assertThat(pickupPointName)
@@ -323,7 +322,7 @@ public class CheckoutTest extends TestRunner {
                 .contains(NOVA_POSHTA.getNameUa())
                 .contains(pickupPointNameActual);
 
-        var pickupFromRozetka = orderSection.selectPickupFromRozetka();
+        var pickupFromRozetka = orderSection.selectPickupFromRozetka(UA);
 
         assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
