@@ -15,8 +15,8 @@ import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.COTTAGE_GARDEN_BACKYARD;
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
-import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.City.LVIV;
 import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
 import static com.softserveinc.ita.rozetka.data.DeliveryService.*;
@@ -284,15 +284,15 @@ public class CheckoutTest extends TestRunner {
         int orderNumber = 1;
 
         var orderSection = checkoutPage.getOrderSection(orderNumber);
+        orderSection.changeCity(DNIPRO.getCityNameUa());
         var pickupFromMeest = orderSection.selectPickupFromMeest();
 
         assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
                 .as("Delivery should be correct")
                 .contains(MEEST_PICK_UP.getDeliveryNameUa());
 
-        pickupFromMeest.changeCity(LVIV.getCityNameUa());
 
-        int departmentNumber = 1968;
+        int departmentNumber = 8841;
         pickupFromMeest.selectPickupPointDepartment(departmentNumber);
         var pickupPointName = pickupFromMeest.getPickupPointName();
         var pickupPointModal = pickupFromMeest.openPickupPointModal();
@@ -329,7 +329,7 @@ public class CheckoutTest extends TestRunner {
                 .as("Delivery should be correct")
                 .contains(ROZETKA_PICK_UP.getDeliveryNameUa());
 
-        var departmentAddress = "Кульпарківська вул., 226А";
+        var departmentAddress = "Шолохова вул., 7";
         pickupFromRozetka.selectPickupPointDepartment(departmentAddress);
         pickupPointName = pickupFromRozetka.getPickupPointName();
         pickupFromRozetka.openPickupPointModal();

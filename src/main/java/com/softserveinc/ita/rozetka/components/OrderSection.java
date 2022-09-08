@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Meest")
     public MeestPickUpSection selectPickupFromMeest() {
-        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[4]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[3]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         waitTillPreloaderInvisible();
         return new MeestPickUpSection(orderNumber);
@@ -41,7 +42,7 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Nova Poshta")
     public NovaPoshtaPickUpSection selectPickupFromNovaPoshta() {
-        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[6]" +
+        $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[5]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         waitTillPreloaderInvisible();
         return new NovaPoshtaPickUpSection(orderNumber);
@@ -53,5 +54,11 @@ public class OrderSection {
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
         waitTillPreloaderInvisible();
         return new RozetkaPickUpSection(orderNumber);
+    }
+
+    @Step("Base delivery pickup: change city to {city}")
+    public Header changeCity(String city) {
+        $x(format("(//span[@class='deliveries__city-title'])[%d]", orderNumber)).click();
+        return new ChangeCityModal().changeCity(city);
     }
 }

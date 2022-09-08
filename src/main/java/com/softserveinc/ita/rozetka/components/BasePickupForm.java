@@ -36,10 +36,4 @@ public abstract class BasePickupForm {
         $x(format("(//button[contains(@class,'delivery-pickups__map')])[%d]", orderNumber)).click();
         return new PickupPointModal();
     }
-
-    @Step("Base delivery pickup: change city to {city}")
-    public Header changeCity(String city) {
-        $x(format("(//span[@class='deliveries__city-title'])[%d]", orderNumber)).click();
-        return new ChangeCityModal().changeCity(city);
-    }
 }
