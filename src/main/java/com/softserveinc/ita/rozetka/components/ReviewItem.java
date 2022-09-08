@@ -1,7 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.data.Month;
-import java.sql.Date;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
@@ -29,10 +32,9 @@ public class ReviewItem {
 
     private Date parseDate(String inputDate) {
         var dateParts = inputDate.split(" ");
-        var result = dateParts[2];
-        result += Month.getByValue(dateParts[1]).getMonthValue();
-        result += dateParts[0];
+        Calendar calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getByValue(dateParts[1]).getMonthNumber(),
+                Integer.parseInt(dateParts[0]));
 
-        return Date.valueOf(result);
+        return calendar.getTime();
     }
 }

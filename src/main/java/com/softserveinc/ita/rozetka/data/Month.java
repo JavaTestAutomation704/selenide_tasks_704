@@ -4,25 +4,27 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Calendar;
+
 @Getter
 @RequiredArgsConstructor
 public enum Month {
-    JANUARY("січня", "-01-"),
-    FEBRUARY("лютого", "-02-"),
-    MARCH("березня", "-03-"),
-    APRIL("квітня", "-04-"),
-    MAY("травня", "-05-"),
-    JUNE("червня", "-06-"),
-    JULY("липня", "-07-"),
-    AUGUST("серпня", "-08-"),
-    SEPTEMBER("вересня", "-09-"),
-    OCTOBER("жовтня", "-10-"),
-    NOVEMBER("листопада", "-11-"),
-    DECEMBER("грудня", "-12-");
+    JANUARY("січня", Calendar.JANUARY),
+    FEBRUARY("лютого", Calendar.FEBRUARY),
+    MARCH("березня", Calendar.MARCH),
+    APRIL("квітня", Calendar.APRIL),
+    MAY("травня", Calendar.MAY),
+    JUNE("червня", Calendar.JUNE),
+    JULY("липня", Calendar.JULY),
+    AUGUST("серпня", Calendar.AUGUST),
+    SEPTEMBER("вересня", Calendar.SEPTEMBER),
+    OCTOBER("жовтня", Calendar.OCTOBER),
+    NOVEMBER("листопада", Calendar.NOVEMBER),
+    DECEMBER("грудня", Calendar.DECEMBER);
 
     @NonNull
     private final String monthName;
-    private final String monthValue;
+    private final int monthNumber;
 
     public static Month getByValue(String value) {
         for (Month month : values()) {
