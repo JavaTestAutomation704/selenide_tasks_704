@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.PickupPointModal;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
 @RequiredArgsConstructor
-public abstract class BasePickupForm {
+public abstract class BasePickUpForm {
 
     private final int orderNumber;
 
@@ -18,14 +17,14 @@ public abstract class BasePickupForm {
     }
 
     @Step("Base delivery pickup: select Meest pickup point department №{departmentNumber}")
-    public BasePickupForm selectPickupPointDepartment(int departmentNumber) {
+    public BasePickUpForm selectPickupPointDepartment(int departmentNumber) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%d')]", departmentNumber)).click();
         return this;
     }
 
     @Step("Base delivery pickup: select pickup point department on {departmentAddress}")
-    public BasePickupForm selectPickupPointDepartment(String departmentAddress) {
+    public BasePickUpForm selectPickupPointDepartment(String departmentAddress) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%s')]", departmentAddress)).click();
         return this;
