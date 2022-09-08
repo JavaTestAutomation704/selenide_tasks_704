@@ -2,15 +2,19 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.data.subcategory.BusinessGoodsSubcategory;
 import com.softserveinc.ita.rozetka.data.subcategory.OfficeSchoolBooksSubcategory;
+import com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubcategory;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -169,5 +173,90 @@ public class CheckoutTest extends TestRunner {
         assertThat(firstCourierDeliverySection.isDeliveryDataCopiedTo(2))
                 .as("Delivery information should be copied to second order")
                 .isTrue();
+    }
+
+    @Test
+    public void verifyOrderTotalSumIsNotChangingAndErrorMessageAppearsWhenInvalidPromoCodeIsApplied() {
+        if (!header.isLanguageSelected(UA)) {
+            header
+                    .openMainSidebar()
+                    .changeLanguage(UA);
+        }
+        var filter = homePage
+                .openCategoryPage(Category.SPORT_AND_HOBBIES)
+                .openSubcategoryPage(SportAndHobbiesSubcategory.YOGA)
+                .getFilter();
+
+        var searchResultsPage = filter.filter(AVAILABLE);
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var firstProduct = searchResultsPage.getProduct(1);
+
+        assertThat(firstProduct.isAvailable())
+                .as("First product should be available")
+                .isTrue();
+
+        var secondProduct = searchResultsPage.getProduct(2);
+
+        assertThat(secondProduct.isAvailable())
+                .as("Second product should be available")
+                .isTrue();
+
+        firstProduct.addToShoppingCart();
+
+        assertThat(firstProduct.isInShoppingCart())
+                .as("First product should be added to shopping cart")
+                .isTrue();
+
+        secondProduct.addToShoppingCart();
+
+        assertThat(secondProduct.isInShoppingCart())
+                .as("Second product should be added to shopping cart")
+                .isTrue();
+
+        var shoppingCartModal = header.openShoppingCartModal();
+
+        assertThat(shoppingCartModal.isOpened())
+                .as("Shopping cart modal should be opened")
+                .isTrue();
+
+        var checkoutPage = shoppingCartModal.startCheckout();
+        var promoCodeSection = checkoutPage.getPromoCodeSection();
+
+        assertThat(promoCodeSection.isVisible())
+                .as("Promo code section should be visible")
+                .isTrue();
+
+        var totalOrderSection = checkoutPage.getTotalOrderSection();
+
+        assertThat(totalOrderSection.isVisible())
+                .as("Total order section should be visible")
+                .isTrue();
+
+        long totalSumWithoutPromoCode = totalOrderSection.getTotalSum();
+        promoCodeSection.add("NJ");
+
+        var softly = new SoftAssertions();
+
+        softly.assertThat(totalSumWithoutPromoCode)
+                .as("Total sum should be the same")
+                .isEqualTo(totalOrderSection.getTotalSum());
+
+        var actualPromoCodeErrorMessage = promoCodeSection.getPromoCodeErrorMessage();
+
+        softly.assertThat(actualPromoCodeErrorMessage)
+                .as("Error message should appear")
+                .isEqualTo("Купон неможливо застосувати");
+
+        var isBorderColorCorrect = promoCodeSection.isPromoCodeFieldBorderColorCorrect(Color.RED.getRgb());
+
+        softly.assertThat(isBorderColorCorrect)
+                .as("Promo code field border color should be " + Color.RED)
+                .isTrue();
+
+        softly.assertAll();
     }
 }
