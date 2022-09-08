@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
 @RequiredArgsConstructor
-public abstract class BasePickUpForm {
+public abstract class BasePickUpSection {
 
     private final int orderNumber;
 
@@ -17,14 +17,14 @@ public abstract class BasePickUpForm {
     }
 
     @Step("Base delivery pickup: select Meest pickup point department №{departmentNumber}")
-    public BasePickUpForm selectPickupPointDepartment(int departmentNumber) {
+    public BasePickUpSection selectPickupPointDepartment(int departmentNumber) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%d')]", departmentNumber)).click();
         return this;
     }
 
     @Step("Base delivery pickup: select pickup point department on {departmentAddress}")
-    public BasePickUpForm selectPickupPointDepartment(String departmentAddress) {
+    public BasePickUpSection selectPickupPointDepartment(String departmentAddress) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%s')]", departmentAddress)).click();
         return this;

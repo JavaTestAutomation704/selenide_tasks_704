@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
-public class RozetkaPickUpSection extends BasePickUpForm {
+public class RozetkaPickUpSection extends BasePickUpSection {
     public RozetkaPickUpSection(int orderNumber) {
         super(orderNumber);
     }
