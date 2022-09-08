@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.data.Month;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -32,7 +31,7 @@ public class ReviewItem {
 
     private Date parseDate(String inputDate) {
         var dateParts = inputDate.split(" ");
-        Calendar calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getByValue(dateParts[1]).getMonthNumber(),
+        var calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getByValue(dateParts[1]).getMonthNumber(),
                 Integer.parseInt(dateParts[0]));
 
         return calendar.getTime();
