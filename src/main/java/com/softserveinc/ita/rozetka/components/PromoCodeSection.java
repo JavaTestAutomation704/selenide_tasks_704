@@ -8,14 +8,13 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class PromoCodeSection {
 
-    private final String promoFormXpath = "//rz-checkout-orders-coupons//div[contains(@class, 'checkout-promo__form')]";
-
     public boolean isVisible() {
         return WebElementUtil.isVisible("//rz-checkout-orders-coupons/div[contains(@class, 'checkout-promo')]");
     }
 
     @Step("Promo code section: add {promoCode}")
     public PromoCodeSection add(String promoCode) {
+        var promoFormXpath = "//rz-checkout-orders-coupons//div[contains(@class, 'checkout-promo__form')]";
         $x("//div[contains(@class, 'checkout-promo')]/button").click();
         waitTillVisible(promoFormXpath);
         $x(promoFormXpath + "//input").val(promoCode);

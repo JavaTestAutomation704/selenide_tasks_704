@@ -245,7 +245,7 @@ public class CheckoutTest extends TestRunner {
                 .as("Total sum should be the same")
                 .isEqualTo(totalOrderSection.getTotalSum());
 
-        String actualPromoCodeErrorMessage = promoCodeSection.getPromoCodeErrorMessage();
+        var actualPromoCodeErrorMessage = promoCodeSection.getPromoCodeErrorMessage();
 
         softly.assertThat(actualPromoCodeErrorMessage)
                 .as("Error message should appear")
