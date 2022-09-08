@@ -290,7 +290,6 @@ public class CheckoutTest extends TestRunner {
                 .as("Delivery should be correct")
                 .contains(MEEST_PICK_UP.getDeliveryNameUa());
 
-
         int departmentNumber = 8841;
         pickupFromMeest.selectPickUpPointDepartment(departmentNumber);
         var pickupPointName = pickupFromMeest.getPickUpPointName();
