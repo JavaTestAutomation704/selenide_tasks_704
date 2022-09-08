@@ -99,6 +99,7 @@ public class Product {
     }
 
     public boolean isLastSeen(String name) {
+        waitTillVisible("(//rz-goods-section)[1]");
         return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
                 "//a[contains(text(), '%s')]", name));
     }
