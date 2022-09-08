@@ -11,7 +11,7 @@ public class ContactInformationSection {
     private final String inputNameXpath = "//rz-checkout-contact-info//input[@formcontrolname = 'name']";
     private final String inputPhoneXpath = "//rz-checkout-contact-info//input[@formcontrolname = 'phone']";
 
-    @Step("Contact information section: fill in contact information")
+    @Step("Contact information section: fill in contact information {surname, name, phone}")
     public ContactInformationSection fillInContactInformation(String surname, String name, String phone) {
         fillInWithChars(inputSurnameXpath, surname);
         fillInWithChars(inputNameXpath, name);
@@ -19,6 +19,7 @@ public class ContactInformationSection {
         return this;
     }
 
+    @Step("Contact information section: fill in with chars {elementXpath, inputValue}")
     private void fillInWithChars(String elementXpath, String inputValue) {
         for (String s : inputValue.split("")) {
             $x(elementXpath).sendKeys(s);
