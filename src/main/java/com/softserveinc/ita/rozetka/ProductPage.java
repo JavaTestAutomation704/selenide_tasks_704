@@ -50,6 +50,12 @@ public class ProductPage extends BasePage {
         return new CreditModal().open();
     }
 
+    @Step("Product page: open product questions page")
+    public ProductQuestionsPage openProductQuestionsPage() {
+        openPage("questions");
+        return new ProductQuestionsPage();
+    }
+
     public boolean isBuyOnCreditButtonVisible() {
         return isVisible("(//ul[@class='product-buttons']//li)[2]");
     }
