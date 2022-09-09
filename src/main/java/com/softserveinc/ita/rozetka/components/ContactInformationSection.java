@@ -21,9 +21,9 @@ public class ContactInformationSection {
 
     @Step("Contact information section: fill in with chars {elementXpath, inputValue}")
     private void fillInWithChars(String elementXpath, String inputValue) {
-        for (var s : inputValue.split("")) {
+        for (var character : inputValue.split("")) {
             $x(elementXpath).click();
-            $x(elementXpath).sendKeys(s);
+            $x(elementXpath).sendKeys(character);
         }
     }
 
@@ -52,14 +52,11 @@ public class ContactInformationSection {
     }
 
     public ContactInformation getContactInformation() {
-        var surname = $x(inputSurnameXpath).val();
-        var name = $x(inputNameXpath).val();
-        var phone = $x(inputPhoneXpath).val();
-
-        return ContactInformation.builder()
-                .surname(surname)
-                .name(name)
-                .phone(phone)
+        return ContactInformation
+                .builder()
+                .surname($x(inputSurnameXpath).val())
+                .name($x(inputNameXpath).val())
+                .phone($x(inputPhoneXpath).val())
                 .build();
     }
 }
