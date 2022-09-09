@@ -1,5 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.data.Month;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
@@ -18,5 +23,17 @@ public class ReviewItem {
 
     public boolean hasPhoto() {
         return isVisible(reviewItemXpath + "//img", 2);
+    }
+
+    public Date getDate() {
+        return parseDate($x(reviewItemXpath + "//time").text());
+    }
+
+    private Date parseDate(String inputDate) {
+        var dateParts = inputDate.split(" ");
+        var calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getNumberByValue(dateParts[1]),
+                Integer.parseInt(dateParts[0]));
+
+        return calendar.getTime();
     }
 }
