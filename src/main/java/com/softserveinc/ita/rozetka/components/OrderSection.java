@@ -33,9 +33,14 @@ public class OrderSection {
     }
 
     public ContactInformation getRecipientContactInformation() {
-        var inputSurnameXpath = "//rz-checkout-order-recipient//input[@formcontrolname='surname']";
-        var inputNameXpath = "//rz-checkout-order-recipient//input[@formcontrolname='name']";
-        var inputPhoneXpath = "//rz-checkout-order-recipient//input[@formcontrolname='phone']";
-        return new ContactInformation(inputSurnameXpath, inputNameXpath, inputPhoneXpath);
+        var surname = $x("//rz-checkout-order-recipient//input[@formcontrolname='surname']").val();
+        var name = $x("//rz-checkout-order-recipient//input[@formcontrolname='name']").val();
+        var phone = $x("//rz-checkout-order-recipient//input[@formcontrolname='phone']").val();
+
+        return ContactInformation.builder()
+                .surname(surname)
+                .name(name)
+                .phone(phone)
+                .build();
     }
 }

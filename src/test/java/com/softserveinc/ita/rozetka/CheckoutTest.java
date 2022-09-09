@@ -288,7 +288,7 @@ public class CheckoutTest extends TestRunner {
 
         var contactInformationSection = checkoutPage
                 .getContactInformationSection()
-                .fillInContactInformation("Musk", "Elon", "999999");
+                .fillInContactInformation("Musk", "Elon", "9875");
 
         var softAssertions = new SoftAssertions();
 
