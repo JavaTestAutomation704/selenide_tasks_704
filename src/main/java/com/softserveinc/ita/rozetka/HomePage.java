@@ -51,7 +51,6 @@ public class HomePage extends BasePage {
     public GoodsExchangePage openGoodsExchangePage() {
         $x("(//a[contains(@href, 'obmin')])[1]").click(ClickOptions.usingJavaScript());
         waitTillPreloaderInvisible();
-        refresh();
         return new GoodsExchangePage();
     }
 }
