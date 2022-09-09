@@ -15,6 +15,7 @@ public enum Category {
     SMARTPHONES_TV_AND_ELECTRONICS("telefony"),
     SPORT_AND_HOBBIES("sport-i-uvlecheniya"),
     ALCOHOLIC_BEVERAGES_AND_PRODUCTS("alkoholnie-napitki-i-produkty"),
+    COTTAGE_GARDEN_BACKYARD("dacha-sad-ogorod"),
     PLUMBING_AND_REPAIR("santekhnika-i-remont"),
     OFFICE_SCHOOL_BOOKS("office-school-books"),
     BUSINESS_GOODS("tovary-dlya-biznesa");
