@@ -13,11 +13,16 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
+import static com.softserveinc.ita.rozetka.data.Category.*;
+import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
+import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
+import static com.softserveinc.ita.rozetka.data.DeliveryService.*;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
+import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckoutTest extends TestRunner {
@@ -255,6 +260,81 @@ public class CheckoutTest extends TestRunner {
                 .isTrue();
 
         softly.assertAll();
+    }
+
+    @Test
+    public void verifyDeliveryWorksOnCheckoutPage() {
+        var checkoutPage = homePage
+                .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
+                .openSubcategoryPage(MOBILE_PHONES)
+                .getFilter()
+                .filter(AVAILABLE)
+                .getProduct(1)
+                .addToShoppingCart()
+                .getHeader()
+                .openShoppingCartModal()
+                .startCheckout();
+
+        assertThat(checkoutPage.isOrderModalVisible())
+                .as("Order modal should be visible")
+                .isTrue();
+
+        int orderNumber = 1;
+        var orderSection = checkoutPage.getOrderSection(orderNumber);
+        orderSection.changeCity(DNIPRO.getCityNameUa());
+        var meestPickup = orderSection.selectMeestPickUp(UA);
+
+        assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
+                .as("Delivery should be correct")
+                .contains(MEEST_PICK_UP.getDeliveryNameUa());
+
+        int departmentNumber = 8841;
+        meestPickup.selectPickUpPointDepartment(departmentNumber);
+        var pickupPointName = meestPickup.getPickUpPointName();
+        var pickupPointModal = meestPickup.openPickUpPointModal();
+
+        var softAssertions = new SoftAssertions();
+        softAssertions.assertThat(pickupPointModal.getPickUpPointName())
+                .as("Pickup point should be correct")
+                .contains(MEEST.getNameUa())
+                .contains(pickupPointName);
+
+        departmentNumber = 5;
+        pickupPointName = pickupPointModal
+                .focusOnPickUpPoint(NOVA_POSHTA, departmentNumber)
+                .getPickUpPointName();
+
+        pickupPointModal.selectActivePickUpPoint();
+
+        assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
+                .as("Delivery should be correct")
+                .contains(NOVA_POSHTA_PICK_UP.getDeliveryNameUa());
+
+        var pickupPointNameActual = orderSection
+                .selectNovaPoshtaPickUp(UA)
+                .getPickUpPointName();
+
+        softAssertions.assertThat(pickupPointName)
+                .as("Pickup point should be correct")
+                .contains(NOVA_POSHTA.getNameUa())
+                .contains(pickupPointNameActual);
+
+        var rozetkaPickup = orderSection.selectRozetkaPickUp(UA);
+
+        assertThat(checkoutPage.getSelectedDeliveryTitle(orderNumber))
+                .as("Delivery should be correct")
+                .contains(ROZETKA_PICK_UP.getDeliveryNameUa());
+
+        var departmentAddress = "Шолохова вул., 7";
+        rozetkaPickup.selectPickUpPointDepartment(departmentAddress);
+        pickupPointName = rozetkaPickup.getPickUpPointName();
+        rozetkaPickup.openPickUpPointModal();
+
+        softAssertions.assertThat(pickupPointModal.getPickUpPointName())
+                .as("Pickup point should be correct")
+                .contains(ROZETKA.getNameUa())
+                .contains(pickupPointName);
+        softAssertions.assertAll();
     }
 
     @Test
