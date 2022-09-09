@@ -10,11 +10,11 @@ import static java.lang.String.format;
 
 public class PickUpPointModal {
 
-    public String getTextAtActivePickUpPoint() {
+    public String getPickUpPointName() {
         return $x("//li[contains(@class,'active')]//div[@class='map-popup__section']").text();
     }
 
-    @Step("Pickup point modal: focus on pickup point delivery service {deliveryService} department №{departmentNumber}")
+    @Step("Pickup point modal: focus on pickup point delivery service {deliveryService} department number {departmentNumber}")
     public PickUpPointModal focusOnPickUpPoint(DeliveryService deliveryService, int departmentNumber) {
         $x(format("//p[@class='map-popup__section-heading' and contains(text(),'%s №%d ')]",
                 deliveryService.getNameUa(), departmentNumber))

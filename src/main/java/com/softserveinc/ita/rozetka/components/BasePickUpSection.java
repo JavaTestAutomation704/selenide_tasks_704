@@ -16,7 +16,7 @@ public abstract class BasePickUpSection {
         return $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).text();
     }
 
-    @Step("Base pickup section: select Meest pickup point department №{departmentNumber}")
+    @Step("Base pickup section: select Meest pickup point department number {departmentNumber}")
     public BasePickUpSection selectPickUpPointDepartment(int departmentNumber) {
         $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).click();
         $x(format("//ul[contains(@class,'list-inner')]//div[contains(text(),'%d')]", departmentNumber)).click();
