@@ -39,7 +39,7 @@ public class WebElementUtil {
         }
     }
 
-    public static boolean doesHaveCssValue(String elementXpath, String property, String cssValue) {
+    public static boolean hasCssValue(String elementXpath, String property, String cssValue) {
         try {
             $x(elementXpath).shouldHave(cssValue(property, cssValue));
             return true;
@@ -48,7 +48,7 @@ public class WebElementUtil {
         }
     }
 
-    public static boolean doesHaveAttribute(String elementXpath, String name, String value) {
+    public static boolean hasAttribute(String elementXpath, String name, String value) {
         try {
             $x(elementXpath).shouldHave(attribute(name, value));
             return true;

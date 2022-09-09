@@ -12,11 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SellerRegistrationFormTest extends TestRunner {
 
-    private Header header;
-    private SellerRegistrationFormStepOne sellerRegistrationFormStepOne;
-
-    private void openSellerRegistrationPage() {
-        header = homePage.getHeader();
+    private SellerRegistrationFormStepOne openSellerRegistrationPage() {
+        Header header = homePage.getHeader();
         if (!header.isLanguageSelected(UA)) {
             header
                     .openMainSidebar()
@@ -37,16 +34,17 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Seller registration page should be opened")
                 .isTrue();
 
-        sellerRegistrationFormStepOne = sellerRegistrationPage.getSellerRegistrationFormStepOne();
-
-        assertThat(sellerRegistrationFormStepOne.isOpened())
-                .as("Seller registration form step one should be opened")
-                .isTrue();
+        return sellerRegistrationPage.getSellerRegistrationFormStepOne();
     }
 
     @Test
     public void verifyApplicationCanNotBeSubmittedAndErrorMessagesAppearWhenSellerRegistrationFormFieldsAreEmpty() {
-        openSellerRegistrationPage();
+        var sellerRegistrationFormStepOne = openSellerRegistrationPage();
+
+        assertThat(sellerRegistrationFormStepOne.isOpened())
+                .as("Seller registration form step one should be opened")
+                .isTrue();
+
         sellerRegistrationFormStepOne.clearAllFields();
 
         var expectedErrorMessage = "Обов'язкове поле";
@@ -110,8 +108,22 @@ public class SellerRegistrationFormTest extends TestRunner {
 
     @Test
     public void verifyErrorMessagesAppearWhenSellerRegistrationFormFieldsAreFilledInWithInvalidData() {
-        openSellerRegistrationPage();
-        Seller seller = new Seller(" ", "new adress", "ten products", " ", " ", "email", "0000");
+        var sellerRegistrationFormStepOne = openSellerRegistrationPage();
+
+        assertThat(sellerRegistrationFormStepOne.isOpened())
+                .as("Seller registration form step one should be opened")
+                .isTrue();
+
+        var seller = Seller.builder()
+                .shopName(" ")
+                .siteUrl("new address")
+                .productsAmount("ten products")
+                .fullName(" ")
+                .position(" ")
+                .email("email")
+                .phoneNumber("0000")
+                .build();
+
         sellerRegistrationFormStepOne.fillInShopInformation(seller);
 
         var expectedErrorMessage = "Значення не відповідає формату";

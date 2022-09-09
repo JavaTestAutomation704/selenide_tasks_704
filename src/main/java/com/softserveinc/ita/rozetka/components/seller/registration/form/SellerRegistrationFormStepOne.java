@@ -5,11 +5,12 @@ import io.qameta.allure.Step;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
 public class SellerRegistrationFormStepOne extends SellerRegistrationForm {
 
     public boolean isOpened() {
-        return isOpened(String.format(tabPanelXpathTemplate, 1));
+        return isOpened(format(tabPanelXpathTemplate, 1));
     }
 
     @Step("Seller registration form step one: open seller registration form step two via tab panel")
@@ -20,10 +21,10 @@ public class SellerRegistrationFormStepOne extends SellerRegistrationForm {
 
     @Step("Seller registration form step one: fill in shop information {seller}")
     public SellerRegistrationFormStepOne fillInShopInformation(Seller seller) {
-        $x(String.format(formFieldXpathTemplate, 0)).val(seller.getShopName()).click();
-        $x(String.format(formFieldXpathTemplate, 1)).val(seller.getSiteUrl()).click();
-        $x(String.format(formFieldXpathTemplate, 2)).val(seller.getProductsAmount()).click();
-        $x(String.format(tabPanelXpathTemplate, 1)).click();
+        $x(format(formFieldXpathTemplate, 0)).val(seller.getShopName()).click();
+        $x(format(formFieldXpathTemplate, 1)).val(seller.getSiteUrl()).click();
+        $x(format(formFieldXpathTemplate, 2)).val(seller.getProductsAmount()).click();
+        $x(format(tabPanelXpathTemplate, 1)).click();
         return this;
     }
 

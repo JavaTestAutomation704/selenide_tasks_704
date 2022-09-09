@@ -1,24 +1,16 @@
 package com.softserveinc.ita.rozetka.components.seller.registration.form;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 
 @Getter
-@AllArgsConstructor
+@Builder
 public class Seller {
-    @NonNull
-    private String shopName;
-    @NonNull
-    private String siteUrl;
-    @NonNull
-    private String productsAmount;
-    @NonNull
-    private String fullName;
-    @NonNull
-    private String position;
-    @NonNull
-    private String email;
-    @NonNull
-    private String phoneNumber;
+    private final String shopName;
+    private final String siteUrl;
+    private final String productsAmount;
+    private final String fullName;
+    private final String position;
+    private final String email;
+    private final String phoneNumber;
 }

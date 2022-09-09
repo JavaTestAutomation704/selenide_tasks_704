@@ -6,11 +6,12 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class SellerRegistrationFormStepTwo extends SellerRegistrationForm {
 
     public boolean isOpened() {
-        return isOpened(String.format(tabPanelXpathTemplate, 3));
+        return isOpened(format(tabPanelXpathTemplate, 3));
     }
 
     @Step("Seller registration form step two: open seller registration form step one via tab panel")
@@ -21,11 +22,11 @@ public class SellerRegistrationFormStepTwo extends SellerRegistrationForm {
 
     @Step("Seller registration form step two: fill in contact information {seller}")
     public SellerRegistrationFormStepTwo fillInContactInformation(Seller seller) {
-        $x(String.format(formFieldXpathTemplate, 3)).val(seller.getFullName()).click();
-        $x(String.format(formFieldXpathTemplate, 4)).val(seller.getPosition()).click();
-        $x(String.format(formFieldXpathTemplate, 5)).val(seller.getEmail()).click();
-        $x(String.format(formFieldXpathTemplate, 6)).val(seller.getPhoneNumber()).click();
-        $x(String.format(tabPanelXpathTemplate, 3)).click();
+        $x(format(formFieldXpathTemplate, 3)).val(seller.getFullName()).click();
+        $x(format(formFieldXpathTemplate, 4)).val(seller.getPosition()).click();
+        $x(format(formFieldXpathTemplate, 5)).val(seller.getEmail()).click();
+        $x(format(formFieldXpathTemplate, 6)).val(seller.getPhoneNumber()).click();
+        $x(format(tabPanelXpathTemplate, 3)).click();
         return this;
     }
 
@@ -52,7 +53,7 @@ public class SellerRegistrationFormStepTwo extends SellerRegistrationForm {
     }
 
     public boolean isRegistrationButtonDisabled() {
-        return doesHaveAttribute("(//div[@class = 'registration-form--actions']/button)[3]",
+        return hasAttribute("(//div[@class = 'registration-form--actions']/button)[3]",
                 "disabled", "true");
     }
 }
