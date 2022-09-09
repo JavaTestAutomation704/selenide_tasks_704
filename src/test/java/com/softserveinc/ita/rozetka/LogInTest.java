@@ -17,8 +17,8 @@ public class LogInTest extends TestRunner {
                 .getHeader()
                 .startLogging();
 
-        assertThat(logInModal.isOpen())
-                .as("Log In modal should be open")
+        assertThat(logInModal.isOpened())
+                .as("Log In modal should be opened")
                 .isTrue();
 
         assertThat(logInModal.isLogInButtonVisible())
@@ -96,11 +96,11 @@ public class LogInTest extends TestRunner {
 
         var isRegistrationModalOpen = logInModal
                 .startRegistration()
-                .isOpen();
+                .isOpened();
 
         softAssertions
                 .assertThat(isRegistrationModalOpen)
-                .as("Registration modal should be open")
+                .as("Registration modal should be opened")
                 .isTrue();
 
         softAssertions.assertAll();

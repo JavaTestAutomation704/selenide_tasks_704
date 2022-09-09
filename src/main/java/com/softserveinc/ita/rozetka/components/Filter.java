@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class Filter extends Header {
 
@@ -20,13 +21,13 @@ public class Filter extends Header {
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(price));
         quantityInput.pressEnter();
-        waitUntilUrlContains(String.format(urlContent, price));
+        waitUntilUrlContains(format(urlContent, price));
     }
 
     @Step("Filter: select filter {type}")
     public SearchResultsPage filter(ProductFilter type) {
         waitTillVisible("//aside[@spinnerid = 'LOAD_FILTERS']");
-        $x(String.format("//a[@data-id = '%s']", type.getFilterXpath()))
+        $x(format("//a[@data-id = '%s']", type.getFilterXpath()))
                 .scrollIntoView(false)
                 .click(ClickOptions.usingJavaScript());
         waitTillPreloaderInvisible();
@@ -60,7 +61,7 @@ public class Filter extends Header {
     }
 
     public boolean isSelected(ProductFilter type) {
-        return isVisible(String.format("//a[@data-id = '%s'][contains(@class, 'link--checked')]",
+        return isVisible(format("//a[@data-id = '%s'][contains(@class, 'link--checked')]",
                 type.getFilterXpath()));
     }
 }

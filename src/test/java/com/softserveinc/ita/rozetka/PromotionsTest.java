@@ -13,8 +13,8 @@ public class PromotionsTest extends TestRunner {
 
         var promotionsPage = homePage.openPromotionsPage();
 
-        assertThat(promotionsPage.isOpen())
-                .as("Promotions page should be open")
+        assertThat(promotionsPage.isOpened())
+                .as("Promotions page should be opened")
                 .isTrue();
 
         int promotionNumber = 1;
@@ -43,8 +43,8 @@ public class PromotionsTest extends TestRunner {
 
         var promotionTermsModal = productPage.openPromotionTermsModal();
 
-        assertThat(promotionTermsModal.isOpen())
-                .as("Promotion terms modal should be open")
+        assertThat(promotionTermsModal.isOpened())
+                .as("Promotion terms modal should be opened")
                 .isTrue();
 
         var modalTitle = promotionTermsModal.getTitle();
@@ -52,8 +52,8 @@ public class PromotionsTest extends TestRunner {
 
         promotionPage = promotionTermsModal.openPromotionPage();
 
-        assertThat(promotionPage.isOpen())
-                .as("Promotion page should be open")
+        assertThat(promotionPage.isOpened())
+                .as("Promotion page should be opened")
                 .isTrue();
 
         var softAssertions = new SoftAssertions();

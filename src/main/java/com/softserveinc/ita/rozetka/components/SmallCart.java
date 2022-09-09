@@ -9,7 +9,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class SmallCart {
 
-    public boolean isOpen() {
+    public boolean isOpened() {
         return isVisible("//rz-app-small-cart");
     }
 
@@ -19,13 +19,13 @@ public class SmallCart {
         return new HomePage();
     }
 
-    public int getProductsQuantity(){
+    public int getProductsQuantity() {
         return Integer.parseInt($x("//span[contains(@class, 'main-notification__heading-main')]")
                 .getText()
-                .replaceAll("[^0-9]",""));
+                .replaceAll("[^0-9]", ""));
     }
 
-    public long getTotalPrice(){
+    public long getTotalPrice() {
         return Integer.parseInt($x("//span[@class= 'main-notification__heading-caption']//span[2]").getText());
     }
 }

@@ -10,16 +10,17 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static java.lang.String.format;
 
 public class MainSidebar {
     private final String buttonXpathTemplateAuthentication = "(//button[contains(@class,'side-menu__auth-button')])[%d]";
 
     public String getLoginButtonName() {
-        return getText(String.format(buttonXpathTemplateAuthentication, 1));
+        return getText(format(buttonXpathTemplateAuthentication, 1));
     }
 
     public String getRegistrationButtonName() {
-        return getText(String.format(buttonXpathTemplateAuthentication, 2));
+        return getText(format(buttonXpathTemplateAuthentication, 2));
     }
 
     public String getHelpCenterButtonName() {
@@ -49,12 +50,12 @@ public class MainSidebar {
 
     public boolean isLanguageSelected(Language language) {
         return isVisible(
-                String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
+                format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
     }
 
     @Step("Main sidebar: change language to {language}")
     public Header changeLanguage(Language language) {
-        $x(String.format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
+        $x(format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();
     }
 }

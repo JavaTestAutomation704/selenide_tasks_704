@@ -1,13 +1,12 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
-
-import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
-import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -16,6 +15,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static java.lang.String.format;
 
 public class Header {
 
@@ -76,7 +76,7 @@ public class Header {
 
     public boolean isLanguageSelected(Language language) {
         return isVisible(
-                String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
+                format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
     }
 
     @Step("Header: open search menu")
