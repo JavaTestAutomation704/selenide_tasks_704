@@ -360,9 +360,12 @@ public class FilterProductTest extends TestRunner {
 
         filter.clearBrandSearchField();
 
-        var searchLetters = List.of("A", "N", "H", "J");
         var alphabetSidebar = filter.startAlphabeticalSearch();
+        assertThat(alphabetSidebar.isOpened())
+                .as("Alphabet sidebar should be opened")
+                .isTrue();
 
+        var searchLetters = List.of("A", "N", "H", "J");
         for (var letter : searchLetters) {
             alphabetSidebar.searchByLetter(letter);
             softAssertions
