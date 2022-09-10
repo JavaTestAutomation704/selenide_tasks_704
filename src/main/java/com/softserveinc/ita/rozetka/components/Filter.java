@@ -4,9 +4,11 @@ import com.codeborne.selenide.ClickOptions;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Keys;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
@@ -59,8 +61,30 @@ public class Filter extends Header {
         return new SearchResultsPage();
     }
 
+    @Step("Filter: search for brand {brand}")
+    public void searchForBrand(String brand) {
+        $x("//div[@data-filter-name='producer']//input").val(brand);
+        waitTillPreloaderInvisible();
+    }
+
+    @Step("Filter: clear brand search field")
+    public void clearBrandSearchField() {
+        int currentBrandSearchResultsQuantity = getBrandSearchResults().size();
+        $x("//div[@data-filter-name='producer']//input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
+        waitForSizeChange("//div[@data-filter-name='producer']//rz-scrollbar//a", currentBrandSearchResultsQuantity);
+    }
+
+    public List<String> getBrandSearchResults() {
+        return $$x("//div[@data-filter-name='producer']//rz-scrollbar//a").texts();
+    }
+
     public boolean isSelected(ProductFilter type) {
         return isVisible(String.format("//a[@data-id = '%s'][contains(@class, 'link--checked')]",
                 type.getFilterXpath()));
+    }
+
+    @Step("Filter: start alphabetical search")
+    public AlphabetSidebar startAlphabeticalSearch() {
+        return new AlphabetSidebar().open();
     }
 }

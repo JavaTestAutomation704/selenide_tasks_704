@@ -9,18 +9,15 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
-import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
-import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
+import static com.softserveinc.ita.rozetka.data.Category.*;
 import static com.softserveinc.ita.rozetka.data.Country.ITALY;
 import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
-import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLETS;
+import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -280,7 +277,7 @@ public class FilterProductTest extends TestRunner {
                     .as("Country should be correct")
                     .isEqualTo(SPAIN.getCountryNameUa());
 
-         // In order to return to the search results page, you should use back methods twice
+            // In order to return to the search results page, you should use back methods twice
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
@@ -340,5 +337,39 @@ public class FilterProductTest extends TestRunner {
                     .isTrue();
         }
         softly.assertAll();
+    }
+
+    @Test
+    public void verifyThatBrandFilterSearchWorksCorrectly() {
+        var filter = homePage
+                .getHeader()
+                .openCatalogModal()
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, NOTEBOOKS)
+                .getFilter();
+
+        var searchQueries = List.of("Asus", "Mi", "err", "HP");
+
+        var softAssertions = new SoftAssertions();
+
+        for (var query : searchQueries) {
+            filter.searchForBrand(query);
+            softAssertions
+                    .assertThat(filter.getBrandSearchResults())
+                    .allSatisfy(brand -> assertThat(brand).containsIgnoringCase(query));
+        }
+
+        filter.clearBrandSearchField();
+
+        var searchLetters = List.of("A", "N", "H", "J");
+        var alphabetSidebar = filter.startAlphabeticalSearch();
+
+        for (var letter : searchLetters) {
+            alphabetSidebar.searchByLetter(letter);
+            softAssertions
+                    .assertThat(filter.getBrandSearchResults())
+                    .allSatisfy(brand -> assertThat(brand).startsWithIgnoringCase(letter));
+        }
+
+        softAssertions.assertAll();
     }
 }

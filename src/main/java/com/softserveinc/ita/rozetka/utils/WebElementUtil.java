@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.utils;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
 import lombok.experimental.UtilityClass;
 
@@ -65,6 +66,13 @@ public class WebElementUtil {
     public static void waitForTextChange(String elementXpath, String elementText) {
         try {
             $x(elementXpath).shouldNotHave(text(elementText));
+        } catch (AssertionError ignore) {
+        }
+    }
+
+    public static void waitForSizeChange(String elementsXpath, int size) {
+        try {
+            $$x(elementsXpath).shouldBe(CollectionCondition.sizeGreaterThan(size), ofSeconds(TIMEOUT.getSeconds()));
         } catch (AssertionError ignore) {
         }
     }
