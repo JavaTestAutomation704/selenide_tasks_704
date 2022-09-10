@@ -11,7 +11,7 @@ public class EquipmentStatusForm extends BaseStatusForm {
 
     @Step("Equipment status form: select status 'There is no complete set'")
     public EquipmentStatusForm selectStatusCompleteSetIsMissing() {
-        selectRadioButton(2);
+        selectRadioButton(3);
         return this;
     }
 

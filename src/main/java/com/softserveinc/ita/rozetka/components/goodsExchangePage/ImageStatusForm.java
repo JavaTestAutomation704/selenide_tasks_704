@@ -11,7 +11,7 @@ public class ImageStatusForm extends BaseStatusForm {
 
     @Step("Image status form: select status 'Color reproduction is broken'")
     public ImageStatusForm selectStatusBrokenColorRendering() {
-        selectRadioButton(2);
+        selectRadioButton(4);
         return this;
     }
 

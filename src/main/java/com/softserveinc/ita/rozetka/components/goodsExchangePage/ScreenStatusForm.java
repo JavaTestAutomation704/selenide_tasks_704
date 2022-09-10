@@ -12,7 +12,7 @@ public class ScreenStatusForm extends BaseStatusForm {
 
     @Step("Screen status form: select status 'Chips, cracks, broken anti-glare coating'")
     public ScreenStatusForm selectStatusDamaged() {
-        selectRadioButton(2);
+        selectRadioButton(5);
         return this;
     }
 

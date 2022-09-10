@@ -12,7 +12,7 @@ public class CaseStatusForm extends BaseStatusForm {
 
     @Step("Case status form: select status 'Broken or deformed'")
     public CaseStatusForm selectStatusBrokenOrDeformed() {
-        selectRadioButton(2);
+        selectRadioButton(5);
         return this;
     }
 

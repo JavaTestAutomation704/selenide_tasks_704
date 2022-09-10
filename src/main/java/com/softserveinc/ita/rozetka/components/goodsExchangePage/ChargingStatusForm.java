@@ -12,7 +12,7 @@ public class ChargingStatusForm extends BaseStatusForm {
 
     @Step("Charging status form: select status 'More than 750 recharge cycles'")
     public ChargingStatusForm selectStatusMoreThanSevenHundredRechargeCycles() {
-        selectRadioButton(2);
+        selectRadioButton(5);
         return this;
     }
 
