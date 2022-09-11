@@ -5,7 +5,7 @@ import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.Long.getLong;
 
 @RequiredArgsConstructor
@@ -43,5 +43,19 @@ public class CartItem {
 
     public long getTotalPrice() {
         return getLong(String.format("(//p[contains(@class, 'cart-product__price')])[%d]", numberCartItem));
+    }
+
+    @Step("Shopping cart modal: choose additional service")
+    public CartItem addService(int number) {
+        $x(String.format("(//span[@class='cart-service__title'])[%s]", number)).click();
+        return this;
+    }
+
+    public long getAdditionalServicePrice(int number) {
+        return getLongFromField(String.format("(//span[@class='cart-service__price cart-service__price--red'])[%s]", number));
+    }
+
+    public boolean isAdditionalServicesAvailable(int number) {
+        return isVisible(String.format("(//button[@data-testid='cart-services-toggle'])[%s]", number));
     }
 }
