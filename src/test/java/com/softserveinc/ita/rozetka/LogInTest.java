@@ -91,12 +91,12 @@ public class LogInTest extends TestRunner {
 
         logInModal.rememberPassword();
 
-        var isRegistrationModalOpen = logInModal
+        var isRegistrationModalOpened = logInModal
                 .startRegistration()
                 .isOpened();
 
         softAssertions
-                .assertThat(isRegistrationModalOpen)
+                .assertThat(isRegistrationModalOpened)
                 .as("Registration modal should be opened")
                 .isTrue();
 

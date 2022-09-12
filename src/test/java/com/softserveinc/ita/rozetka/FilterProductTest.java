@@ -130,9 +130,7 @@ public class FilterProductTest extends TestRunner {
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        var searchResultsPage = homePage
-                .getHeader()
-                .search("Xbox");
+        var searchResultsPage = header.search("Xbox");
 
         long resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 

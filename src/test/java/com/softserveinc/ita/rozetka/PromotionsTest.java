@@ -10,7 +10,6 @@ public class PromotionsTest extends TestRunner {
 
     @Test
     public void verifyThatPromotionTermsAreTheSameOnDifferentPages() {
-
         var promotionsPage = homePage.openPromotionsPage();
 
         assertThat(promotionsPage.isOpened())
@@ -38,7 +37,7 @@ public class PromotionsTest extends TestRunner {
                 .open();
 
         assertThat(productPage.isOpenPromotionTermsModalButtonVisible())
-                .as("There should be open promotion terms modal button on the product page")
+                .as("There should be opened promotion terms modal button on the product page")
                 .isTrue();
 
         var promotionTermsModal = productPage.openPromotionTermsModal();
@@ -70,6 +69,7 @@ public class PromotionsTest extends TestRunner {
                 .assertThat(promotionPeriodOnPage)
                 .as("Promotion period on the promotion page should be the same as on the promotion terms modal")
                 .contains(promotionPeriodOnModal);
+
         softAssertions.assertAll();
     }
 }
