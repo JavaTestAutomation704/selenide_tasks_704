@@ -39,6 +39,24 @@ public class WebElementUtil {
         }
     }
 
+    public static boolean hasCssValue(String elementXpath, String property, String cssValue) {
+        try {
+            $x(elementXpath).shouldHave(cssValue(property, cssValue));
+            return true;
+        } catch (AssertionError e) {
+            return false;
+        }
+    }
+
+    public static boolean hasAttribute(String elementXpath, String name, String value) {
+        try {
+            $x(elementXpath).shouldHave(attribute(name, value));
+            return true;
+        } catch (AssertionError e) {
+            return false;
+        }
+    }
+
     public static int getCollectionSize(String elementsXpath, long seconds) {
         try {
             return $$x(elementsXpath).shouldBe(sizeGreaterThanOrEqual(1), ofSeconds(seconds)).size();
