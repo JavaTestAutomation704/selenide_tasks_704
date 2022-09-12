@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import com.softserveinc.ita.rozetka.models.ContactInformation;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

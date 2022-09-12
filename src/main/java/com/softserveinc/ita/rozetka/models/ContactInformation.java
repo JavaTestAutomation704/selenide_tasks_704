@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.components;
+package com.softserveinc.ita.rozetka.models;
 
 import lombok.Builder;
 import lombok.Getter;
