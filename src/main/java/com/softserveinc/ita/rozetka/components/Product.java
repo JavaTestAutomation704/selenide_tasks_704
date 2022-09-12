@@ -5,9 +5,7 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
