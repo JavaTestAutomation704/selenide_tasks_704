@@ -11,8 +11,13 @@ public enum EquipmentStatus {
     FULL_EQUIPMENT(1, "Full factory equipment without damage"),
     COMPLETE_SET_IS_MISSING(3, "There is no complete set");
 
-    private final int number;
+    private final int orderNumber;
 
     @NonNull
     private final String name;
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

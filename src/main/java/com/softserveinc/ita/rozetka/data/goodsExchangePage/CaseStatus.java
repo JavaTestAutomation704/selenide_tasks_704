@@ -11,8 +11,13 @@ public enum CaseStatus {
     NO_USE_SIGNS(1, "There are absolutely no signs of use"),
     BROKEN_OR_DEFORMED(5, "Broken or deformed");
 
-    private final int number;
+    private final int orderNumber;
 
     @NonNull
     private final String name;
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

@@ -5,7 +5,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitForTextChang
 
 public abstract class BaseStatusForm {
 
-    protected String statusXpathTemplate = "(//input[@type='radio'])[%d]";
+    protected String statusNameXpathTemplate = "(//input[@type='radio'])[%d]";
 
     protected void openNext() {
         var titleXpath = "//div[@class='title-question']";

@@ -8,9 +8,9 @@ import static java.lang.String.format;
 
 public class EquipmentStatusForm extends BaseStatusForm {
 
-    @Step("Equipment status form: select status '{equipmentStatus.getName()}'")
+    @Step("Equipment status form: select status '{equipmentStatus}'")
     public EquipmentStatusForm selectStatus(EquipmentStatus equipmentStatus) {
-        $x(format(statusXpathTemplate, equipmentStatus.getNumber())).click();
+        $x(format(statusNameXpathTemplate, equipmentStatus.getOrderNumber())).click();
         return this;
     }
 

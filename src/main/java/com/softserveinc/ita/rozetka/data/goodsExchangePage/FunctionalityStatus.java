@@ -11,8 +11,13 @@ public enum FunctionalityStatus {
     ALL_FUNCTION_WORKS(1, "All functions work properly"),
     FUNCTION_NOT_WORKS(2, "One or more functions are not working");
 
-    private final int number;
+    private final int orderNumber;
 
     @NonNull
     private final String name;
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
