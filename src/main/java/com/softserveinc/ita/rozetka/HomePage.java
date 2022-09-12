@@ -53,6 +53,7 @@ public class HomePage extends BasePage {
         return new PartnerSection();
     }
 
+    @Step("Home page: open goods exchange page")
     public GoodsExchangePage openGoodsExchangePage() {
         $x("(//a[contains(@href, 'obmin')])[1]").click(ClickOptions.usingJavaScript());
         waitTillPreloaderInvisible();

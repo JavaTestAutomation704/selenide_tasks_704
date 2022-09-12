@@ -1,22 +1,21 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
+import com.softserveinc.ita.rozetka.data.goodsExchangePage.EquipmentStatus;
 import io.qameta.allure.Step;
 
-public class EquipmentStatusForm extends BaseStatusForm {
-    @Step("Equipment status form: select status 'Full factory equipment without damage'")
-    public EquipmentStatusForm selectStatusFullEquipment() {
-        selectRadioButton(1);
-        return this;
-    }
+import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
-    @Step("Equipment status form: select status 'There is no complete set'")
-    public EquipmentStatusForm selectStatusCompleteSetIsMissing() {
-        selectRadioButton(3);
+public class EquipmentStatusForm extends BaseStatusForm {
+
+    @Step("Equipment status form: select status '{equipmentStatus.getName()}'")
+    public EquipmentStatusForm selectStatus(EquipmentStatus equipmentStatus) {
+        $x(format(statusXpathTemplate, equipmentStatus.getNumber())).click();
         return this;
     }
 
     @Step("Equipment status form: open next step")
-    public ResultProductForm openNextStep() {
+    public ResultProductForm switchToNextStep() {
         openNext();
         return new ResultProductForm();
     }

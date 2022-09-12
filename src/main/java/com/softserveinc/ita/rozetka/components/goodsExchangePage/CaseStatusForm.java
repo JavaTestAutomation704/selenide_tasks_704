@@ -1,23 +1,21 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
+import com.softserveinc.ita.rozetka.data.goodsExchangePage.CaseStatus;
 import io.qameta.allure.Step;
+
+import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
 public class CaseStatusForm extends BaseStatusForm {
 
-    @Step("Case status form: select status 'There are absolutely no signs of use'")
-    public CaseStatusForm selectStatusNoUseSigns() {
-        selectRadioButton(1);
-        return this;
-    }
-
-    @Step("Case status form: select status 'Broken or deformed'")
-    public CaseStatusForm selectStatusBrokenOrDeformed() {
-        selectRadioButton(5);
+    @Step("Case status form: select status '{caseStatus.getName()}'")
+    public CaseStatusForm selectStatus(CaseStatus caseStatus) {
+        $x(format(statusXpathTemplate, caseStatus.getNumber())).click();
         return this;
     }
 
     @Step("Case status form: open next step")
-    public EquipmentStatusForm openNextStep() {
+    public EquipmentStatusForm switchToNextStep() {
         openNext();
         return new EquipmentStatusForm();
     }

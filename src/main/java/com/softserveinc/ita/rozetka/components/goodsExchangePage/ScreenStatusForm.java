@@ -1,23 +1,21 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
+import com.softserveinc.ita.rozetka.data.goodsExchangePage.ScreenStatus;
 import io.qameta.allure.Step;
+
+import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
 public class ScreenStatusForm extends BaseStatusForm {
 
-    @Step("Screen status form: select status 'There are absolutely no signs of use'")
-    public ScreenStatusForm selectStatusNoUseSigns() {
-        selectRadioButton(1);
-        return this;
-    }
-
-    @Step("Screen status form: select status 'Chips, cracks, broken anti-glare coating'")
-    public ScreenStatusForm selectStatusDamaged() {
-        selectRadioButton(5);
+    @Step("Screen status form: select status '{screenStatus.getName()}'")
+    public ScreenStatusForm selectStatus(ScreenStatus screenStatus) {
+        $x(format(statusXpathTemplate, screenStatus.getNumber())).click();
         return this;
     }
 
     @Step("Screen status form: open next step")
-    public ImageStatusForm openNextStep() {
+    public ImageStatusForm switchToNextStep() {
         openNext();
         return new ImageStatusForm();
     }

@@ -56,7 +56,7 @@ public class ProductForm {
     }
 
     @Step("Product form: open next step")
-    public FunctionalityStatusForm openNextStep() {
+    public FunctionalityStatusForm switchToNextStep() {
         $x("//button[contains(@class,'go-to-question')]").click();
         return new FunctionalityStatusForm();
     }

@@ -1,22 +1,21 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
+import com.softserveinc.ita.rozetka.data.goodsExchangePage.ImageStatus;
 import io.qameta.allure.Step;
 
-public class ImageStatusForm extends BaseStatusForm {
-    @Step("Image status form: select status 'A perfect image without defects'")
-    public ImageStatusForm selectStatusPerfectImage() {
-        selectRadioButton(1);
-        return this;
-    }
+import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
-    @Step("Image status form: select status 'Color reproduction is broken'")
-    public ImageStatusForm selectStatusBrokenColorRendering() {
-        selectRadioButton(4);
+public class ImageStatusForm extends BaseStatusForm {
+
+    @Step("Image status form: select status '{imageStatus.getName()}'")
+    public ImageStatusForm selectStatus(ImageStatus imageStatus) {
+        $x(format(statusXpathTemplate, imageStatus.getNumber())).click();
         return this;
     }
 
     @Step("Image status form: open next step")
-    public CaseStatusForm openNextStep() {
+    public CaseStatusForm switchToNextStep() {
         openNext();
         return new CaseStatusForm();
     }

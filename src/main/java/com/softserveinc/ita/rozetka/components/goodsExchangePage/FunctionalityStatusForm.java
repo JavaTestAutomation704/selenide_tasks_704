@@ -1,22 +1,21 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
+import com.softserveinc.ita.rozetka.data.goodsExchangePage.FunctionalityStatus;
 import io.qameta.allure.Step;
 
-public class FunctionalityStatusForm extends BaseStatusForm {
-    @Step("Functionality status form: select status 'all functions work properly'")
-    public FunctionalityStatusForm selectStatusAllFunctionWorks() {
-        selectRadioButton(1);
-        return this;
-    }
+import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
-    @Step("Functionality status form: select status 'one or more functions are not working'")
-    public FunctionalityStatusForm selectStatusFunctionNotWorks() {
-        selectRadioButton(2);
+public class FunctionalityStatusForm extends BaseStatusForm {
+
+    @Step("Functionality status form: select status '{functionalityStatus.getName()}'")
+    public FunctionalityStatusForm selectStatus(FunctionalityStatus functionalityStatus) {
+        $x(format(statusXpathTemplate, functionalityStatus.getNumber())).click();
         return this;
     }
 
     @Step("Functionality status form: open next step")
-    public ChargingStatusForm openNextStep() {
+    public ChargingStatusForm switchToNextStep() {
         openNext();
         return new ChargingStatusForm();
     }
