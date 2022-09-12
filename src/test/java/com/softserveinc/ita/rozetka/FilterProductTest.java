@@ -355,7 +355,9 @@ public class FilterProductTest extends TestRunner {
             filter.searchForBrand(query);
             softAssertions
                     .assertThat(filter.getBrandSearchResults())
-                    .allSatisfy(brand -> assertThat(brand).containsIgnoringCase(query));
+                    .allSatisfy(brand -> assertThat(brand)
+                            .as("Brand name should contain search query")
+                            .containsIgnoringCase(query));
         }
 
         filter.clearBrandSearchField();
@@ -370,7 +372,9 @@ public class FilterProductTest extends TestRunner {
             alphabetSidebar.searchByLetter(letter);
             softAssertions
                     .assertThat(filter.getBrandSearchResults())
-                    .allSatisfy(brand -> assertThat(brand).startsWithIgnoringCase(letter));
+                    .allSatisfy(brand -> assertThat(brand)
+                            .as("Brand name should start with selected letter")
+                            .startsWithIgnoringCase(letter));
         }
 
         softAssertions.assertAll();

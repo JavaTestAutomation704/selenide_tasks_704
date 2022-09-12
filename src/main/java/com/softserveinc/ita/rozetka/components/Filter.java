@@ -8,7 +8,6 @@ import org.openqa.selenium.Keys;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
@@ -62,20 +61,22 @@ public class Filter extends Header {
     }
 
     @Step("Filter: search for brand {brand}")
-    public void searchForBrand(String brand) {
+    public SearchResultsPage searchForBrand(String brand) {
         $x("//div[@data-filter-name='producer']//input").val(brand);
         waitTillPreloaderInvisible();
+        return new SearchResultsPage();
     }
 
     @Step("Filter: clear brand search field")
-    public void clearBrandSearchField() {
+    public SearchResultsPage clearBrandSearchField() {
         int currentBrandSearchResultsQuantity = getBrandSearchResults().size();
         $x("//div[@data-filter-name='producer']//input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
         waitForSizeChange("//div[@data-filter-name='producer']//rz-scrollbar//a", currentBrandSearchResultsQuantity);
+        return new SearchResultsPage();
     }
 
     public List<String> getBrandSearchResults() {
-        return $$x("//div[@data-filter-name='producer']//rz-scrollbar//a").texts();
+        return getElementsText("//div[@data-filter-name='producer']//rz-scrollbar//a");
     }
 
     public boolean isSelected(ProductFilter type) {

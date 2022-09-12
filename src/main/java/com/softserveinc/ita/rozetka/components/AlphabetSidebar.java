@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.SearchResultsPage;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -21,8 +22,9 @@ public class AlphabetSidebar {
     }
 
     @Step("Alphabet sidebar: search by letter {letter}")
-    public void searchByLetter(String letter) {
+    public SearchResultsPage searchByLetter(String letter) {
         $x(format("//a[contains(@class, 'sidebar-alphabet') and text()=' %s ']", letter)).click();
         waitTillPreloaderInvisible();
+        return new SearchResultsPage();
     }
 }
