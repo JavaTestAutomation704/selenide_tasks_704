@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Selenide;
+import com.softserveinc.ita.rozetka.components.PartnerSection;
 import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
@@ -46,5 +47,9 @@ public class HomePage extends BasePage {
     public PromotionsPage openPromotionsPage() {
         $x("//a[contains(@class, 'pagination')]").click(ClickOptions.usingJavaScript());
         return new PromotionsPage();
+    }
+
+    public PartnerSection getPartnerSection() {
+        return new PartnerSection();
     }
 }
