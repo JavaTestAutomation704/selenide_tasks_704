@@ -38,67 +38,67 @@ public class SellerRegistrationFormTest extends TestRunner {
 
     @Test
     public void verifyApplicationCanNotBeSubmittedAndErrorMessagesAppearWhenSellerRegistrationFormFieldsAreEmpty() {
-        var sellerRegistrationFormStepOne = openSellerRegistrationPage();
+        var stepOneSellerRegistrationForm = openSellerRegistrationPage();
 
-        assertThat(sellerRegistrationFormStepOne.isOpened())
+        assertThat(stepOneSellerRegistrationForm.isOpened())
                 .as("Seller registration form step one should be opened")
                 .isTrue();
 
-        sellerRegistrationFormStepOne.clearAllFields();
+        stepOneSellerRegistrationForm.clearAllFields();
 
         var expectedErrorMessage = "Обов'язкове поле";
-        var actualShopNameFieldErrorMessage = sellerRegistrationFormStepOne.getShopNameFieldErrorMessage();
+        var actualShopNameFieldErrorMessage = stepOneSellerRegistrationForm.getShopNameFieldErrorMessage();
 
         var softly = new SoftAssertions();
         softly.assertThat(actualShopNameFieldErrorMessage)
                 .as("Error message should appear when shop name field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualSiteUrlFieldErrorMessage = sellerRegistrationFormStepOne.getSiteUrlFieldErrorMessage();
+        var actualSiteUrlFieldErrorMessage = stepOneSellerRegistrationForm.getSiteUrlFieldErrorMessage();
 
         softly.assertThat(actualSiteUrlFieldErrorMessage)
                 .as("Error message should appear when site url field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualProductsAmountFieldErrorMessage = sellerRegistrationFormStepOne.getProductsAmountFieldErrorMessage();
+        var actualProductsAmountFieldErrorMessage = stepOneSellerRegistrationForm.getProductsAmountFieldErrorMessage();
 
         softly.assertThat(actualProductsAmountFieldErrorMessage)
                 .as("Error message should appear when products amount field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var sellerRegistrationFormStepTwo = sellerRegistrationFormStepOne.openStepTwoSellerRegistrationFormViaTabPanel();
+        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormViaTabPanel();
 
-        assertThat(sellerRegistrationFormStepTwo.isOpened())
-                .as("Seller registration form step two should be opened")
+        assertThat(stepTwoSellerRegistrationForm.isOpened())
+                .as("Step two seller registration form should be opened")
                 .isTrue();
 
-        sellerRegistrationFormStepTwo.clearAllFields();
+        stepTwoSellerRegistrationForm.clearAllFields();
 
-        var actualFullNameFieldErrorMessage = sellerRegistrationFormStepTwo.getFullNameFieldErrorMessage();
+        var actualFullNameFieldErrorMessage = stepTwoSellerRegistrationForm.getFullNameFieldErrorMessage();
 
         softly.assertThat(actualFullNameFieldErrorMessage)
                 .as("Error message should appear when full name field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualPositionFieldErrorMessage = sellerRegistrationFormStepTwo.getPositionFieldErrorMessage();
+        var actualPositionFieldErrorMessage = stepTwoSellerRegistrationForm.getPositionFieldErrorMessage();
 
         softly.assertThat(actualPositionFieldErrorMessage)
                 .as("Error message should appear when position field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualEmailFieldErrorMessage = sellerRegistrationFormStepTwo.getEmailFieldErrorMessage();
+        var actualEmailFieldErrorMessage = stepTwoSellerRegistrationForm.getEmailFieldErrorMessage();
 
         softly.assertThat(actualEmailFieldErrorMessage)
                 .as("Error message should appear when email field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualPhoneNumberFieldErrorMessage = sellerRegistrationFormStepTwo.getPhoneNumberFieldErrorMessage();
+        var actualPhoneNumberFieldErrorMessage = stepTwoSellerRegistrationForm.getPhoneNumberFieldErrorMessage();
 
         softly.assertThat(actualPhoneNumberFieldErrorMessage)
                 .as("Error message should appear when phone number field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        softly.assertThat(sellerRegistrationFormStepTwo.isRegistrationButtonDisabled())
+        softly.assertThat(stepTwoSellerRegistrationForm.isRegistrationButtonDisabled())
                 .as("Registration button should be disabled")
                 .isTrue();
 
@@ -107,10 +107,10 @@ public class SellerRegistrationFormTest extends TestRunner {
 
     @Test
     public void verifyErrorMessagesAppearWhenSellerRegistrationFormFieldsAreFilledInWithInvalidData() {
-        var sellerRegistrationFormStepOne = openSellerRegistrationPage();
+        var stepOneSellerRegistrationForm = openSellerRegistrationPage();
 
-        assertThat(sellerRegistrationFormStepOne.isOpened())
-                .as("Seller registration form step one should be opened")
+        assertThat(stepOneSellerRegistrationForm.isOpened())
+                .as("Step one seller registration form should be opened")
                 .isTrue();
 
         var invalidFieldInput = " ";
@@ -125,61 +125,124 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .phoneNumber("0000")
                 .build();
 
-        sellerRegistrationFormStepOne.fillInShopInformation(seller);
+        stepOneSellerRegistrationForm.fillInShopInformation(seller);
 
         var expectedErrorMessage = "Значення не відповідає формату";
-        var actualShopNameFieldErrorMessage = sellerRegistrationFormStepOne.getShopNameFieldErrorMessage();
+        var actualShopNameFieldErrorMessage = stepOneSellerRegistrationForm.getShopNameFieldErrorMessage();
 
         var softly = new SoftAssertions();
         softly.assertThat(actualShopNameFieldErrorMessage)
                 .as("Error message should appear when shop name field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualSiteUrlFieldErrorMessage = sellerRegistrationFormStepOne.getSiteUrlFieldErrorMessage();
+        var actualSiteUrlFieldErrorMessage = stepOneSellerRegistrationForm.getSiteUrlFieldErrorMessage();
 
         softly.assertThat(actualSiteUrlFieldErrorMessage)
                 .as("Error message should appear when site url field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualProductsAmountFieldErrorMessage = sellerRegistrationFormStepOne.getProductsAmountFieldErrorMessage();
+        var actualProductsAmountFieldErrorMessage = stepOneSellerRegistrationForm.getProductsAmountFieldErrorMessage();
 
         softly.assertThat(actualProductsAmountFieldErrorMessage)
                 .as("Error message should appear when products amount field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var sellerRegistrationFormStepTwo = sellerRegistrationFormStepOne.openStepTwoSellerRegistrationFormViaTabPanel();
+        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormViaTabPanel();
 
-        assertThat(sellerRegistrationFormStepTwo.isOpened())
-                .as("Seller registration form step two should be opened")
+        assertThat(stepTwoSellerRegistrationForm.isOpened())
+                .as("Step two seller registration form should be opened")
                 .isTrue();
 
-        sellerRegistrationFormStepTwo.fillInContactInformation(seller);
+        stepTwoSellerRegistrationForm.fillInContactInformation(seller);
 
-        var actualFullNameFieldErrorMessage = sellerRegistrationFormStepTwo.getFullNameFieldErrorMessage();
+        var actualFullNameFieldErrorMessage = stepTwoSellerRegistrationForm.getFullNameFieldErrorMessage();
 
         softly.assertThat(actualFullNameFieldErrorMessage)
                 .as("Error message should appear when full name field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualPositionFieldErrorMessage = sellerRegistrationFormStepTwo.getPositionFieldErrorMessage();
+        var actualPositionFieldErrorMessage = stepTwoSellerRegistrationForm.getPositionFieldErrorMessage();
 
         softly.assertThat(actualPositionFieldErrorMessage)
                 .as("Error message should appear when position field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualEmailFieldErrorMessage = sellerRegistrationFormStepTwo.getEmailFieldErrorMessage();
+        var actualEmailFieldErrorMessage = stepTwoSellerRegistrationForm.getEmailFieldErrorMessage();
 
         softly.assertThat(actualEmailFieldErrorMessage)
                 .as("Error message should appear when email field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var actualPhoneNumberFieldErrorMessage = sellerRegistrationFormStepTwo.getPhoneNumberFieldErrorMessage();
+        var actualPhoneNumberFieldErrorMessage = stepTwoSellerRegistrationForm.getPhoneNumberFieldErrorMessage();
 
         softly.assertThat(actualPhoneNumberFieldErrorMessage)
                 .as("Error message should appear when phone number field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
         //TODO: this test will fail as shopName and title fields error messages don't appeared
         // when these fields are fill in with invalid data
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyDataIsRememberedWhenUserNavigatesViaSellerRegistrationForm() {
+        var stepOneSellerRegistrationForm = openSellerRegistrationPage();
+
+        assertThat(stepOneSellerRegistrationForm.isOpened())
+                .as("Step one seller registration form should be opened")
+                .isTrue();
+
+        var seller = Seller.builder()
+                .shopName("Starbucks shop")
+                .siteUrl("www.starbucks.com/")
+                .productsAmount("10000")
+                .fullName("Прізвище Ім'я Тест")
+                .position("Manager")
+                .email("oldAddress@gmail.com")
+                .phoneNumber("632299457")
+                .build();
+
+        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm
+                .fillInShopInformation(seller)
+                .openStepTwoSellerRegistrationFormViaContinueButton();
+
+        assertThat(stepTwoSellerRegistrationForm.isOpened())
+                .as("Step two seller registration form should be opened")
+                .isTrue();
+
+        stepTwoSellerRegistrationForm.fillInContactInformation(seller);
+
+        var softly = new SoftAssertions();
+        softly.assertThat(stepTwoSellerRegistrationForm.isRegistrationButtonDisabled())
+                .as("Registration button should be enabled")
+                .isFalse();
+
+        stepTwoSellerRegistrationForm.openStepOneSellerRegistrationFormViaBackButton();
+
+        assertThat(stepOneSellerRegistrationForm.isOpened())
+                .as("Step one seller registration form should be opened")
+                .isTrue();
+
+        softly.assertThat(stepOneSellerRegistrationForm.isShopInformationRemembered(seller))
+                .as("Shop information should be remembered")
+                .isTrue();
+
+        stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormViaTabPanel();
+
+        assertThat(stepTwoSellerRegistrationForm.isOpened())
+                .as("Step two seller registration form should be opened")
+                .isTrue();
+
+
+        softly.assertThat(stepTwoSellerRegistrationForm.isContactInformationRemembered(seller))
+                .as("Contact information should be remembered")
+                .isTrue();
+
+        stepTwoSellerRegistrationForm.openStepOneSellerRegistrationFormViaTabPanel();
+
+        softly.assertThat(stepOneSellerRegistrationForm.isOpened())
+                .as("Step one seller registration form should be opened")
+                .isTrue();
+
         softly.assertAll();
     }
 }
