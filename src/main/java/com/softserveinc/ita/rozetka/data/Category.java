@@ -18,7 +18,8 @@ public enum Category {
     COTTAGE_GARDEN_BACKYARD("dacha-sad-ogorod"),
     PLUMBING_AND_REPAIR("santekhnika-i-remont"),
     OFFICE_SCHOOL_BOOKS("office-school-books"),
-    BUSINESS_GOODS("tovary-dlya-biznesa");
+    BUSINESS_GOODS("tovary-dlya-biznesa"),
+    PROMOTION("promo");
 
     @NonNull
     private final String categoryXpath;

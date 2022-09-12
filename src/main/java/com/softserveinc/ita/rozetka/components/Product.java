@@ -88,9 +88,10 @@ public class Product {
     }
 
     public boolean isOnSale() {
-        return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
-                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]")
-                || (isVisible(productXpath + "//div[contains(@class, 'price--old')]")
+        int waitingTime = 2;
+        return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]", waitingTime)
+                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]", waitingTime)
+                || (isVisible(productXpath + "//div[contains(@class, 'price--old')]", waitingTime)
                 && !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals(""));
     }
 

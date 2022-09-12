@@ -15,4 +15,8 @@ public class CategoryPage extends BasePage {
                 .click(usingJavaScript());
         return new SubcategoryPage();
     }
+
+    public PromoPage getPromoPage() {
+        return new PromoPage();
+    }
 }
