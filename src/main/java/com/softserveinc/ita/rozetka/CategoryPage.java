@@ -16,7 +16,8 @@ public class CategoryPage extends BasePage {
         return new SubcategoryPage();
     }
 
-    public PromoPage getPromoPage() {
+    @Step("Category page: open promo page")
+    public PromoPage openPromoPage() {
         return new PromoPage();
     }
 }

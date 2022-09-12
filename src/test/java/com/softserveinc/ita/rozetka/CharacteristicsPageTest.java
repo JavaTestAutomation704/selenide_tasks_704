@@ -53,7 +53,7 @@ public class CharacteristicsPageTest extends TestRunner {
     public void verifyProductOnSaleOnPromoPage() {
         var promoPage = homePage
                 .openCategoryPage(Category.PROMOTION)
-                .getPromoPage();
+                .openPromoPage();
 
         assertThat(promoPage.getTitle())
                 .as("Title should be correct")
