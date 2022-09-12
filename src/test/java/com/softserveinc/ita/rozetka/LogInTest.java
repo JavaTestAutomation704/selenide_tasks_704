@@ -12,10 +12,15 @@ public class LogInTest extends TestRunner {
 
     @Test
     public void verifyLoggingCapability() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
-        var logInModal = homePage
-                .getHeader()
-                .startLogging();
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var logInModal = header.startLogging();
 
         assertThat(logInModal.isOpened())
                 .as("Log In modal should be opened")
@@ -31,14 +36,6 @@ public class LogInTest extends TestRunner {
 
         assertThat(logInModal.isRemindPasswordButtonVisible())
                 .as("Remind password button should be displayed on the Log In modal")
-                .isTrue();
-
-        var isUaLanguageSelected = homePage
-                .getHeader()
-                .isLanguageSelected(UA);
-
-        assertThat(isUaLanguageSelected)
-                .as("Localization should be switched to UA")
                 .isTrue();
 
         var softAssertions = new SoftAssertions();
