@@ -34,7 +34,7 @@ public class ProductReviewPage {
     }
 
     @Step("Product review page: try to write a review")
-    public ProductReviewPage tryToWriteReview() {
+    public ProductReviewPage startWriteReview() {
         $x("//section[@class='product-comments__cta']//button").click();
         return this;
     }

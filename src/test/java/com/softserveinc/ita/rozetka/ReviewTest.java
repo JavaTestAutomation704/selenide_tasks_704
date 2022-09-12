@@ -147,7 +147,7 @@ public class ReviewTest extends TestRunner {
                 .open()
                 .openReviewPage();
 
-        reviewPage = reviewPage.tryToWriteReview();
+        reviewPage = reviewPage.startWriteReview();
         assertThat(reviewPage.isLoginModalOpen())
                 .as("Login modal should be open")
                 .isTrue();
