@@ -51,17 +51,19 @@ public class ReviewTest extends TestRunner {
     }
 
     @Test
-    public void verifySortReviewsFunctionality() {
-        homePage
+    public void verifySortByPhotosReviewsFunctionality() {
+        var searchResultsPage = homePage
                 .getHeader()
-                .search("Телевізор Samsung UE32T5300AUXUA");
+                .search("Samsung");
 
-        var productPage = new ProductPage();
-        assertThat(productPage.isOpened())
-                .as("Product page should be open")
-                .isTrue();
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
 
-        var reviewPage = productPage.openReviewPage();
+        var reviewPage = searchResultsPage
+                .getProduct(1)
+                .open()
+                .openReviewPage();
 
         assertThat(reviewPage.getReviewsQuantity())
                 .as("Reviews quantity should be sufficient")
@@ -74,7 +76,7 @@ public class ReviewTest extends TestRunner {
                 .isGreaterThanOrEqualTo(25);
 
         var softAssertions = new SoftAssertions();
-        for (int number = 1; number < 18; number++) {
+        for (int number = 1; number < 25; number++) {
             var hasPhoto = reviewPage
                     .getReviewItem(number)
                     .hasPhoto();
@@ -84,14 +86,47 @@ public class ReviewTest extends TestRunner {
                     .isTrue();
         }
 
-        for (int number = 18; number < 25; number++) {
-            var hasPhoto = reviewPage
-                    .getReviewItem(number)
-                    .hasPhoto();
+        softAssertions.assertAll();
+    }
 
-            softAssertions.assertThat(hasPhoto)
-                    .as(number + " review should not have a photo")
-                    .isFalse();
+    @Test
+    public void verifySortByDateReviewsFunctionality() {
+        var searchResultsPage = homePage
+                .getHeader()
+                .search("macbook");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var reviewPage = searchResultsPage
+                .getProduct(1)
+                .open()
+                .openReviewPage();
+
+        assertThat(reviewPage.getReviewsQuantity())
+                .as("Reviews quantity should be sufficient")
+                .isGreaterThanOrEqualTo(30);
+
+        reviewPage = reviewPage.sort(ReviewsSort.BY_DATE);
+
+        assertThat(reviewPage.getReviewsQuantity())
+                .as("Reviews quantity should be sufficient")
+                .isGreaterThanOrEqualTo(25);
+
+        var softAssertions = new SoftAssertions();
+        for (int number = 1; number < 25; number += 2) {
+            var firstDate = reviewPage
+                    .getReviewItem(number)
+                    .getDate();
+
+            var secondDate = reviewPage
+                    .getReviewItem(number + 1)
+                    .getDate();
+
+            softAssertions.assertThat(firstDate)
+                    .as("second date should be occurs before or equal to first date")
+                    .isAfterOrEqualTo(secondDate);
         }
 
         softAssertions.assertAll();
