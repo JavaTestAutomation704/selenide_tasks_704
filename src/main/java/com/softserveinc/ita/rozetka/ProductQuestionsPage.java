@@ -15,7 +15,7 @@ public class ProductQuestionsPage {
 
     @Step("Product questions page: sort questions by {sort}")
     public ProductQuestionsPage sort(ProductQuestionsSort sortCategory) {
-        $x(format("//*[@id=\"sort-select\"]/option[%s]", sortCategory.getSortXpath())).click();
+        $x(format("//*[@id='sort-select']/option[%s]", sortCategory.getSortXpath())).click();
         return this;
     }
 
