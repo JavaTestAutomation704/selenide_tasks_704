@@ -9,18 +9,15 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
-import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
-import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
+import static com.softserveinc.ita.rozetka.data.Category.*;
 import static com.softserveinc.ita.rozetka.data.Country.ITALY;
 import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
-import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLETS;
+import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -125,6 +122,13 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyResettingFilters() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
 
         var searchResultsPage = homePage
                 .getHeader()
@@ -149,6 +153,7 @@ public class FilterProductTest extends TestRunner {
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be grater than after filters")
                 .isGreaterThan(resultsAmountAfterFilters);
+        //TODO: This test may be failed as results amount after resetting may be different than after search
         softAssert
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be the same as after search")
@@ -280,7 +285,7 @@ public class FilterProductTest extends TestRunner {
                     .as("Country should be correct")
                     .isEqualTo(SPAIN.getCountryNameUa());
 
-         // In order to return to the search results page, you should use back methods twice
+            // In order to return to the search results page, you should use back methods twice
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
