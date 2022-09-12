@@ -200,15 +200,16 @@ public class ShoppingCartTest extends TestRunner {
                 .as("Shopping cart should be empty")
                 .isFalse();
 
-        var subcategoryPage = homePage
-                .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
-                .openSubcategoryPage(LaptopsAndComputersSubcategory.NOTEBOOKS);
+        SubcategoryPage subcategoryPage = homePage
+                .getHeader()
+                .openCatalogModal()
+                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
 
         softly.assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
-                .isGreaterThanOrEqualTo(3);
+                .isGreaterThanOrEqualTo(1);
 
-        var product = subcategoryPage.getProduct(2);
+        var product = subcategoryPage.getProduct(1);
         product.addToShoppingCart();
         long productPrice = product.getPrice();
         softly.assertThat(product.isInShoppingCart())
