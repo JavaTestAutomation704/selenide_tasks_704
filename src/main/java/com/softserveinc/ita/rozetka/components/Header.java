@@ -74,6 +74,12 @@ public class Header {
         return new CatalogModal();
     }
 
+    @Step("Header: change language to {language}")
+    public Header changeLanguage(Language language) {
+        $x(format("//li[contains(@class, 'lang__item')]//*[text()=' %s ']", language)).click();
+        return new Header();
+    }
+
     public boolean isLanguageSelected(Language language) {
         return isVisible(
                 format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));

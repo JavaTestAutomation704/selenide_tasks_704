@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.models.ContactInformation;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -13,14 +14,14 @@ public class ContactInformationSection {
 
     @Step("Contact information section: fill in contact information {surname, name, phone}")
     public ContactInformationSection fillInContactInformation(String surname, String name, String phone) {
-        fillInWithChars(inputSurnameXpath, surname);
-        fillInWithChars(inputNameXpath, name);
-        fillInWithChars(inputPhoneXpath, phone);
+        fillInByChars(inputSurnameXpath, surname);
+        fillInByChars(inputNameXpath, name);
+        fillInByChars(inputPhoneXpath, phone);
         return this;
     }
 
     @Step("Contact information section: fill in with chars {elementXpath, inputValue}")
-    private void fillInWithChars(String elementXpath, String inputValue) {
+    private void fillInByChars(String elementXpath, String inputValue) {
         for (var character : inputValue.split("")) {
             $x(elementXpath).click();
             $x(elementXpath).sendKeys(character);

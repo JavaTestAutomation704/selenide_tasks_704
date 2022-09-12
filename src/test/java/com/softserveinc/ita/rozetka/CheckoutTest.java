@@ -339,6 +339,12 @@ public class CheckoutTest extends TestRunner {
 
     @Test
     public void verifyThatContactInformationIsCopiedToRecipientContactInformation() {
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
 
         var searchResultsPage = header.search("Lenovo");
 
@@ -357,12 +363,6 @@ public class CheckoutTest extends TestRunner {
         assertThat(shoppingCartModal.isEmpty())
                 .as("There should be at least one product in the shopping cart")
                 .isFalse();
-
-        var isUaLanguageSelected = header.isLanguageSelected(UA);
-
-        assertThat(isUaLanguageSelected)
-                .as("Localization should be switched to UA")
-                .isTrue();
 
         var checkoutPage = shoppingCartModal.startCheckout();
 
@@ -415,15 +415,10 @@ public class CheckoutTest extends TestRunner {
                 .getOrderSection(1)
                 .getRecipientContactInformation();
 
-        softAssertions.assertThat(recipientContactInformation.getSurname())
-                .as("Surname from contact information should be copied to recipient's contact information")
-                .isEqualTo(contactInformation.getSurname());
-        softAssertions.assertThat(recipientContactInformation.getName())
-                .as("Name from contact information should be copied to recipient's contact information")
-                .isEqualTo(contactInformation.getName());
-        softAssertions.assertThat(recipientContactInformation.getPhone())
-                .as("Phone from contact information should be copied to recipient's contact information")
-                .isEqualTo(contactInformation.getPhone());
+        softAssertions.assertThat(recipientContactInformation)
+                .as("Contact information should be copied to recipient's contact information")
+                .usingRecursiveComparison()
+                .isEqualTo(contactInformation);
 
         softAssertions.assertAll();
     }
