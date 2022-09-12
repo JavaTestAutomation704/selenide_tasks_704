@@ -8,15 +8,15 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class SellOnRozetkaPage {
 
-    private final String fillInApplicationLinkXpath = "(//a[contains(@href, '/registration')])";
+    private final String fillInApplicationLinkXpath = "(//a[contains(@href, '/registration')])[1]";
 
     public boolean isOpened() {
-        return isVisible(fillInApplicationLinkXpath + "[1]");
+        return isVisible(fillInApplicationLinkXpath);
     }
 
     @Step("Sell on rozetka page: open seller registration page")
     public SellerRegistrationPage openSellerRegistrationPage() {
-        $x(fillInApplicationLinkXpath + "[1]").click(ClickOptions.usingJavaScript());
+        $x(fillInApplicationLinkXpath).click(ClickOptions.usingJavaScript());
         return new SellerRegistrationPage();
     }
 }

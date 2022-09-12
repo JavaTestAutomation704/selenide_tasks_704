@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.seller.registration.form.SellerRegistrationFormStepOne;
+import com.softserveinc.ita.rozetka.components.seller.registration.form.StepOneSellerRegistrationForm;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -10,7 +10,7 @@ public class SellerRegistrationPage {
         return isVisible("//div[@class = 'registration--body']");
     }
 
-    public SellerRegistrationFormStepOne getSellerRegistrationFormStepOne() {
-        return new SellerRegistrationFormStepOne();
+    public StepOneSellerRegistrationForm getStepOneSellerRegistrationForm() {
+        return new StepOneSellerRegistrationForm();
     }
 }

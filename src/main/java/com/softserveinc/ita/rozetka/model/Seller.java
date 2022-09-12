@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.components.seller.registration.form;
+package com.softserveinc.ita.rozetka.model;
 
 import lombok.Builder;
 import lombok.Getter;

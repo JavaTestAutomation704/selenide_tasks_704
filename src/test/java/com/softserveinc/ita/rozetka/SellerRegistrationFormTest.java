@@ -1,8 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.seller.registration.form.Seller;
-import com.softserveinc.ita.rozetka.components.seller.registration.form.SellerRegistrationFormStepOne;
+import com.softserveinc.ita.rozetka.model.Seller;
+import com.softserveinc.ita.rozetka.components.seller.registration.form.StepOneSellerRegistrationForm;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -12,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SellerRegistrationFormTest extends TestRunner {
 
-    private SellerRegistrationFormStepOne openSellerRegistrationPage() {
-        Header header = homePage.getHeader();
+    private StepOneSellerRegistrationForm openSellerRegistrationPage() {
+        var header = homePage.getHeader();
         if (!header.isLanguageSelected(UA)) {
             header
                     .openMainSidebar()
@@ -34,7 +33,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Seller registration page should be opened")
                 .isTrue();
 
-        return sellerRegistrationPage.getSellerRegistrationFormStepOne();
+        return sellerRegistrationPage.getStepOneSellerRegistrationForm();
     }
 
     @Test
@@ -67,7 +66,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Error message should appear when products amount field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var sellerRegistrationFormStepTwo = sellerRegistrationFormStepOne.openSellerRegistrationFormStepTwoViaTabPanel();
+        var sellerRegistrationFormStepTwo = sellerRegistrationFormStepOne.openStepTwoSellerRegistrationFormViaTabPanel();
 
         assertThat(sellerRegistrationFormStepTwo.isOpened())
                 .as("Seller registration form step two should be opened")
@@ -114,12 +113,14 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Seller registration form step one should be opened")
                 .isTrue();
 
+        var invalidFieldInput = " ";
+
         var seller = Seller.builder()
-                .shopName(" ")
+                .shopName(invalidFieldInput)
                 .siteUrl("new address")
                 .productsAmount("ten products")
-                .fullName(" ")
-                .position(" ")
+                .fullName(invalidFieldInput)
+                .position(invalidFieldInput)
                 .email("email")
                 .phoneNumber("0000")
                 .build();
@@ -146,7 +147,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Error message should appear when products amount field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var sellerRegistrationFormStepTwo = sellerRegistrationFormStepOne.openSellerRegistrationFormStepTwoViaTabPanel();
+        var sellerRegistrationFormStepTwo = sellerRegistrationFormStepOne.openStepTwoSellerRegistrationFormViaTabPanel();
 
         assertThat(sellerRegistrationFormStepTwo.isOpened())
                 .as("Seller registration form step two should be opened")
@@ -177,7 +178,7 @@ public class SellerRegistrationFormTest extends TestRunner {
         softly.assertThat(actualPhoneNumberFieldErrorMessage)
                 .as("Error message should appear when phone number field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
-        //this test will fail as shopName and title fields error messages don't appeared
+        //TODO: this test will fail as shopName and title fields error messages don't appeared
         // when these fields are fill in with invalid data
         softly.assertAll();
     }
