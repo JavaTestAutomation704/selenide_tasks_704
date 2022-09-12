@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.components.OrderSection;
 import com.softserveinc.ita.rozetka.components.PromoCodeSection;
 import com.softserveinc.ita.rozetka.components.TotalOrderSection;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -36,6 +37,11 @@ public class CheckoutPage extends BasePage {
 
     public OrderSection getOrderSection(int orderNumber) {
         return new OrderSection(orderNumber);
+    }
+
+    public String getSelectedDeliveryTitle(int orderNumber) {
+      return $x(String.format("(//div[@class='checkout-variant__content ng-star-inserted']/../../div//label)[%d]",
+              orderNumber)).text();
     }
 
     public PromoCodeSection getPromoCodeSection() {
