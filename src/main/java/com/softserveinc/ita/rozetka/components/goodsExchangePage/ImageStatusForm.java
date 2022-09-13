@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
-import com.softserveinc.ita.rozetka.data.goodsExchangePage.ImageStatus;
+import com.softserveinc.ita.rozetka.data.goods_exchange_page.ImageStatus;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -14,9 +14,9 @@ public class ImageStatusForm extends BaseStatusForm {
         return this;
     }
 
-    @Step("Image status form: open next step")
+    @Step("Image status form: switch to next step")
     public CaseStatusForm switchToNextStep() {
-        openNext();
+        switchToNext();
         return new CaseStatusForm();
     }
 }

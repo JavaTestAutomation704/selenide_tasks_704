@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.data.goodsExchangePage;
+package com.softserveinc.ita.rozetka.data.goods_exchange_page;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum FunctionalityStatus {
+public enum ScreenStatus {
 
-    ALL_FUNCTION_WORKS(1, "All functions work properly"),
-    FUNCTION_NOT_WORKS(2, "One or more functions are not working");
+    NO_USE(1, "There are absolutely no signs of use"),
+    DAMAGED(5, "Chips, cracks, broken anti-glare coating");
 
     private final int orderNumber;
 

@@ -7,7 +7,7 @@ public abstract class BaseStatusForm {
 
     protected String statusNameXpathTemplate = "(//input[@type='radio'])[%d]";
 
-    protected void openNext() {
+    protected void switchToNext() {
         var titleXpath = "//div[@class='title-question']";
         var title = $x(titleXpath).text();
         $x("//button[contains(@class,'button-next')]").click();

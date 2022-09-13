@@ -5,18 +5,18 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.refresh;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.CaseStatus.BROKEN_OR_DEFORMED;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.ChargingStatus.LESS_THAN_HUNDRED_RECHARGE_CYCLES;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.ChargingStatus.MORE_THEN_SEVEN_HUNDRED_RECHARGE_CYCLES;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.EquipmentStatus.COMPLETE_SET_IS_MISSING;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.EquipmentStatus.FULL_EQUIPMENT;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.FunctionalityStatus.ALL_FUNCTION_WORKS;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.FunctionalityStatus.FUNCTION_NOT_WORKS;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.ImageStatus.BROKEN_COLOR_RENDERING;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.ImageStatus.PERFECT_IMAGE;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.ScreenStatus.DAMAGED;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.ScreenStatus.NO_USE;
-import static com.softserveinc.ita.rozetka.data.goodsExchangePage.CaseStatus.NO_USE_SIGNS;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.CaseStatus.BROKEN_OR_DEFORMED;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ChargingStatus.LESS_THAN_HUNDRED_RECHARGE_CYCLES;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ChargingStatus.MORE_THEN_SEVEN_HUNDRED_RECHARGE_CYCLES;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.EquipmentStatus.COMPLETE_SET_IS_MISSING;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.EquipmentStatus.FULL_EQUIPMENT;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.FunctionalityStatus.ALL_FUNCTION_WORKS;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.FunctionalityStatus.FUNCTION_NOT_WORKS;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ImageStatus.BROKEN_COLOR_RENDERING;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ImageStatus.PERFECT_IMAGE;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ScreenStatus.DAMAGED;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ScreenStatus.NO_USE;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.CaseStatus.NO_USE_SIGNS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExchangeGoodsTest extends TestRunner {

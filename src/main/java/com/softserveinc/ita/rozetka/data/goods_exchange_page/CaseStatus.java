@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.data.goodsExchangePage;
+package com.softserveinc.ita.rozetka.data.goods_exchange_page;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ImageStatus {
+public enum CaseStatus {
 
-    PERFECT_IMAGE(1, "A perfect image without defects"),
-    BROKEN_COLOR_RENDERING(4, "Color reproduction is broken");
+    NO_USE_SIGNS(1, "There are absolutely no signs of use"),
+    BROKEN_OR_DEFORMED(5, "Broken or deformed");
 
     private final int orderNumber;
 

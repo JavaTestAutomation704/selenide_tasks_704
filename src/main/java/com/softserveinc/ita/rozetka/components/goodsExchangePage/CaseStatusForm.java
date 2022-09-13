@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
-import com.softserveinc.ita.rozetka.data.goodsExchangePage.CaseStatus;
+import com.softserveinc.ita.rozetka.data.goods_exchange_page.CaseStatus;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -14,9 +14,9 @@ public class CaseStatusForm extends BaseStatusForm {
         return this;
     }
 
-    @Step("Case status form: open next step")
+    @Step("Case status form: switch to next step")
     public EquipmentStatusForm switchToNextStep() {
-        openNext();
+        switchToNext();
         return new EquipmentStatusForm();
     }
 }

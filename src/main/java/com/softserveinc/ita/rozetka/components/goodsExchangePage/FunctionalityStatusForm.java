@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka.components.goodsExchangePage;
 
-import com.softserveinc.ita.rozetka.data.goodsExchangePage.FunctionalityStatus;
+import com.softserveinc.ita.rozetka.data.goods_exchange_page.FunctionalityStatus;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -14,9 +14,9 @@ public class FunctionalityStatusForm extends BaseStatusForm {
         return this;
     }
 
-    @Step("Functionality status form: open next step")
+    @Step("Functionality status form: switch to next step")
     public ChargingStatusForm switchToNextStep() {
-        openNext();
+        switchToNext();
         return new ChargingStatusForm();
     }
 }

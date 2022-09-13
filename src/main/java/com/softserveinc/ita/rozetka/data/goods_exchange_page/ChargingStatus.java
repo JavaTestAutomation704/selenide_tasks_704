@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.data.goodsExchangePage;
+package com.softserveinc.ita.rozetka.data.goods_exchange_page;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ScreenStatus {
+public enum ChargingStatus {
 
-    NO_USE(1, "There are absolutely no signs of use"),
-    DAMAGED(5, "Chips, cracks, broken anti-glare coating");
+    LESS_THAN_HUNDRED_RECHARGE_CYCLES(1, "Less than 100 recharge cycles"),
+    MORE_THEN_SEVEN_HUNDRED_RECHARGE_CYCLES(5, "More than 750 recharge cycles");
 
     private final int orderNumber;
 

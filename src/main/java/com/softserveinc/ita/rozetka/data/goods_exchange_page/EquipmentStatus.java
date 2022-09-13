@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.data.goodsExchangePage;
+package com.softserveinc.ita.rozetka.data.goods_exchange_page;
 
 import lombok.Getter;
 import lombok.NonNull;
