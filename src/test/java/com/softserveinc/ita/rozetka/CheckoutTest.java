@@ -13,12 +13,14 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.*;
+import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
+import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
 import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
-import static com.softserveinc.ita.rozetka.data.Language.UA;
-import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
 import static com.softserveinc.ita.rozetka.data.DeliveryService.*;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
+import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,7 +39,7 @@ public class CheckoutTest extends TestRunner {
             if (shoppingCartModal.isCloseButtonVisible()) {
                 shoppingCartModal.close();
             } else {
-                homePage.back();
+                homePage.backToHomePage();
             }
         }
     }

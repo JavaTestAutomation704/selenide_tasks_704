@@ -35,7 +35,7 @@ public class ProductTitleTest extends TestRunner {
                     .contains(expectedText)
                     .as(actualProductTitle + " should contain %s text", expectedText);
 
-            productPage.back();
+            productPage.backToHomePage();
         }
         softAssert.assertAll();
     }

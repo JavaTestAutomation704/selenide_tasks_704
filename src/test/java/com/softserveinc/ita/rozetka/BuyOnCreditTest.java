@@ -48,7 +48,7 @@ public class BuyOnCreditTest extends TestRunner {
                 .as("Credit page should be open")
                 .isTrue();
 
-        homePage.back();
+        homePage.backToHomePage();
         productPage.startPurchaseOnCredit();
 
         var isCheckoutPageOpen = creditModal
