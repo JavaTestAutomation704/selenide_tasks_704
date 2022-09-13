@@ -351,14 +351,14 @@ public class FilterProductTest extends TestRunner {
 
         var softAssertions = new SoftAssertions();
 
-        for (var query : searchQueries) {
+        searchQueries.forEach(query -> {
             filter.searchForBrand(query);
             softAssertions
                     .assertThat(filter.getBrandSearchResults())
                     .allSatisfy(brand -> assertThat(brand)
                             .as("Brand name should contain search query")
                             .containsIgnoringCase(query));
-        }
+        });
 
         filter.clearBrandSearchField();
 
@@ -368,14 +368,21 @@ public class FilterProductTest extends TestRunner {
                 .isTrue();
 
         var searchLetters = List.of("A", "N", "H", "J");
-        for (var letter : searchLetters) {
+        searchLetters.forEach(letter -> {
             alphabetSidebar.searchByLetter(letter);
             softAssertions
                     .assertThat(filter.getBrandSearchResults())
-                    .allSatisfy(brand -> assertThat(brand)
-                            .as("Brand name should start with selected letter")
-                            .startsWithIgnoringCase(letter));
-        }
+                    .as("Brand name should start with selected letter or contain that letter")
+                    .satisfiesAnyOf(
+                            brands -> assertThat(brands)
+                                    .allSatisfy(brand -> assertThat(brand)
+                                            .as("Brand name should start with selected letter")
+                                            .startsWithIgnoringCase(letter)),
+                            brands -> assertThat(brands)
+                                    .allSatisfy(brand -> assertThat(brand)
+                                            .as("Brand name should contains selected letter")
+                                            .contains(letter)));
+        });
 
         softAssertions.assertAll();
     }
