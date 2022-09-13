@@ -4,9 +4,7 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-import java.util.regex.Pattern;
-
-import static java.lang.String.format;
+import static java.lang.String.valueOf;
 import static org.testng.Assert.assertTrue;
 
 public class ServiceCenterTest extends TestRunner {
@@ -22,10 +20,10 @@ public class ServiceCenterTest extends TestRunner {
             var producersList = serviceCenter
                     .selectFirstLetter(c)
                     .getProducersList();
-            var firstLetter = c;
+            var firstLetter = valueOf(c);
             var isListCorrect = producersList
                     .stream()
-                    .allMatch(a -> Pattern.matches(format("%s*", firstLetter), a));
+                    .allMatch(a -> a.substring(0,1).equals(firstLetter));
 
             softly.assertThat(isListCorrect)
                     .as("All names should start with the same letter")
@@ -46,5 +44,6 @@ public class ServiceCenterTest extends TestRunner {
         softly.assertThat(resultPage.getServiceInfoSize())
                 .as("List should contain information about at least one service center")
                 .isGreaterThan(0);
+        softly.assertAll();
     }
 }
