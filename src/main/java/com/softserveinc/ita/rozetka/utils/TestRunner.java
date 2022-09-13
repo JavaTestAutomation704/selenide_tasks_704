@@ -12,7 +12,9 @@ public class TestRunner {
 
     @BeforeClass
     public void setConfiguration() {
-        Configuration.browser = "chrome";
+        if(System.getProperties().getProperty("selenide.browser") == null) {
+            Configuration.browser = "chrome";
+        }
         Configuration.timeout = 10000;
         Configuration.browserSize = "1920x1080";
         Configuration.reportsFolder = "target/allure-results";
