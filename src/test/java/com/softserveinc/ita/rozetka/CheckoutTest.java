@@ -295,8 +295,8 @@ public class CheckoutTest extends TestRunner {
         var pickupPointName = meestPickup.getPickUpPointName();
         var pickupPointModal = meestPickup.openPickUpPointModal();
 
-        var softAssertions = new SoftAssertions();
-        softAssertions.assertThat(pickupPointModal.getPickUpPointName())
+        var softly = new SoftAssertions();
+        softly.assertThat(pickupPointModal.getPickUpPointName())
                 .as("Pickup point should be correct")
                 .contains(MEEST.getNameUa())
                 .contains(pickupPointName);
@@ -316,7 +316,7 @@ public class CheckoutTest extends TestRunner {
                 .selectNovaPoshtaPickUp(UA)
                 .getPickUpPointName();
 
-        softAssertions.assertThat(pickupPointName)
+        softly.assertThat(pickupPointName)
                 .as("Pickup point should be correct")
                 .contains(NOVA_POSHTA.getNameUa())
                 .contains(pickupPointNameActual);
@@ -332,10 +332,10 @@ public class CheckoutTest extends TestRunner {
         pickupPointName = rozetkaPickup.getPickUpPointName();
         rozetkaPickup.openPickUpPointModal();
 
-        softAssertions.assertThat(pickupPointModal.getPickUpPointName())
+        softly.assertThat(pickupPointModal.getPickUpPointName())
                 .as("Pickup point should be correct")
                 .contains(ROZETKA.getNameUa())
                 .contains(pickupPointName);
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }

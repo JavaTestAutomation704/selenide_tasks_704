@@ -39,19 +39,19 @@ public class FilterProductTest extends TestRunner {
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(60);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
             var isProductOnSale = searchResultsPage
                     .getProduct(productNumber)
                     .isOnSale();
 
             // TODO: This test may be failed as product wasn't have sale label or old price
-            softAssertions.assertThat(isProductOnSale)
+            softly.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale")
                     .isTrue();
         }
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -101,23 +101,23 @@ public class FilterProductTest extends TestRunner {
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i++) {
             var productPage = searchResultsPage
                     .getProduct(i)
                     .open();
 
             //TODO: This test may be failed as unavailable products might be among the results
-            softAssertions.assertThat(productPage.isBonusIconVisible())
+            softly.assertThat(productPage.isBonusIconVisible())
                     .as("Bonus icon should be displayed")
                     .isTrue();
-            softAssertions.assertThat(productPage.getBonusText())
+            softly.assertThat(productPage.getBonusText())
                     .as("Incorrect bonus quantity text")
                     .contains("бонус");
 
             productPage.back();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -140,18 +140,18 @@ public class FilterProductTest extends TestRunner {
 
         long resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 
-        var softAssert = new SoftAssertions();
+        var softly = new SoftAssertions();
 
-        softAssert
+        softly
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be grater than after filters")
                 .isGreaterThan(resultsAmountAfterFilters);
-        softAssert
+        softly
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be the same as after search")
                 .isEqualTo(resultsAmountAfterSearch);
 
-        softAssert.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -167,9 +167,9 @@ public class FilterProductTest extends TestRunner {
 
         var filter = subcategoryPage.getFilter();
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
-        softAssertions.assertThat(cheapestProductPrice)
+        softly.assertThat(cheapestProductPrice)
                 .as("Product price should be correct")
                 .isGreaterThanOrEqualTo(filter.getMinPrice());
 
@@ -179,7 +179,7 @@ public class FilterProductTest extends TestRunner {
                 .getProduct(1)
                 .getPrice();
 
-        softAssertions.assertThat(mostExpensiveProductPrice)
+        softly.assertThat(mostExpensiveProductPrice)
                 .as("Product price should be correct")
                 .isLessThanOrEqualTo(filter.getMaxPrice());
 
@@ -199,12 +199,12 @@ public class FilterProductTest extends TestRunner {
                     .getProduct(i)
                     .getPrice();
 
-            softAssertions.assertThat(productPrice)
+            softly.assertThat(productPrice)
                     .as("Product price should be correct")
                     .isGreaterThanOrEqualTo(minPrice)
                     .isLessThanOrEqualTo(maxPrice);
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -266,14 +266,14 @@ public class FilterProductTest extends TestRunner {
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i++) {
             var productCharacteristicsPage = subcategoryPage
                     .getProduct(i)
                     .open()
                     .openCharacteristicsPage();
 
-            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+            softly.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
                     .isEqualTo(SPAIN.getCountryNameUa());
 
@@ -294,7 +294,7 @@ public class FilterProductTest extends TestRunner {
                     .open()
                     .openCharacteristicsPage();
 
-            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+            softly.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
                     .isEqualTo(ITALY.getCountryNameUa());
 
@@ -302,7 +302,7 @@ public class FilterProductTest extends TestRunner {
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -349,11 +349,11 @@ public class FilterProductTest extends TestRunner {
 
         var searchQueries = List.of("Asus", "Mi", "err", "HP");
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (var query : searchQueries) {
             filter.searchForBrand(query);
-            softAssertions
+            softly
                     .assertThat(filter.getBrandSearchResults())
                     .allSatisfy(brand -> assertThat(brand)
                             .as("Brand name should contain search query")
@@ -370,13 +370,13 @@ public class FilterProductTest extends TestRunner {
         var searchLetters = List.of("A", "N", "H", "J");
         for (var letter : searchLetters) {
             alphabetSidebar.searchByLetter(letter);
-            softAssertions
+            softly
                     .assertThat(filter.getBrandSearchResults())
                     .allSatisfy(brand -> assertThat(brand)
                             .as("Brand name should start with selected letter")
                             .startsWithIgnoringCase(letter));
         }
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }
