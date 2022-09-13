@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -54,6 +55,14 @@ public class CharacteristicsPageTest extends TestRunner {
         var promoPage = homePage
                 .openCategoryPage(Category.PROMOTION)
                 .openPromoPage();
+
+        var isUaLanguage = promoPage
+                .getHeader()
+                .isLanguageSelected(Language.UA);
+
+        assertThat(isUaLanguage)
+                .as("Language should be ukrainian")
+                .isTrue();
 
         assertThat(promoPage.getTitle())
                 .as("Title should be correct")

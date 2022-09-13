@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
 import io.qameta.allure.Step;
 
@@ -18,5 +19,10 @@ public class PromoPage {
 
     public int getProductsQuantity() {
         return getCollectionSize("//rz-catalog-tile");
+    }
+
+    @Step("Promo page: get header")
+    public Header getHeader(){
+        return new Header();
     }
 }
