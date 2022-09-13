@@ -55,7 +55,7 @@ public class ProductForm {
         return getText("//div[@class='selected-product-name']");
     }
 
-    @Step("Product form: open next step")
+    @Step("Product form: switch to next step")
     public FunctionalityStatusForm switchToNextStep() {
         $x("//button[contains(@class,'go-to-question')]").click();
         return new FunctionalityStatusForm();
