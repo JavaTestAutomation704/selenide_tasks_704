@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.softserveinc.ita.rozetka.components.ReviewItem;
 import com.softserveinc.ita.rozetka.data.ReviewsSort;
 import com.softserveinc.ita.rozetka.modals.FilterReviewsByRatingModal;
+import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.modals.RegistrationModal;
 import io.qameta.allure.Step;
 
@@ -33,13 +34,13 @@ public class ProductReviewPage {
         return getCollectionSize("//li[contains(@class, 'product-comments__list')]");
     }
 
-    @Step("Product review page: try to write a review")
-    public ProductReviewPage startWriteReview() {
+    @Step("Product review page: start writing a review")
+    public ProductReviewPage startWritingReview() {
         $x("//section[@class='product-comments__cta']//button").click();
         return this;
     }
 
     public boolean isLoginModalOpen() {
-        return new RegistrationModal().isOpen();
+        return new LogInModal().isOpen();
     }
 }
