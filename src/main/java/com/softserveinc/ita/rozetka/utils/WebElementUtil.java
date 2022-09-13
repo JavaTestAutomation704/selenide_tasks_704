@@ -93,6 +93,10 @@ public class WebElementUtil {
         isVisible(elementXpath, 5);
     }
 
+    public static void waitTillVisible(String elementXpath, long seconds) {
+        isVisible(elementXpath, seconds);
+    }
+
     public static void waitForTextChange(String elementXpath, String elementText) {
         try {
             $x(elementXpath).shouldNotHave(text(elementText));
