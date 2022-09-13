@@ -5,9 +5,8 @@ import com.softserveinc.ita.rozetka.HomePage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-import com.codeborne.selenide.testng.ScreenShooter;
 
-@Listeners({ ScreenShooter.class})
+@Listeners(AllureScreenShooter.class)
 public class TestRunner {
     protected HomePage homePage;
 
