@@ -1,9 +1,12 @@
 package com.softserveinc.ita.rozetka.utils;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.*;
@@ -76,6 +79,16 @@ public class WebElementUtil {
         return "";
     }
 
+    public static List<String> getElementsText(String elementsXpath) {
+        try {
+            return $$x(elementsXpath)
+                    .shouldBe(sizeGreaterThanOrEqual(1), ofSeconds(TIMEOUT.getSeconds()))
+                    .texts();
+        } catch (AssertionError e) {
+            return new ArrayList<>();
+        }
+    }
+
     public static void waitTillVisible(String elementXpath) {
         isVisible(elementXpath, 5);
     }
@@ -83,6 +96,13 @@ public class WebElementUtil {
     public static void waitForTextChange(String elementXpath, String elementText) {
         try {
             $x(elementXpath).shouldNotHave(text(elementText));
+        } catch (AssertionError ignore) {
+        }
+    }
+
+    public static void waitForSizeChange(String elementsXpath, int size) {
+        try {
+            $$x(elementsXpath).shouldBe(CollectionCondition.sizeGreaterThan(size), ofSeconds(TIMEOUT.getSeconds()));
         } catch (AssertionError ignore) {
         }
     }
