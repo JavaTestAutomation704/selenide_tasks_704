@@ -23,6 +23,7 @@
             <class name="com.softserveinc.ita.rozetka.SellerRegistrationFormTest"/>
             <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
             <class name="com.softserveinc.ita.rozetka.SmallCartTest"/>
+            <class name="com.softserveinc.ita.rozetka.SocialNetworksTest"/>
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
         </classes>
     </test>
