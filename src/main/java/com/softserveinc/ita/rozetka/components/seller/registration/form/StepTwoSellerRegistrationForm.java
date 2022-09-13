@@ -81,7 +81,6 @@ public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {
     }
 
     public boolean isRegistrationButtonDisabled() {
-        return hasAttribute(format(formButtonXpathTemplate, 3),
-                "disabled", "true");
+        return hasAttribute(format(formButtonXpathTemplate, 3), "disabled", "true");
     }
 }
