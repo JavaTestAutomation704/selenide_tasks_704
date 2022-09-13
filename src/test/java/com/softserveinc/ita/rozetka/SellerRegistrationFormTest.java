@@ -66,7 +66,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Error message should appear when products amount field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormViaTabPanel();
+        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormTabPanel();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
@@ -147,7 +147,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Error message should appear when products amount field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormViaTabPanel();
+        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormTabPanel();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
@@ -203,7 +203,7 @@ public class SellerRegistrationFormTest extends TestRunner {
 
         var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm
                 .fillInShopInformation(seller)
-                .openStepTwoSellerRegistrationFormViaContinueButton();
+                .continueStepTwoSellerRegistrationForm();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
@@ -216,28 +216,36 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Registration button should be enabled")
                 .isFalse();
 
-        stepTwoSellerRegistrationForm.openStepOneSellerRegistrationFormViaBackButton();
+        stepTwoSellerRegistrationForm.backToStepOneSellerRegistrationForm();
 
         assertThat(stepOneSellerRegistrationForm.isOpened())
                 .as("Step one seller registration form should be opened")
                 .isTrue();
 
-        softly.assertThat(stepOneSellerRegistrationForm.isShopInformationRemembered(seller))
-                .as("Shop information should be remembered")
-                .isTrue();
+        var actualSeller = Seller.builder()
+                .shopName(stepOneSellerRegistrationForm.getShopName())
+                .siteUrl(stepOneSellerRegistrationForm.getSiteUrl())
+                .productsAmount(stepOneSellerRegistrationForm.getProductsAmount());
 
-        stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormViaTabPanel();
+        stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormTabPanel();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
                 .isTrue();
 
+        actualSeller
+                .fullName(stepTwoSellerRegistrationForm.getFullName())
+                .position(stepTwoSellerRegistrationForm.getPosition())
+                .email(stepTwoSellerRegistrationForm.getEmail())
+                .phoneNumber(stepTwoSellerRegistrationForm.getPhoneNumber())
+                .build();
 
-        softly.assertThat(stepTwoSellerRegistrationForm.isContactInformationRemembered(seller))
-                .as("Contact information should be remembered")
-                .isTrue();
+        softly.assertThat(seller)
+                .as("Seller information should be remembered")
+                .usingRecursiveComparison()
+                .isEqualTo(actualSeller);
 
-        stepTwoSellerRegistrationForm.openStepOneSellerRegistrationFormViaTabPanel();
+        stepTwoSellerRegistrationForm.openStepOneSellerRegistrationFormTabPanel();
 
         softly.assertThat(stepOneSellerRegistrationForm.isOpened())
                 .as("Step one seller registration form should be opened")

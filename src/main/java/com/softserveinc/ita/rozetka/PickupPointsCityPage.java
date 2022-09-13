@@ -9,6 +9,7 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitForTextChange;
+import static java.lang.String.format;
 
 public class PickupPointsCityPage extends BasePage {
 
@@ -21,17 +22,17 @@ public class PickupPointsCityPage extends BasePage {
     @Step("Pickup points city page: select city {city}")
     public PickupPointsCityPage selectCity(City city) {
         var firstDeliveryAddressElement = $x(deliveryAddressXpath);
-        String address = firstDeliveryAddressElement.text();
-        $x(String.format("(//a[contains(@href, 'retail/%s') and contains(@class, 'tags__link')])",
+        var address = firstDeliveryAddressElement.text();
+        $x(format("(//a[contains(@href, 'retail/%s') and contains(@class, 'tags__link')])",
                 city.getCity())).click();
         waitForTextChange(deliveryAddressXpath, address);
         return this;
     }
 
     public boolean isSelected(City city) {
-        String titleXpathTemplate = "(//h1[contains(text(), '%s') or contains(text(), '%s')])";
-        return isVisible(String.format(titleXpathTemplate + "[1]", city.getCityNameUa(), city.getCityNameRu()))
-                & isVisible(String.format(titleXpathTemplate + "[2]", city.getCityNameUa(), city.getCityNameRu()));
+        var titleXpathTemplate = "(//h1[contains(text(), '%s') or contains(text(), '%s')])";
+        return isVisible(format(titleXpathTemplate + "[1]", city.getCityNameUa(), city.getCityNameRu()))
+                & isVisible(format(titleXpathTemplate + "[2]", city.getCityNameUa(), city.getCityNameRu()));
     }
 
     public List<String> getDeliveryPointsAddresses() {

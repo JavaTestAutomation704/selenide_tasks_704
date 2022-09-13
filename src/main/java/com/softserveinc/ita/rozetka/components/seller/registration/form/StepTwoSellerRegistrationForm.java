@@ -4,7 +4,6 @@ import com.softserveinc.ita.rozetka.model.Seller;
 import io.qameta.allure.Step;
 
 import java.util.List;
-import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
@@ -12,23 +11,23 @@ import static java.lang.String.format;
 
 public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {
 
-    private final String fullNameFieldXpath = String.format(formFieldXpathTemplate, 3);
-    private final String positionFieldXpath = String.format(formFieldXpathTemplate, 4);
-    private final String emailFieldXpath = String.format(formFieldXpathTemplate, 5);
-    private final String phoneNumberFieldXpath = String.format(formFieldXpathTemplate, 6);
+    private final String fullNameFieldXpath = format(formFieldXpathTemplate, 3);
+    private final String positionFieldXpath = format(formFieldXpathTemplate, 4);
+    private final String emailFieldXpath = format(formFieldXpathTemplate, 5);
+    private final String phoneNumberFieldXpath = format(formFieldXpathTemplate, 6);
 
     public boolean isOpened() {
         return isOpened(format(tabPanelXpathTemplate, 3));
     }
 
-    @Step("Step two seller registration form: open step one seller registration form via tab panel")
-    public StepOneSellerRegistrationForm openStepOneSellerRegistrationFormViaTabPanel() {
+    @Step("Step two seller registration form: open step one seller registration form tab panel")
+    public StepOneSellerRegistrationForm openStepOneSellerRegistrationFormTabPanel() {
         $x("(//div[contains(@class,'mat-step-icon')])[1]").click();
         return new StepOneSellerRegistrationForm();
     }
 
-    @Step("Step one seller registration form: open step one seller registration form via back button")
-    public StepOneSellerRegistrationForm openStepOneSellerRegistrationFormViaBackButton() {
+    @Step("Step one seller registration form: back to step one seller registration form")
+    public StepOneSellerRegistrationForm backToStepOneSellerRegistrationForm() {
         $x(format(formButtonXpathTemplate, 2)).click();
         return new StepOneSellerRegistrationForm();
     }
@@ -49,12 +48,20 @@ public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {
         return this;
     }
 
-    public boolean isContactInformationRemembered(Seller seller) {
-        return Objects.equals($x(fullNameFieldXpath).getValue(), seller.getFullName()) &&
-                Objects.equals($x(positionFieldXpath).getValue(), seller.getPosition()) &&
-                Objects.equals($x(emailFieldXpath).getValue(), seller.getEmail()) &&
-                Objects.equals($x(phoneNumberFieldXpath)
-                        .getValue().replaceAll(" ", ""), seller.getPhoneNumber());
+    public String getFullName() {
+        return $x(fullNameFieldXpath).getValue();
+    }
+
+    public String getPosition() {
+        return $x(positionFieldXpath).getValue();
+    }
+
+    public String getEmail() {
+        return $x(emailFieldXpath).getValue();
+    }
+
+    public String getPhoneNumber() {
+        return $x(phoneNumberFieldXpath).getValue().replaceAll(" ", "");
     }
 
     public String getFullNameFieldErrorMessage() {
@@ -74,7 +81,7 @@ public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {
     }
 
     public boolean isRegistrationButtonDisabled() {
-        return hasAttribute(String.format(formButtonXpathTemplate, 3),
+        return hasAttribute(format(formButtonXpathTemplate, 3),
                 "disabled", "true");
     }
 }
