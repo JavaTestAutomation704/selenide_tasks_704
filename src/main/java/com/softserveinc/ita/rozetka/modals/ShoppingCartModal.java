@@ -17,11 +17,8 @@ public class ShoppingCartModal {
 
     @Step("Shopping cart modal: clear shopping cart")
     public ShoppingCartModal clear() {
-        var cartItemQuantity = getCollectionSize("//rz-cart-product");
-        if (cartItemQuantity > 0) {
-            for (int i = cartItemQuantity; i > 0; i--) {
-                getItem(i).remove();
-            }
+        for (int i = getCollectionSize("//rz-cart-product"); i > 0; i--) {
+            getItem(i).remove();
         }
         return this;
     }
