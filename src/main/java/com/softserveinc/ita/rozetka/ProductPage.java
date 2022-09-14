@@ -87,6 +87,12 @@ public class ProductPage extends BasePage {
         return new PromotionTermsModal();
     }
 
+    @Step("Product page: go to cheaper together section")
+    public CheaperTogetherSection goToCheaperTogetherSection() {
+        $x("//section[contains(@class, 'product-kits')]").scrollIntoView(false);
+        return new CheaperTogetherSection();
+    }
+
     public boolean isOpenPromotionTermsModalButtonVisible() {
         return isVisible("//button[contains(@class, 'promotion')]");
     }

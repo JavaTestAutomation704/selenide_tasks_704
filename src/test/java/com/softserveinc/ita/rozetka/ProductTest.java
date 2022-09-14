@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductQuestionsTest extends TestRunner {
+public class ProductTest extends TestRunner {
     @Test
     public void verifySortProductQuestionsFunctionality() {
         var searchResultsPage = homePage
@@ -58,5 +58,42 @@ public class ProductQuestionsTest extends TestRunner {
                     .isFalse();
         }
         softAssertions.assertAll();
+    }
+
+    @Test
+    public void verifyThatTogetherIsCheaper() {
+        var searchResultsPage = homePage
+                .getHeader()
+                .search("samsung");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var cheaperTogetherSection = searchResultsPage
+                .getProduct(1)
+                .open()
+                .goToCheaperTogetherSection();
+
+        var additionProductActualPrice = cheaperTogetherSection.getAdditionProductActualPrice();
+        var additionProductOldPrice = cheaperTogetherSection.getAdditionProductOldPrice();
+
+        assertThat(additionProductActualPrice)
+                .as("Addition product should be cheaper as usual")
+                .isLessThan(additionProductOldPrice);
+
+        var mainProductPrice = cheaperTogetherSection.getMainProductPrice();
+        assertThat(additionProductActualPrice + mainProductPrice)
+                .as("Total price should be correct")
+                .isEqualTo(cheaperTogetherSection.totalPrice());
+
+        var additionProductPage = cheaperTogetherSection.openAdditionProductPage();
+        assertThat(additionProductPage.isOpened())
+                .as("Addition product page should be opened")
+                .isTrue();
+
+        assertThat(additionProductPage.getPrice())
+                .as("Price should be the same")
+                .isEqualTo(additionProductOldPrice);
     }
 }
