@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 
@@ -16,16 +16,20 @@ public class ServiceCenterPage {
 
     @Step("Service center page: select first letter {firstLetter}")
     public ServiceCenterPage selectFirstLetter(char firstLetter) {
-        $x(format("//a[@class='chips__button' and contains(text(),'%s')]", valueOf(firstLetter).toUpperCase())).click();
+        var firstWordXpath = "(//a[contains(@class,'service-list')])[1]";
+        var firstWord = getText(firstWordXpath);
+        $x(format("//a[@class='chips__button' and contains(text(),'%s')]",
+                valueOf(firstLetter).toUpperCase())).click();
+        if (!firstWord.isEmpty()) {
+            waitForTextChange(firstWordXpath, firstWord);
+        } else {
+            waitTillVisible(firstWordXpath);
+        }
         return this;
     }
 
     public List<String> getProducersList() {
-        try {
-            return $$x("//a[contains(@class, 'service-list')]").texts();
-        } catch (NullPointerException e) {
-            return new ArrayList<>();
-        }
+        return $$x("//li[contains(@class, 'service-list')]").texts();
     }
 
     public boolean isServiceCenterListVisible() {
@@ -35,7 +39,7 @@ public class ServiceCenterPage {
     @Step("Service center page: search producer by name {producerName}")
     public ProducerPage searchProducer(String producerName) {
         $x("//input[contains(@class,'autocomplete__input')]").setValue(producerName);
-        $x("(//ul[contains(@class,'autocomplete')]/li)[1]").click();
+        $x(format("//div/ul//*[contains(text(),'%s')]", producerName)).click();
         return new ProducerPage();
     }
 }

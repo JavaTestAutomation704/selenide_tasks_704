@@ -20,13 +20,14 @@ public class ServiceCenterTest extends TestRunner {
             var producersList = serviceCenter
                     .selectFirstLetter(c)
                     .getProducersList();
-            var firstLetter = valueOf(c);
-            var isListCorrect = producersList
-                    .stream()
-                    .allMatch(a -> a.substring(0,1).equals(firstLetter));
+            var firstLetter = valueOf(c).toUpperCase();
 
-            softly.assertThat(isListCorrect)
-                    .as("All names should start with the same letter")
+            var areListNamesCorrect = producersList.size() != 0 && producersList
+                    .stream()
+                    .allMatch(a -> a.substring(0, 1).toUpperCase().equals(firstLetter));
+
+            softly.assertThat(areListNamesCorrect)
+                    .as("All names should start with the same letter %s - %s ", firstLetter, producersList)
                     .isTrue();
         }
 
