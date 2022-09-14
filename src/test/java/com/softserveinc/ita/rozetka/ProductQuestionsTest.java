@@ -35,7 +35,7 @@ public class ProductQuestionsTest extends TestRunner {
                 .as("Product questions quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         int productQuestionsWithPhotosQuantity = productQuestionsPage.getProductQuestionsWithPhotosQuantity();
 
         for (int number = 1; number < productQuestionsWithPhotosQuantity; number++) {
@@ -43,7 +43,7 @@ public class ProductQuestionsTest extends TestRunner {
                     .getProductQuestionItem(number)
                     .hasPhoto();
 
-            softAssertions.assertThat(hasPhoto)
+            softly.assertThat(hasPhoto)
                     .as(number + " Product question item should have a photo")
                     .isTrue();
         }
@@ -53,10 +53,51 @@ public class ProductQuestionsTest extends TestRunner {
                     .getProductQuestionItem(number)
                     .hasPhoto();
 
-            softAssertions.assertThat(hasPhoto)
+            softly.assertThat(hasPhoto)
                     .as(number + " Product question item should not have a photo")
                     .isFalse();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifySortProductQuestionsByVoteFunctionality() {
+        var searchResultsPage = homePage
+                .getHeader()
+                .search("Телевізор Samsung");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var productQuestionsPage = searchResultsPage
+                .getProduct(1)
+                .open()
+                .openProductQuestionsPage();
+
+        int productQuestionsQuantity = productQuestionsPage.getProductQuestionsQuantity();
+
+        assertThat(productQuestionsQuantity)
+                .as("Product questions quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        productQuestionsPage = productQuestionsPage.sort(ProductQuestionsSort.BY_VOTE);
+
+        assertThat(productQuestionsQuantity)
+                .as("Product questions quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var softly = new SoftAssertions();
+        int step = 4;
+
+        for (int i = step + 1; i < productQuestionsQuantity; i += step) {
+            softly
+                    .assertThat(productQuestionsPage.getProductQuestionItem(i)
+                            .differenceBetweenLikesAndDislikes())
+                    .as(i + " product question vote should be less than " + (i - step))
+                    .isLessThanOrEqualTo(productQuestionsPage.getProductQuestionItem(i - step)
+                            .differenceBetweenLikesAndDislikes());
+        }
+        softly.assertAll();
     }
 }

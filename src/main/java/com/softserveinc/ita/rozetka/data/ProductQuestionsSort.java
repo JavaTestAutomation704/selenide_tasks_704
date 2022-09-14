@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ProductQuestionsSort {
     BY_DATE("2"),
+    BY_VOTE("3"),
     WITH_PHOTO("4");
     @NonNull
     private final String sortXpath;
