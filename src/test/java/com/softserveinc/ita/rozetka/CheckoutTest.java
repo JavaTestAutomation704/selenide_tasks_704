@@ -152,10 +152,6 @@ public class CheckoutTest extends TestRunner {
                 .as("Order section should be opened")
                 .isTrue();
 
-        checkoutPage
-                .getContactInformationSection()
-                .fillInContactInformation("Маск", "Ілон", "0637891234");
-
         var firstOrderSection = checkoutPage.getOrderSection(1);
 
         var firstCourierDeliverySection = firstOrderSection.selectCourierDelivery();
@@ -338,6 +334,92 @@ public class CheckoutTest extends TestRunner {
                 .as("Pickup point should be correct")
                 .contains(ROZETKA.getNameUa())
                 .contains(pickupPointName);
+        softAssertions.assertAll();
+    }
+
+    @Test
+    public void verifyThatContactInformationIsCopiedToRecipientContactInformation() {
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var searchResultsPage = header.search("Lenovo");
+
+        int productNumber = 1;
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("The products quantity should be sufficient on the search results page")
+                .isGreaterThanOrEqualTo(productNumber);
+
+        searchResultsPage
+                .getProduct(productNumber)
+                .addToShoppingCart();
+
+        var shoppingCartModal = header.openShoppingCartModal();
+
+        assertThat(shoppingCartModal.isEmpty())
+                .as("There should be at least one product in the shopping cart")
+                .isFalse();
+
+        var checkoutPage = shoppingCartModal.startCheckout();
+
+        var contactInformationSection = checkoutPage
+                .getContactInformationSection()
+                .fillInContactInformation("Musk", "Elon", "9875");
+
+        var softAssertions = new SoftAssertions();
+
+        var actualSurnameErrorMessage = contactInformationSection.getSurnameErrorMessage();
+        var actualNameErrorMessage = contactInformationSection.getNameErrorMessage();
+        var actualPhoneErrorMessage = contactInformationSection.getPhoneNumberErrorMessage();
+
+        softAssertions
+                .assertThat(actualSurnameErrorMessage)
+                .as("Error message should be displayed when entering invalid data on the contact information section")
+                .isEqualTo("Введіть своє прізвище кирилицею");
+        softAssertions
+                .assertThat(actualNameErrorMessage)
+                .as("Error message should be displayed when entering invalid data on the contact information section")
+                .isEqualTo("Введіть своє ім'я кирилицею");
+        softAssertions
+                .assertThat(actualPhoneErrorMessage)
+                .as("Error message should be displayed when entering invalid data on the contact information section")
+                .isEqualTo("Введіть номер мобільного телефону");
+
+        var redColor = Color.RED.getRgb();
+
+        var isActualSurnameBorderColorCorrect = contactInformationSection.isSurnameBorderColorCorrect(redColor);
+        var isActualNameBorderColorCorrect = contactInformationSection.isNameBorderColorCorrect(redColor);
+        var isActualPhoneBorderColorCorrect = contactInformationSection.isPhoneNumberBorderColorCorrect(redColor);
+
+        softAssertions
+                .assertThat(isActualSurnameBorderColorCorrect)
+                .as("Surname border color should be red when entering invalid data on the contact information section")
+                .isTrue();
+
+        softAssertions
+                .assertThat(isActualNameBorderColorCorrect)
+                .as("Name border color should be red when entering invalid data on the contact information section")
+                .isTrue();
+
+        softAssertions
+                .assertThat(isActualPhoneBorderColorCorrect)
+                .as("Phone border color should be red when entering invalid data on the contact information section")
+                .isTrue();
+
+        var contactInformation = contactInformationSection.getContactInformation();
+        var recipientContactInformation = checkoutPage
+                .getOrderSection(1)
+                .getRecipientContactInformation();
+
+        softAssertions.assertThat(recipientContactInformation)
+                .as("Contact information should be copied to recipient's contact information")
+                .usingRecursiveComparison()
+                .isEqualTo(contactInformation);
+
         softAssertions.assertAll();
     }
 }

@@ -12,6 +12,7 @@ import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
+import static java.lang.String.format;
 import static java.time.Duration.ofSeconds;
 
 @UtilityClass
@@ -93,6 +94,10 @@ public class WebElementUtil {
         isVisible(elementXpath, 5);
     }
 
+    public static void waitTillVisible(String elementXpath, long seconds) {
+        isVisible(elementXpath, seconds);
+    }
+
     public static void waitForTextChange(String elementXpath, String elementText) {
         try {
             $x(elementXpath).shouldNotHave(text(elementText));
@@ -125,9 +130,9 @@ public class WebElementUtil {
     }
 
     public static boolean isBorderColorCorrect(String elementXpath, String colorRgb) {
-        String expectedColor = String.format("rgb(%s)", colorRgb);
+        var expectedColor = format("rgb(%s)", colorRgb);
         try {
-            String actualColor = $x(elementXpath)
+            var actualColor = $x(elementXpath)
                     .shouldHave(cssValue("border-color", expectedColor))
                     .getCssValue("border-color");
             return actualColor.equals(expectedColor);

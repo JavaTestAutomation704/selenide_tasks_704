@@ -11,7 +11,6 @@ public class BuyOnCreditTest extends TestRunner {
 
     @Test
     public void verifyPurchaseOnCreditCapability() {
-
         var searchResultsPage = homePage
                 .getHeader()
                 .search("Xbox")
@@ -34,30 +33,30 @@ public class BuyOnCreditTest extends TestRunner {
 
         var creditModal = productPage.startPurchaseOnCredit();
 
-        assertThat(creditModal.isOpen())
-                .as("Credit modal should be open")
+        assertThat(creditModal.isOpened())
+                .as("Credit modal should be opened")
                 .isTrue();
 
         var softAssert = new SoftAssertions();
 
-        var isCreditPageOpen = creditModal
+        var isCreditPageOpened = creditModal
                 .openCreditPage()
-                .isOpen();
+                .isOpened();
 
-        softAssert.assertThat(isCreditPageOpen)
-                .as("Credit page should be open")
+        softAssert.assertThat(isCreditPageOpened)
+                .as("Credit page should be opened")
                 .isTrue();
 
         homePage.backToHomePage();
         productPage.startPurchaseOnCredit();
 
-        var isCheckoutPageOpen = creditModal
+        var isCheckoutPageOpened = creditModal
                 .selectCreditVariant(1)
                 .isOrderModalVisible();
 
         softAssert
-                .assertThat(isCheckoutPageOpen)
-                .as("Checkout page should be open")
+                .assertThat(isCheckoutPageOpened)
+                .as("Checkout page should be opened")
                 .isTrue();
 
         softAssert.assertAll();

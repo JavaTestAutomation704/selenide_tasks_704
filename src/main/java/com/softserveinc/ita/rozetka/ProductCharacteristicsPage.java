@@ -15,8 +15,8 @@ public class ProductCharacteristicsPage extends BasePage {
     }
 
     public boolean isCharacteristicsTabHighlighted() {
-        String characteristicsTabTextColor = $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").getCssValue("color");
-        String characteristicsTabBottomBorderColor = $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").getCssValue("box-shadow");
+        var characteristicsTabTextColor = $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").getCssValue("color");
+        var characteristicsTabBottomBorderColor = $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").getCssValue("box-shadow");
 
         return characteristicsTabTextColor.equals("rgba(0, 160, 70, 1)")
                 && characteristicsTabBottomBorderColor.contains("rgb(0, 160, 70)");

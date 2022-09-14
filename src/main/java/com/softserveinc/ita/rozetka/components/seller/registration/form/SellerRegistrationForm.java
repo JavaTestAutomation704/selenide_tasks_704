@@ -12,6 +12,7 @@ public abstract class SellerRegistrationForm {
 
     protected final String formFieldXpathTemplate = "//input[@id = 'mat-input-%d']";
     protected final String tabPanelXpathTemplate = "(//div[contains(@class,'mat-step-icon')])[%d]";
+    protected final String formButtonXpathTemplate = "(//div[@class = 'registration-form--actions']/button)[%d]";
 
     protected boolean isOpened(String elementXpath) {
         return hasCssValue(elementXpath, "transform", "none");

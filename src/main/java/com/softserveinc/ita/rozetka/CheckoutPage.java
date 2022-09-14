@@ -8,6 +8,7 @@ import com.softserveinc.ita.rozetka.components.TotalOrderSection;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static java.lang.String.format;
 
 public class CheckoutPage extends BasePage {
 
@@ -40,8 +41,8 @@ public class CheckoutPage extends BasePage {
     }
 
     public String getSelectedDeliveryTitle(int orderNumber) {
-      return $x(String.format("(//div[@class='checkout-variant__content ng-star-inserted']/../../div//label)[%d]",
-              orderNumber)).text();
+        return $x(format("(//div[@class='checkout-variant__content ng-star-inserted']/../../div//label)[%d]",
+                orderNumber)).text();
     }
 
     public PromoCodeSection getPromoCodeSection() {

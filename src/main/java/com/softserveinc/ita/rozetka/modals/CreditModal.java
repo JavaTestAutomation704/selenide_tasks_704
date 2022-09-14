@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillVisible;
+import static java.lang.String.format;
 
 public class CreditModal {
 
@@ -18,7 +19,7 @@ public class CreditModal {
         return this;
     }
 
-    public boolean isOpen() {
+    public boolean isOpened() {
         return isVisible("//credit-modal");
     }
 
@@ -30,7 +31,7 @@ public class CreditModal {
 
     @Step("Credit modal: select credit variant {number}")
     public CheckoutPage selectCreditVariant(int number) {
-        $x(String.format("(//rz-credit-variant//div//button)[%d]", number)).click();
+        $x(format("(//rz-credit-variant//div//button)[%d]", number)).click();
         return new CheckoutPage();
     }
 }

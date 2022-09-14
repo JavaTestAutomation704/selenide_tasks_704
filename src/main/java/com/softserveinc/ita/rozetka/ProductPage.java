@@ -9,6 +9,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class ProductPage extends BasePage {
     private final String titleXpath = "//h1[@class='product__title']";
@@ -28,7 +29,7 @@ public class ProductPage extends BasePage {
     }
 
     private void openPage(String pageName) {
-        $x(String.format("//ul[@class='tabs__list']//a[contains(@href, '%s')]", pageName)).click();
+        $x(format("//ul[@class='tabs__list']//a[contains(@href, '%s')]", pageName)).click();
         $x("//rz-product-tab-main").shouldNotBe(visible);
     }
 
@@ -72,7 +73,7 @@ public class ProductPage extends BasePage {
     }
 
     public String getBonusText() {
-        String xpathBonusText = "//div[contains(@class,'bonuses__info')]";
+        var xpathBonusText = "//div[contains(@class,'bonuses__info')]";
         if (isVisible(xpathBonusText)) {
             return $x(xpathBonusText).text();
         }
@@ -81,6 +82,7 @@ public class ProductPage extends BasePage {
 
     @Step("Product page: open promotion terms page modal")
     public PromotionTermsModal openPromotionTermsModal() {
+        $x(titleXpath).hover();
         $x("//button[contains(@class, 'promotion')]").click();
         return new PromotionTermsModal();
     }

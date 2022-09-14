@@ -5,8 +5,9 @@ import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.Long.getLong;
+import static java.lang.String.format;
 
 @RequiredArgsConstructor
 public class CartItem {
@@ -14,34 +15,48 @@ public class CartItem {
     private final String quantityInputXpath = "(//input[contains(@class, 'cart-counter')])[%d]";
 
     public String getTitle() {
-        return getText(String.format("(//a[contains(@class, 'cart-product__title')])[%d]", numberCartItem)).toLowerCase();
+        return getText(format("(//a[contains(@class, 'cart-product__title')])[%d]", numberCartItem)).toLowerCase();
     }
 
     public int getQuantity() {
-        return Integer.parseInt($x(String.format(quantityInputXpath, numberCartItem)).val());
+        return Integer.parseInt($x(format(quantityInputXpath, numberCartItem)).val());
     }
 
     @Step("Cart item: increase the product quantity by one")
     public ShoppingCartModal increment() {
-        $x(String.format("(//button[contains(@data-testid, 'increment')])[%d]", numberCartItem)).click();
+        $x(format("(//button[contains(@data-testid, 'increment')])[%d]", numberCartItem)).click();
         return new ShoppingCartModal();
     }
 
     @Step("Cart item: decrease the product quantity by one")
     public ShoppingCartModal decrement() {
-        $x(String.format("(//button[contains(@data-testid, 'decrement')])[%d]", numberCartItem)).click();
+        $x(format("(//button[contains(@data-testid, 'decrement')])[%d]", numberCartItem)).click();
         return new ShoppingCartModal();
     }
 
     @Step("Cart item: set product quantity {quantity}")
     public ShoppingCartModal setQuantity(String quantity) {
-        var quantityInput = $x(String.format(quantityInputXpath, numberCartItem));
+        var quantityInput = $x(format(quantityInputXpath, numberCartItem));
         quantityInput.clear();
         quantityInput.sendKeys(quantity);
         return new ShoppingCartModal();
     }
 
     public long getTotalPrice() {
-        return getLong(String.format("(//p[contains(@class, 'cart-product__price')])[%d]", numberCartItem));
+        return getLong(format("(//p[contains(@class, 'cart-product__price')])[%d]", numberCartItem));
+    }
+
+    @Step("Shopping cart modal: choose additional service")
+    public CartItem addService(int number) {
+        $x(String.format("(//span[@class='cart-service__title'])[%s]", number)).click();
+        return this;
+    }
+
+    public long getAdditionalServicePrice(int number) {
+        return getLongFromField(String.format("(//span[@class='cart-service__price cart-service__price--red'])[%s]", number));
+    }
+
+    public boolean isAdditionalServicesAvailable(int number) {
+        return isVisible(String.format("(//button[@data-testid='cart-services-toggle'])[%s]", number));
     }
 }

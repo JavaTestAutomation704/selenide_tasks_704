@@ -131,4 +131,25 @@ public class ReviewTest extends TestRunner {
 
         softAssertions.assertAll();
     }
+
+    @Test
+    public void verifyThatUnregisteredUserCanNotWriteReview() {
+        var searchResultsPage = homePage
+                .getHeader()
+                .search("телефон");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var reviewPage = searchResultsPage
+                .getProduct(1)
+                .open()
+                .openReviewPage();
+
+        reviewPage = reviewPage.startWritingReview();
+        assertThat(reviewPage.isLoginModalOpen())
+                .as("Login modal should be open")
+                .isTrue();
+    }
 }
