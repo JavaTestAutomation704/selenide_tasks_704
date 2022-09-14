@@ -25,7 +25,7 @@ public class ProductQuestionItem {
     }
 
     private Date parseDate(String inputDate) {
-        //DateTimeFormatter doesn't work here ,so parseDate() method parses inputDate to the format('dd MMMM yyyy')
+        // DateTimeFormatter doesn't work here, so parseDate() method parses inputDate to the format('dd MMMM yyyy')
         var dateParts = inputDate.split(" ");
         var calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getNumberByValue(dateParts[1]),
                 Integer.parseInt(dateParts[0]));
