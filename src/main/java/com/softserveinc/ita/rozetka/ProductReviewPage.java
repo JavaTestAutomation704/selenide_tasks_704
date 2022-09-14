@@ -8,6 +8,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
+import static java.lang.String.format;
 
 public class ProductReviewPage {
     public ReviewItem getReviewItem(int number) {
@@ -24,7 +25,7 @@ public class ProductReviewPage {
 
     @Step("Product review page: sort reviews by {sort}")
     public ProductReviewPage sort(ReviewsSort sort) {
-        $x(String.format("//select//option[@value='%s']", sort.getSortXpath())).click();
+        $x(format("//select//option[@value='%s']", sort.getSortXpath())).click();
         return this;
     }
 

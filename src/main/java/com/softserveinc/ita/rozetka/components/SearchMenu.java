@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static java.lang.String.format;
 
 public class SearchMenu {
 
@@ -19,7 +20,7 @@ public class SearchMenu {
 
     @Step("Search menu: clean search request {keyword}")
     public SearchMenu cleanSearchRequest(String keyword) {
-        $x(String.format("//li[contains(@data-name, '%s')]/button", keyword)).click();
+        $x(format("//li[contains(@data-name, '%s')]/button", keyword)).click();
         return this;
     }
 
@@ -32,14 +33,14 @@ public class SearchMenu {
     }
 
     public boolean isRequestRemoved(String keyword) {
-        return !isVisible(String.format("//li/a/span[contains(text(), '%s')]", keyword));
+        return !isVisible(format("//li/a/span[contains(text(), '%s')]", keyword));
     }
 
     public boolean isLastSearched(String keyword) {
-        return isVisible(String.format(searchRequestXpathTemplate, 2, keyword));
+        return isVisible(format(searchRequestXpathTemplate, 2, keyword));
     }
 
     public boolean isPreviouslySearched(String keyword) {
-        return isVisible(String.format(searchRequestXpathTemplate, 3, keyword));
+        return isVisible(format(searchRequestXpathTemplate, 3, keyword));
     }
 }
