@@ -4,25 +4,50 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-import static java.lang.String.format;
-
 public class SocialNetworksTest extends TestRunner {
 
     @Test
     public void verifyThatUserCanOpenRozetkaSocialNetworksPages() {
-        var socialNetworkPages = homePage.getAvailableRozetkaSocialNetworksPages();
+        var socialNetworksSection = homePage.getSocialNetworksSection();
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
-        socialNetworkPages.forEach(socialNetworkPage -> {
-            socialNetworkPage.open();
-            softAssertions
-                    .assertThat(socialNetworkPage.isOpened())
-                    .as(format("Rozetka %s page should be opened", socialNetworkPage.getName()))
-                    .isTrue();
-            homePage.backToHomePageTab();
-        });
+        var facebookPage = socialNetworksSection.openFaceBookPage();
+        softly.assertThat(facebookPage.isOpened())
+                .as("Rozetka Facebook page should be opened")
+                .isTrue();
+        rozetkaWindow.back();
 
-        softAssertions.assertAll();
+        var instagramPage = socialNetworksSection.openInstagramPage();
+        softly.assertThat(instagramPage.isOpened())
+                .as("Rozetka Instagram page should be opened")
+                .isTrue();
+        rozetkaWindow.back();
+
+        var telegramPage = socialNetworksSection.openTelegramPage();
+        softly.assertThat(telegramPage.isOpened())
+                .as("Rozetka Telegram page should be opened")
+                .isTrue();
+        rozetkaWindow.back();
+
+        var twitterPage = socialNetworksSection.openTwitterPage();
+        softly.assertThat(twitterPage.isOpened())
+                .as("Rozetka Twitter page should be opened")
+                .isTrue();
+        rozetkaWindow.back();
+
+        var viberPage = socialNetworksSection.openViberPage();
+        softly.assertThat(viberPage.isOpened())
+                .as("Rozetka Viber page should be opened")
+                .isTrue();
+        rozetkaWindow.back();
+
+        var youTubePage = socialNetworksSection.openYouTubePage();
+        softly.assertThat(youTubePage.isOpened())
+                .as("Rozetka YouTube page should be opened")
+                .isTrue();
+        rozetkaWindow.back();
+
+        softly.assertAll();
     }
 }

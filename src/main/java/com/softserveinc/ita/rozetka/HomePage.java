@@ -4,11 +4,9 @@ import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Selenide;
 import com.softserveinc.ita.rozetka.components.PartnerSection;
 import com.softserveinc.ita.rozetka.components.SmallCart;
+import com.softserveinc.ita.rozetka.components.SocialNetworksSection;
 import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.social_networks.pages.*;
 import io.qameta.allure.Step;
-
-import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
@@ -57,11 +55,8 @@ public class HomePage extends BasePage {
         return new PartnerSection();
     }
 
-    public List<SocialNetworkPage> getAvailableRozetkaSocialNetworksPages() {
-        return List.of(new FacebookPage("Facebook"),
-                new InstagramPage("Instagram"), new TelegramPage("Telegram"),
-                new TwitterPage("Twitter"), new ViberPage("Viber"),
-                new YouTubePage("YouTube"));
+    public SocialNetworksSection getSocialNetworksSection() {
+        return new SocialNetworksSection();
     }
 
     @Step("Home page: open goods exchange page")

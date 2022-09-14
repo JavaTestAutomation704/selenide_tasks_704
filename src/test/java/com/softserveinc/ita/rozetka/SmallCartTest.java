@@ -19,7 +19,7 @@ public class SmallCartTest extends TestRunner {
             if (shoppingCartModal.isCloseButtonVisible()) {
                 shoppingCartModal.close();
             } else {
-                homePage.backToHomePage();
+                homePage.back();
             }
         }
         var smallCart = homePage.getSmallCart();

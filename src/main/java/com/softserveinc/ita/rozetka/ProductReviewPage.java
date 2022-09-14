@@ -5,7 +5,6 @@ import com.softserveinc.ita.rozetka.components.ReviewItem;
 import com.softserveinc.ita.rozetka.data.ReviewsSort;
 import com.softserveinc.ita.rozetka.modals.FilterReviewsByRatingModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
-import com.softserveinc.ita.rozetka.modals.RegistrationModal;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -42,6 +41,6 @@ public class ProductReviewPage {
     }
 
     public boolean isLoginModalOpen() {
-        return new LogInModal().isOpen();
+        return new LogInModal().isOpened();
     }
 }

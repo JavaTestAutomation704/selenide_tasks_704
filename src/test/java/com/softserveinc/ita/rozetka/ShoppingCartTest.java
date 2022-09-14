@@ -26,7 +26,7 @@ public class ShoppingCartTest extends TestRunner {
             if (shoppingCartModal.isCloseButtonVisible()) {
                 shoppingCartModal.close();
             } else {
-                homePage.backToHomePage();
+                homePage.back();
             }
         }
     }

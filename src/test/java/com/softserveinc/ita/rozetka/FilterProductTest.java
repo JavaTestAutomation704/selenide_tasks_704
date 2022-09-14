@@ -116,7 +116,7 @@ public class FilterProductTest extends TestRunner {
                     .as("Incorrect bonus quantity text")
                     .contains("бонус");
 
-            productPage.backToHomePage();
+            productPage.back();
         }
         softAssertions.assertAll();
     }
@@ -285,8 +285,8 @@ public class FilterProductTest extends TestRunner {
                     .isEqualTo(SPAIN.getCountryNameUa());
 
             // In order to return to the search results page, you should use back methods twice
-            productCharacteristicsPage.backToHomePage();
-            productCharacteristicsPage.backToHomePage();
+            productCharacteristicsPage.back();
+            productCharacteristicsPage.back();
         }
 
         filter.filter(List.of(PRODUCED_IN_SPAIN, PRODUCED_IN_ITALY));
@@ -306,8 +306,8 @@ public class FilterProductTest extends TestRunner {
                     .isEqualTo(ITALY.getCountryNameUa());
 
             // In order to return to the search results page, you should use back methods twice
-            productCharacteristicsPage.backToHomePage();
-            productCharacteristicsPage.backToHomePage();
+            productCharacteristicsPage.back();
+            productCharacteristicsPage.back();
         }
         softAssertions.assertAll();
     }

@@ -21,7 +21,7 @@ public class NavigateToHomePageTest extends TestRunner {
             if (shoppingCartModal.isCloseButtonVisible()) {
                 shoppingCartModal.close();
             } else {
-                homePage.backToHomePage();
+                homePage.back();
             }
         }
 
