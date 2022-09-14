@@ -37,17 +37,17 @@ public class ReviewTest extends TestRunner {
                 .isLessThanOrEqualTo(initialQuantity)
                 .isGreaterThanOrEqualTo(20);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int number = 2; number < 20; number += 3) {
             int actualRating = reviewPage
                     .getReviewItem(number)
                     .getRating();
 
-            softAssertions.assertThat(actualRating)
+            softly.assertThat(actualRating)
                     .as(number + " review should have expected rating")
                     .isEqualTo(expectedRating);
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -75,18 +75,18 @@ public class ReviewTest extends TestRunner {
                 .as("Reviews quantity should be sufficient")
                 .isGreaterThanOrEqualTo(25);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int number = 1; number < 25; number++) {
             var hasPhoto = reviewPage
                     .getReviewItem(number)
                     .hasPhoto();
 
-            softAssertions.assertThat(hasPhoto)
+            softly.assertThat(hasPhoto)
                     .as(number + " review should have a photo")
                     .isTrue();
         }
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -114,7 +114,7 @@ public class ReviewTest extends TestRunner {
                 .as("Reviews quantity should be sufficient")
                 .isGreaterThanOrEqualTo(25);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int number = 1; number < 25; number += 2) {
             var firstDate = reviewPage
                     .getReviewItem(number)
@@ -124,12 +124,12 @@ public class ReviewTest extends TestRunner {
                     .getReviewItem(number + 1)
                     .getDate();
 
-            softAssertions.assertThat(firstDate)
+            softly.assertThat(firstDate)
                     .as("second date should be occurs before or equal to first date")
                     .isAfterOrEqualTo(secondDate);
         }
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test

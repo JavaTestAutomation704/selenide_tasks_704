@@ -370,21 +370,21 @@ public class CheckoutTest extends TestRunner {
                 .getContactInformationSection()
                 .fillInContactInformation("Musk", "Elon", "9875");
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         var actualSurnameErrorMessage = contactInformationSection.getSurnameErrorMessage();
         var actualNameErrorMessage = contactInformationSection.getNameErrorMessage();
         var actualPhoneErrorMessage = contactInformationSection.getPhoneNumberErrorMessage();
 
-        softAssertions
+        softly
                 .assertThat(actualSurnameErrorMessage)
                 .as("Error message should be displayed when entering invalid data on the contact information section")
                 .isEqualTo("Введіть своє прізвище кирилицею");
-        softAssertions
+        softly
                 .assertThat(actualNameErrorMessage)
                 .as("Error message should be displayed when entering invalid data on the contact information section")
                 .isEqualTo("Введіть своє ім'я кирилицею");
-        softAssertions
+        softly
                 .assertThat(actualPhoneErrorMessage)
                 .as("Error message should be displayed when entering invalid data on the contact information section")
                 .isEqualTo("Введіть номер мобільного телефону");
@@ -395,17 +395,17 @@ public class CheckoutTest extends TestRunner {
         var isActualNameBorderColorCorrect = contactInformationSection.isNameBorderColorCorrect(redColor);
         var isActualPhoneBorderColorCorrect = contactInformationSection.isPhoneNumberBorderColorCorrect(redColor);
 
-        softAssertions
+        softly
                 .assertThat(isActualSurnameBorderColorCorrect)
                 .as("Surname border color should be red when entering invalid data on the contact information section")
                 .isTrue();
 
-        softAssertions
+        softly
                 .assertThat(isActualNameBorderColorCorrect)
                 .as("Name border color should be red when entering invalid data on the contact information section")
                 .isTrue();
 
-        softAssertions
+        softly
                 .assertThat(isActualPhoneBorderColorCorrect)
                 .as("Phone border color should be red when entering invalid data on the contact information section")
                 .isTrue();
@@ -415,11 +415,11 @@ public class CheckoutTest extends TestRunner {
                 .getOrderSection(1)
                 .getRecipientContactInformation();
 
-        softAssertions.assertThat(recipientContactInformation)
+        softly.assertThat(recipientContactInformation)
                 .as("Contact information should be copied to recipient's contact information")
                 .usingRecursiveComparison()
                 .isEqualTo(contactInformation);
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }
