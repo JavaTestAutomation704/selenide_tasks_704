@@ -11,7 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class PromotionTermsModal {
 
-    public boolean isOpen() {
+    public boolean isOpened() {
         return isVisible("//rz-promotion-modal");
     }
 
