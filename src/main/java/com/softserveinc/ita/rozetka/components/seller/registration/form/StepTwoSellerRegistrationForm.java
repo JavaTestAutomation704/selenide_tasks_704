@@ -1,12 +1,12 @@
 package com.softserveinc.ita.rozetka.components.seller.registration.form;
 
-import com.softserveinc.ita.rozetka.model.Seller;
+import com.softserveinc.ita.rozetka.models.Seller;
 import io.qameta.allure.Step;
 
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.hasAttribute;
 import static java.lang.String.format;
 
 public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {

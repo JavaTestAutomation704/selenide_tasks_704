@@ -9,6 +9,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 
 public class SearchResultsPage extends BasePage {
@@ -47,7 +48,7 @@ public class SearchResultsPage extends BasePage {
     @Step("Search results page: sort search results by {sort}")
     public SearchResultsPage sortBy(ProductSort sort) {
         $x("//rz-sort//select").click();
-        $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
+        $x(format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
 
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
         if (isVisible(preloaderXpath, 10)) {
@@ -61,7 +62,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public boolean doesTitleContain(String keyword) {
-        return isVisible(String.format("//h1[contains(text(), '%s')]", keyword));
+        return isVisible(format("//h1[contains(text(), '%s')]", keyword));
     }
 
     public int getProductsWithDiscountQuantity() {

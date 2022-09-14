@@ -12,15 +12,19 @@ public class LogInTest extends TestRunner {
 
     @Test
     public void verifyLoggingCapability() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
-        var logInModal = homePage
-                .getHeader()
-                .startLogging();
-
-        assertThat(logInModal.isOpen())
-                .as("Log In modal should be open")
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
                 .isTrue();
 
+        var logInModal = header.startLogging();
+
+        assertThat(logInModal.isOpened())
+                .as("Log In modal should be opened")
+                .isTrue();
 
         assertThat(logInModal.isLogInButtonVisible())
                 .as("Log In button should be displayed on the Log In modal")
@@ -34,26 +38,16 @@ public class LogInTest extends TestRunner {
                 .as("Remind password button should be displayed on the Log In modal")
                 .isTrue();
 
-        var isUaLanguageSelected = homePage
-                .getHeader()
-                .isLanguageSelected(UA);
-
-        assertThat(isUaLanguageSelected)
-                .as("Localization should be switched to UA")
-                .isTrue();
-
         var softAssertions = new SoftAssertions();
 
         var actualEmailErrorMessage = logInModal
                 .logIn()
                 .getEmailErrorMessage();
 
-
         softAssertions
                 .assertThat(actualEmailErrorMessage)
                 .as("Error message should be displayed when submitting empty fields on the Log In modal")
                 .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
-
 
         var redColor = Color.RED.getRgb();
 
@@ -65,12 +59,10 @@ public class LogInTest extends TestRunner {
                 .as("Email border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
 
-
         softAssertions
                 .assertThat(isActualPasswordBorderColorCorrect)
                 .as("Password border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
-
 
         logInModal.remindPassword();
         assertThat(logInModal.isGetTemporaryPasswordButtonVisible())
@@ -99,13 +91,13 @@ public class LogInTest extends TestRunner {
 
         logInModal.rememberPassword();
 
-        var isRegistrationModalOpen = logInModal
+        var isRegistrationModalOpened = logInModal
                 .startRegistration()
-                .isOpen();
+                .isOpened();
 
         softAssertions
-                .assertThat(isRegistrationModalOpen)
-                .as("Registration modal should be open")
+                .assertThat(isRegistrationModalOpened)
+                .as("Registration modal should be opened")
                 .isTrue();
 
         softAssertions.assertAll();

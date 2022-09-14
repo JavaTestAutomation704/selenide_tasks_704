@@ -12,6 +12,7 @@ import java.util.List;
 import static com.softserveinc.ita.rozetka.data.Category.*;
 import static com.softserveinc.ita.rozetka.data.Country.ITALY;
 import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
@@ -122,10 +123,15 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyResettingFilters() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
-        var searchResultsPage = homePage
-                .getHeader()
-                .search("Xbox");
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var searchResultsPage = header.search("Xbox");
 
         long resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 
@@ -146,6 +152,7 @@ public class FilterProductTest extends TestRunner {
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be grater than after filters")
                 .isGreaterThan(resultsAmountAfterFilters);
+        //TODO: This test may be failed as results amount after resetting may be different than after search
         softly
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be the same as after search")
@@ -351,14 +358,14 @@ public class FilterProductTest extends TestRunner {
 
         var softly = new SoftAssertions();
 
-        for (var query : searchQueries) {
+        searchQueries.forEach(query -> {
             filter.searchForBrand(query);
             softly
                     .assertThat(filter.getBrandSearchResults())
                     .allSatisfy(brand -> assertThat(brand)
                             .as("Brand name should contain search query")
                             .containsIgnoringCase(query));
-        }
+        });
 
         filter.clearBrandSearchField();
 
@@ -368,14 +375,21 @@ public class FilterProductTest extends TestRunner {
                 .isTrue();
 
         var searchLetters = List.of("A", "N", "H", "J");
-        for (var letter : searchLetters) {
+        searchLetters.forEach(letter -> {
             alphabetSidebar.searchByLetter(letter);
             softly
                     .assertThat(filter.getBrandSearchResults())
-                    .allSatisfy(brand -> assertThat(brand)
-                            .as("Brand name should start with selected letter")
-                            .startsWithIgnoringCase(letter));
-        }
+                    .as("Brand name should start with selected letter or contain that letter")
+                    .satisfiesAnyOf(
+                            brands -> assertThat(brands)
+                                    .allSatisfy(brand -> assertThat(brand)
+                                            .as("Brand name should start with selected letter")
+                                            .startsWithIgnoringCase(letter)),
+                            brands -> assertThat(brands)
+                                    .allSatisfy(brand -> assertThat(brand)
+                                            .as("Brand name should contains selected letter")
+                                            .contains(letter)));
+        });
 
         softly.assertAll();
     }
