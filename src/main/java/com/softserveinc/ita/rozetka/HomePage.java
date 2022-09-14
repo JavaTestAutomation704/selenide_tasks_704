@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Selenide;
+import com.softserveinc.ita.rozetka.components.CompanyInformationSection;
 import com.softserveinc.ita.rozetka.components.PartnerSection;
 import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
@@ -59,5 +60,9 @@ public class HomePage extends BasePage {
         $x("(//a[contains(@href, 'obmin')])[1]").click(ClickOptions.usingJavaScript());
         waitTillPreloaderInvisible();
         return new GoodsExchangePage();
+    }
+
+    public CompanyInformationSection getCompanyInformationSection() {
+        return new CompanyInformationSection();
     }
 }
