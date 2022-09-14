@@ -200,7 +200,7 @@ public class ShoppingCartTest extends TestRunner {
                 .as("Shopping cart should be empty")
                 .isFalse();
 
-        SubcategoryPage subcategoryPage = homePage
+        var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
                 .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
