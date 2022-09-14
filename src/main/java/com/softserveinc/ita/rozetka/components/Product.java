@@ -86,9 +86,7 @@ public class Product {
     }
 
     public boolean isOnSale() {
-        int waitingTime = 2;
-        return isVisible(productXpath + "//span[contains(@class, 'promo-label')]", waitingTime)
-                || !getText(productXpath + "//div[contains(@class, 'price--old')]").equals("");
+        return !getText(productXpath + "//div[contains(@class, 'price--old')]").equals("");
     }
 
     public boolean isInShoppingCart() {

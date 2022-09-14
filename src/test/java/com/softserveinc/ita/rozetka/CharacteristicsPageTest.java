@@ -56,7 +56,7 @@ public class CharacteristicsPageTest extends TestRunner {
                 .openCategoryPage(Category.PROMOTION)
                 .openPromoPage();
 
-        var isUaLanguage = promoPage
+        var isUaLanguage = homePage
                 .getHeader()
                 .isLanguageSelected(Language.UA);
 

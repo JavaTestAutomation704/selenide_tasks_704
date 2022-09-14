@@ -42,6 +42,6 @@ public class ProductReviewPage {
     }
 
     public boolean isLoginModalOpen() {
-        return new LogInModal().isOpen();
+        return new LogInModal().isOpened();
     }
 }

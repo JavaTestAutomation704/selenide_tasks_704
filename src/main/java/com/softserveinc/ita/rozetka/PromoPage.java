@@ -20,9 +20,4 @@ public class PromoPage {
     public int getProductsQuantity() {
         return getCollectionSize("//rz-catalog-tile");
     }
-
-    @Step("Promo page: get header")
-    public Header getHeader(){
-        return new Header();
-    }
 }
