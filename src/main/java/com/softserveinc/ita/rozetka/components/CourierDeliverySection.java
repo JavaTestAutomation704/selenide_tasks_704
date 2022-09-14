@@ -30,9 +30,8 @@ public class CourierDeliverySection {
     public CourierDeliverySection fillInDeliveryDetails(String street, String house, String flat) {
         $x(format(streetFieldXpathTemplate, orderNumber)).val(street);
         var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
-        waitTillVisible(streetDropDownListXpath, 7);
+        waitTillVisible(streetDropDownListXpath, 10);
         $x(streetDropDownListXpath).click();
-        waitTillPreloaderInvisible();
         $x(format(houseFieldXpathTemplate, orderNumber)).sendKeys(house);
         $x(format(flatFieldXpathTemplate, orderNumber)).sendKeys(flat);
         waitTillPreloaderInvisible();
