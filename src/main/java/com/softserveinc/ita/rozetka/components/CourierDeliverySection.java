@@ -28,7 +28,7 @@ public class CourierDeliverySection {
 
     @Step("Courier delivery section: fill in delivery details {street}, {house}, {flat}")
     public CourierDeliverySection fillInDeliveryDetails(String street, String house, String flat) {
-        $x(format(streetFieldXpathTemplate, orderNumber)).val(street);
+        $x(format(streetFieldXpathTemplate, orderNumber)).val(street).click();
         var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
         waitTillVisible(streetDropDownListXpath, 10);
         $x(streetDropDownListXpath).click();
