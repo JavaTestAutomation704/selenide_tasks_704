@@ -20,8 +20,8 @@ public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {
         return isOpened(format(tabPanelXpathTemplate, 3));
     }
 
-    @Step("Step two seller registration form: open step one seller registration form tab panel")
-    public StepOneSellerRegistrationForm openStepOneSellerRegistrationFormTabPanel() {
+    @Step("Step two seller registration form: open step one seller registration form")
+    public StepOneSellerRegistrationForm openStepOneSellerRegistrationForm() {
         $x("(//div[contains(@class,'mat-step-icon')])[1]").click();
         return new StepOneSellerRegistrationForm();
     }

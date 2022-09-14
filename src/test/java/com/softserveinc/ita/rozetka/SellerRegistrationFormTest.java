@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.model.Seller;
 import com.softserveinc.ita.rozetka.components.seller.registration.form.StepOneSellerRegistrationForm;
 import com.softserveinc.ita.rozetka.models.Seller;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
@@ -67,7 +66,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Error message should appear when products amount field is empty")
                 .isEqualTo(expectedErrorMessage);
 
-        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormTabPanel();
+        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationForm();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
@@ -148,7 +147,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .as("Error message should appear when products amount field is filled in with invalid data")
                 .isEqualTo(expectedErrorMessage);
 
-        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormTabPanel();
+        var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm.openStepTwoSellerRegistrationForm();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
@@ -204,7 +203,7 @@ public class SellerRegistrationFormTest extends TestRunner {
 
         var stepTwoSellerRegistrationForm = stepOneSellerRegistrationForm
                 .fillInShopInformation(seller)
-                .continueStepTwoSellerRegistrationForm();
+                .continueToStepTwoSellerRegistrationForm();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
@@ -228,7 +227,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .siteUrl(stepOneSellerRegistrationForm.getSiteUrl())
                 .productsAmount(stepOneSellerRegistrationForm.getProductsAmount());
 
-        stepOneSellerRegistrationForm.openStepTwoSellerRegistrationFormTabPanel();
+        stepOneSellerRegistrationForm.openStepTwoSellerRegistrationForm();
 
         assertThat(stepTwoSellerRegistrationForm.isOpened())
                 .as("Step two seller registration form should be opened")
@@ -246,7 +245,7 @@ public class SellerRegistrationFormTest extends TestRunner {
                 .usingRecursiveComparison()
                 .isEqualTo(actualSeller);
 
-        stepTwoSellerRegistrationForm.openStepOneSellerRegistrationFormTabPanel();
+        stepTwoSellerRegistrationForm.openStepOneSellerRegistrationForm();
 
         softly.assertThat(stepOneSellerRegistrationForm.isOpened())
                 .as("Step one seller registration form should be opened")
