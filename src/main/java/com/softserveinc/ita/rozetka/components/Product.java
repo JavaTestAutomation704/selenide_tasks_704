@@ -5,9 +5,7 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
@@ -76,7 +74,7 @@ public class Product {
     }
 
     public Availability getAvailability() {
-        String availability = getText(productXpath + "//div[contains(@class, 'availability')]");
+        var availability = getText(productXpath + "//div[contains(@class, 'availability')]");
         return Availability.getByValue(availability);
     }
 
@@ -99,12 +97,12 @@ public class Product {
 
     public boolean isLastSeen(String name) {
         waitTillVisible("(//rz-goods-section)[1]");
-        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
+        return isVisible(format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
                 "//a[contains(text(), '%s')]", name));
     }
 
     public boolean isPreviouslySeen(String name) {
-        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
+        return isVisible(format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
                 "//a[contains(text(), '%s')]", name));
     }
 

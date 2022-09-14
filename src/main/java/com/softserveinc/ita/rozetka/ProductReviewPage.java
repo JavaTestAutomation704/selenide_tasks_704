@@ -4,10 +4,13 @@ import com.codeborne.selenide.Condition;
 import com.softserveinc.ita.rozetka.components.ReviewItem;
 import com.softserveinc.ita.rozetka.data.ReviewsSort;
 import com.softserveinc.ita.rozetka.modals.FilterReviewsByRatingModal;
+import com.softserveinc.ita.rozetka.modals.LogInModal;
+import com.softserveinc.ita.rozetka.modals.RegistrationModal;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
+import static java.lang.String.format;
 
 public class ProductReviewPage {
     public ReviewItem getReviewItem(int number) {
@@ -24,11 +27,21 @@ public class ProductReviewPage {
 
     @Step("Product review page: sort reviews by {sort}")
     public ProductReviewPage sort(ReviewsSort sort) {
-        $x(String.format("//select//option[@value='%s']", sort.getSortXpath())).click();
+        $x(format("//select//option[@value='%s']", sort.getSortXpath())).click();
         return this;
     }
 
     public int getReviewsQuantity() {
         return getCollectionSize("//li[contains(@class, 'product-comments__list')]");
+    }
+
+    @Step("Product review page: start writing a review")
+    public ProductReviewPage startWritingReview() {
+        $x("//section[@class='product-comments__cta']//button").click();
+        return this;
+    }
+
+    public boolean isLoginModalOpen() {
+        return new LogInModal().isOpen();
     }
 }
