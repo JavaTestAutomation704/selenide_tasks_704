@@ -9,6 +9,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class ProductPage extends BasePage {
     private final String titleXpath = "//h1[@class='product__title']";
@@ -27,17 +28,37 @@ public class ProductPage extends BasePage {
         return new ShoppingCartModal();
     }
 
+    private void openPage(String pageName) {
+        $x(format("//ul[@class='tabs__list']//a[contains(@href, '%s')]", pageName)).click();
+        $x("//rz-product-tab-main").shouldNotBe(visible);
+    }
+
     @Step("Product page: open product characteristics page")
     public ProductCharacteristicsPage openCharacteristicsPage() {
-        $x("//ul[@class='tabs__list']//a[contains(@href, 'characteristics')]").click();
-        $x("//rz-product-tab-main").shouldNotBe(visible);
+        openPage("characteristics");
         return new ProductCharacteristicsPage();
+    }
+
+    @Step("Product page: open product review page")
+    public ProductReviewPage openReviewPage() {
+        openPage("comments");
+        return new ProductReviewPage();
     }
 
     @Step("Product page: start purchase on credit")
     public CreditModal startPurchaseOnCredit() {
         $x(titleXpath).hover();
         return new CreditModal().open();
+    }
+
+    @Step("Product page: open product questions page")
+    public ProductQuestionsPage openProductQuestionsPage() {
+        openPage("questions");
+        return new ProductQuestionsPage();
+    }
+
+    public boolean isBuyOnCreditButtonVisible() {
+        return isVisible("(//ul[@class='product-buttons']//li)[2]");
     }
 
     @Step("Product page: change city to {city}")
@@ -52,7 +73,7 @@ public class ProductPage extends BasePage {
     }
 
     public String getBonusText() {
-        String xpathBonusText = "//div[contains(@class,'bonuses__info')]";
+        var xpathBonusText = "//div[contains(@class,'bonuses__info')]";
         if (isVisible(xpathBonusText)) {
             return $x(xpathBonusText).text();
         }
@@ -61,11 +82,16 @@ public class ProductPage extends BasePage {
 
     @Step("Product page: open promotion terms page modal")
     public PromotionTermsModal openPromotionTermsModal() {
+        $x(titleXpath).hover();
         $x("//button[contains(@class, 'promotion')]").click();
         return new PromotionTermsModal();
     }
 
     public boolean isOpenPromotionTermsModalButtonVisible() {
         return isVisible("//button[contains(@class, 'promotion')]");
+    }
+
+    public boolean isOpened() {
+        return isVisible("(//div[@class = 'product-about'])[1]");
     }
 }

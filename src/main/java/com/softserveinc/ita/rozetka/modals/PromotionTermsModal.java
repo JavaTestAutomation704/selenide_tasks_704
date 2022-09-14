@@ -3,13 +3,15 @@ package com.softserveinc.ita.rozetka.modals;
 import com.softserveinc.ita.rozetka.PromotionPage;
 import io.qameta.allure.Step;
 
+import java.util.List;
+
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class PromotionTermsModal {
 
-    public boolean isOpen() {
+    public boolean isOpened() {
         return isVisible("//rz-promotion-modal");
     }
 
@@ -17,8 +19,11 @@ public class PromotionTermsModal {
         return getText("//h3[contains(@class, 'promotion')]");
     }
 
-    public String getPromotionPeriod() {
-        return getText("(//div[contains(@class,'modal__body')]//p)[3]");
+    public List<String> getPromotionPeriod() {
+        return List.of(getText("(//div[contains(@class,'modal__body')]//p)[last()-1]")
+                .replaceAll("[^*]+:|.\\.", "")
+                .trim()
+                .split(" — "));
     }
 
     @Step("Promotion terms modal: open promotion page")

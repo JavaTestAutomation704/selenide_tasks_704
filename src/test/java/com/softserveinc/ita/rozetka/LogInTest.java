@@ -12,70 +12,94 @@ public class LogInTest extends TestRunner {
 
     @Test
     public void verifyLoggingCapability() {
-
-        var logInModal = homePage
-                .getHeader()
-                .startLogging();
-
-        assertThat(logInModal.isOpen())
-                .as("Log In modal should be open")
-                .isTrue();
-
-        var softAssert = new SoftAssertions();
-
-        softAssert
-                .assertThat(logInModal.isLogInButtonVisible())
-                .as("Log In button should be displayed on the Log In modal")
-                .isTrue();
-
-        softAssert
-                .assertThat(logInModal.isRegistrationButtonVisible())
-                .as("Registration button should be displayed on the Log In modal")
-                .isTrue();
-
-        var isUaLanguageSelected = homePage
-                .getHeader()
-                .isLanguageSelected(UA);
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
         assertThat(isUaLanguageSelected)
                 .as("Localization should be switched to UA")
                 .isTrue();
 
+        var logInModal = header.startLogging();
+
+        assertThat(logInModal.isOpened())
+                .as("Log In modal should be opened")
+                .isTrue();
+
+        assertThat(logInModal.isLogInButtonVisible())
+                .as("Log In button should be displayed on the Log In modal")
+                .isTrue();
+
+        assertThat(logInModal.isRegistrationButtonVisible())
+                .as("Registration button should be displayed on the Log In modal")
+                .isTrue();
+
+        assertThat(logInModal.isRemindPasswordButtonVisible())
+                .as("Remind password button should be displayed on the Log In modal")
+                .isTrue();
+
+        var softAssertions = new SoftAssertions();
+
         var actualEmailErrorMessage = logInModal
                 .logIn()
                 .getEmailErrorMessage();
 
-        softAssert
+        softAssertions
                 .assertThat(actualEmailErrorMessage)
                 .as("Error message should be displayed when submitting empty fields on the Log In modal")
                 .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
-
 
         var redColor = Color.RED.getRgb();
 
         var isActualEmailBorderColorCorrect = logInModal.isEmailBorderColorCorrect(redColor);
         var isActualPasswordBorderColorCorrect = logInModal.isPasswordBorderColorCorrect(redColor);
 
-        softAssert
+        softAssertions
                 .assertThat(isActualEmailBorderColorCorrect)
                 .as("Email border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
 
-
-        softAssert
+        softAssertions
                 .assertThat(isActualPasswordBorderColorCorrect)
                 .as("Password border color should be red after submitting empty fields on the Log In modal")
                 .isTrue();
 
-        var isRegistrationModalOpen = logInModal
-                .startRegistration()
-                .isOpen();
-
-        softAssert
-                .assertThat(isRegistrationModalOpen)
-                .as("Registration modal should be open")
+        logInModal.remindPassword();
+        assertThat(logInModal.isGetTemporaryPasswordButtonVisible())
+                .as("Get temporary password button should be displayed on the Log In modal")
                 .isTrue();
 
-        softAssert.assertAll();
+        assertThat(logInModal.isRememberPasswordButtonVisible())
+                .as("Remember password button should be displayed on the Log In modal")
+                .isTrue();
+
+        actualEmailErrorMessage = logInModal
+                .getTemporaryPassword()
+                .getEmailErrorMessage();
+
+        softAssertions
+                .assertThat(actualEmailErrorMessage)
+                .as("Error message should be displayed when submitting empty fields on the Log In modal")
+                .isEqualTo("Введено невірну адресу ел. пошти або номер телефону");
+
+        isActualEmailBorderColorCorrect = logInModal.isEmailBorderColorCorrect(redColor);
+
+        softAssertions
+                .assertThat(isActualEmailBorderColorCorrect)
+                .as("Email border color should be red after submitting empty email field on the Log In modal")
+                .isTrue();
+
+        logInModal.rememberPassword();
+
+        var isRegistrationModalOpened = logInModal
+                .startRegistration()
+                .isOpened();
+
+        softAssertions
+                .assertThat(isRegistrationModalOpened)
+                .as("Registration modal should be opened")
+                .isTrue();
+
+        softAssertions.assertAll();
     }
 }

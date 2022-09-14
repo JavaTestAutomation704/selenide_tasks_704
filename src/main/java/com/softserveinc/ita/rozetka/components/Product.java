@@ -8,29 +8,31 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class Product {
     private final String productXpath;
     private final String titleXpath = "//span[@class='goods-tile__title']";
 
     public Product(int productNumber) {
-        this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
+        this.productXpath = format("(//rz-catalog-tile)[%d]", productNumber);
+        $x(productXpath).scrollIntoView(false);
     }
 
     public Product(String productNumber) {
         if (productNumber.equals("last")) {
             this.productXpath = "(//rz-catalog-tile)[last()]";
         } else {
-            this.productXpath = String.format("(//rz-catalog-tile)[%s]", productNumber);
+            this.productXpath = format("(//rz-catalog-tile)[%s]", productNumber);
         }
     }
 
     public Product(int productNumber, boolean isWithDiscount) {
         if (isWithDiscount) {
-            this.productXpath = String.format("(//span[contains(@class, 'type_action')]/ancestor::rz-catalog-tile)[%d]",
+            this.productXpath = format("(//span[contains(@class, 'type_action')]/ancestor::rz-catalog-tile)[%d]",
                     productNumber);
         } else {
-            this.productXpath = String.format("(//rz-catalog-tile)[%d]", productNumber);
+            this.productXpath = format("(//rz-catalog-tile)[%d]", productNumber);
         }
     }
 
@@ -48,7 +50,11 @@ public class Product {
 
     @Step("Product: add product to shopping cart")
     public SearchResultsPage addToShoppingCart() {
-        $x(productXpath + "//button[contains(@class, 'buy-button')]").click();
+        waitTillPreloaderInvisible();
+        var buyButtonIconXpath = productXpath + "//button[contains(@class, 'buy-button')]";
+        if (isVisible(buyButtonIconXpath)) {
+            $x(buyButtonIconXpath).click();
+        }
         return new SearchResultsPage();
     }
 
@@ -68,7 +74,7 @@ public class Product {
     }
 
     public Availability getAvailability() {
-        String availability = getText(productXpath + "//div[contains(@class, 'availability')]");
+        var availability = getText(productXpath + "//div[contains(@class, 'availability')]");
         return Availability.getByValue(availability);
     }
 
@@ -82,7 +88,8 @@ public class Product {
     public boolean isOnSale() {
         return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
                 || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]")
-                || !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals("");
+                || (isVisible(productXpath + "//div[contains(@class, 'price--old')]")
+                && !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals(""));
     }
 
     public boolean isInShoppingCart() {
@@ -90,18 +97,28 @@ public class Product {
     }
 
     public boolean isLastSeen(String name) {
-        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
+        waitTillVisible("(//rz-goods-section)[1]");
+        return isVisible(format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
                 "//a[contains(text(), '%s')]", name));
     }
 
     public boolean isPreviouslySeen(String name) {
-        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
+        return isVisible(format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
                 "//a[contains(text(), '%s')]", name));
     }
 
     @Step("Product: add product to comparison list")
     public SearchResultsPage addToComparisonList() {
-        $x(productXpath + "//button[contains(@class, 'compare')]").click();
+        var comparisonIconCounter = $x("//rz-comparison//rz-icon-counter");
+        var initialCounterValue = isVisible(comparisonIconCounter, 2)
+                ? getNumber(comparisonIconCounter)
+                : 0;
+
+        $x(productXpath + "//button[contains(@class, 'compare')]")
+                .scrollIntoView(false)
+                .click();
+
+        waitText(comparisonIconCounter, String.valueOf(initialCounterValue + 1));
         return new SearchResultsPage();
     }
 

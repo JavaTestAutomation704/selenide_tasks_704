@@ -10,16 +10,19 @@
             <class name="com.softserveinc.ita.rozetka.CheckoutTest"/>
             <class name="com.softserveinc.ita.rozetka.ComparisonListTest"/>
             <class name="com.softserveinc.ita.rozetka.DiscountsTest"/>
-            <class name="com.softserveinc.ita.rozetka.FilterProductOnConditionTest"/>
             <class name="com.softserveinc.ita.rozetka.FilterProductTest"/>
             <class name="com.softserveinc.ita.rozetka.LogInTest"/>
             <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
             <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
+            <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
             <class name="com.softserveinc.ita.rozetka.PromotionsTest"/>
+            <class name="com.softserveinc.ita.rozetka.RegistrationTest"/>
+            <class name="com.softserveinc.ita.rozetka.ReviewTest"/>
             <class name="com.softserveinc.ita.rozetka.SearchFunctionalityTest"/>
+            <class name="com.softserveinc.ita.rozetka.SellerRegistrationFormTest"/>
             <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
-            <class name="com.softserveinc.ita.rozetka.SortingProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.SmallCartTest"/>
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
         </classes>
     </test>

@@ -2,15 +2,12 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Promotion;
 
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class PromotionsPage {
 
-    public boolean isOpen() {
-        var isTitleVisible = isVisible("//h1[contains(@class, 'heading')]");
-        var isPromotionCardsVisible = isVisible("//ul[contains(@class, 'promo-grid')]");
-        return isTitleVisible && isPromotionCardsVisible;
+    public boolean isOpened() {
+        return isVisible("//ul[contains(@class, 'promo-grid')]");
     }
 
     public Promotion getPromotion(int number) {
@@ -18,6 +15,8 @@ public class PromotionsPage {
     }
 
     public int getPromotionsQuantity() {
-        return getCollectionSize("//rz-promotion-tile");
+        var promotionXpath = "//rz-promotion-tile";
+        waitTillVisible(promotionXpath);
+        return getCollectionSize(promotionXpath);
     }
 }
