@@ -14,6 +14,7 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static java.lang.String.format;
 
 public class ShoppingCartModal {
     private final String closeButtonXpath = "//button[contains(@class, 'modal__close')]";
@@ -24,7 +25,7 @@ public class ShoppingCartModal {
 
     @Step("Shopping cart modal: clear shopping cart")
     public ShoppingCartModal clear() {
-        String cartItemActionButtonXpath = "//button[contains(@id, 'cartProductActions')]";
+        var cartItemActionButtonXpath = "//button[contains(@id, 'cartProductActions')]";
         if (isVisible(cartItemActionButtonXpath)) {
             List<SelenideElement> cartItems = $$x(cartItemActionButtonXpath)
                     .shouldBe(sizeGreaterThanOrEqual(1));
@@ -44,7 +45,7 @@ public class ShoppingCartModal {
 
     @Step("Shopping cart modal: remove product with number {productNumber}")
     public ShoppingCartModal remove(int productNumber) {
-        $x(String.format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
+        $x(format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
         $x("//button[contains(@class, 'context-menu-actions__button')]").click();
         return this;
     }

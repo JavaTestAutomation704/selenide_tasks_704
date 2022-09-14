@@ -10,7 +10,6 @@ public class DiscountsTest extends TestRunner {
 
     @Test
     public void verifyDiscountCalculationCorrectness() {
-
         var searchResultsPage = homePage
                 .getHeader()
                 .search("asus");

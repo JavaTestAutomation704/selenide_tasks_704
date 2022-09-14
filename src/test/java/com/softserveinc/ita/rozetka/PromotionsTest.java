@@ -10,11 +10,10 @@ public class PromotionsTest extends TestRunner {
 
     @Test
     public void verifyThatPromotionTermsAreTheSameOnDifferentPages() {
-
         var promotionsPage = homePage.openPromotionsPage();
 
-        assertThat(promotionsPage.isOpen())
-                .as("Promotions page should be open")
+        assertThat(promotionsPage.isOpened())
+                .as("Promotions page should be opened")
                 .isTrue();
 
         int promotionNumber = 1;
@@ -38,13 +37,13 @@ public class PromotionsTest extends TestRunner {
                 .open();
 
         assertThat(productPage.isOpenPromotionTermsModalButtonVisible())
-                .as("There should be open promotion terms modal button on the product page")
+                .as("There should be opened promotion terms modal button on the product page")
                 .isTrue();
 
         var promotionTermsModal = productPage.openPromotionTermsModal();
 
-        assertThat(promotionTermsModal.isOpen())
-                .as("Promotion terms modal should be open")
+        assertThat(promotionTermsModal.isOpened())
+                .as("Promotion terms modal should be opened")
                 .isTrue();
 
         var modalTitle = promotionTermsModal.getTitle();
@@ -52,8 +51,8 @@ public class PromotionsTest extends TestRunner {
 
         promotionPage = promotionTermsModal.openPromotionPage();
 
-        assertThat(promotionPage.isOpen())
-                .as("Promotion page should be open")
+        assertThat(promotionPage.isOpened())
+                .as("Promotion page should be opened")
                 .isTrue();
 
         var softAssertions = new SoftAssertions();
@@ -70,6 +69,7 @@ public class PromotionsTest extends TestRunner {
                 .assertThat(promotionPeriodOnPage)
                 .as("Promotion period on the promotion page should be the same as on the promotion terms modal")
                 .contains(promotionPeriodOnModal);
+
         softAssertions.assertAll();
     }
 }
