@@ -1,7 +1,8 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.Product;
+import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
@@ -149,7 +150,7 @@ public class ShoppingCartTest extends TestRunner {
     @Test
     public void verifyProductCounterWorks() {
         var header = homePage.getHeader();
-        boolean doesShoppingCartContainProducts = header.isShoppingCartCounterVisible();
+        var doesShoppingCartContainProducts = header.isShoppingCartCounterVisible();
 
         var softly = new SoftAssertions();
         softly.assertThat(doesShoppingCartContainProducts)
@@ -186,6 +187,49 @@ public class ShoppingCartTest extends TestRunner {
         softly.assertThat(decreasedQuantity)
                 .as("Quantity should be decreased")
                 .isEqualTo(increasedQuantity - 1);
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyUserCanAddAdditionalServices() {
+        var header = homePage.getHeader();
+        var doesShoppingCartContainProducts = header.isShoppingCartCounterVisible();
+
+        var softly = new SoftAssertions();
+        softly.assertThat(doesShoppingCartContainProducts)
+                .as("Shopping cart should be empty")
+                .isFalse();
+
+        var subcategoryPage = homePage
+                .getHeader()
+                .openCatalogModal()
+                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
+
+        softly.assertThat(subcategoryPage.getProductsQuantity())
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var product = subcategoryPage.getProduct(1);
+        product.addToShoppingCart();
+        long productPrice = product.getPrice();
+        softly.assertThat(product.isInShoppingCart())
+                .as("Product should be added to shopping cart")
+                .isTrue();
+        int itemNumber = 1;
+        var shoppingCart = header.openShoppingCartModal();
+        var cartItem = shoppingCart.getItem(itemNumber);
+
+        softly.assertThat(cartItem.isAdditionalServicesAvailable(itemNumber))
+                .as("Product should have additional services")
+                .isTrue();
+
+        long additionalServicePrice = cartItem
+                .addService(itemNumber)
+                .getAdditionalServicePrice(itemNumber);
+
+        softly.assertThat(shoppingCart.getTotalSum())
+                .as("Total sum should be equal to sum of product and additional service")
+                .isEqualTo(productPrice + additionalServicePrice);
         softly.assertAll();
     }
 }
