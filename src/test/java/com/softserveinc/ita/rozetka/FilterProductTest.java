@@ -26,7 +26,7 @@ public class FilterProductTest extends TestRunner {
     @Test
     public void verifySaleFilterFunctionality() {
         var header = homePage.getHeader();
-        var searchResultsPage = header.search("laptop");
+        var searchResultsPage = header.search("телефони");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
