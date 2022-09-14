@@ -4,24 +4,29 @@ import com.softserveinc.ita.rozetka.data.FranchiseFormField;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class FranchiseApplicationForm {
     private final String formFieldXpathTemplate = "//label[@for='%s']/parent::li//%s";
     private final String errorXpath = "div[contains(@class, 'error')]";
 
-    @Step("Franchise application form: enter '{text}' into '{field}'")
-    public FranchiseApplicationForm enter(FranchiseFormField field, String text) {
+    @Step("Franchise application form: fill in '{field}' with '{text}'")
+    public FranchiseApplicationForm fillIn(FranchiseFormField field, String text) {
         var formField = $x(format(formFieldXpathTemplate, field.getFieldName(), field.getFieldType()));
         formField.click();
         formField.sendKeys(text);
         return this;
     }
 
+    @Step("Franchise application form: select '{cityNumber}' city")
+    public FranchiseApplicationForm selectCity(int cityNumber) {
+        $x(format("(//rz-autocomplete-option)[%d]", cityNumber)).click();
+        return this;
+    }
+
     public boolean isErrorVisible(FranchiseFormField field) {
-        return isVisible(format(formFieldXpathTemplate, field.getFieldName(), errorXpath));
+        return isVisible(format(formFieldXpathTemplate, field.getFieldName(), errorXpath), 1);
     }
 
     public String getError(FranchiseFormField field) {
@@ -34,7 +39,7 @@ public class FranchiseApplicationForm {
         return this;
     }
 
-    public boolean isSubmitButtonDisabled() {
-        return isVisible("//rz-widget-franchise//fieldset/button[@disabled='']");
+    public boolean isSubmitButtonEnabled() {
+        return isVisible("//rz-widget-franchise//fieldset/button[not(@disabled='')]", 2);
     }
 }

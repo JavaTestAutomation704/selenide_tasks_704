@@ -11,7 +11,7 @@ public enum FranchiseFormField {
     PHONE("phone", "input"),
     EMAIL("email", "input"),
     CITY("city", "input"),
-    EXPERIENCE("experiance", "textarea"),
+    EXPERIENCE("experiance", "textarea"), //typo in Rozetka source code
     MOTIVATION("motivation", "textarea"),
     YOUTUBE("youtube", "input");
 
