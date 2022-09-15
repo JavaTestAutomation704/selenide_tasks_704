@@ -108,7 +108,7 @@ public class SortProductTest extends TestRunner {
                     .isOnSale();
 
             // TODO: This test may be failed as product wasn't have old price
-            softAssertions.assertThat(isProductOnSale)
+            softly.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale with old price")
                     .isTrue();
         }

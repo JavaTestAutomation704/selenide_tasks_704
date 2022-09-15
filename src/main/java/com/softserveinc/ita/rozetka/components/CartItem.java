@@ -9,7 +9,7 @@ import static java.lang.Long.getLong;
 import static java.lang.String.format;
 
 public class CartItem {
-    private String cartItemXpath;
+    private final String cartItemXpath;
 
     public CartItem(int cartItemNumber) {
         cartItemXpath = format("(//rz-cart-product)[%d]", cartItemNumber);
@@ -57,13 +57,13 @@ public class CartItem {
     }
 
     @Step("Shopping cart modal: choose additional service")
-    public CartItem addService(int number) {
-        $x(format("(%s//span[@class='cart-service__title'])[3]", cartItemXpath, number)).click();
+    public CartItem addService(int serviceNumber) {
+        $x(format("(%s//span[@class='cart-service__title'])[%s]", cartItemXpath, serviceNumber)).click();
         return this;
     }
 
-    public long getAdditionalServicePrice(int number) {
-        return getLongFromField(format("(%s//span[contains(@class, 'price')]//span[contains(@class, 'cart-service__price')])[%s]", cartItemXpath, number));
+    public long getAdditionalServicePrice(int serviceNumber) {
+        return getLongFromField(format("(%s//span[contains(@class, 'price')]//span[contains(@class, 'cart-service__price')])[%s]", cartItemXpath, serviceNumber));
     }
 
     public boolean isAdditionalServicesAvailable() {

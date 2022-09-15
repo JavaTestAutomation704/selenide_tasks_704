@@ -6,6 +6,8 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -203,7 +205,7 @@ public class ShoppingCartTest extends TestRunner {
         var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS);
 
         softly.assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
@@ -215,17 +217,17 @@ public class ShoppingCartTest extends TestRunner {
         softly.assertThat(product.isInShoppingCart())
                 .as("Product should be added to shopping cart")
                 .isTrue();
-        int itemNumber = 1;
         var shoppingCart = header.openShoppingCartModal();
-        var cartItem = shoppingCart.getItem(itemNumber);
+        var firstCartItem = shoppingCart.getItem(1);
 
-        softly.assertThat(cartItem.isAdditionalServicesAvailable(itemNumber))
+        softly.assertThat(firstCartItem.isAdditionalServicesAvailable())
                 .as("Product should have additional services")
                 .isTrue();
 
-        long additionalServicePrice = cartItem
-                .addService(itemNumber)
-                .getAdditionalServicePrice(itemNumber);
+        int serviceNumber = 1;
+        long additionalServicePrice = firstCartItem
+                .addService(serviceNumber)
+                .getAdditionalServicePrice(serviceNumber);
 
         softly.assertThat(shoppingCart.getTotalSum())
                 .as("Total sum should be equal to sum of product and additional service")
