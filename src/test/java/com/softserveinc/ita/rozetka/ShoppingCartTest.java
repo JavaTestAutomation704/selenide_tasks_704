@@ -1,14 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -20,7 +19,7 @@ public class ShoppingCartTest extends TestRunner {
         header = homePage.getHeader();
 
         if (header.isShoppingCartCounterVisible()) {
-            ShoppingCartModal shoppingCartModal = header
+            var shoppingCartModal = header
                     .openShoppingCartModal()
                     .clear();
             if (shoppingCartModal.isCloseButtonVisible()) {
@@ -47,7 +46,7 @@ public class ShoppingCartTest extends TestRunner {
         var firstAvailableProductTitle = firstAvailableProduct.getTitleLowerCase();
         long firstAvailableProductPrice = firstAvailableProduct.getPrice();
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (String word : searchPhrase.split(" ")) {
             softly.assertThat(firstAvailableProductTitle)
                     .as("First available product title should contain searched keyword.")
@@ -91,7 +90,8 @@ public class ShoppingCartTest extends TestRunner {
 
         var shoppingCart = header
                 .openShoppingCartModal()
-                .remove(1);
+                .getItem(1)
+                .remove();
 
         var softly = new SoftAssertions();
         softly.assertThat(shoppingCart.isEmpty())
@@ -103,7 +103,9 @@ public class ShoppingCartTest extends TestRunner {
                 .as("Button 'Remove all' should not be visible")
                 .isFalse();
 
-        shoppingCart.remove(1);
+        shoppingCart
+                .getItem(1)
+                .remove();
 
         softly.assertThat(shoppingCart.isEmpty())
                 .as("Shopping cart should be empty")
@@ -203,7 +205,7 @@ public class ShoppingCartTest extends TestRunner {
         var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS);
 
         softly.assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
@@ -215,17 +217,17 @@ public class ShoppingCartTest extends TestRunner {
         softly.assertThat(product.isInShoppingCart())
                 .as("Product should be added to shopping cart")
                 .isTrue();
-        int itemNumber = 1;
         var shoppingCart = header.openShoppingCartModal();
-        var cartItem = shoppingCart.getItem(itemNumber);
+        var firstCartItem = shoppingCart.getItem(1);
 
-        softly.assertThat(cartItem.isAdditionalServicesAvailable(itemNumber))
+        softly.assertThat(firstCartItem.isAdditionalServicesAvailable())
                 .as("Product should have additional services")
                 .isTrue();
 
-        long additionalServicePrice = cartItem
-                .addService(itemNumber)
-                .getAdditionalServicePrice(itemNumber);
+        int serviceNumber = 1;
+        long additionalServicePrice = firstCartItem
+                .addService(serviceNumber)
+                .getAdditionalServicePrice(serviceNumber);
 
         softly.assertThat(shoppingCart.getTotalSum())
                 .as("Total sum should be equal to sum of product and additional service")
