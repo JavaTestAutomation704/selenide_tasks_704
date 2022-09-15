@@ -6,13 +6,14 @@ import com.softserveinc.ita.rozetka.data.subcategory.ISubcategory;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static java.lang.String.format;
 
 public class CatalogModal {
     @Step("Catalog modal: open {subcategory} page of {category}")
     public SubcategoryPage openSubcategory(Category category, ISubcategory subcategory) {
-        String categoryXpath = String.format("//ul[contains(@class, 'menu-categories')]/li/a[contains(@class, 'link') and contains(@href, '%s')]/parent::li", category.getCategoryXpath());
+        var categoryXpath = format("//ul[contains(@class, 'menu-categories')]/li/a[contains(@class, 'link') and contains(@href, '%s')]/parent::li", category.getCategoryXpath());
         $x(categoryXpath).hover();
-        $x(String.format("%s//div[@class='menu__main-cats-inner']//a[contains(@href, '%s')]", categoryXpath, subcategory.getSubcategoryXpath())).click();
+        $x(format("%s//div[@class='menu__main-cats-inner']//a[contains(@href, '%s')]", categoryXpath, subcategory.getSubcategoryXpath())).click();
         return new SubcategoryPage();
     }
 }

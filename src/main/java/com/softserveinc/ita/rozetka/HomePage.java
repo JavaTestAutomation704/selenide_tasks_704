@@ -7,8 +7,9 @@ import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 import static java.lang.String.format;
 
 public class HomePage extends BasePage {
@@ -51,5 +52,12 @@ public class HomePage extends BasePage {
 
     public PartnerSection getPartnerSection() {
         return new PartnerSection();
+    }
+
+    @Step("Home page: open goods exchange page")
+    public GoodsExchangePage openGoodsExchangePage() {
+        $x("(//a[contains(@href, 'obmin')])[1]").click(ClickOptions.usingJavaScript());
+        waitTillPreloaderInvisible();
+        return new GoodsExchangePage();
     }
 }

@@ -10,7 +10,6 @@ public class DiscountsTest extends TestRunner {
 
     @Test
     public void verifyDiscountCalculationCorrectness() {
-
         var searchResultsPage = homePage
                 .getHeader()
                 .search("asus");
@@ -22,7 +21,7 @@ public class DiscountsTest extends TestRunner {
                 .as("The products with discount quantity should be sufficient on the search results page")
                 .isGreaterThanOrEqualTo(productsQuantityToCheck);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (int i = 1; i <= productsQuantityToCheck; i++) {
             var product = searchResultsPage.getProductWithDiscount(i);
@@ -34,11 +33,11 @@ public class DiscountsTest extends TestRunner {
             int calculatedDiscount = (int) (oldPrice / currentPrice * 10);
 
             // TODO: This test may be failed as price is not correct according to the discount
-            softAssertions
+            softly
                     .assertThat(calculatedDiscount)
                     .as("The price should be correctly calculated according to the discount")
                     .isEqualTo(discount);
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }

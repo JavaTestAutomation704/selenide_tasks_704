@@ -74,7 +74,7 @@ public class Product {
     }
 
     public Availability getAvailability() {
-        String availability = getText(productXpath + "//div[contains(@class, 'availability')]");
+        var availability = getText(productXpath + "//div[contains(@class, 'availability')]");
         return Availability.getByValue(availability);
     }
 
@@ -86,10 +86,7 @@ public class Product {
     }
 
     public boolean isOnSale() {
-        return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
-                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]")
-                || (isVisible(productXpath + "//div[contains(@class, 'price--old')]")
-                && !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals(""));
+        return !getText(productXpath + "//div[contains(@class, 'price--old')]").equals("");
     }
 
     public boolean isInShoppingCart() {
@@ -98,12 +95,12 @@ public class Product {
 
     public boolean isLastSeen(String name) {
         waitTillVisible("(//rz-goods-section)[1]");
-        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
+        return isVisible(format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[1]" +
                 "//a[contains(text(), '%s')]", name));
     }
 
     public boolean isPreviouslySeen(String name) {
-        return isVisible(String.format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
+        return isVisible(format("(//section[contains(@class, 'main-goods')][1]//div[@class = 'tile'])[2]" +
                 "//a[contains(text(), '%s')]", name));
     }
 

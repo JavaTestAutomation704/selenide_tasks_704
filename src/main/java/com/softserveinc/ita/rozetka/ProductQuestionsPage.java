@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
+import static java.lang.String.format;
 
 public class ProductQuestionsPage {
     public ProductQuestionItem getProductQuestionItem(int number) {
@@ -14,7 +15,7 @@ public class ProductQuestionsPage {
 
     @Step("Product questions page: sort questions by {sort}")
     public ProductQuestionsPage sort(ProductQuestionsSort sortCategory) {
-        $x(String.format("//*[@id=\"sort-select\"]/option[%s]", sortCategory.getSortXpath())).click();
+        $x(format("//*[@id='sort-select']/option[%s]", sortCategory.getSortXpath())).click();
         return this;
     }
 

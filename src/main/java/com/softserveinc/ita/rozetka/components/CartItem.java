@@ -4,7 +4,7 @@ import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.Long.getLong;
 import static java.lang.String.format;
 
@@ -53,6 +53,20 @@ public class CartItem {
     }
 
     public long getTotalPrice() {
-        return getLong(cartItemXpath + "(//p[contains(@class, 'cart-product__price')]");
+        return getLong(cartItemXpath + "//p[contains(@class, 'cart-product__price')]");
+    }
+
+    @Step("Shopping cart modal: choose additional service")
+    public CartItem addService(int number) {
+        $x(format("(%s//span[@class='cart-service__title'])[3]", cartItemXpath, number)).click();
+        return this;
+    }
+
+    public long getAdditionalServicePrice(int number) {
+        return getLongFromField(format("(%s//span[contains(@class, 'price')]//span[contains(@class, 'cart-service__price')])[%s]", cartItemXpath, number));
+    }
+
+    public boolean isAdditionalServicesAvailable() {
+        return isVisible(cartItemXpath + "//button[@data-testid='cart-services-toggle']");
     }
 }

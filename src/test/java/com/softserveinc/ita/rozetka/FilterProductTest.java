@@ -9,18 +9,16 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
-import static com.softserveinc.ita.rozetka.data.Category.PLUMBING_AND_REPAIR;
-import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
+import static com.softserveinc.ita.rozetka.data.Category.*;
 import static com.softserveinc.ita.rozetka.data.Country.ITALY;
 import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
-import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.WITH_BONUS;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_ASCENDING;
 import static com.softserveinc.ita.rozetka.data.ProductSort.PRICE_DESCENDING;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.NOTEBOOKS;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.TABLETS;
+import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSubcategory.BATHROOM_FURNITURE;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +26,7 @@ public class FilterProductTest extends TestRunner {
     @Test
     public void verifySaleFilterFunctionality() {
         var header = homePage.getHeader();
-        var searchResultsPage = header.search("laptop");
+        var searchResultsPage = header.search("телефони");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -42,19 +40,19 @@ public class FilterProductTest extends TestRunner {
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(60);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int productNumber : new int[]{2, 40, 60}) {
             var isProductOnSale = searchResultsPage
                     .getProduct(productNumber)
                     .isOnSale();
 
             // TODO: This test may be failed as product wasn't have sale label or old price
-            softAssertions.assertThat(isProductOnSale)
+            softly.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale")
                     .isTrue();
         }
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -104,31 +102,36 @@ public class FilterProductTest extends TestRunner {
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i++) {
             var productPage = searchResultsPage
                     .getProduct(i)
                     .open();
 
             //TODO: This test may be failed as unavailable products might be among the results
-            softAssertions.assertThat(productPage.isBonusIconVisible())
+            softly.assertThat(productPage.isBonusIconVisible())
                     .as("Bonus icon should be displayed")
                     .isTrue();
-            softAssertions.assertThat(productPage.getBonusText())
+            softly.assertThat(productPage.getBonusText())
                     .as("Incorrect bonus quantity text")
                     .contains("бонус");
 
             productPage.back();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
     public void verifyResettingFilters() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
-        var searchResultsPage = homePage
-                .getHeader()
-                .search("Xbox");
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var searchResultsPage = header.search("Xbox");
 
         long resultsAmountAfterSearch = searchResultsPage.getResultsAmount();
 
@@ -143,18 +146,19 @@ public class FilterProductTest extends TestRunner {
 
         long resultsAmountAfterResetting = searchResultsPage.getResultsAmount();
 
-        var softAssert = new SoftAssertions();
+        var softly = new SoftAssertions();
 
-        softAssert
+        softly
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be grater than after filters")
                 .isGreaterThan(resultsAmountAfterFilters);
-        softAssert
+        //TODO: This test may be failed as results amount after resetting may be different than after search
+        softly
                 .assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be the same as after search")
                 .isEqualTo(resultsAmountAfterSearch);
 
-        softAssert.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -170,9 +174,9 @@ public class FilterProductTest extends TestRunner {
 
         var filter = subcategoryPage.getFilter();
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
-        softAssertions.assertThat(cheapestProductPrice)
+        softly.assertThat(cheapestProductPrice)
                 .as("Product price should be correct")
                 .isGreaterThanOrEqualTo(filter.getMinPrice());
 
@@ -182,7 +186,7 @@ public class FilterProductTest extends TestRunner {
                 .getProduct(1)
                 .getPrice();
 
-        softAssertions.assertThat(mostExpensiveProductPrice)
+        softly.assertThat(mostExpensiveProductPrice)
                 .as("Product price should be correct")
                 .isLessThanOrEqualTo(filter.getMaxPrice());
 
@@ -202,12 +206,12 @@ public class FilterProductTest extends TestRunner {
                     .getProduct(i)
                     .getPrice();
 
-            softAssertions.assertThat(productPrice)
+            softly.assertThat(productPrice)
                     .as("Product price should be correct")
                     .isGreaterThanOrEqualTo(minPrice)
                     .isLessThanOrEqualTo(maxPrice);
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -269,18 +273,18 @@ public class FilterProductTest extends TestRunner {
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int i = 1; i <= productsQuantity; i++) {
             var productCharacteristicsPage = subcategoryPage
                     .getProduct(i)
                     .open()
                     .openCharacteristicsPage();
 
-            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+            softly.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
                     .isEqualTo(SPAIN.getCountryNameUa());
 
-         // In order to return to the search results page, you should use back methods twice
+            // In order to return to the search results page, you should use back methods twice
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
@@ -297,7 +301,7 @@ public class FilterProductTest extends TestRunner {
                     .open()
                     .openCharacteristicsPage();
 
-            softAssertions.assertThat(productCharacteristicsPage.getCountryName())
+            softly.assertThat(productCharacteristicsPage.getCountryName())
                     .as("Country should be correct")
                     .isEqualTo(ITALY.getCountryNameUa());
 
@@ -305,7 +309,7 @@ public class FilterProductTest extends TestRunner {
             productCharacteristicsPage.back();
             productCharacteristicsPage.back();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
@@ -339,6 +343,54 @@ public class FilterProductTest extends TestRunner {
                     .as("Product should be ready to be delivered")
                     .isTrue();
         }
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyThatBrandFilterSearchWorksCorrectly() {
+        var filter = homePage
+                .getHeader()
+                .openCatalogModal()
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, NOTEBOOKS)
+                .getFilter();
+
+        var searchQueries = List.of("Asus", "Mi", "err", "HP");
+
+        var softly = new SoftAssertions();
+
+        searchQueries.forEach(query -> {
+            filter.searchForBrand(query);
+            softly
+                    .assertThat(filter.getBrandSearchResults())
+                    .allSatisfy(brand -> assertThat(brand)
+                            .as("Brand name should contain search query")
+                            .containsIgnoringCase(query));
+        });
+
+        filter.clearBrandSearchField();
+
+        var alphabetSidebar = filter.startAlphabeticalSearch();
+        assertThat(alphabetSidebar.isOpened())
+                .as("Alphabet sidebar should be opened")
+                .isTrue();
+
+        var searchLetters = List.of("A", "N", "H", "J");
+        searchLetters.forEach(letter -> {
+            alphabetSidebar.searchByLetter(letter);
+            softly
+                    .assertThat(filter.getBrandSearchResults())
+                    .as("Brand name should start with selected letter or contain that letter")
+                    .satisfiesAnyOf(
+                            brands -> assertThat(brands)
+                                    .allSatisfy(brand -> assertThat(brand)
+                                            .as("Brand name should start with selected letter")
+                                            .startsWithIgnoringCase(letter)),
+                            brands -> assertThat(brands)
+                                    .allSatisfy(brand -> assertThat(brand)
+                                            .as("Brand name should contains selected letter")
+                                            .contains(letter)));
+        });
+
         softly.assertAll();
     }
 }

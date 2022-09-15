@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka.components.seller.registration.form;
 
-import com.softserveinc.ita.rozetka.model.Seller;
+import com.softserveinc.ita.rozetka.models.Seller;
 import io.qameta.allure.Step;
 
 import java.util.List;
@@ -10,21 +10,31 @@ import static java.lang.String.format;
 
 public class StepOneSellerRegistrationForm extends SellerRegistrationForm {
 
+    private final String shopNameFieldXpath = format(formFieldXpathTemplate, 0);
+    private final String siteUrlFieldXpath = format(formFieldXpathTemplate, 1);
+    private final String productsAmountFieldXpath = format(formFieldXpathTemplate, 2);
+
     public boolean isOpened() {
         return isOpened(format(tabPanelXpathTemplate, 1));
     }
 
-    @Step("Step one seller registration form: open step two seller registration form via tab panel")
-    public StepTwoSellerRegistrationForm openStepTwoSellerRegistrationFormViaTabPanel() {
+    @Step("Step one seller registration form: open step two seller registration form")
+    public StepTwoSellerRegistrationForm openStepTwoSellerRegistrationForm() {
         $x("(//div[contains(@class,'mat-step-icon')])[3]").click();
+        return new StepTwoSellerRegistrationForm();
+    }
+
+    @Step("Step two seller registration form: continue to step two seller registration form")
+    public StepTwoSellerRegistrationForm continueToStepTwoSellerRegistrationForm() {
+        $x(format(formButtonXpathTemplate, 1)).click();
         return new StepTwoSellerRegistrationForm();
     }
 
     @Step("Step one seller registration form: fill in shop information {seller}")
     public StepOneSellerRegistrationForm fillInShopInformation(Seller seller) {
-        $x(format(formFieldXpathTemplate, 0)).val(seller.getShopName()).click();
-        $x(format(formFieldXpathTemplate, 1)).val(seller.getSiteUrl()).click();
-        $x(format(formFieldXpathTemplate, 2)).val(seller.getProductsAmount()).click();
+        $x(shopNameFieldXpath).val(seller.getShopName()).click();
+        $x(siteUrlFieldXpath).val(seller.getSiteUrl()).click();
+        $x(productsAmountFieldXpath).val(seller.getProductsAmount()).click();
         $x(format(tabPanelXpathTemplate, 1)).click();
         return this;
     }
@@ -33,6 +43,18 @@ public class StepOneSellerRegistrationForm extends SellerRegistrationForm {
     public StepOneSellerRegistrationForm clearAllFields() {
         clearAllFields(List.of(0, 1, 2), 1);
         return this;
+    }
+
+    public String getShopName() {
+        return $x(shopNameFieldXpath).getValue();
+    }
+
+    public String getSiteUrl() {
+        return $x(siteUrlFieldXpath).getValue();
+    }
+
+    public String getProductsAmount() {
+        return $x(productsAmountFieldXpath).getValue();
     }
 
     public String getShopNameFieldErrorMessage() {
