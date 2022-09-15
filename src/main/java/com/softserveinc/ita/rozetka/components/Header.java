@@ -1,7 +1,7 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
-import com.softserveinc.ita.rozetka.OrderCabinetPage;
+import com.softserveinc.ita.rozetka.MyOrdersPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.*;
@@ -103,9 +103,9 @@ public class Header {
         return new SignInModal();
     }
 
-    @Step("Header: open order cabinet page")
-    public OrderCabinetPage openOrderCabinetPage() {
+    @Step("Header: open my order page")
+    public MyOrdersPage openMyOrderPage() {
         $x("//li[contains(@class,'user')]//a").click();
-        return new OrderCabinetPage();
+        return new MyOrdersPage();
     }
 }

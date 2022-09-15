@@ -12,11 +12,11 @@ public class SignInModal {
     private final ConfigProperties property = new ConfigProperties();
 
     @Step("Sign in modal: sign in by facebook")
-    public HomePage signInByFacebook() {
+    public HomePage signInViaFacebook() {
         $x("//button[contains(text(),'Facebook')]").click();
         if (!isVisible("//a[@class='header__button ng-star-inserted']", 4)) {
             Selenide.switchTo().window(1);
-            $x("//input[@id='email']").setValue(property.getUserEmailOrPhoneNumber());
+            $x("//input[@id='email']").setValue(property.getUserEmail());
             $x("//input[@id='pass']").setValue(property.getUserPassword());
             $x("//input[@name='login']").click();
             Selenide.switchTo().window(0);

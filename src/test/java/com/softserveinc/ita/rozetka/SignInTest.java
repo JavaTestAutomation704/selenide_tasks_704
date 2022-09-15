@@ -12,8 +12,8 @@ public class SignInTest extends LoginTestRunner {
     public void verifySignInFunctionality() {
         var personalCabinetPage = homePage
                 .getHeader()
-                .openOrderCabinetPage()
-                .openPersonalCabinetPage();
+                .openMyOrderPage()
+                .openProfilePage();
 
         var softly = new SoftAssertions();
 

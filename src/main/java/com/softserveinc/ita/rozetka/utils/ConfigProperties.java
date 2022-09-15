@@ -17,15 +17,11 @@ public class ConfigProperties {
         }
     }
 
-    public String getUserEmailOrPhoneNumber() {
+    public String getUserEmail() {
         return properties.getProperty("VALID_USER_EMAIL");
     }
 
     public String getUserPassword() {
         return properties.getProperty("VALID_USER_PASSWORD");
-    }
-
-    public String getUserEmail() {
-        return properties.getProperty("USER_EMAIL");
     }
 }

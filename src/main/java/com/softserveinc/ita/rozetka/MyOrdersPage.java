@@ -4,11 +4,11 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class OrderCabinetPage {
+public class MyOrdersPage {
 
-    @Step("Order cabinet page: open personal cabinet page")
-    public PersonalCabinetPage openPersonalCabinetPage() {
+    @Step("My order page: open profile page")
+    public ProfilePage openProfilePage() {
         $x("//div[contains(@class,'cabinet-user')]/a").click();
-        return new PersonalCabinetPage();
+        return new ProfilePage();
     }
 }
