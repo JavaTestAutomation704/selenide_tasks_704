@@ -13,6 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <aspectj.version>1.9.9.1</aspectj.version>
         <allure-testng.version>2.18.1</allure-testng.version>
+        <suiteXml>src/main/resources/functional_tests.xml</suiteXml>
     </properties>
 
     <dependencies>
@@ -83,6 +84,9 @@
                             <value>io.qameta.allure.junit4.AllureJunit4</value>
                         </property>
                     </properties>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXml}</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>

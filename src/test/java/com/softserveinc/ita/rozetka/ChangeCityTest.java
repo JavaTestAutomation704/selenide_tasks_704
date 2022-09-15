@@ -19,8 +19,8 @@ public class ChangeCityTest extends TestRunner {
 
         var errorMessage = "City names should be equal";
 
-        var softAssertions = new SoftAssertions();
-        softAssertions.assertThat(mainSidebar.getCity())
+        var softly = new SoftAssertions();
+        softly.assertThat(mainSidebar.getCity())
                 .as(errorMessage)
                 .isEqualTo(expectedCityViaMobileMenu);
 
@@ -37,10 +37,10 @@ public class ChangeCityTest extends TestRunner {
                 .changeCity(expectedCityViaProductPage);
         mainSidebar = header.openMainSidebar();
 
-        softAssertions.assertThat(mainSidebar.getCity())
+        softly.assertThat(mainSidebar.getCity())
                 .as(errorMessage)
                 .isEqualTo(expectedCityViaProductPage);
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }
