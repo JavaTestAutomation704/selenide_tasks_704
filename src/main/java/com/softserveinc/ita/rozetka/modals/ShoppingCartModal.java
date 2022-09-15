@@ -1,20 +1,12 @@
 package com.softserveinc.ita.rozetka.modals;
 
-
-import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
 import io.qameta.allure.Step;
 
-import java.util.List;
-
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
-import static java.lang.String.format;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ShoppingCartModal {
     private final String closeButtonXpath = "//button[contains(@class, 'modal__close')]";
@@ -25,14 +17,8 @@ public class ShoppingCartModal {
 
     @Step("Shopping cart modal: clear shopping cart")
     public ShoppingCartModal clear() {
-        var cartItemActionButtonXpath = "//button[contains(@id, 'cartProductActions')]";
-        if (isVisible(cartItemActionButtonXpath)) {
-            List<SelenideElement> cartItems = $$x(cartItemActionButtonXpath)
-                    .shouldBe(sizeGreaterThanOrEqual(1));
-            for (SelenideElement item : cartItems) {
-                item.click();
-                $x("//div[contains(@id, 'cartProductActions')]//button").click();
-            }
+        for (int i = getCollectionSize("//rz-cart-product"); i > 0; i--) {
+            getItem(i).remove();
         }
         return this;
     }
@@ -41,13 +27,6 @@ public class ShoppingCartModal {
     public Header close() {
         $x(closeButtonXpath).click();
         return new Header();
-    }
-
-    @Step("Shopping cart modal: remove product with number {productNumber}")
-    public ShoppingCartModal remove(int productNumber) {
-        $x(format("//button[@id='cartProductActions%s']", (productNumber - 1))).click();
-        $x("//button[contains(@class, 'context-menu-actions__button')]").click();
-        return this;
     }
 
     public boolean isRemoveAllProductsButtonVisible() {
