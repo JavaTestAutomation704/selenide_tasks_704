@@ -1,12 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.OrderCabinetPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
-import com.softserveinc.ita.rozetka.modals.CatalogModal;
-import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
-import com.softserveinc.ita.rozetka.modals.LogInModal;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.modals.*;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -97,5 +95,17 @@ public class Header {
     public ComparisonListModal openComparisonListModal() {
         $x("//rz-comparison").click();
         return new ComparisonListModal();
+    }
+
+    @Step("Header: open sign in modal")
+    public SignInModal openSignInModal() {
+        $x("//li[contains(@class,'user')]//button").click();
+        return new SignInModal();
+    }
+
+    @Step("Header: open order cabinet page")
+    public OrderCabinetPage openOrderCabinetPage() {
+        $x("//li[contains(@class,'user')]//a").click();
+        return new OrderCabinetPage();
     }
 }
