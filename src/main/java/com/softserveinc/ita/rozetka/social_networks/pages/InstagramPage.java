@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class InstagramPage extends BaseSocialNetworkPage {
+public class InstagramPage extends SocialNetworkBasePage {
 
     @Step("Instagram page: open")
     public InstagramPage open() {

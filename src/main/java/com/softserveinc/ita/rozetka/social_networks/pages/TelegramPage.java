@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class TelegramPage extends BaseSocialNetworkPage {
+public class TelegramPage extends SocialNetworkBasePage {
 
     @Step("Telegram page: open")
     public TelegramPage open() {

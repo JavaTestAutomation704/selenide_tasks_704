@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class TwitterPage extends BaseSocialNetworkPage {
+public class TwitterPage extends SocialNetworkBasePage {
 
     @Step("Twitter page: open")
     public TwitterPage open() {

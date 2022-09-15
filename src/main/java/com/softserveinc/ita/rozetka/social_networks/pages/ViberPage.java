@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class ViberPage extends BaseSocialNetworkPage {
+public class ViberPage extends SocialNetworkBasePage {
 
     @Step("Viber page: open")
     public ViberPage open() {

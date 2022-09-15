@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class FacebookPage extends BaseSocialNetworkPage {
+public class FacebookPage extends SocialNetworkBasePage {
 
     @Step("Facebook page: open")
     public FacebookPage open() {

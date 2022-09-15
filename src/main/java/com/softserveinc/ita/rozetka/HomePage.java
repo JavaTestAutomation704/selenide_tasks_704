@@ -7,13 +7,17 @@ import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.components.SocialNetworksSection;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 import static java.lang.String.format;
 
+@Getter
 public class HomePage extends BasePage {
+
+    private final SocialNetworksSection socialNetworksSection = new SocialNetworksSection();
 
     @Step("Home page: open home page")
     public HomePage open() {
@@ -53,10 +57,6 @@ public class HomePage extends BasePage {
 
     public PartnerSection getPartnerSection() {
         return new PartnerSection();
-    }
-
-    public SocialNetworksSection getSocialNetworksSection() {
-        return new SocialNetworksSection();
     }
 
     @Step("Home page: open goods exchange page")

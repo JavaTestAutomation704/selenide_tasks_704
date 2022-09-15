@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
-public class YouTubePage extends BaseSocialNetworkPage {
+public class YouTubePage extends SocialNetworkBasePage {
 
     @Step("YouTube page: open")
     public YouTubePage open() {
