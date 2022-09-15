@@ -85,7 +85,7 @@ public class ProductQuestionsTest extends TestRunner {
                 .as("Product questions quantity should be sufficient")
                 .isGreaterThanOrEqualTo(25);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (int number = 1; number < 25; number += 4) {
             var firstDate = productQuestionsPage
@@ -96,10 +96,10 @@ public class ProductQuestionsTest extends TestRunner {
                     .getProductQuestionItem(number + 1)
                     .getDate();
 
-            softAssertions.assertThat(firstDate)
+            softly.assertThat(firstDate)
                     .as("second date should be occurs before or equal to first date")
                     .isAfterOrEqualTo(secondDate);
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }
