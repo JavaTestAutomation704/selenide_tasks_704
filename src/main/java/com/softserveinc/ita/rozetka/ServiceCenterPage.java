@@ -29,7 +29,7 @@ public class ServiceCenterPage {
     }
 
     public List<String> getProducersList() {
-        return $$x("//li[contains(@class, 'service-list')]").texts();
+        return getElementsText("//li[contains(@class, 'service-list')]");
     }
 
     public boolean isServiceCenterListVisible() {

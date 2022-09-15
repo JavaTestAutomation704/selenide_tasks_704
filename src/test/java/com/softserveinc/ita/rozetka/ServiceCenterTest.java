@@ -4,8 +4,8 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.lang.String.valueOf;
-import static org.testng.Assert.assertTrue;
 
 public class ServiceCenterTest extends TestRunner {
 
@@ -13,7 +13,9 @@ public class ServiceCenterTest extends TestRunner {
     public void verifyServiceCenterFunctionalityWorks() {
         var serviceCenter = homePage.openServiceCenterPage();
 
-        assertTrue(serviceCenter.isServiceCenterListVisible());
+        assertThat(serviceCenter.isServiceCenterListVisible())
+                .as("Service center list should be visible")
+                .isTrue();
         var softly = new SoftAssertions();
 
         for (char c = 'A'; c <= 'J'; c++) {
@@ -24,9 +26,9 @@ public class ServiceCenterTest extends TestRunner {
 
             var areListNamesCorrect = producersList.size() != 0 && producersList
                     .stream()
-                    .allMatch(a -> a.substring(0, 1)
-                                    .toUpperCase()
-                                    .equals(firstLetter));
+                    .allMatch(producerName -> producerName.substring(0, 1)
+                            .toUpperCase()
+                            .equals(firstLetter));
 
             softly.assertThat(areListNamesCorrect)
                     .as("All names should start with the same letter")
