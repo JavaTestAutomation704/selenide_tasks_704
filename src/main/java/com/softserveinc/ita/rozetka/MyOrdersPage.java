@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class MyOrdersPage {
 
-    @Step("My order page: open profile page")
+    @Step("My orders page: open profile page")
     public ProfilePage openProfilePage() {
         $x("//div[contains(@class,'cabinet-user')]/a").click();
         return new ProfilePage();

@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ProfilePage {
 
-    @Step("Personal cabinet page: sign out")
+    @Step("Profile page: sign out")
     public HomePage signOut() {
         $x("(//div/button[contains(@class,'button button--medium button--link')])[3]").click();
         return new HomePage();

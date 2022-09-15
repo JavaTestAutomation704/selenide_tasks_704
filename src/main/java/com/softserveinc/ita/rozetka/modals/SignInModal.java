@@ -11,7 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 public class SignInModal {
     private final ConfigProperties property = new ConfigProperties();
 
-    @Step("Sign in modal: sign in by facebook")
+    @Step("Sign in modal: sign in via facebook")
     public HomePage signInViaFacebook() {
         $x("//button[contains(text(),'Facebook')]").click();
         if (!isVisible("//a[@class='header__button ng-star-inserted']", 4)) {

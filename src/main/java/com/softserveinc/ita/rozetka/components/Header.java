@@ -103,8 +103,8 @@ public class Header {
         return new SignInModal();
     }
 
-    @Step("Header: open my order page")
-    public MyOrdersPage openMyOrderPage() {
+    @Step("Header: open my orders page")
+    public MyOrdersPage openMyOrdersPage() {
         $x("//li[contains(@class,'user')]//a").click();
         return new MyOrdersPage();
     }
