@@ -12,6 +12,7 @@ public class TestRunner {
 
     @BeforeClass
     public void setConfiguration() {
+        Configuration.browser = "firefox";
         Configuration.timeout = 10000;
         Configuration.browserSize = "1920x1080";
         Configuration.reportsFolder = "target/allure-results";

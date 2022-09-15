@@ -4,6 +4,7 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static java.lang.String.valueOf;
 
@@ -18,22 +19,21 @@ public class ServiceCenterTest extends TestRunner {
                 .isTrue();
         var softly = new SoftAssertions();
 
-        for (char c = 'A'; c <= 'J'; c++) {
+        asList('A', 'B', 'C', 'D', 'E', '1', '2', '3').forEach(character -> {
             var producersList = serviceCenter
-                    .selectFirstLetter(c)
+                    .selectFirstLetter(character)
                     .getProducersList();
-            var firstLetter = valueOf(c).toUpperCase();
 
-            var areListNamesCorrect = producersList.size() != 0 && producersList
+            var areListNamesCorrect = producersList
                     .stream()
-                    .allMatch(producerName -> producerName.substring(0, 1)
-                            .toUpperCase()
-                            .equals(firstLetter));
+                    .allMatch(producerName -> producerName
+                            .substring(0, 1)
+                            .equalsIgnoreCase(valueOf(character)));
 
             softly.assertThat(areListNamesCorrect)
                     .as("All names should start with the same letter")
                     .isTrue();
-        }
+        });
 
         var producerName = "Apple";
         var categoryName = "Смарт-годинники";
