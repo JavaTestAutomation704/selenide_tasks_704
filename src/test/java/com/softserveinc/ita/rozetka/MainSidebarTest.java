@@ -23,20 +23,20 @@ public class MainSidebarTest extends TestRunner {
 
         var mainSidebar = header.openMainSidebar();
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         assertThat(mainSidebar.isLanguageSelected(UA))
                 .as("Localization should be switched to UA")
                 .isTrue();
-        softAssertions.assertThat(mainSidebar.getLoginButtonName())
+        softly.assertThat(mainSidebar.getLoginButtonName())
                 .as("Incorrect login button name")
                 .isEqualTo("Вхід");
-        softAssertions.assertThat(mainSidebar.getRegistrationButtonName())
+        softly.assertThat(mainSidebar.getRegistrationButtonName())
                 .as("Incorrect registration button name")
                 .isEqualTo("Реєстрація");
-        softAssertions.assertThat(mainSidebar.getHelpCenterButtonName())
+        softly.assertThat(mainSidebar.getHelpCenterButtonName())
                 .as("Incorrect help center button name")
                 .isEqualTo("Довідковий центр");
-        softAssertions.assertThat(mainSidebar.getContactUsButtonName())
+        softly.assertThat(mainSidebar.getContactUsButtonName())
                 .as("Incorrect contact us button name")
                 .isEqualTo("Зв'язатися з нами");
 
@@ -51,25 +51,25 @@ public class MainSidebarTest extends TestRunner {
         assertThat(mainSidebar.isLanguageSelected(RU))
                 .as("Localization should be switched to RU")
                 .isTrue();
-        softAssertions.assertThat(mainSidebar.getLoginButtonName())
+        softly.assertThat(mainSidebar.getLoginButtonName())
                 .as("Incorrect login button name")
                 .isEqualTo("Вход");
-        softAssertions.assertThat(mainSidebar.getRegistrationButtonName())
+        softly.assertThat(mainSidebar.getRegistrationButtonName())
                 .as("Incorrect registration button name")
                 .isEqualTo("Регистрация");
-        softAssertions.assertThat(mainSidebar.getHelpCenterButtonName())
+        softly.assertThat(mainSidebar.getHelpCenterButtonName())
                 .as("Incorrect help center button name")
                 .isEqualTo("Справочный центр");
-        softAssertions.assertThat(mainSidebar.getContactUsButtonName())
+        softly.assertThat(mainSidebar.getContactUsButtonName())
                 .as("Incorrect contact us button name")
                 .isEqualTo("Связаться с нами");
 
         mainSidebar.changeLanguage(UA);
 
-        softAssertions.assertThat(header.isLanguageSelected(UA))
+        softly.assertThat(header.isLanguageSelected(UA))
                 .as("Localization should be switched to UA")
                 .isTrue();
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @AfterMethod
