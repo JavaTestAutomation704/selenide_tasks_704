@@ -4,12 +4,21 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PromotionsTest extends TestRunner {
 
     @Test
     public void verifyThatPromotionTermsAreTheSameOnDifferentPages() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
         var promotionsPage = homePage.openPromotionsPage();
 
         assertThat(promotionsPage.isOpened())
