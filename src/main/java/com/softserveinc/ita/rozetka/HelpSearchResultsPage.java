@@ -7,10 +7,11 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
-@Getter
 public class HelpSearchResultsPage {
 
     private final String linkTitleXpath = "(//h3[@class='h5 ih'])";
+
+    @Getter
     private final HelpCenterHeader helpCenterHeader = new HelpCenterHeader();
 
     public boolean isOpened() {
