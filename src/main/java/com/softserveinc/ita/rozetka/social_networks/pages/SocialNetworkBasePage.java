@@ -5,7 +5,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.switchTo;
-import static com.softserveinc.ita.rozetka.utils.BrowserTabUtil.backToPreviousTab;
+import static com.softserveinc.ita.rozetka.utils.BrowserTabUtil.back;
 import static java.lang.String.format;
 
 public abstract class SocialNetworkBasePage {
@@ -19,8 +19,8 @@ public abstract class SocialNetworkBasePage {
 
     abstract protected boolean isOpened();
 
-    public SocialNetworksSection back() {
-        backToPreviousTab();
+    public static SocialNetworksSection backToPreviousTab() {
+        back();
         return new SocialNetworksSection();
     }
 }
