@@ -63,11 +63,11 @@ public class ExchangeGoodsTest extends TestRunner {
                 .selectStatus(FULL_EQUIPMENT)
                 .switchToNextStep();
 
-        var softAssertions = new SoftAssertions();
-        softAssertions.assertThat(resultProductForm.getMaxPrice())
+        var softly = new SoftAssertions();
+        softly.assertThat(resultProductForm.getMaxPrice())
                 .as("Max price should be correct")
                 .isEqualTo(maxPrice);
-        softAssertions.assertThat(resultProductForm.getProductName())
+        softly.assertThat(resultProductForm.getProductName())
                 .as("Product name should be correct")
                 .isEqualTo(selectedProductName);
 
@@ -94,12 +94,12 @@ public class ExchangeGoodsTest extends TestRunner {
                 .selectStatus(COMPLETE_SET_IS_MISSING)
                 .switchToNextStep();
 
-        softAssertions.assertThat(resultProductForm.getMaxPrice())
+        softly.assertThat(resultProductForm.getMaxPrice())
                 .as("Max price should be correct")
                 .isLessThan(maxPrice);
-        softAssertions.assertThat(resultProductForm.getProductName())
+        softly.assertThat(resultProductForm.getProductName())
                 .as("Product name should be correct")
                 .isEqualTo(selectedProductName);
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }

@@ -1,11 +1,14 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.data.Category;
+import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Category.HOUSEHOLD_APPLIANCES;
 import static com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesSubcategory.REFRIGERATORS;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CharacteristicsPageTest extends TestRunner {
     @Test
@@ -44,6 +47,39 @@ public class CharacteristicsPageTest extends TestRunner {
         softly.assertThat(characteristicsPage.isComparisonCounterVisible())
                 .as("Product should be added to comparison list.")
                 .isTrue();
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyProductOnSaleOnPromoPage() {
+        var promoPage = homePage
+                .openCategoryPage(Category.PROMOTION)
+                .openPromoPage();
+
+        var isUaLanguage = homePage
+                .getHeader()
+                .isLanguageSelected(Language.UA);
+
+        assertThat(isUaLanguage)
+                .as("Language should be ukrainian")
+                .isTrue();
+
+        assertThat(promoPage.getTitle())
+                .as("Title should be correct")
+                .isEqualTo("ТОП-товари");
+
+        assertThat(promoPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(40);
+
+        var softly = new SoftAssertions();
+        for (int number = 1; number < 40; number += 3) {
+            softly.assertThat(promoPage
+                            .getProduct(number)
+                            .isOnSale())
+                    .as(number + " product should be on sale")
+                    .isTrue();
+        }
         softly.assertAll();
     }
 }
