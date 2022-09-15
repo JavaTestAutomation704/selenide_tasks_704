@@ -16,4 +16,9 @@ public class CategoryPage extends BasePage {
                 .click(usingJavaScript());
         return new SubcategoryPage();
     }
+
+    @Step("Category page: open promo page")
+    public PromoPage openPromoPage() {
+        return new PromoPage();
+    }
 }

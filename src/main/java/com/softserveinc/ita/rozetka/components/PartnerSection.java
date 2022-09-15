@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.FranchisePage;
 import com.softserveinc.ita.rozetka.SellOnRozetkaPage;
 import io.qameta.allure.Step;
 
@@ -11,5 +12,11 @@ public class PartnerSection {
     public SellOnRozetkaPage openSellOnRozetkaPage() {
         $x("//a[contains(@href, 'seller.rozetka')]").click();
         return new SellOnRozetkaPage();
+    }
+
+    @Step("Partner section: open franchise page")
+    public FranchisePage openFranchisePage() {
+        $x("//a[contains(@href, 'franchise')]").click();
+        return new FranchisePage();
     }
 }

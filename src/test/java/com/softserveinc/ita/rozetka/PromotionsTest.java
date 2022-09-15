@@ -4,12 +4,21 @@ import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PromotionsTest extends TestRunner {
 
     @Test
     public void verifyThatPromotionTermsAreTheSameOnDifferentPages() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
         var promotionsPage = homePage.openPromotionsPage();
 
         assertThat(promotionsPage.isOpened())
@@ -55,21 +64,21 @@ public class PromotionsTest extends TestRunner {
                 .as("Promotion page should be opened")
                 .isTrue();
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         var pageTitle = promotionPage.getTitle();
         var promotionPeriodOnPage = promotionPage.getPromotionPeriod();
 
-        softAssertions
+        softly
                 .assertThat(pageTitle)
                 .as("Promotion name on the promotion page should be the same as on the promotion terms modal")
                 .isEqualTo(modalTitle);
 
-        softAssertions
+        softly
                 .assertThat(promotionPeriodOnPage)
                 .as("Promotion period on the promotion page should be the same as on the promotion terms modal")
                 .contains(promotionPeriodOnModal);
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }
