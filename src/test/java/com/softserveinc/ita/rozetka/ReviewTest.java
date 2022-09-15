@@ -54,7 +54,7 @@ public class ReviewTest extends TestRunner {
     public void verifySortByPhotosReviewsFunctionality() {
         var searchResultsPage = homePage
                 .getHeader()
-                .search("Samsung");
+                .search("телефони");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
