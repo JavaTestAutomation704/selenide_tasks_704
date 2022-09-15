@@ -61,7 +61,7 @@ public class ProductTest extends TestRunner {
     }
 
     @Test
-    public void verifyThatTogetherIsCheaper() {
+    public void verifyThatAdditionProductIsCheaperThanUsual() {
         var searchResultsPage = homePage
                 .getHeader()
                 .search("samsung");
@@ -73,7 +73,7 @@ public class ProductTest extends TestRunner {
         var cheaperTogetherSection = searchResultsPage
                 .getProduct(1)
                 .open()
-                .goToCheaperTogetherSection();
+                .getCheaperTogetherSection();
 
         var additionProductActualPrice = cheaperTogetherSection.getAdditionProductActualPrice();
         var additionProductOldPrice = cheaperTogetherSection.getAdditionProductOldPrice();
