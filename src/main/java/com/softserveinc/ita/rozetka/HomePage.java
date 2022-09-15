@@ -60,4 +60,11 @@ public class HomePage extends BasePage {
         waitTillPreloaderInvisible();
         return new GoodsExchangePage();
     }
+
+    @Step("Home page: open bonus account page")
+    public BonusAccountPage openBonusAccountPage() {
+        $x("//a[contains(@href, 'loyalty')]").click(ClickOptions.usingJavaScript());
+        waitTillPreloaderInvisible();
+        return new BonusAccountPage();
+    }
 }
