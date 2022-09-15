@@ -1,9 +1,11 @@
 package com.softserveinc.ita.rozetka.social_networks.pages;
 
+import com.softserveinc.ita.rozetka.components.SocialNetworksSection;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.switchTo;
+import static com.softserveinc.ita.rozetka.utils.BrowserTabUtil.backToPreviousTab;
 import static java.lang.String.format;
 
 public abstract class SocialNetworkBasePage {
@@ -16,4 +18,9 @@ public abstract class SocialNetworkBasePage {
     }
 
     abstract protected boolean isOpened();
+
+    public SocialNetworksSection back() {
+        backToPreviousTab();
+        return new SocialNetworksSection();
+    }
 }
