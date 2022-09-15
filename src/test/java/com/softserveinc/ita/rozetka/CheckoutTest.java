@@ -13,12 +13,14 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.softserveinc.ita.rozetka.data.Category.*;
+import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
+import static com.softserveinc.ita.rozetka.data.Category.SMARTPHONES_TV_AND_ELECTRONICS;
 import static com.softserveinc.ita.rozetka.data.City.DNIPRO;
-import static com.softserveinc.ita.rozetka.data.Language.UA;
-import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
 import static com.softserveinc.ita.rozetka.data.DeliveryService.*;
-import static com.softserveinc.ita.rozetka.data.ProductFilter.*;
+import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
+import static com.softserveinc.ita.rozetka.data.Language.UA;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
 import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -149,10 +151,6 @@ public class CheckoutTest extends TestRunner {
         assertThat(checkoutPage.isOrderModalVisible())
                 .as("Order section should be opened")
                 .isTrue();
-
-        checkoutPage
-                .getContactInformationSection()
-                .fillInContactInformation("Маск", "Ілон", "0637891234");
 
         var firstOrderSection = checkoutPage.getOrderSection(1);
 
@@ -295,8 +293,8 @@ public class CheckoutTest extends TestRunner {
         var pickupPointName = meestPickup.getPickUpPointName();
         var pickupPointModal = meestPickup.openPickUpPointModal();
 
-        var softAssertions = new SoftAssertions();
-        softAssertions.assertThat(pickupPointModal.getPickUpPointName())
+        var softly = new SoftAssertions();
+        softly.assertThat(pickupPointModal.getPickUpPointName())
                 .as("Pickup point should be correct")
                 .contains(MEEST.getNameUa())
                 .contains(pickupPointName);
@@ -316,7 +314,7 @@ public class CheckoutTest extends TestRunner {
                 .selectNovaPoshtaPickUp(UA)
                 .getPickUpPointName();
 
-        softAssertions.assertThat(pickupPointName)
+        softly.assertThat(pickupPointName)
                 .as("Pickup point should be correct")
                 .contains(NOVA_POSHTA.getNameUa())
                 .contains(pickupPointNameActual);
@@ -332,10 +330,96 @@ public class CheckoutTest extends TestRunner {
         pickupPointName = rozetkaPickup.getPickUpPointName();
         rozetkaPickup.openPickUpPointModal();
 
-        softAssertions.assertThat(pickupPointModal.getPickUpPointName())
+        softly.assertThat(pickupPointModal.getPickUpPointName())
                 .as("Pickup point should be correct")
                 .contains(ROZETKA.getNameUa())
                 .contains(pickupPointName);
-        softAssertions.assertAll();
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyThatContactInformationIsCopiedToRecipientContactInformation() {
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var searchResultsPage = header.search("Lenovo");
+
+        int productNumber = 1;
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("The products quantity should be sufficient on the search results page")
+                .isGreaterThanOrEqualTo(productNumber);
+
+        searchResultsPage
+                .getProduct(productNumber)
+                .addToShoppingCart();
+
+        var shoppingCartModal = header.openShoppingCartModal();
+
+        assertThat(shoppingCartModal.isEmpty())
+                .as("There should be at least one product in the shopping cart")
+                .isFalse();
+
+        var checkoutPage = shoppingCartModal.startCheckout();
+
+        var contactInformationSection = checkoutPage
+                .getContactInformationSection()
+                .fillInContactInformation("Musk", "Elon", "9875");
+
+        var softly = new SoftAssertions();
+
+        var actualSurnameErrorMessage = contactInformationSection.getSurnameErrorMessage();
+        var actualNameErrorMessage = contactInformationSection.getNameErrorMessage();
+        var actualPhoneErrorMessage = contactInformationSection.getPhoneNumberErrorMessage();
+
+        softly
+                .assertThat(actualSurnameErrorMessage)
+                .as("Error message should be displayed when entering invalid data on the contact information section")
+                .isEqualTo("Введіть своє прізвище кирилицею");
+        softly
+                .assertThat(actualNameErrorMessage)
+                .as("Error message should be displayed when entering invalid data on the contact information section")
+                .isEqualTo("Введіть своє ім'я кирилицею");
+        softly
+                .assertThat(actualPhoneErrorMessage)
+                .as("Error message should be displayed when entering invalid data on the contact information section")
+                .isEqualTo("Введіть номер мобільного телефону");
+
+        var redColor = Color.RED.getRgb();
+
+        var isActualSurnameBorderColorCorrect = contactInformationSection.isSurnameBorderColorCorrect(redColor);
+        var isActualNameBorderColorCorrect = contactInformationSection.isNameBorderColorCorrect(redColor);
+        var isActualPhoneBorderColorCorrect = contactInformationSection.isPhoneNumberBorderColorCorrect(redColor);
+
+        softly
+                .assertThat(isActualSurnameBorderColorCorrect)
+                .as("Surname border color should be red when entering invalid data on the contact information section")
+                .isTrue();
+
+        softly
+                .assertThat(isActualNameBorderColorCorrect)
+                .as("Name border color should be red when entering invalid data on the contact information section")
+                .isTrue();
+
+        softly
+                .assertThat(isActualPhoneBorderColorCorrect)
+                .as("Phone border color should be red when entering invalid data on the contact information section")
+                .isTrue();
+
+        var contactInformation = contactInformationSection.getContactInformation();
+        var recipientContactInformation = checkoutPage
+                .getOrderSection(1)
+                .getRecipientContactInformation();
+
+        softly.assertThat(recipientContactInformation)
+                .as("Contact information should be copied to recipient's contact information")
+                .usingRecursiveComparison()
+                .isEqualTo(contactInformation);
+
+        softly.assertAll();
     }
 }

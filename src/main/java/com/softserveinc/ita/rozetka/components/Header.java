@@ -1,21 +1,20 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
-
-import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
 import com.softserveinc.ita.rozetka.modals.LogInModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
-import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class Header {
 
@@ -69,14 +68,19 @@ public class Header {
     @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
-        $x("//a[contains(@href, 'computers-notebooks')]/ancestor::li[contains(@class, 'categories__item')]//div[contains(@class, 'content')]")
-                .shouldBe(visible);
+        waitTillVisible("(//rz-fat-menu//div[contains(@class, 'content')])[1]");
         return new CatalogModal();
+    }
+
+    @Step("Header: change language to {language}")
+    public Header changeLanguage(Language language) {
+        $x(format("//li[contains(@class, 'lang__item')]//*[text()=' %s ']", language)).click();
+        return new Header();
     }
 
     public boolean isLanguageSelected(Language language) {
         return isVisible(
-                String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
+                format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
     }
 
     @Step("Header: open search menu")

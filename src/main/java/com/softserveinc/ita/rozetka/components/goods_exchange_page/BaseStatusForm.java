@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.components.goodsExchangePage;
+package com.softserveinc.ita.rozetka.components.goods_exchange_page;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitForTextChange;

@@ -6,10 +6,8 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class PromotionPage {
 
-    public boolean isOpen() {
-        var isTitleVisible = isVisible("//h1[contains(@class, 'heading')]");
-        var isPromotionCardsVisible = isVisible("//ul[contains(@class, 'catalog-grid')]");
-        return isTitleVisible && isPromotionCardsVisible;
+    public boolean isOpened() {
+        return isVisible("//ul[contains(@class, 'catalog-grid')]");
     }
 
     public int getProductsQuantity() {

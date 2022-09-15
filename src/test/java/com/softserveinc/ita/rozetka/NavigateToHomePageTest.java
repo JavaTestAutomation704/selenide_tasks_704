@@ -29,8 +29,8 @@ public class NavigateToHomePageTest extends TestRunner {
         softly.assertThat(header.isShoppingCartCounterVisible())
                 .as("Cart should be empty")
                 .isFalse();
-        softly.assertThat(smallCart.isOpen())
-                .as("Small cart should not be open")
+        softly.assertThat(smallCart.isOpened())
+                .as("Small cart should not be opened")
                 .isFalse();
 
         var subcategoryPage = homePage
@@ -50,8 +50,8 @@ public class NavigateToHomePageTest extends TestRunner {
 
         header.openHomePageViaLogo();
 
-        softly.assertThat(smallCart.isOpen())
-                .as("Small cart should be open")
+        softly.assertThat(smallCart.isOpened())
+                .as("Small cart should be opened")
                 .isTrue();
         softly.assertThat(homePage.isMainCategoriesSectionVisible())
                 .as("Main categories should be visible")
@@ -60,8 +60,8 @@ public class NavigateToHomePageTest extends TestRunner {
         homePage.openCategoryPage(Category.LAPTOPS_AND_COMPUTERS);
         header.openHomePageViaLogo();
 
-        softly.assertThat(smallCart.isOpen())
-                .as("Small cart should be open")
+        softly.assertThat(smallCart.isOpened())
+                .as("Small cart should be opened")
                 .isTrue();
         softly.assertThat(homePage.isMainCategoriesSectionVisible())
                 .as("Main categories should be visible")
@@ -71,8 +71,8 @@ public class NavigateToHomePageTest extends TestRunner {
                 .openMainSidebar()
                 .openHomePageViaLogo();
 
-        softly.assertThat(smallCart.isOpen())
-                .as("Small cart should be open")
+        softly.assertThat(smallCart.isOpened())
+                .as("Small cart should be opened")
                 .isTrue();
         softly.assertAll();
     }

@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class RegistrationModal {
     private final String registerButtonXpath = "//button[@class='button button--large button--green auth-modal__submit']";
@@ -16,7 +17,7 @@ public class RegistrationModal {
         return this;
     }
 
-    public boolean isOpen() {
+    public boolean isOpened() {
         return isVisible("//div[@class='modal__holder modal__holder_show_animation modal__holder--medium']");
     }
 
@@ -47,18 +48,18 @@ public class RegistrationModal {
     }
 
     public String getFirstNameErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate, 1));
+        return getText(format(errorMessageXpathTemplate, 1));
     }
 
     public String getLastNameErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate, 2));
+        return getText(format(errorMessageXpathTemplate, 2));
     }
 
     public String getPhoneNumberErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate, 3));
+        return getText(format(errorMessageXpathTemplate, 3));
     }
 
     public String getEmailErrorMessage() {
-        return getText(String.format(errorMessageXpathTemplate, 4));
+        return getText(format(errorMessageXpathTemplate, 4));
     }
 }

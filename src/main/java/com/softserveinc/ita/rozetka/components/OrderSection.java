@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import com.softserveinc.ita.rozetka.models.ContactInformation;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +63,18 @@ public class OrderSection {
     public Header changeCity(String city) {
         $x(format("(//span[@class='deliveries__city-title'])[%d]", orderNumber)).click();
         return new ChangeCityModal().changeCity(city);
+    }
+
+    public ContactInformation getRecipientContactInformation() {
+        var inputSurnameXpath = "//rz-checkout-order-recipient//input[@formcontrolname='surname']";
+        var inputNameXpath = "//rz-checkout-order-recipient//input[@formcontrolname='name']";
+        var inputPhoneXpath = "//rz-checkout-order-recipient//input[@formcontrolname='phone']";
+
+        return ContactInformation
+                .builder()
+                .surname($x(inputSurnameXpath).val())
+                .name($x(inputNameXpath).val())
+                .phone($x(inputPhoneXpath).val())
+                .build();
     }
 }
