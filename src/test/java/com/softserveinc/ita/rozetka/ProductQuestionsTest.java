@@ -92,11 +92,13 @@ public class ProductQuestionsTest extends TestRunner {
 
         for (int i = step + 1; i < productQuestionsQuantity; i += step) {
             softly
-                    .assertThat(productQuestionsPage.getProductQuestionItem(i)
-                            .differenceBetweenLikesAndDislikes())
+                    .assertThat(productQuestionsPage
+                            .getProductQuestionItem(i)
+                            .getDifferenceBetweenLikesAndDislikes())
                     .as(i + " product question vote should be less than " + (i - step))
-                    .isLessThanOrEqualTo(productQuestionsPage.getProductQuestionItem(i - step)
-                            .differenceBetweenLikesAndDislikes());
+                    .isLessThanOrEqualTo(productQuestionsPage
+                            .getProductQuestionItem(i - step)
+                            .getDifferenceBetweenLikesAndDislikes());
         }
         softly.assertAll();
     }
