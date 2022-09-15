@@ -93,23 +93,23 @@ public class ShoppingCartTest extends TestRunner {
                 .openShoppingCartModal()
                 .remove(1);
 
-        var softAssertions = new SoftAssertions();
-        softAssertions.assertThat(shoppingCart.isEmpty())
+        var softly = new SoftAssertions();
+        softly.assertThat(shoppingCart.isEmpty())
                 .as("Shopping cart should not be empty")
                 .isFalse();
 
         // TODO: This test may be failed as button "Remove all" may be visible
-        softAssertions.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
+        softly.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
                 .as("Button 'Remove all' should not be visible")
                 .isFalse();
 
         shoppingCart.remove(1);
 
-        softAssertions.assertThat(shoppingCart.isEmpty())
+        softly.assertThat(shoppingCart.isEmpty())
                 .as("Shopping cart should be empty")
                 .isTrue();
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test

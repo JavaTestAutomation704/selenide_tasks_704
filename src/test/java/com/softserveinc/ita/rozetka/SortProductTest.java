@@ -100,7 +100,7 @@ public class SortProductTest extends TestRunner {
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(60);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (int productNumber : new int[]{1, 25, 59}) {
             var isProductOnSale = searchResultsPage
@@ -112,7 +112,7 @@ public class SortProductTest extends TestRunner {
                     .as(productNumber + " product should be on sale with old price")
                     .isTrue();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
 }

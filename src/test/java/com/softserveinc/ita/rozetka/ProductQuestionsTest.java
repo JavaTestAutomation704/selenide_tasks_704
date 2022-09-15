@@ -35,7 +35,7 @@ public class ProductQuestionsTest extends TestRunner {
                 .as("Product questions quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
         int productQuestionsWithPhotosQuantity = productQuestionsPage.getProductQuestionsWithPhotosQuantity();
 
         for (int number = 1; number < productQuestionsWithPhotosQuantity; number++) {
@@ -43,7 +43,7 @@ public class ProductQuestionsTest extends TestRunner {
                     .getProductQuestionItem(number)
                     .hasPhoto();
 
-            softAssertions.assertThat(hasPhoto)
+            softly.assertThat(hasPhoto)
                     .as(number + " Product question item should have a photo")
                     .isTrue();
         }
@@ -53,10 +53,10 @@ public class ProductQuestionsTest extends TestRunner {
                     .getProductQuestionItem(number)
                     .hasPhoto();
 
-            softAssertions.assertThat(hasPhoto)
+            softly.assertThat(hasPhoto)
                     .as(number + " Product question item should not have a photo")
                     .isFalse();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 }
