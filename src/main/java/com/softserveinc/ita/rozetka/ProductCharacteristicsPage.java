@@ -28,7 +28,14 @@ public class ProductCharacteristicsPage extends BasePage {
 
     @Step("Product characteristics page: add product to comparison list")
     public ProductCharacteristicsPage addToComparison() {
-        $x("//app-compare-button").click();
+        var comparisonIconCounter = $x("//rz-comparison//rz-icon-counter");
+        var initialCounterValue = isVisible(comparisonIconCounter, 2)
+                ? getNumber(comparisonIconCounter)
+                : 0;
+
+        $x("//app-compare-button//button").click();
+
+        waitText(comparisonIconCounter, String.valueOf(initialCounterValue + 1));
         return this;
     }
 
