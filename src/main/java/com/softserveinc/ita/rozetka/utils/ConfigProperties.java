@@ -24,6 +24,7 @@ public class ConfigProperties {
     public String getFacebookUserPassword() {
         return properties.getProperty("FACEBOOK_USER_PASSWORD");
     }
+
     public String getUserEmail() {
         return properties.getProperty("USER_EMAIL");
     }
