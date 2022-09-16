@@ -63,8 +63,8 @@ public class Product {
         $x(productXpath + titleXpath)
                 .scrollIntoView(false)
                 .click();
-        var productTitle = "//h1[@class='product__title']";
-        waitTillVisible(productTitle, 7);
+        var productTitle = "//h1[contains(@class, 'title')]";
+        waitTillVisible(productTitle);
         $x(productTitle).hover();
         return new ProductPage();
     }
