@@ -9,6 +9,6 @@ public class LoginTestRunner extends TestRunner {
         homePage = homePage
                 .getHeader()
                 .openSignInModal()
-                .signInViaFacebook();
+                .signInViaFacebookWithDefaultCreds();
     }
 }
