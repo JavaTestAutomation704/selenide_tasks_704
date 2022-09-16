@@ -6,6 +6,7 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.*;
 import io.qameta.allure.Step;
+import lombok.extern.java.Log;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -95,12 +96,6 @@ public class Header {
     public ComparisonListModal openComparisonListModal() {
         $x("//rz-comparison").click();
         return new ComparisonListModal();
-    }
-
-    @Step("Header: open sign in modal")
-    public SignInModal openSignInModal() {
-        $x("//li[contains(@class,'user')]//button").click();
-        return new SignInModal();
     }
 
     @Step("Header: open my orders page")

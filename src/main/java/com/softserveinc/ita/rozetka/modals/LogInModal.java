@@ -55,14 +55,14 @@ public class LogInModal {
         return this;
     }
 
-    @Step("Log in modal: log in via facebook with default creds")
-    public HomePage signInViaFacebookWithDefaultCreds() {
+    @Step("Log in modal: log in via facebook")
+    public HomePage logInViaFacebook(String emailOrPhone, String password) {
         ConfigProperties property = new ConfigProperties();
         $x("//button[contains(text(),'Facebook')]").click();
         if (!isVisible("//a[@class='header__button ng-star-inserted']", 4)) {
             Selenide.switchTo().window(1);
-            $x("//input[@id='email']").setValue(property.getUserEmail());
-            $x("//input[@id='pass']").setValue(property.getUserPassword());
+            $x("//input[@id='email']").setValue(emailOrPhone);
+            $x("//input[@id='pass']").setValue(password);
             $x("//input[@name='login']").click();
             Selenide.switchTo().window(0);
         }

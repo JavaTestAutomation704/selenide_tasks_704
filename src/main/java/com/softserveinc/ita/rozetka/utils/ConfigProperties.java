@@ -10,18 +10,21 @@ public class ConfigProperties {
     public ConfigProperties() {
         properties = new Properties();
         try {
-            FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+            var fileInputStream = new FileInputStream("src/main/resources/config.properties");
             properties.load(fileInputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new NullPointerException(e.getMessage());
         }
     }
 
-    public String getUserEmail() {
-        return properties.getProperty("VALID_USER_EMAIL");
+    public String getFacebookUserEmailOrPhone() {
+        return properties.getProperty("FACEBOOK_USER_EMAIL_OR_PHONE");
     }
 
-    public String getUserPassword() {
-        return properties.getProperty("VALID_USER_PASSWORD");
+    public String getFacebookUserPassword() {
+        return properties.getProperty("FACEBOOK_USER_PASSWORD");
+    }
+    public String getUserEmail() {
+        return properties.getProperty("USER_EMAIL");
     }
 }
