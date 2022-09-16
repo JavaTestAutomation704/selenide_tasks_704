@@ -29,7 +29,7 @@ public class CourierDeliverySection {
 
     @Step("Courier delivery section: fill in delivery details {street}, {house}, {flat}")
     public CourierDeliverySection fillInDeliveryDetails(String street, String house, String flat) {
-        fillInStreet(street);
+        fillInStreetField(street);
         $x(format(houseFieldXpathTemplate, orderNumber)).sendKeys(house);
         $x(format(flatFieldXpathTemplate, orderNumber)).sendKeys(flat);
         waitTillPreloaderInvisible();
@@ -37,7 +37,7 @@ public class CourierDeliverySection {
     }
 
     @Step("Courier delivery section: fill in {street}")
-    private CourierDeliverySection fillInStreet(String street) {
+    private CourierDeliverySection fillInStreetField(String street) {
         $x(format(streetFieldXpathTemplate, orderNumber)).sendKeys(street);
         var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
         if (!isVisible(streetDropDownListXpath)) {
