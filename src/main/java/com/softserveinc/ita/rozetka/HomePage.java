@@ -2,17 +2,23 @@ package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Selenide;
+import com.softserveinc.ita.rozetka.components.CompanyInformationSection;
 import com.softserveinc.ita.rozetka.components.PartnerSection;
 import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 import static java.lang.String.format;
 
+@Getter
 public class HomePage extends BasePage {
+
+    private final CompanyInformationSection companyInformationSection = new CompanyInformationSection();
+    private final PartnerSection partnerSection = new PartnerSection();
 
     @Step("Home page: open home page")
     public HomePage open() {
@@ -48,10 +54,6 @@ public class HomePage extends BasePage {
     public PromotionsPage openPromotionsPage() {
         $x("//a[contains(@class, 'pagination')]").click(ClickOptions.usingJavaScript());
         return new PromotionsPage();
-    }
-
-    public PartnerSection getPartnerSection() {
-        return new PartnerSection();
     }
 
     @Step("Home page: open goods exchange page")
