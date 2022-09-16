@@ -8,14 +8,14 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BrowserTabUtil {
 
-    @Step("Browser tab util: close current tab and switch to the first tab")
-    public static void closeCurrentTabAndSwitchToFirstTab() {
+    @Step("Browser tab util: close current tab and switch to {tabIndex}")
+    public static void closeCurrentTabAndSwitchTo(int tabIndex) {
         closeWindow();
-        switchTo().window(0);
+        switchTo().window(tabIndex);
     }
 
-    @Step("Browser tab util: switch to tab by page name")
-    public static void switchToTabByPageName(String pageName) {
+    @Step("Browser tab util: switch to tab {pageName}")
+    public static void switchToTab(String pageName) {
         for (var handle : getWebDriver().getWindowHandles()) {
             var webDriver = switchTo().window(handle);
             if (webDriver.getTitle().contains(pageName)) {
