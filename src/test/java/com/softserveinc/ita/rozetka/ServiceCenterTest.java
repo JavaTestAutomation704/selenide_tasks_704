@@ -27,8 +27,8 @@ public class ServiceCenterTest extends TestRunner {
             var areListNamesCorrect = producersList
                     .stream()
                     .allMatch(producerName -> producerName
-                            .substring(0, 1)
-                            .equalsIgnoreCase(valueOf(character)));
+                            .toUpperCase()
+                            .startsWith((valueOf(character))));
 
             softly.assertThat(areListNamesCorrect)
                     .as("All names should start with the same letter")
