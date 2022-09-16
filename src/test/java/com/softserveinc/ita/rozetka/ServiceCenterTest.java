@@ -12,15 +12,15 @@ public class ServiceCenterTest extends TestRunner {
 
     @Test
     public void verifyServiceCenterFunctionalityWorks() {
-        var serviceCenter = homePage.openServiceCenterPage();
+        var serviceCenterPage = homePage.openServiceCenterPage();
 
-        assertThat(serviceCenter.isServiceCenterListVisible())
+        assertThat(serviceCenterPage.isServiceCenterListVisible())
                 .as("Service center list should be visible")
                 .isTrue();
         var softly = new SoftAssertions();
 
         asList('A', 'B', 'C', 'D', 'E', '1', '2', '3').forEach(character -> {
-            var producersList = serviceCenter
+            var producersList = serviceCenterPage
                     .selectFirstLetter(character)
                     .getProducersList();
 
@@ -37,15 +37,14 @@ public class ServiceCenterTest extends TestRunner {
 
         var producerName = "Apple";
         var categoryName = "Смарт-годинники";
-        var resultPage = serviceCenter
+        var resultPage = serviceCenterPage
                 .searchProducer(producerName)
                 .selectCategory(categoryName)
                 .selectCity("Київ");
 
         softly.assertThat(resultPage.getTitle())
                 .as("Title should contain correct data")
-                .contains(producerName)
-                .contains(categoryName);
+                .contains(producerName, categoryName);
         softly.assertThat(resultPage.getServiceInfoSize())
                 .as("List should contain information about at least one service center")
                 .isGreaterThan(0);
