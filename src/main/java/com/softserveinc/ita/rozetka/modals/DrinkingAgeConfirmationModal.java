@@ -4,6 +4,7 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.SubcategoryPage;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -12,7 +13,7 @@ public class DrinkingAgeConfirmationModal {
     public SearchResultsPage confirm() {
         var confirmationButtonXpath = "//a[contains(@class, 'exponea-close')]";
         if(isVisible(confirmationButtonXpath, 3)) {
-            $x(confirmationButtonXpath).click();
+            $x(confirmationButtonXpath).click(usingJavaScript());
         }
         return new SubcategoryPage();
     }
