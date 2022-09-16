@@ -17,7 +17,7 @@ import static java.time.Duration.ofSeconds;
 
 @UtilityClass
 public class WebElementUtil {
-    private static final Duration TIMEOUT = ofSeconds(10);
+    private static final Duration TIMEOUT = ofSeconds(15);
 
     public static boolean isVisible(String elementXpath) {
         return isVisible(elementXpath, TIMEOUT.getSeconds());
@@ -169,5 +169,14 @@ public class WebElementUtil {
 
     public static void waitInvisibility(String elementXpath) {
         waitInvisibility($x(elementXpath));
+    }
+
+    public static boolean isAttributeMatching(SelenideElement element, String attributeName, String attributeRegex, long seconds) {
+        try {
+            element.hover().shouldBe(attributeMatching(attributeName, attributeRegex), ofSeconds(seconds));
+            return true;
+        } catch (AssertionError e) {
+            return false;
+        }
     }
 }
