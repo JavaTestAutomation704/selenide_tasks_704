@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.codeborne.selenide.ClickOptions;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
 
@@ -39,7 +40,7 @@ public class CartItem {
     public ShoppingCartModal remove() {
         $x(cartItemXpath + "//button[contains(@id, 'Actions')]")
                 .scrollIntoView(false)
-                .click();
+                .click(ClickOptions.usingJavaScript());
         $x("//button[contains(@class, 'context-menu-actions__button')]").click();
         return new ShoppingCartModal();
     }

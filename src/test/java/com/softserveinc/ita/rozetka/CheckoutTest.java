@@ -160,7 +160,7 @@ public class CheckoutTest extends TestRunner {
                 .as("Courier delivery section should be opened")
                 .isTrue();
 
-        firstCourierDeliverySection.fillInDeliveryDetails("Вул", "12", "12");
+        firstCourierDeliverySection.fillInDeliveryDetails("Вулецька", "12", "12");
 
         firstOrderSection.copyToOtherOrders();
 
