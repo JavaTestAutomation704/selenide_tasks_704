@@ -13,7 +13,6 @@ public class ConfigProperties {
             var fileInputStream = new FileInputStream("src/main/resources/config.properties");
             properties.load(fileInputStream);
         } catch (IOException e) {
-            throw new NullPointerException(e.getMessage());
         }
     }
 

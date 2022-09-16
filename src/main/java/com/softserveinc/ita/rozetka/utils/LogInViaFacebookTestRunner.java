@@ -6,7 +6,7 @@ public class LogInViaFacebookTestRunner extends TestRunner {
 
     @BeforeMethod
     public void logInByFacebook() {
-        ConfigProperties property = new ConfigProperties();
+        var property = new ConfigProperties();
         homePage = homePage
                 .getHeader()
                 .startLogging()
