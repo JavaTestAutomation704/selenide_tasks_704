@@ -68,7 +68,13 @@ public class Header {
     @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
-        waitTillVisible("(//rz-fat-menu//div[contains(@class, 'content')])[1]");
+        var catalogCategoriesMenu = $x("//rz-fat-menu//ul[contains(@class, 'menu-categories')]");
+
+        int counter = 0;
+        while(!isVisible(catalogCategoriesMenu, 1) && counter < 10) {
+            $x("//button[@id='fat-menu']").click();
+            counter++;
+        }
         return new CatalogModal();
     }
 
