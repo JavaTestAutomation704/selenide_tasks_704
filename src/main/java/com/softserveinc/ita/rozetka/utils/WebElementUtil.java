@@ -115,7 +115,7 @@ public class WebElementUtil {
     public static void waitTillPreloaderInvisible() {
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
         if (isVisible(preloaderXpath)) {
-            $x(preloaderXpath).shouldNotBe(visible);
+            $x(preloaderXpath).shouldNotBe(visible, ofSeconds(30));
         }
     }
 
