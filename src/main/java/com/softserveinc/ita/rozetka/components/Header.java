@@ -69,10 +69,13 @@ public class Header {
     public CatalogModal openCatalogModal() {
         $x("//button[@id='fat-menu']").click();
         var catalogCategoriesMenu = $x("//rz-fat-menu//ul[contains(@class, 'menu-categories')]");
+        var headerLogo = $x("//a[@class='header__logo']");
+        var catalogMenuButton = $x("//rz-header-fat-menu//button");
 
         int counter = 0;
-        while(!isVisible(catalogCategoriesMenu, 1) && counter < 10) {
-            $x("//button[@id='fat-menu']").click();
+        while(!isVisible(catalogCategoriesMenu, 3) && counter < 10) {
+            headerLogo.hover();
+            catalogMenuButton.hover().click();
             counter++;
         }
         return new CatalogModal();
@@ -101,7 +104,7 @@ public class Header {
 
     @Step("Header: open comparison list modal")
     public ComparisonListModal openComparisonListModal() {
-        $x("//rz-comparison").click();
+        $x("//rz-comparison//button").click();
         return new ComparisonListModal();
     }
 }
