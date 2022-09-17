@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.data.FranchiseFormField;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
@@ -21,7 +22,7 @@ public class FranchiseApplicationForm {
 
     @Step("Franchise application form: select '{cityNumber}' city")
     public FranchiseApplicationForm selectCity(int cityNumber) {
-        $x(format("(//rz-autocomplete-option)[%d]", cityNumber)).click();
+        $x(format("(//rz-autocomplete-option)[%d]", cityNumber)).click(usingJavaScript());
         return this;
     }
 
