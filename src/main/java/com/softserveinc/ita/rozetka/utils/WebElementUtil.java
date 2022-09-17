@@ -119,6 +119,13 @@ public class WebElementUtil {
         }
     }
 
+    public static void waitTillCheckoutPreloaderInvisible() {
+        var checkoutPreloaderXpath = "//rz-checkout-main/section[@class = 'checkout-layout preloader_type_element']";
+        if (isVisible(checkoutPreloaderXpath)) {
+            waitInvisibility(checkoutPreloaderXpath);
+        }
+    }
+
     public static long getNumber(String elementXpath) {
         return getNumber($x(elementXpath));
     }
