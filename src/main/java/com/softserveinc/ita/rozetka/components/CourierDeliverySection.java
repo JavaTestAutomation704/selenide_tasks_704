@@ -40,7 +40,7 @@ public class CourierDeliverySection {
         $x(format(streetFieldXpathTemplate, orderNumber)).val(street);
         var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
         if (!isVisible(streetDropDownListXpath)) {
-            var streetLength =  $x(format(streetFieldXpathTemplate, orderNumber)).getValue().length();
+            var streetLength = $x(format(streetFieldXpathTemplate, orderNumber)).getValue().length();
             for (int i = streetLength; i > 3; i--) {
                 $x(format(streetFieldXpathTemplate, orderNumber)).sendKeys(Keys.BACK_SPACE);
             }
