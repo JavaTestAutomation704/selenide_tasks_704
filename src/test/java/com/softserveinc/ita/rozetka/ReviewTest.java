@@ -76,7 +76,7 @@ public class ReviewTest extends TestRunner {
                 .isGreaterThanOrEqualTo(25);
 
         var softly = new SoftAssertions();
-        for (int number = 1; number < 25; number++) {
+        for (int number = 1; number < 5; number++) {
             var hasPhoto = reviewPage
                     .getReviewItem(number)
                     .hasPhoto();
