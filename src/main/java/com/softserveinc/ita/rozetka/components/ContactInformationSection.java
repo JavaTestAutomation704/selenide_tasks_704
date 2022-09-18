@@ -21,7 +21,7 @@ public class ContactInformationSection {
         return this;
     }
 
-    @Step("Contact information section: fill in with chars {elementXpath, inputValue}")
+    @Step("Contact information section: fill in by chars {inputXpath, inputValue}")
     private void fillInByChars(String inputXpath, String inputValue) {
         var recipientContactInformationSectionXpath = "//rz-checkout-order-recipient";
         for (var character : inputValue.split("")) {
