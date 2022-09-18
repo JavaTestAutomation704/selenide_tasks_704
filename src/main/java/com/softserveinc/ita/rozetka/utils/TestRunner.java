@@ -25,7 +25,7 @@ public class TestRunner {
     }
 
     @AfterMethod
-    public void clear() {
+    public void close() {
         Selenide.closeWindow();
         Selenide.closeWebDriver();
     }
