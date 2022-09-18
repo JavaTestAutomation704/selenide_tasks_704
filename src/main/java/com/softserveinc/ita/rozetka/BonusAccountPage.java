@@ -12,7 +12,9 @@ public class BonusAccountPage {
 
     @Step("Bonus account page: open product with bonuses page")
     public ProductWithBonusesCategoryPage openProductWithBonusesCategoryPage() {
-        $x("(//a[contains(@class, 'button_color_green')])[3]").scrollIntoView(false).click();
+        $x("(//a[contains(@class, 'button_color_green')])[3]")
+                .scrollIntoView(false)
+                .click();
         return new ProductWithBonusesCategoryPage();
     }
 }

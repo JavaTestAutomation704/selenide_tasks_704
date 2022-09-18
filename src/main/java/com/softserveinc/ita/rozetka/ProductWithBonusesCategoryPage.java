@@ -17,8 +17,10 @@ public class ProductWithBonusesCategoryPage {
         return new ProductWithBonusesPage();
     }
 
-    public boolean isTitleContainsBonus() {
-        String bannerText = $x("//div[@class='rz-header-title']").shouldBe(Condition.visible).getText();
+    public boolean isTitleContainBonus() {
+        var bannerText = $x("//div[@class='rz-header-title']")
+                .shouldBe(Condition.visible)
+                .getText();
         return bannerText.contains("бонус");
     }
 }
