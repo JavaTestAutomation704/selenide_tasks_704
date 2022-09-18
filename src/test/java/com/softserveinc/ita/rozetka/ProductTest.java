@@ -61,7 +61,7 @@ public class ProductTest extends TestRunner {
     }
 
     @Test
-    public void verifyThatAdditionProductIsCheaperThanUsual() {
+    public void verifyThatAdditionProductPriceIsLessThanItsUsualPrice() {
         var searchResultsPage = homePage
                 .getHeader()
                 .search("samsung");
