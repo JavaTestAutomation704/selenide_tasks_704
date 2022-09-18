@@ -354,11 +354,19 @@ public class CheckoutTest extends TestRunner {
                 .as("The products quantity should be sufficient on the search results page")
                 .isGreaterThanOrEqualTo(productNumber);
 
-        searchResultsPage
-                .getProduct(productNumber)
-                .addToShoppingCart();
+        var product = searchResultsPage.getProduct(productNumber);
+
+        product.addToShoppingCart();
+
+        assertThat(product.isInShoppingCart())
+                .as("Product should be added to the shopping cart")
+                .isTrue();
 
         var shoppingCartModal = header.openShoppingCartModal();
+
+        assertThat(shoppingCartModal.isOpened())
+                .as("Shopping cart modal should be opened")
+                .isTrue();
 
         assertThat(shoppingCartModal.isEmpty())
                 .as("There should be at least one product in the shopping cart")
