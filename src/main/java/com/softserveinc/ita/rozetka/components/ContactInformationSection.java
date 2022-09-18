@@ -57,11 +57,12 @@ public class ContactInformationSection {
     }
 
     public ContactInformation getContactInformation() {
+        var contactInformationSectionXpath = "//rz-checkout-contact-info";
         return ContactInformation
                 .builder()
-                .surname($x(inputSurnameXpath).val())
-                .name($x(inputNameXpath).val())
-                .phone($x(inputPhoneXpath).val())
+                .surname($x(contactInformationSectionXpath + inputSurnameXpath).val())
+                .name($x(contactInformationSectionXpath + inputNameXpath).val())
+                .phone($x(contactInformationSectionXpath + inputPhoneXpath).val())
                 .build();
     }
 }
