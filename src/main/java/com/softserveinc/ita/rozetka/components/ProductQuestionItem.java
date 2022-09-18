@@ -25,7 +25,7 @@ public class ProductQuestionItem {
         return getNumber(productQuestionItemXpath + "//button[contains(@class,'product-comment__vote')][2]");
     }
 
-    public long getDifferenceBetweenLikesAndDislikes() {
+    public long getLikesAndDislikesDifference() {
         return getLikesQuantity() - getDisLikesQuantity();
     }
 }
