@@ -8,6 +8,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ContactInformationSection {
 
+    private final String contactInformationSectionXpath = "//rz-checkout-contact-info";
     private final String inputSurnameXpath = "//input[@formcontrolname = 'surname']";
     private final String inputNameXpath = "//input[@formcontrolname = 'name']";
     private final String inputPhoneXpath = "//input[@formcontrolname = 'phone']";
@@ -22,9 +23,7 @@ public class ContactInformationSection {
 
     @Step("Contact information section: fill in with chars {elementXpath, inputValue}")
     private void fillInByChars(String inputXpath, String inputValue) {
-        var contactInformationSectionXpath = "//rz-checkout-contact-info";
         var recipientContactInformationSectionXpath = "//rz-checkout-order-recipient";
-
         for (var character : inputValue.split("")) {
             $x(contactInformationSectionXpath + inputXpath).click();
             $x(contactInformationSectionXpath + inputXpath).sendKeys(character);
@@ -57,7 +56,6 @@ public class ContactInformationSection {
     }
 
     public ContactInformation getContactInformation() {
-        var contactInformationSectionXpath = "//rz-checkout-contact-info";
         return ContactInformation
                 .builder()
                 .surname($x(contactInformationSectionXpath + inputSurnameXpath).val())
