@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductTest extends TestRunner {
+public class ProductQuestionsTest extends TestRunner {
     @Test
     public void verifySortProductQuestionsFunctionality() {
         var searchResultsPage = homePage
@@ -56,6 +56,49 @@ public class ProductTest extends TestRunner {
             softly.assertThat(hasPhoto)
                     .as(number + " Product question item should not have a photo")
                     .isFalse();
+        }
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifySortByDateProductQuestionsFunctionality() {
+        var searchResultsPage = homePage
+                .getHeader()
+                .search("iphone");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var productQuestionsPage = searchResultsPage
+                .getProduct(1)
+                .open()
+                .openProductQuestionsPage();
+
+        assertThat(productQuestionsPage.getProductQuestionsQuantity())
+                .as("Product questions quantity should be sufficient")
+                .isGreaterThanOrEqualTo(30);
+
+        productQuestionsPage = productQuestionsPage.sort(ProductQuestionsSort.BY_DATE);
+
+        assertThat(productQuestionsPage.getProductQuestionsQuantity())
+                .as("Product questions quantity should be sufficient")
+                .isGreaterThanOrEqualTo(25);
+
+        var softly = new SoftAssertions();
+
+        for (int number = 1; number < 25; number += 4) {
+            var firstDate = productQuestionsPage
+                    .getProductQuestionItem(number)
+                    .getDate();
+
+            var secondDate = productQuestionsPage
+                    .getProductQuestionItem(number + 1)
+                    .getDate();
+
+            softly.assertThat(firstDate)
+                    .as("second date should be occurs before or equal to first date")
+                    .isAfterOrEqualTo(secondDate);
         }
         softly.assertAll();
     }
