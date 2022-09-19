@@ -7,13 +7,11 @@ import java.util.Properties;
 public class ConfigProperties {
     private final Properties properties;
 
-    public ConfigProperties() {
+    public ConfigProperties() throws IOException {
         properties = new Properties();
-        try {
+
             var fileInputStream = new FileInputStream("src/main/resources/config.properties");
             properties.load(fileInputStream);
-        } catch (IOException e) {
-        }
     }
 
     public String getFacebookUserEmailOrPhone() {

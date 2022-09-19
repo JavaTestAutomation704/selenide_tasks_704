@@ -57,7 +57,6 @@ public class LogInModal {
 
     @Step("Log in modal: log in via facebook")
     public HomePage logInViaFacebook(String emailOrPhone, String password) {
-        var property = new ConfigProperties();
         $x("//button[contains(text(),'Facebook')]").click();
         if (!isVisible("//a[@class='header__button ng-star-inserted']", 4)) {
             Selenide.switchTo().window(1);
