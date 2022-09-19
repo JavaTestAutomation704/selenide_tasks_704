@@ -4,13 +4,14 @@ import com.softserveinc.ita.rozetka.models.ContactInformation;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isBorderColorCorrect;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ContactInformationSection {
-    private final String inputSurnameXpath = "//rz-checkout-contact-info//input[@formcontrolname = 'surname']";
-    private final String inputNameXpath = "//rz-checkout-contact-info//input[@formcontrolname = 'name']";
-    private final String inputPhoneXpath = "//rz-checkout-contact-info//input[@formcontrolname = 'phone']";
+
+    private final String contactInformationSectionXpath = "//rz-checkout-contact-info";
+    private final String inputSurnameXpath = "//input[@formcontrolname = 'surname']";
+    private final String inputNameXpath = "//input[@formcontrolname = 'name']";
+    private final String inputPhoneXpath = "//input[@formcontrolname = 'phone']";
 
     @Step("Contact information section: fill in contact information {surname, name, phone}")
     public ContactInformationSection fillInContactInformation(String surname, String name, String phone) {
@@ -20,11 +21,13 @@ public class ContactInformationSection {
         return this;
     }
 
-    @Step("Contact information section: fill in with chars {elementXpath, inputValue}")
-    private void fillInByChars(String elementXpath, String inputValue) {
+    @Step("Contact information section: fill in by chars {inputXpath, inputValue}")
+    private void fillInByChars(String inputXpath, String inputValue) {
+        var recipientContactInformationSectionXpath = "//rz-checkout-order-recipient";
         for (var character : inputValue.split("")) {
-            $x(elementXpath).click();
-            $x(elementXpath).sendKeys(character);
+            $x(contactInformationSectionXpath + inputXpath).click();
+            $x(contactInformationSectionXpath + inputXpath).sendKeys(character);
+            waitForAttributeValue(recipientContactInformationSectionXpath + inputXpath, "value", character);
         }
     }
 
@@ -55,9 +58,9 @@ public class ContactInformationSection {
     public ContactInformation getContactInformation() {
         return ContactInformation
                 .builder()
-                .surname($x(inputSurnameXpath).val())
-                .name($x(inputNameXpath).val())
-                .phone($x(inputPhoneXpath).val())
+                .surname($x(contactInformationSectionXpath + inputSurnameXpath).val())
+                .name($x(contactInformationSectionXpath + inputNameXpath).val())
+                .phone($x(contactInformationSectionXpath + inputPhoneXpath).val())
                 .build();
     }
 }

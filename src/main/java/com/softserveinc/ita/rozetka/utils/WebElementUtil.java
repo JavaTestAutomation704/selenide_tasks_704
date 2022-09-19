@@ -177,4 +177,11 @@ public class WebElementUtil {
     public static void waitInvisibility(String elementXpath) {
         waitInvisibility($x(elementXpath));
     }
+
+    public static void waitForAttributeValue(String elementXpath, String attributeName, String attributeValue) {
+        try {
+            $x(elementXpath).shouldHave(attribute(attributeName, attributeValue));
+        } catch (AssertionError ignore) {
+        }
+    }
 }
