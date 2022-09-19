@@ -83,7 +83,7 @@ public class FranchiseApplicationFormTest extends TestRunner {
         var fields = asList(NAME, PHONE, EMAIL, CITY);
         fields.forEach(field -> softly.assertThat(franchiseApplicationForm.isErrorVisible(field))
                 .as(field.getFieldName() + " error should be visible")
-                //TODO: Phone error does not appear
+                // TODO: Phone error does not appear
                 .isTrue()
         );
 
@@ -118,10 +118,10 @@ public class FranchiseApplicationFormTest extends TestRunner {
                 .fillIn(NAME, "Якесь ім'я")
                 .fillIn(PHONE, "380639521878")
                 .fillIn(EMAIL, "some@gmail.com")
-                .fillIn(EXPERIENCE, "Досвітчений")
-                .fillIn(MOTIVATION, "Модно")
                 .fillIn(CITY, "Київ")
-                .selectCity(1);
+                .selectCity(1)
+                .fillIn(EXPERIENCE, "Досвітчений")
+                .fillIn(MOTIVATION, "Модно");
 
         var softly = new SoftAssertions();
         var fields = asList(NAME, PHONE, EMAIL, CITY, EXPERIENCE, MOTIVATION);

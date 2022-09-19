@@ -15,6 +15,6 @@ public class ComparisonPage extends BasePage {
     }
 
     public boolean isNothingToCompareMessageVisible(){
-        return isVisible("//rz-no-products-to-compare", 3);
+        return isVisible("//rz-no-products-to-compare/div", 3);
     }
 }

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 @Getter
@@ -22,6 +22,7 @@ public class OrderSection {
     public CourierDeliverySection selectCourierDelivery() {
         $x(format("(//div[@class = 'checkout-order'])[%d]//rz-checkout-order-deliveries//li[2]" +
                 "//label[@class = 'checkout-variant__label']", orderNumber)).click();
+        waitTillCheckoutPreloaderInvisible();
         return new CourierDeliverySection(orderNumber);
     }
 

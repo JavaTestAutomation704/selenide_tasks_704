@@ -111,9 +111,8 @@ public class Product {
                 ? getNumber(comparisonIconCounter)
                 : 0;
 
-        $x(productXpath + "//button[contains(@class, 'compare')]")
-                .scrollIntoView(false)
-                .click();
+        $x(productXpath + titleXpath).scrollIntoView(false);
+        $x(productXpath + "//button[contains(@class, 'compare')]").click();
 
         waitText(comparisonIconCounter, String.valueOf(initialCounterValue + 1));
         return new SearchResultsPage();
