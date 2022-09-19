@@ -9,9 +9,7 @@ public class ConfigProperties {
 
     public ConfigProperties() throws IOException {
         properties = new Properties();
-
-            var fileInputStream = new FileInputStream("src/main/resources/config.properties");
-            properties.load(fileInputStream);
+        properties.load(new FileInputStream("src/main/resources/config.properties"));
     }
 
     public String getFacebookUserEmailOrPhone() {
