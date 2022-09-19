@@ -3,9 +3,9 @@ package com.softserveinc.ita.rozetka.components;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.HomePage;
-import com.softserveinc.ita.rozetka.ProfilePage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import com.softserveinc.ita.rozetka.profile.ProfilePage;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;

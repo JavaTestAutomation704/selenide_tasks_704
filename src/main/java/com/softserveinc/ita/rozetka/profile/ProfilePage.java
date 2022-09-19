@@ -1,18 +1,15 @@
-package com.softserveinc.ita.rozetka;
+package com.softserveinc.ita.rozetka.profile;
 
-import com.softserveinc.ita.rozetka.components.CabinetSidebar;
-import com.softserveinc.ita.rozetka.components.profile.sections.PersonalDataSection;
+import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
 import com.softserveinc.ita.rozetka.data.ProfileSection;
 import io.qameta.allure.Step;
-import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
-@Getter
-public class ProfilePage {
+public class ProfilePage extends ProfileBasePage {
 
-    private final CabinetSidebar cabinetSidebar = new CabinetSidebar();
     private final PersonalDataSection personalDataSection = new PersonalDataSection();
 
     @Step("Profile page: open section {profileSection}")
