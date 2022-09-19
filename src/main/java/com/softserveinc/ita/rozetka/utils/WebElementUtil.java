@@ -184,13 +184,4 @@ public class WebElementUtil {
         } catch (AssertionError ignore) {
         }
     }
-
-    public static boolean isAttributeMatching(SelenideElement element, String attributeName, String attributeRegex, long seconds) {
-        try {
-            element.hover().shouldBe(attributeMatching(attributeName, attributeRegex), ofSeconds(seconds));
-            return true;
-        } catch (AssertionError e) {
-            return false;
-        }
-    }
 }

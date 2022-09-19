@@ -6,12 +6,10 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.*;
 import io.qameta.allure.Step;
-import lombok.extern.java.Log;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
@@ -66,17 +64,7 @@ public class Header {
 
     @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
-        $x("//button[@id='fat-menu']").click();
-        var catalogCategoriesMenu = $x("//rz-fat-menu//ul[contains(@class, 'menu-categories')]");
-        var headerLogo = $x("//a[@class='header__logo']");
-        var catalogMenuButton = $x("//rz-header-fat-menu//button");
-
-        int counter = 0;
-        while(!isVisible(catalogCategoriesMenu, 3) && counter < 10) {
-            headerLogo.hover();
-            catalogMenuButton.hover().click();
-            counter++;
-        }
+        actions().click($x("//button[@id='fat-menu']")).perform();
         return new CatalogModal();
     }
 

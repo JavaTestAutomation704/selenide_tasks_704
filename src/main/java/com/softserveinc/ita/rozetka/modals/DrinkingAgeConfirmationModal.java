@@ -10,15 +10,8 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 public class DrinkingAgeConfirmationModal {
     @Step("Drinking age confirmation modal: confirm user can legally consume alcoholic beverages")
     public SearchResultsPage confirm() {
-        var confirmationButtonXpath = "//a[contains(@class, 'exponea-close')]";
-        var confirmationButton = $x(confirmationButtonXpath);
-        var denyButton = $x("//div[contains(@class, 'banner')]//a[contains(@href, 'kids')]");
-
-        int counter = 0;
-        while(isVisible(confirmationButtonXpath, 3) && counter < 10) {
-            denyButton.hover();
-            confirmationButton.click();
-            counter++;
+        if (isVisible("//div[contains(@class, 'rz-content')]")) {
+            $x("//a[contains(@class, 'exponea-close')]").click();
         }
         return new SubcategoryPage();
     }
