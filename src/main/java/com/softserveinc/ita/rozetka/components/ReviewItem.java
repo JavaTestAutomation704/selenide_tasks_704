@@ -43,6 +43,7 @@ public class ReviewItem {
             calendar.set(Calendar.YEAR, Integer.parseInt(dateParts[2]));
         }
 
+        // The time must be reset because the date on the site did not contain a time
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
