@@ -15,7 +15,7 @@ import static java.lang.String.format;
 
 public class MainSidebar {
     @Getter
-    private final DownLoadApplicationsSection downLoadApplicationsSection = new DownLoadApplicationsSection();
+    private final DownLoadApplicationSection downLoadApplicationsSection = new DownLoadApplicationSection();
 
     private final String buttonXpathTemplateAuthentication = "(//button[contains(@class,'side-menu__auth-button')])[%d]";
 
