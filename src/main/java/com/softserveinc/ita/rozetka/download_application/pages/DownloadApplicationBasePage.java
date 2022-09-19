@@ -9,7 +9,7 @@ import static java.lang.String.format;
 
 public abstract class DownloadApplicationBasePage {
 
-    @Step("DownLoad application base page: open {pageName}")
+    @Step("Download application base page: open {pageName}")
     protected DownloadApplicationBasePage open(String pageName) {
         $x(format("//div[contains(@class, 'main-stores')]/a[contains(@href, '%s')]", pageName))
                 .scrollIntoView(false)

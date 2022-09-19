@@ -19,8 +19,8 @@ public class DownloadApplicationTest extends TestRunner {
                 .as("Main side bar should be opened")
                 .isTrue();
 
-        var downLoadApplicationSection = mainSideBar.getDownLoadApplicationsSection();
-        var rozetkaGooglePlayPage = downLoadApplicationSection.openRozetkaGooglePlayPage();
+        var downloadApplicationSection = mainSideBar.getDownloadApplicationSection();
+        var rozetkaGooglePlayPage = downloadApplicationSection.openRozetkaGooglePlayPage();
 
         var softly = new SoftAssertions();
 
@@ -30,7 +30,7 @@ public class DownloadApplicationTest extends TestRunner {
 
         closeCurrentTabAndSwitchTo(0);
 
-        var rozetkaAppStorePage = downLoadApplicationSection.openRozetkaAppStorePage();
+        var rozetkaAppStorePage = downloadApplicationSection.openRozetkaAppStorePage();
 
         softly.assertThat(rozetkaAppStorePage.isOpened())
                 .as("Rozetka app store page should be opened")
