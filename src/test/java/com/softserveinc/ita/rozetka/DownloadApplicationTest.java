@@ -1,0 +1,42 @@
+package com.softserveinc.ita.rozetka;
+
+import com.softserveinc.ita.rozetka.utils.TestRunner;
+import org.assertj.core.api.SoftAssertions;
+import org.testng.annotations.Test;
+
+import static com.softserveinc.ita.rozetka.utils.BrowserTabUtil.closeCurrentTabAndSwitchTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class DownloadApplicationTest extends TestRunner {
+
+    @Test
+    public void verifyUserCanOpenRozetkaDownloadApplicationPage() {
+        var mainSideBar = homePage
+                .getHeader()
+                .openMainSidebar();
+
+        assertThat(mainSideBar.isOpened())
+                .as("Main side bar should be opened")
+                .isTrue();
+
+        var downLoadApplicationsSection = mainSideBar.getDownLoadApplicationsSection();
+        RozetkaGooglePlayPage rozetkaGooglePlayPage = downLoadApplicationsSection.openRozetkaGooglePlayPage();
+
+        var softly = new SoftAssertions();
+
+        softly.assertThat(rozetkaGooglePlayPage.isOpened())
+                .as("Rozetka google play page should be opened")
+                .isTrue();
+
+        closeCurrentTabAndSwitchTo(0);
+
+        RozetkaAppStorePage rozetkaAppStorePage = downLoadApplicationsSection.openRozetkaAppStorePage();
+
+        softly.assertThat(rozetkaAppStorePage.isOpened())
+                .as("Rozetka app store page should be opened")
+                .isTrue();
+
+        closeCurrentTabAndSwitchTo(0);
+        softly.assertAll();
+    }
+}
