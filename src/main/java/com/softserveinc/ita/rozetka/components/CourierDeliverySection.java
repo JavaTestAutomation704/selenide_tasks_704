@@ -4,12 +4,12 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.Keys;
 
 import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 import static java.lang.String.format;
 
 @Getter
@@ -28,14 +28,26 @@ public class CourierDeliverySection {
 
     @Step("Courier delivery section: fill in delivery details {street}, {house}, {flat}")
     public CourierDeliverySection fillInDeliveryDetails(String street, String house, String flat) {
-        $x(format(streetFieldXpathTemplate, orderNumber)).val(street);
-        var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
-        waitTillVisible(streetDropDownListXpath, 7);
-        $x(streetDropDownListXpath).click();
-        waitTillPreloaderInvisible();
+        fillInStreetField(street);
         $x(format(houseFieldXpathTemplate, orderNumber)).sendKeys(house);
         $x(format(flatFieldXpathTemplate, orderNumber)).sendKeys(flat);
-        waitTillPreloaderInvisible();
+        waitTillCheckoutPreloaderInvisible();
+        return this;
+    }
+
+    @Step("Courier delivery section: fill in {street}")
+    private CourierDeliverySection fillInStreetField(String street) {
+        $x(format(streetFieldXpathTemplate, orderNumber)).val(street);
+        var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
+        if (!isVisible(streetDropDownListXpath)) {
+            var streetLength = $x(format(streetFieldXpathTemplate, orderNumber)).getValue().length();
+            //TODO: loop below is solving the problem with street drop down list field autocomplete
+            for (int i = streetLength; i > 3; i--) {
+                $x(format(streetFieldXpathTemplate, orderNumber)).sendKeys(Keys.BACK_SPACE);
+            }
+        }
+        waitTillVisible(streetDropDownListXpath);
+        $x(streetDropDownListXpath).click();
         return this;
     }
 
@@ -43,7 +55,7 @@ public class CourierDeliverySection {
     public CourierDeliverySection selectNearestPossibleDate() {
         $x(format("((//div[@class = 'checkout-order'])[%d]//label[@class = 'delivery-intervals__time'])[1]",
                 orderNumber)).click();
-        waitTillPreloaderInvisible();
+        waitTillCheckoutPreloaderInvisible();
         return this;
     }
 

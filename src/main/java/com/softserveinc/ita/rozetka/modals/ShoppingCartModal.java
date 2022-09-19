@@ -36,6 +36,7 @@ public class ShoppingCartModal {
     @Step("Shopping cart modal: start checkout and move to checkout page")
     public CheckoutPage startCheckout() {
         $x("//a[contains(@data-testid,'order')]").click();
+        waitTillCheckoutPreloaderInvisible();
         return new CheckoutPage();
     }
 
