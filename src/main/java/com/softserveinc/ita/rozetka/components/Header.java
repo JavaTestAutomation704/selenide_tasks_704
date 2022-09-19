@@ -1,13 +1,12 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.MyOrdersPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
-import com.softserveinc.ita.rozetka.modals.CatalogModal;
-import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
-import com.softserveinc.ita.rozetka.modals.LogInModal;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.modals.*;
 import io.qameta.allure.Step;
+import lombok.extern.java.Log;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -97,5 +96,11 @@ public class Header {
     public ComparisonListModal openComparisonListModal() {
         $x("//rz-comparison").click();
         return new ComparisonListModal();
+    }
+
+    @Step("Header: open my orders page")
+    public MyOrdersPage openMyOrdersPage() {
+        $x("//li[contains(@class,'user')]//a").click();
+        return new MyOrdersPage();
     }
 }

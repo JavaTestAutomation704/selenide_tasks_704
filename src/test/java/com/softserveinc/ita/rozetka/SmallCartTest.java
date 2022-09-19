@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class SmallCartTest extends TestRunner {
 
     @Test
-    public void verifyUserCanAddProductsToSmallCart(){
+    public void verifyUserCanAddProductsToSmallCart() {
         var header = homePage.getHeader();
 
         if (header.isShoppingCartCounterVisible()) {
