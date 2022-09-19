@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.components.goodsExchangePage;
+package com.softserveinc.ita.rozetka.components.goods_exchange_page;
 
 import io.qameta.allure.Step;
 

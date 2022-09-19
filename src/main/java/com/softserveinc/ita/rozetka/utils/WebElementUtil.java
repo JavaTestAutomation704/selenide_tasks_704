@@ -114,8 +114,8 @@ public class WebElementUtil {
 
     public static void waitTillPreloaderInvisible() {
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
-        if (isVisible(preloaderXpath, 10)) {
-            $x(preloaderXpath).shouldNotBe(visible, Duration.ofSeconds(10));
+        if (isVisible(preloaderXpath)) {
+            $x(preloaderXpath).shouldNotBe(visible);
         }
     }
 
@@ -169,5 +169,12 @@ public class WebElementUtil {
 
     public static void waitInvisibility(String elementXpath) {
         waitInvisibility($x(elementXpath));
+    }
+
+    public static void waitForAttributeValue(String elementXpath, String attributeName, String attributeValue) {
+        try {
+            $x(elementXpath).shouldHave(attribute(attributeName, attributeValue));
+        } catch (AssertionError ignore) {
+        }
     }
 }

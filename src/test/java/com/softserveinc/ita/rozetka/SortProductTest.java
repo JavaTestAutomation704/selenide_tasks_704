@@ -88,7 +88,7 @@ public class SortProductTest extends TestRunner {
     @Test
     public void verifySaleSortFunctionality() {
         var header = homePage.getHeader();
-        var searchResultsPage = header.search("laptop");
+        var searchResultsPage = header.search("телефони");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -100,19 +100,19 @@ public class SortProductTest extends TestRunner {
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(60);
 
-        var softAssertions = new SoftAssertions();
+        var softly = new SoftAssertions();
 
         for (int productNumber : new int[]{1, 25, 59}) {
             var isProductOnSale = searchResultsPage
                     .getProduct(productNumber)
                     .isOnSale();
 
-            // TODO: This test may be failed as product wasn't have sale label or old price
-            softAssertions.assertThat(isProductOnSale)
-                    .as(productNumber + " product should be on sale")
+            // TODO: This test may be failed as product wasn't have old price
+            softly.assertThat(isProductOnSale)
+                    .as(productNumber + " product should be on sale with old price")
                     .isTrue();
         }
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
 }

@@ -15,12 +15,12 @@ public class ProductTitleTest extends TestRunner {
                 .openCatalogModal()
                 .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
 
-        SoftAssertions softAssert = new SoftAssertions();
+        SoftAssertions softly = new SoftAssertions();
         String expectedText = "ноутбук";
 
         int productsQuantity = 10;
 
-        softAssert.assertThat(subcategoryPage.getProductsQuantity())
+        softly.assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
@@ -31,12 +31,12 @@ public class ProductTitleTest extends TestRunner {
 
             String actualProductTitle = productPage.getTitle();
 
-            softAssert.assertThat(actualProductTitle)
+            softly.assertThat(actualProductTitle)
                     .contains(expectedText)
                     .as(actualProductTitle + " should contain %s text", expectedText);
 
             productPage.back();
         }
-        softAssert.assertAll();
+        softly.assertAll();
     }
 }

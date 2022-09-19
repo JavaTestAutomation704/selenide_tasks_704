@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.Keys;
 
 import java.util.Objects;
 
@@ -28,14 +29,22 @@ public class CourierDeliverySection {
 
     @Step("Courier delivery section: fill in delivery details {street}, {house}, {flat}")
     public CourierDeliverySection fillInDeliveryDetails(String street, String house, String flat) {
-        $x(format(streetFieldXpathTemplate, orderNumber)).val(street);
-        var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
-        waitTillVisible(streetDropDownListXpath, 7);
-        $x(streetDropDownListXpath).click();
-        waitTillPreloaderInvisible();
+        fillInStreetField(street);
         $x(format(houseFieldXpathTemplate, orderNumber)).sendKeys(house);
         $x(format(flatFieldXpathTemplate, orderNumber)).sendKeys(flat);
         waitTillPreloaderInvisible();
+        return this;
+    }
+
+    @Step("Courier delivery section: fill in {street}")
+    private CourierDeliverySection fillInStreetField(String street) {
+        $x(format(streetFieldXpathTemplate, orderNumber)).sendKeys(street);
+        var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
+        if (!isVisible(streetDropDownListXpath)) {
+            $x(format(streetFieldXpathTemplate, orderNumber)).sendKeys(Keys.BACK_SPACE);
+            waitTillVisible(streetDropDownListXpath);
+        }
+        $x(streetDropDownListXpath).click();
         return this;
     }
 

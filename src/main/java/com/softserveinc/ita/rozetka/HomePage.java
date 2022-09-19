@@ -2,17 +2,23 @@ package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Selenide;
+import com.softserveinc.ita.rozetka.components.CompanyInformationSection;
 import com.softserveinc.ita.rozetka.components.PartnerSection;
 import com.softserveinc.ita.rozetka.components.SmallCart;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 import static java.lang.String.format;
 
+@Getter
 public class HomePage extends BasePage {
+
+    private final CompanyInformationSection companyInformationSection = new CompanyInformationSection();
+    private final PartnerSection partnerSection = new PartnerSection();
 
     @Step("Home page: open home page")
     public HomePage open() {
@@ -50,14 +56,16 @@ public class HomePage extends BasePage {
         return new PromotionsPage();
     }
 
-    public PartnerSection getPartnerSection() {
-        return new PartnerSection();
-    }
-
     @Step("Home page: open goods exchange page")
     public GoodsExchangePage openGoodsExchangePage() {
         $x("(//a[contains(@href, 'obmin')])[1]").click(ClickOptions.usingJavaScript());
         waitTillPreloaderInvisible();
         return new GoodsExchangePage();
+    }
+
+    @Step("Home page: open service center page")
+    public ServiceCenterPage openServiceCenterPage() {
+        $x("(//a[contains(@href, 'service-centers')])[1]").click();
+        return new ServiceCenterPage();
     }
 }

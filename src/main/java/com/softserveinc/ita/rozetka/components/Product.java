@@ -63,9 +63,9 @@ public class Product {
         $x(productXpath + titleXpath)
                 .scrollIntoView(false)
                 .click();
-        $x("//h1[@class='product__title']")
-                .shouldBe(visible)
-                .hover();
+        var productTitle = "//h1[contains(@class, 'title')]";
+        waitTillVisible(productTitle);
+        $x(productTitle).hover();
         return new ProductPage();
     }
 
@@ -86,10 +86,7 @@ public class Product {
     }
 
     public boolean isOnSale() {
-        return isVisible(productXpath + "//span[contains(@class, 'promo-label_type_popularity')]")
-                || isVisible(productXpath + "//span[contains(@class, 'promo-label_type_action')]")
-                || (isVisible(productXpath + "//div[contains(@class, 'price--old')]")
-                && !$x(productXpath + "//div[contains(@class, 'price--old')]").text().equals(""));
+        return !getText(productXpath + "//div[contains(@class, 'price--old')]").equals("");
     }
 
     public boolean isInShoppingCart() {
