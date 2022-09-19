@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.components;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.ProfilePage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import io.qameta.allure.Step;
@@ -57,5 +58,11 @@ public class MainSidebar {
     public Header changeLanguage(Language language) {
         $x(format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();
+    }
+
+    @Step("Main sidebar: open profile page")
+    public ProfilePage openProfilePage() {
+        $x("//div[contains(@class,'side-menu__auth ')]").click();
+        return new ProfilePage();
     }
 }
