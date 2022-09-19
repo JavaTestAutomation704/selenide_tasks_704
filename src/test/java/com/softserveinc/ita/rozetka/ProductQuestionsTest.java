@@ -104,7 +104,7 @@ public class ProductQuestionsTest extends TestRunner {
     }
 
     @Test
-    public void verifyThatAdditionProductPriceIsLessThanItsUsualPrice() {
+    public void verifyThatAdditionalProductPriceIsLessThanItsUsualPrice() {
         var searchResultsPage = homePage
                 .getHeader()
                 .search("samsung");
@@ -128,9 +128,9 @@ public class ProductQuestionsTest extends TestRunner {
         var mainProductPrice = cheaperTogetherSection.getMainProductPrice();
         assertThat(additionProductActualPrice + mainProductPrice)
                 .as("Total price should be correct")
-                .isEqualTo(cheaperTogetherSection.totalPrice());
+                .isEqualTo(cheaperTogetherSection.getTotalSum());
 
-        var additionProductPage = cheaperTogetherSection.openAdditionProductPage();
+        var additionProductPage = cheaperTogetherSection.openAdditionalProductPage();
         assertThat(additionProductPage.isOpened())
                 .as("Addition product page should be opened")
                 .isTrue();

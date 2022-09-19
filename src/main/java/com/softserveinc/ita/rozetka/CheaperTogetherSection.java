@@ -18,13 +18,13 @@ public class CheaperTogetherSection {
         return getNumber($x("(//p[contains(@class,'kits-tile__price_color_red')])[1]"));
     }
 
-    public long totalPrice() {
+    public long getTotalSum() {
         return getNumber($x("(//div[@class='kits-price__coast'])[1]"));
 
     }
 
-    @Step("Cheaper together section: open addition product page")
-    public ProductPage openAdditionProductPage() {
+    @Step("Cheaper together section: open additional product page")
+    public ProductPage openAdditionalProductPage() {
         $x("(//a[@class='kits-tile__picture'])[2]").click();
         return new ProductPage();
     }
