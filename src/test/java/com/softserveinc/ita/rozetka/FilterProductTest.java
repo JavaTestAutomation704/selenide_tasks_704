@@ -289,7 +289,8 @@ public class FilterProductTest extends TestRunner {
             productCharacteristicsPage.back();
         }
 
-        filter.filter(List.of(PRODUCED_IN_SPAIN, PRODUCED_IN_ITALY));
+        filter.filter(PRODUCED_IN_SPAIN);
+        filter.filter(PRODUCED_IN_ITALY);
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
