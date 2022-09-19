@@ -10,11 +10,11 @@ public class CheaperTogetherSection {
         return getNumber($x("(//p[@class='kits-tile__price'])[1]"));
     }
 
-    public long getAdditionProductOldPrice() {
+    public long getAdditionalProductOldPrice() {
         return getNumber($x("(//p[contains(@class,'kits-tile__price_type_old')])[1]"));
     }
 
-    public long getAdditionProductActualPrice() {
+    public long getAdditionalProductActualPrice() {
         return getNumber($x("(//p[contains(@class,'kits-tile__price_color_red')])[1]"));
     }
 

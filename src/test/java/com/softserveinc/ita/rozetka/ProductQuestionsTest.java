@@ -118,25 +118,25 @@ public class ProductQuestionsTest extends TestRunner {
                 .open()
                 .getCheaperTogetherSection();
 
-        var additionProductActualPrice = cheaperTogetherSection.getAdditionProductActualPrice();
-        var additionProductOldPrice = cheaperTogetherSection.getAdditionProductOldPrice();
+        var additionalProductActualPrice = cheaperTogetherSection.getAdditionalProductActualPrice();
+        var additionalProductOldPrice = cheaperTogetherSection.getAdditionalProductOldPrice();
 
-        assertThat(additionProductActualPrice)
-                .as("Addition product should be cheaper as usual")
-                .isLessThan(additionProductOldPrice);
+        assertThat(additionalProductActualPrice)
+                .as("Additional product should be cheaper than usual")
+                .isLessThan(additionalProductOldPrice);
 
         var mainProductPrice = cheaperTogetherSection.getMainProductPrice();
-        assertThat(additionProductActualPrice + mainProductPrice)
+        assertThat(additionalProductActualPrice + mainProductPrice)
                 .as("Total price should be correct")
                 .isEqualTo(cheaperTogetherSection.getTotalSum());
 
-        var additionProductPage = cheaperTogetherSection.openAdditionalProductPage();
-        assertThat(additionProductPage.isOpened())
-                .as("Addition product page should be opened")
+        var additionalProductPage = cheaperTogetherSection.openAdditionalProductPage();
+        assertThat(additionalProductPage.isOpened())
+                .as("Additional product page should be opened")
                 .isTrue();
 
-        assertThat(additionProductPage.getPrice())
+        assertThat(additionalProductPage.getPrice())
                 .as("Price should be the same")
-                .isEqualTo(additionProductOldPrice);
+                .isEqualTo(additionalProductOldPrice);
     }
 }
