@@ -6,12 +6,10 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.*;
 import io.qameta.allure.Step;
-import lombok.extern.java.Log;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
@@ -66,8 +64,7 @@ public class Header {
 
     @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
-        $x("//button[@id='fat-menu']").click();
-        waitTillVisible("(//rz-fat-menu//div[contains(@class, 'content')])[1]");
+        actions().click($x("//button[@id='fat-menu']")).perform();
         return new CatalogModal();
     }
 
@@ -94,7 +91,7 @@ public class Header {
 
     @Step("Header: open comparison list modal")
     public ComparisonListModal openComparisonListModal() {
-        $x("//rz-comparison").click();
+        $x("//rz-comparison//button").click();
         return new ComparisonListModal();
     }
 
