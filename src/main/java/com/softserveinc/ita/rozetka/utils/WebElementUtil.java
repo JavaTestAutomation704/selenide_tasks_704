@@ -115,7 +115,14 @@ public class WebElementUtil {
     public static void waitTillPreloaderInvisible() {
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
         if (isVisible(preloaderXpath)) {
-            $x(preloaderXpath).shouldNotBe(visible, ofSeconds(30));
+            $x(preloaderXpath).shouldNotBe(visible);
+        }
+    }
+
+    public static void waitTillCheckoutPreloaderInvisible() {
+        var checkoutPreloaderXpath = "//rz-checkout-main/section[@class = 'checkout-layout preloader_type_element']";
+        if (isVisible(checkoutPreloaderXpath)) {
+            waitInvisibility(checkoutPreloaderXpath);
         }
     }
 
@@ -169,6 +176,13 @@ public class WebElementUtil {
 
     public static void waitInvisibility(String elementXpath) {
         waitInvisibility($x(elementXpath));
+    }
+
+    public static void waitForAttributeValue(String elementXpath, String attributeName, String attributeValue) {
+        try {
+            $x(elementXpath).shouldHave(attribute(attributeName, attributeValue));
+        } catch (AssertionError ignore) {
+        }
     }
 
     public static boolean isAttributeMatching(SelenideElement element, String attributeName, String attributeRegex, long seconds) {
