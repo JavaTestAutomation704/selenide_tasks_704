@@ -64,4 +64,10 @@ public class HomePage extends BasePage {
         waitTillPreloaderInvisible();
         return new GoodsExchangePage();
     }
+
+    @Step("Home page: open service center page")
+    public ServiceCenterPage openServiceCenterPage() {
+        $x("(//a[contains(@href, 'service-centers')])[1]").click();
+        return new ServiceCenterPage();
+    }
 }

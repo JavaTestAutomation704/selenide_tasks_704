@@ -23,11 +23,7 @@ public class SmallCartTest extends TestRunner {
             }
         }
         var smallCart = homePage.getSmallCart();
-
         var softly = new SoftAssertions();
-        softly.assertThat(homePage.isSmallCartSectionVisible())
-                .as("Small cart should not be visible")
-                .isFalse();
 
         var subcategoryPage = homePage
                 .openCategoryPage(Category.LAPTOPS_AND_COMPUTERS)
