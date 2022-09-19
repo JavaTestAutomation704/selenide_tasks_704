@@ -17,7 +17,7 @@ public class ProductWithBonusesCategoryPage {
         return new ProductWithBonusesPage();
     }
 
-    public boolean isTitleContainBonus() {
+    public boolean doesTitleContainBonus() {
         var bannerText = $x("//div[@class='rz-header-title']")
                 .shouldBe(Condition.visible)
                 .getText();

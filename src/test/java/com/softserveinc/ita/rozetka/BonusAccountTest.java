@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class BonusAccountTest extends TestRunner {
 
     @Test
-    public void verifyProductsWithBonuses() {
+    public void verifyProductsWithBonusesAreAvailable() {
         var softly = new SoftAssertions();
         var bonusAccountPage = homePage.openBonusAccountPage();
 
@@ -18,8 +18,8 @@ public class BonusAccountTest extends TestRunner {
 
         var productWithBonusesCategoryPage = bonusAccountPage.openProductWithBonusesCategoryPage();
 
-        softly.assertThat(productWithBonusesCategoryPage.isTitleContainBonus())
-                .as("Title incorrect")
+        softly.assertThat(productWithBonusesCategoryPage.doesTitleContainBonus())
+                .as("Title should contain 'bonus'")
                 .isTrue();
         var productWithBonusesPage = productWithBonusesCategoryPage.openProductWithBonusesPage(Category.LAPTOPS_AND_COMPUTERS);
 
