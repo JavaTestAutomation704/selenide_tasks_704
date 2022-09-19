@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka;
+package com.softserveinc.ita.rozetka.download_application.pages;
 
 import com.codeborne.selenide.ClickOptions;
 

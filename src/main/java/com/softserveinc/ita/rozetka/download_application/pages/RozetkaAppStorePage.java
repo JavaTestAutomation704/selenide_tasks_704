@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka;
+package com.softserveinc.ita.rozetka.download_application.pages;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -10,7 +10,7 @@ public class RozetkaAppStorePage extends DownloadApplicationsBasePage {
     }
 
     @Override
-    protected boolean isOpened() {
+    public boolean isOpened() {
         return isVisible("(//a[contains(@href, 'apple.com') and contains(@href, 'rozetka')])[1]");
     }
 }

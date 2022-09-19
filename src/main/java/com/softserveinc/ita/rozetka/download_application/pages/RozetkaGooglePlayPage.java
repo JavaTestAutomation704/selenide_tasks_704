@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka;
+package com.softserveinc.ita.rozetka.download_application.pages;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
@@ -10,7 +10,7 @@ public class RozetkaGooglePlayPage extends DownloadApplicationsBasePage {
     }
 
     @Override
-    protected boolean isOpened() {
+    public boolean isOpened() {
         return isVisible("//title[contains(text(), 'Google Play')]/ancestor::html//a[contains(@href, 'id=Rozetka')]");
     }
 }

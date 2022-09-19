@@ -1,7 +1,7 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.softserveinc.ita.rozetka.RozetkaAppStorePage;
-import com.softserveinc.ita.rozetka.RozetkaGooglePlayPage;
+import com.softserveinc.ita.rozetka.download_application.pages.RozetkaAppStorePage;
+import com.softserveinc.ita.rozetka.download_application.pages.RozetkaGooglePlayPage;
 
 public class DownLoadApplicationsSection {
 
