@@ -41,6 +41,7 @@ public class CourierDeliverySection {
         var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
         if (!isVisible(streetDropDownListXpath)) {
             var streetLength = $x(format(streetFieldXpathTemplate, orderNumber)).getValue().length();
+            //TODO: loop below is solving the problem with street drop down list field autocomplete
             for (int i = streetLength; i > 3; i--) {
                 $x(format(streetFieldXpathTemplate, orderNumber)).sendKeys(Keys.BACK_SPACE);
             }
