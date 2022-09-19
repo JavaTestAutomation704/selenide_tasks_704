@@ -1,5 +1,8 @@
 package com.softserveinc.ita.rozetka.modals;
 
+import com.codeborne.selenide.Selenide;
+import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.utils.ConfigProperties;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -50,6 +53,19 @@ public class LogInModal {
     public LogInModal rememberPassword() {
         $x(rememberPasswordButtonXpath).click();
         return this;
+    }
+
+    @Step("Log in modal: log in via facebook")
+    public HomePage logInViaFacebook(String emailOrPhone, String password) {
+        $x("//button[contains(text(),'Facebook')]").click();
+        if (!isVisible("//a[@class='header__button ng-star-inserted']", 4)) {
+            Selenide.switchTo().window(1);
+            $x("//input[@id='email']").setValue(emailOrPhone);
+            $x("//input[@id='pass']").setValue(password);
+            $x("//input[@name='login']").click();
+            Selenide.switchTo().window(0);
+        }
+        return new HomePage();
     }
 
     public boolean isLogInButtonVisible() {

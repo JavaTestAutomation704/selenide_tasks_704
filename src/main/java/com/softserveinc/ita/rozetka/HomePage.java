@@ -5,11 +5,12 @@ import com.codeborne.selenide.Selenide;
 import com.softserveinc.ita.rozetka.components.CompanyInformationSection;
 import com.softserveinc.ita.rozetka.components.PartnerSection;
 import com.softserveinc.ita.rozetka.components.SmallCart;
+import com.softserveinc.ita.rozetka.components.SocialNetworksSection;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 import static java.lang.String.format;
@@ -17,6 +18,7 @@ import static java.lang.String.format;
 @Getter
 public class HomePage extends BasePage {
 
+    private final SocialNetworksSection socialNetworksSection = new SocialNetworksSection();
     private final CompanyInformationSection companyInformationSection = new CompanyInformationSection();
     private final PartnerSection partnerSection = new PartnerSection();
 
