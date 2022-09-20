@@ -7,6 +7,7 @@ import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.profile.ProfilePage;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
@@ -14,6 +15,9 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class MainSidebar {
+    @Getter
+    private final DownloadApplicationSection downloadApplicationSection = new DownloadApplicationSection();
+
     private final String buttonXpathTemplateAuthentication = "(//button[contains(@class,'side-menu__auth-button')])[%d]";
 
     public String getLoginButtonName() {
@@ -58,6 +62,11 @@ public class MainSidebar {
     public Header changeLanguage(Language language) {
         $x(format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();
+    }
+
+    public boolean isOpened() {
+        return isVisible("//div[contains(@class, 'side-menu drawer') " +
+                "and contains(@class, 'drawer-content_state_visible')]");
     }
 
     @Step("Main sidebar: open profile page")
