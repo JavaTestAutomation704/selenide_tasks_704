@@ -1,20 +1,17 @@
 package com.softserveinc.ita.rozetka.profile;
 
 import com.softserveinc.ita.rozetka.HomePage;
-import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
-import com.softserveinc.ita.rozetka.data.ProfileSection;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.data.ProfileSection.PERSONAL_DATA;
 import static java.lang.String.format;
 
 public class ProfilePage extends ProfileBasePage {
 
-    private final PersonalDataSection personalDataSection = new PersonalDataSection();
-
-    @Step("Profile page: open section {profileSection}")
-    public ProfilePage openSection(ProfileSection profileSection) {
-        $x(format("//h3[text()='%s']/ancestor::details", profileSection.getName())).click();
+    @Step("Profile page: open personal data section")
+    public ProfilePage openPersonalDataSection() {
+        $x(format("//h3[text()='%s']/ancestor::details", PERSONAL_DATA.getName())).click();
         return this;
     }
 
