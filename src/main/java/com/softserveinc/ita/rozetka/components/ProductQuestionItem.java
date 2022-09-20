@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
@@ -21,6 +22,18 @@ public class ProductQuestionItem {
         return isVisible(productQuestionItemXpath + "//ul[@class='product-comments__photos-list ng-star-inserted']", 2);
     }
 
+    public long getLikesQuantity() {
+        return getNumber(productQuestionItemXpath + "//button[contains(@class,'product-comment__vote')][1]");
+    }
+
+    public long getDisLikesQuantity() {
+        return getNumber(productQuestionItemXpath + "//button[contains(@class,'product-comment__vote')][2]");
+    }
+
+    public long getLikesAndDislikesDifference() {
+        return getLikesQuantity() - getDisLikesQuantity();
+    }
+    
     public Date getDate() {
         return parseDate($x(productQuestionItemXpath + "//time").text());
     }

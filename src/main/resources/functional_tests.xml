@@ -30,6 +30,7 @@
             <class name="com.softserveinc.ita.rozetka.SmallCartTest"/>
             <class name="com.softserveinc.ita.rozetka.SocialNetworksTest"/>
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.DownloadApplicationTest"/>
         </classes>
     </test>
 </suite>

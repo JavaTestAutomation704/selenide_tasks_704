@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.PromotionTermsModal;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -13,6 +14,9 @@ import static java.lang.String.format;
 
 public class ProductPage extends BasePage {
     private final String titleXpath = "//h1[@class='product__title']";
+
+    @Getter
+    private final CheaperTogetherSection cheaperTogetherSection = new CheaperTogetherSection();
 
     public String getTitle() {
         return getText(titleXpath).toLowerCase();
@@ -82,8 +86,9 @@ public class ProductPage extends BasePage {
 
     @Step("Product page: open promotion terms page modal")
     public PromotionTermsModal openPromotionTermsModal() {
-        $x(titleXpath).hover();
-        $x("//button[contains(@class, 'promotion')]").click();
+        var promotionTermsModalButtonXpath = "//button[contains(@class, 'promotion')]";
+        waitTillVisible(promotionTermsModalButtonXpath);
+        $x(promotionTermsModalButtonXpath).click();
         return new PromotionTermsModal();
     }
 
