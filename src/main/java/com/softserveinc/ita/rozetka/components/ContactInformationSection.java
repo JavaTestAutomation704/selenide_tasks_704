@@ -21,6 +21,7 @@ public class ContactInformationSection {
         return this;
     }
 
+    //TODO: this method solves the problem with copying of contact information to recipient contact information
     @Step("Contact information section: fill in by chars {inputXpath, inputValue}")
     private void fillInByChars(String inputXpath, String inputValue) {
         var recipientContactInformationSectionXpath = "//rz-checkout-order-recipient";
