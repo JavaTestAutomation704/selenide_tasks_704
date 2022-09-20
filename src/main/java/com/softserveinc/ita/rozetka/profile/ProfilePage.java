@@ -16,8 +16,8 @@ public class ProfilePage extends ProfileBasePage {
         return new PersonalDataSection();
     }
 
-    @Step("Profile page: sign out")
-    public HomePage signOut() {
+    @Step("Profile page: log out")
+    public HomePage logOut() {
         $x("(//div/button[contains(@class,'button button--medium button--link')])[3]").click();
         return new HomePage();
     }
