@@ -409,7 +409,7 @@ public class FilterProductTest extends TestRunner {
 
         var softly = new SoftAssertions();
         softly.assertThat(productCharacteristicsPage.getCharacteristicText())
-                .as("List should contain correct color")
+                .as("Characteristic text should contain correct color")
                 .contains(WHITE.getColor());
 
         productCharacteristicsPage.back();
@@ -421,13 +421,13 @@ public class FilterProductTest extends TestRunner {
         productPage.selectColor(BLACK);
 
         softly.assertThat(productPage.getColor())
-                .as("Products color should be correct\"")
+                .as("Products color should be correct")
                 .isEqualTo(BLACK.getColor());
 
         productPage.openCharacteristicsPage();
 
         softly.assertThat(productCharacteristicsPage.getCharacteristicText())
-                .as("List should contain correct color")
+                .as("Characteristic text should contain correct color")
                 .contains(BLACK.getColor());
 
         softly.assertAll();
