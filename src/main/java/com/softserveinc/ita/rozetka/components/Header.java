@@ -1,18 +1,15 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.MyOrdersPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
-import com.softserveinc.ita.rozetka.modals.CatalogModal;
-import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
-import com.softserveinc.ita.rozetka.modals.LogInModal;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.modals.*;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
@@ -67,8 +64,7 @@ public class Header {
 
     @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
-        $x("//button[@id='fat-menu']").click();
-        waitTillVisible("(//rz-fat-menu//div[contains(@class, 'content')])[1]");
+        actions().click($x("//button[@id='fat-menu']")).perform();
         return new CatalogModal();
     }
 
@@ -95,7 +91,13 @@ public class Header {
 
     @Step("Header: open comparison list modal")
     public ComparisonListModal openComparisonListModal() {
-        $x("//rz-comparison").click();
+        $x("//rz-comparison//button").click();
         return new ComparisonListModal();
+    }
+
+    @Step("Header: open my orders page")
+    public MyOrdersPage openMyOrdersPage() {
+        $x("//li[contains(@class,'user')]//a").click();
+        return new MyOrdersPage();
     }
 }
