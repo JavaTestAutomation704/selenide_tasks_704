@@ -60,7 +60,7 @@ public class ProductQuestionsTest extends TestRunner {
         softly.assertAll();
     }
 
-    @Test
+  @Test
     public void verifySortByDateProductQuestionsFunctionality() {
         var searchResultsPage = homePage
                 .getHeader()
@@ -102,8 +102,51 @@ public class ProductQuestionsTest extends TestRunner {
         }
         softly.assertAll();
     }
+    
+ @Test
+    public void verifySortProductQuestionsByVoteFunctionality() {
+        var searchResultsPage = homePage
+                .getHeader()
+                .search("Телевізор Samsung");
 
-    @Test
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var productQuestionsPage = searchResultsPage
+                .getProduct(1)
+                .open()
+                .openProductQuestionsPage();
+
+        int productQuestionsQuantity = productQuestionsPage.getProductQuestionsQuantity();
+
+        assertThat(productQuestionsQuantity)
+                .as("Product questions quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        productQuestionsPage = productQuestionsPage.sort(ProductQuestionsSort.BY_VOTE);
+
+        assertThat(productQuestionsQuantity)
+                .as("Product questions quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var softly = new SoftAssertions();
+        int step = 4;
+
+        for (int i = step + 1; i < productQuestionsQuantity; i += step) {
+            softly
+                    .assertThat(productQuestionsPage
+                            .getProductQuestionItem(i)
+                            .getLikesAndDislikesDifference())
+                    .as(i + " product question vote should be less than " + (i - step))
+                    .isLessThanOrEqualTo(productQuestionsPage
+                            .getProductQuestionItem(i - step)
+                            .getLikesAndDislikesDifference());
+        }
+        softly.assertAll();
+    }
+    
+     @Test
     public void verifyThatAdditionalProductPriceIsLessThanItsUsualPrice() {
         var searchResultsPage = homePage
                 .getHeader()
