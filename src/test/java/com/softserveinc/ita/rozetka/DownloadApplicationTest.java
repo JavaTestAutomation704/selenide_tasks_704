@@ -36,7 +36,6 @@ public class DownloadApplicationTest extends TestRunner {
                 .as("Rozetka app store page should be opened")
                 .isTrue();
 
-        closeCurrentTabAndSwitchTo(0);
         softly.assertAll();
     }
 }
