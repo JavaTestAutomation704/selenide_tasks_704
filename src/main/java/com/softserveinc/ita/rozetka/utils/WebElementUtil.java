@@ -115,7 +115,7 @@ public class WebElementUtil {
     public static void waitTillPreloaderInvisible() {
         var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
         if (isVisible(preloaderXpath)) {
-            $x(preloaderXpath).shouldNotBe(visible);
+            waitInvisibility(preloaderXpath, 30);
         }
     }
 
@@ -168,14 +168,22 @@ public class WebElementUtil {
     }
 
     public static void waitInvisibility(SelenideElement element) {
+        waitInvisibility(element, TIMEOUT.getSeconds());
+    }
+
+    public static void waitInvisibility(SelenideElement element, long timeout) {
         try {
-            element.shouldNotBe(visible, TIMEOUT);
+            element.shouldNotBe(visible, ofSeconds(timeout));
         } catch (AssertionError ignore) {
         }
     }
 
     public static void waitInvisibility(String elementXpath) {
         waitInvisibility($x(elementXpath));
+    }
+
+    public static void waitInvisibility(String elementXpath , long timeout) {
+        waitInvisibility($x(elementXpath), timeout);
     }
 
     public static void waitForAttributeValue(String elementXpath, String attributeName, String attributeValue) {
