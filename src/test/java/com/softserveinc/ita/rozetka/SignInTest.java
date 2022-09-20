@@ -34,6 +34,7 @@ public class SignInTest extends TestRunner {
 
         var profilePage = header
                 .openMyOrdersPage()
+                .getProfileSideBar()
                 .openProfilePage();
 
         softly.assertThat(profilePage.getUserEmail())
