@@ -89,6 +89,10 @@ public class Header {
         return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
     }
 
+    public int getShoppingCartProductQuantity() {
+        return Integer.parseInt(getText("//rz-icon-counter//span[contains(@class, 'counter')]"));
+    }
+
     @Step("Header: open comparison list modal")
     public ComparisonListModal openComparisonListModal() {
         $x("//rz-comparison//button").click();
