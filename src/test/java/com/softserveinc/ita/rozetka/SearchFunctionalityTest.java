@@ -109,6 +109,7 @@ public class SearchFunctionalityTest extends TestRunner {
             assertThat(productPage.isOpened())
                     .as("Product page should be opened")
                     .isTrue();
+
             homePage.back();
 
             assertThat(searchResultsPage.doesTitleContain(keyword))

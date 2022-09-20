@@ -23,6 +23,6 @@ public class LastSeenProductsSection {
     }
 
     public boolean areMoreProductsShown(int primaryProductsAmount) {
-        return (getProductsAmount() > primaryProductsAmount);
+        return getProductsAmount() > primaryProductsAmount;
     }
 }
