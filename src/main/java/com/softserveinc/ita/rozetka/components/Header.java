@@ -106,6 +106,14 @@ public class Header {
         return new MyOrdersPage();
     }
 
+    public boolean isOrderIconVisible() {
+        return isVisible("//a[contains(@href,'orders') and contains(@class,'header')]");
+    }
+
+    public boolean isHeaderLogInButtonVisible() {
+        return isVisible("//rz-user");
+    }
+
     public boolean isWishlistCounterVisible() {
         return isVisible("//rz-wishlist//rz-icon-counter", 2);
     }
