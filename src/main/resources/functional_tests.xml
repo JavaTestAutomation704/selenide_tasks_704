@@ -32,6 +32,7 @@
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
             <class name="com.softserveinc.ita.rozetka.BonusAccountTest"/>
             <class name="com.softserveinc.ita.rozetka.HelpCenterSearchTest"/>
+            <class name="com.softserveinc.ita.rozetka.DownloadApplicationTest"/>
         </classes>
     </test>
 </suite>

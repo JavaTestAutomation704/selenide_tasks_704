@@ -11,8 +11,7 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 @Getter
@@ -69,6 +68,18 @@ public class HomePage extends BasePage {
     public ServiceCenterPage openServiceCenterPage() {
         $x("(//a[contains(@href, 'service-centers')])[1]").click();
         return new ServiceCenterPage();
+    }
+
+    public boolean isLogInButtonVisible() {
+        return isVisible("//button[contains(@class, 'main-auth__button')]");
+    }
+
+    public String getUserName() {
+        return getText("//span[@class='main-auth__user-name']");
+    }
+
+    public String getUserEmail() {
+        return getText("//p[@class='main-auth__user-caption']");
     }
 
     @Step("Home page: open bonus account page")

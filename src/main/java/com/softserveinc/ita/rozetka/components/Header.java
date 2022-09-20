@@ -1,16 +1,20 @@
 package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
-import com.softserveinc.ita.rozetka.MyOrdersPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Language;
-import com.softserveinc.ita.rozetka.modals.*;
+import com.softserveinc.ita.rozetka.modals.CatalogModal;
+import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
+import com.softserveinc.ita.rozetka.modals.LogInModal;
+import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.profile.MyOrdersPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class Header {
@@ -99,5 +103,13 @@ public class Header {
     public MyOrdersPage openMyOrdersPage() {
         $x("//li[contains(@class,'user')]//a").click();
         return new MyOrdersPage();
+    }
+
+    public boolean isOrderIconVisible() {
+        return isVisible("//a[contains(@href,'orders') and contains(@class,'header')]");
+    }
+
+    public boolean isHeaderLogInButtonVisible() {
+        return isVisible("//rz-user");
     }
 }
