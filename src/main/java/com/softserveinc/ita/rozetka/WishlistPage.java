@@ -19,7 +19,9 @@ public class WishlistPage extends BasePage {
         var wishlistCounterXpath = "//rz-wishlist//rz-icon-counter";
         var wishlistCounterQuantity = getText(wishlistCounterXpath);
         $x("//div[contains(@class, 'wish-details__actions')]//button[contains(@class, 'delete')]").click();
-        waitForTextChange(wishlistCounterXpath, wishlistCounterQuantity);
+        if (isVisible(wishlistCounterXpath, 2)) {
+            waitForTextChange(wishlistCounterXpath, wishlistCounterQuantity);
+        }
         return this;
     }
 

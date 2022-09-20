@@ -118,7 +118,7 @@ public class Header {
         return isVisible("//rz-wishlist//rz-icon-counter", 2);
     }
 
-    public int getWishlistCounter() {
+    public int getWishlistProductQuantity() {
         return Integer.parseInt(getText("//rz-wishlist//rz-icon-counter"));
     }
 

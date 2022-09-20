@@ -22,7 +22,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WishlistTest extends LogInViaFacebookTestRunner {
-    Header header;
+    private Header header;
 
     @BeforeMethod
     @AfterMethod
@@ -57,14 +57,13 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
                         .isGreaterThanOrEqualTo(minimumProductsQuantity);
 
                 for (int i = 1; i <= minimumProductsQuantity; i += 3) {
-                    var product = subcategoryPage
-                            .getProduct(i);
+                    var product = subcategoryPage.getProduct(i);
                     product.addToWishlist();
                     productTitles.add(product.getTitle());
                     subcategoriesCounter.getAndIncrement();
                 }
 
-                assertThat(header.getWishlistCounter())
+                assertThat(header.getWishlistProductQuantity())
                         .as("Incorrect number of items in wishlist")
                         .isEqualTo(subcategoriesCounter.intValue());
             }
@@ -73,7 +72,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
         var wishlistPage = header.openWishlistPage();
 
         var wishlistItemsQuantity = wishlistPage.getWishlistItemsQuantity();
-        assertThat(header.getWishlistCounter())
+        assertThat(header.getWishlistProductQuantity())
                 .as("Number of items shown on wishlist counter should be equal to wishlist items quantity")
                 .isEqualTo(wishlistItemsQuantity);
 
@@ -81,7 +80,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
         for (int i = 1; i <= wishlistItemsQuantity; i++) {
             softly.assertThat(productTitles)
                     .as("Item title from wishlist should be in product titles list")
-                    .contains(wishlistPage.getItem(i).getItemTitle());
+                    .contains(wishlistPage.getItem(i).getTitle());
         }
         softly.assertAll();
     }
@@ -111,7 +110,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
                     subcategoriesCounter.getAndIncrement();
                 }
 
-                assertThat(header.getWishlistCounter())
+                assertThat(header.getWishlistProductQuantity())
                         .as("Incorrect number of items in wishlist")
                         .isEqualTo(subcategoriesCounter.intValue());
             }
@@ -119,37 +118,29 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
 
         var wishlistPage = header.openWishlistPage();
 
-        var wishlistItemsQuantity = wishlistPage.getWishlistItemsQuantity();
-        assertThat(header.getWishlistCounter())
+        var wishlistItemsQuantityBeforeRemoval = wishlistPage.getWishlistItemsQuantity();
+        assertThat(header.getWishlistProductQuantity())
                 .as("Number of items shown on wishlist counter should be equal to wishlist items quantity")
-                .isEqualTo(wishlistItemsQuantity);
+                .isEqualTo(wishlistItemsQuantityBeforeRemoval);
 
-        var wishlistSelectedItems = new ArrayList<String>();
-        var wishlistNotSelectedItems = new ArrayList<String>();
-        for (int i = 1; i <= wishlistItemsQuantity; i++) {
-            if (i % 3 == 0) {
-                wishlistPage.getItem(i).selectItem();
-                wishlistSelectedItems.add(wishlistPage.getItem(i).getItemTitle());
-            } else {
-                wishlistNotSelectedItems.add(wishlistPage.getItem(i).getItemTitle());
-            }
+        var selectedWishlistItemTitles = new ArrayList<String>();
+        for (int i = 1; i <= wishlistItemsQuantityBeforeRemoval; i += 3) {
+            var wishlistItem = wishlistPage.getItem(i);
+            wishlistItem.select();
+            selectedWishlistItemTitles.add(wishlistItem.getTitle());
         }
-
         wishlistPage.removeSelectedItems();
-        wishlistItemsQuantity = wishlistPage.getWishlistItemsQuantity();
-        assertThat(wishlistItemsQuantity)
+
+        var wishlistItemsQuantityAfterRemoval = wishlistPage.getWishlistItemsQuantity();
+        assertThat(wishlistItemsQuantityAfterRemoval)
                 .as("Incorrect number of wishlist items after removal")
-                .isEqualTo(wishlistNotSelectedItems.size());
+                .isEqualTo(wishlistItemsQuantityBeforeRemoval - selectedWishlistItemTitles.size());
 
         var softly = new SoftAssertions();
-        for (int i = 1; i <= wishlistItemsQuantity; i++) {
-            softly.assertThat(wishlistPage.getItem(i).getItemTitle())
-                    .as("Item should be in a list of not selected items")
-                    .isIn(wishlistNotSelectedItems);
-
-            softly.assertThat(wishlistPage.getItem(i).getItemTitle())
-                    .as("Item should not be in a list of selected items before removal")
-                    .isNotIn(wishlistSelectedItems);
+        for (int i = 1; i <= wishlistItemsQuantityAfterRemoval; i++) {
+            softly.assertThat(wishlistPage.getItem(i).getTitle())
+                    .as(i + " wishlist item should not be in a list of selected items before removal")
+                    .isNotIn(selectedWishlistItemTitles);
         }
         softly.assertAll();
     }

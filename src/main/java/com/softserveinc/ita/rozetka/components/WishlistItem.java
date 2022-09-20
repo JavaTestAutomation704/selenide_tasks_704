@@ -15,12 +15,12 @@ public class WishlistItem {
         this.itemTitleXpath = itemXpath + "//span[contains(@class, 'title')]";
     }
 
-    public String getItemTitle() {
+    public String getTitle() {
         return getText(itemTitleXpath);
     }
 
     @Step("Wishlist item: select item")
-    public WishlistItem selectItem() {
+    public WishlistItem select() {
         $x(itemTitleXpath).scrollIntoView(false);
         $x(itemXpath + "//div[contains(@class, 'tile-checkbox')]").click();
         return this;
