@@ -1,10 +1,12 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.profile.CardDataSection;
+import com.softserveinc.ita.rozetka.profile.ProfileBasePage;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ProfilePage {
+public class ProfilePage extends ProfileBasePage {
 
     @Step("Profile page: log out")
     public HomePage logOut() {
@@ -14,5 +16,10 @@ public class ProfilePage {
 
     public String getUserEmail() {
         return $x("//p[@class='cabinet-user__email']").text();
+    }
+
+    public CardDataSection openCardDataSection(){
+        $x("//button[contains(@class,'wallet-cards__add')]").click();
+        return new CardDataSection();
     }
 }
