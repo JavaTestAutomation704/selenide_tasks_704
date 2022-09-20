@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.components;
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.MyOrdersPage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.WishlistPage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.*;
 import io.qameta.allure.Step;
@@ -99,5 +100,19 @@ public class Header {
     public MyOrdersPage openMyOrdersPage() {
         $x("//li[contains(@class,'user')]//a").click();
         return new MyOrdersPage();
+    }
+
+    public boolean isWishlistCounterVisible() {
+        return isVisible("//rz-wishlist//rz-icon-counter", 2);
+    }
+
+    public int getWishlistCounter() {
+        return Integer.parseInt(getText("//rz-wishlist//rz-icon-counter"));
+    }
+
+    @Step("Header: open wishlist page")
+    public WishlistPage openWishlistPage() {
+        $x("//rz-wishlist//a").click();
+        return new WishlistPage();
     }
 }
