@@ -12,8 +12,9 @@ public class ProfilePage extends ProfileBasePage {
 
     @Step("Profile page: open personal data section")
     public PersonalDataSection openPersonalDataSection() {
-        $x(format("//h3[text()='%s']/ancestor::details", PERSONAL_DATA.getName())).click();
-        return new PersonalDataSection();
+        var personalDataSectionXpath = format("//h3[text()='%s']/ancestor::details", PERSONAL_DATA.getName());
+        $x(personalDataSectionXpath).click();
+        return new PersonalDataSection(personalDataSectionXpath);
     }
 
     @Step("Profile page: log out")
