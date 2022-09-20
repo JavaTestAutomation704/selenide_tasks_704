@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -32,14 +33,18 @@ public class SearchFunctionalityTest extends TestRunner {
         softly.assertAll();
     }
 
-    @Test
-    public void verifyLastSeenProductsFunctionality() {
+    private Header cleanSearchHistory() {
         var header = homePage.getHeader();
         var searchMenu = header.openSearchMenu();
         if (!searchMenu.isHistoryCleaned()) {
             searchMenu.clearSearchHistory();
         }
+        return header;
+    }
 
+    @Test
+    public void verifyLastSeenProductsFunctionality() {
+        var header = cleanSearchHistory();
         var searchResultsPage = header.search("snickers");
 
         assertThat(searchResultsPage.getProductsQuantity())
@@ -85,6 +90,42 @@ public class SearchFunctionalityTest extends TestRunner {
                 .as("First searched product should be displayed in 'last seen' section at second position")
                 .isTrue();
         softly.assertAll();
+    }
+
+    @Test
+    public void verifyMoreLastSeenProductsAreShownAfterClickingOnShowMoreButton() {
+        var header = cleanSearchHistory();
+        var keyword = "purina";
+        var searchResultsPage = header.search(keyword);
+        int productsAmount = 8;
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(productsAmount);
+
+        for (int i = 1; i <= productsAmount; i++) {
+            var productPage = searchResultsPage.getProduct(i).open();
+
+            assertThat(productPage.isOpened())
+                    .as("Product page should be opened")
+                    .isTrue();
+            homePage.back();
+
+            assertThat(searchResultsPage.doesTitleContain(keyword))
+                    .as("Search results page title should contain keyword")
+                    .isTrue();
+        }
+
+        header.openHomePageViaLogo();
+
+        var lastSeenProductsSection = homePage.getLastSeenProductsSection();
+        int primaryProductsAmount = lastSeenProductsSection.getProductsAmount();
+
+        lastSeenProductsSection.showMoreProducts();
+
+        assertThat(lastSeenProductsSection.areMoreProductsShown(primaryProductsAmount))
+                .as("More last seen products should be shown")
+                .isTrue();
     }
 
     @Test
