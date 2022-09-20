@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.*;
+import static com.softserveinc.ita.rozetka.data.Color.BLACK;
+import static com.softserveinc.ita.rozetka.data.Color.WHITE;
 import static com.softserveinc.ita.rozetka.data.Country.ITALY;
 import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
@@ -390,6 +392,46 @@ public class FilterProductTest extends TestRunner {
                                             .as("Brand name should contains selected letter")
                                             .contains(letter)));
         });
+
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyFilterByProductColor() {
+        var filter = homePage
+                .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
+                .openSubcategoryPage(MOBILE_PHONES)
+                .getFilter();
+        var subcategoryPage = filter.filter(WHITE_COLOR);
+
+        var softly = new SoftAssertions();
+
+        var productPage = subcategoryPage
+                .getProduct(1)
+                .open();
+        var productCharacteristicsPage = productPage.openCharacteristicsPage();
+
+        softly.assertThat(productCharacteristicsPage.getCharacteristicList())
+                .as("List should contain correct color")
+                .contains(WHITE.getColor());
+
+        productCharacteristicsPage.back();
+
+        softly.assertThat(productPage.getColor())
+                .as("Products color should be correct")
+                .contains(WHITE.getColor());
+
+        productPage.selectColor(BLACK);
+
+        softly.assertThat(productPage.getColor())
+                .as("Products color should be correct\"")
+                .isEqualTo(BLACK.getColor());
+
+        productPage.openCharacteristicsPage();
+
+        softly.assertThat(productCharacteristicsPage.getCharacteristicList())
+                .as("List should contain correct color")
+                .contains(BLACK.getColor());
 
         softly.assertAll();
     }

@@ -1,5 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
+import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.modals.CreditModal;
 import com.softserveinc.ita.rozetka.modals.PromotionTermsModal;
@@ -98,5 +99,15 @@ public class ProductPage extends BasePage {
 
     public boolean isOpened() {
         return isVisible("(//div[@class = 'product-about'])[1]");
+    }
+
+    public String getColor() {
+        return $x("//p[@class='var-options__label']").text().replaceAll(".* : ", "");
+    }
+
+    @Step("Product page: select color {color}")
+    public ProductPage selectColor(Color color) {
+        $x(format("//span[@style='background-color: rgb(%s);']", color.getRgb())).click();
+        return this;
     }
 }
