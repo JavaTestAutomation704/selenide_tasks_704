@@ -57,7 +57,7 @@ public class ProductCharacteristicsPage extends BasePage {
         return $x("//a[contains(@href,'strana')]").text();
     }
 
-    public String getCharacteristicList() {
+    public String getCharacteristicText() {
         return $x("//rz-product-characteristics-list").text();
     }
 }

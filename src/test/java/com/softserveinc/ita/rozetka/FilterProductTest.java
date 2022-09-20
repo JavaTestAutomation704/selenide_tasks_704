@@ -398,20 +398,17 @@ public class FilterProductTest extends TestRunner {
 
     @Test
     public void verifyFilterByProductColor() {
-        var filter = homePage
+        var productPage = homePage
                 .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
                 .openSubcategoryPage(MOBILE_PHONES)
-                .getFilter();
-        var subcategoryPage = filter.filter(WHITE_COLOR);
-
-        var softly = new SoftAssertions();
-
-        var productPage = subcategoryPage
+                .getFilter()
+                .filter(WHITE_COLOR)
                 .getProduct(1)
                 .open();
         var productCharacteristicsPage = productPage.openCharacteristicsPage();
 
-        softly.assertThat(productCharacteristicsPage.getCharacteristicList())
+        var softly = new SoftAssertions();
+        softly.assertThat(productCharacteristicsPage.getCharacteristicText())
                 .as("List should contain correct color")
                 .contains(WHITE.getColor());
 
@@ -429,7 +426,7 @@ public class FilterProductTest extends TestRunner {
 
         productPage.openCharacteristicsPage();
 
-        softly.assertThat(productCharacteristicsPage.getCharacteristicList())
+        softly.assertThat(productCharacteristicsPage.getCharacteristicText())
                 .as("List should contain correct color")
                 .contains(BLACK.getColor());
 
