@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import com.softserveinc.ita.rozetka.profile.ProfilePage;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
@@ -66,5 +67,11 @@ public class MainSidebar {
     public boolean isOpened() {
         return isVisible("//div[contains(@class, 'side-menu drawer') " +
                 "and contains(@class, 'drawer-content_state_visible')]");
+    }
+
+    @Step("Main sidebar: open profile page")
+    public ProfilePage openProfilePage() {
+        $x("//div[contains(@class,'side-menu__auth ')]").click();
+        return new ProfilePage();
     }
 }
