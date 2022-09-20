@@ -8,6 +8,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.actions;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
@@ -28,7 +29,7 @@ public class SearchResultsPage extends BasePage {
     @Step("Search results page: reset filters")
     public SearchResultsPage resetFilters() {
         long resultsAmount = getResultsAmount();
-        $x("//button[contains(@class, 'reset')]").click();
+        actions().click($x("//button[contains(@class, 'reset')]")).perform();
         waitForTextChange(resultsAmountXpath, String.valueOf(resultsAmount));
         return this;
     }

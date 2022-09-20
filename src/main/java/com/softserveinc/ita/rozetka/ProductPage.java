@@ -86,8 +86,9 @@ public class ProductPage extends BasePage {
 
     @Step("Product page: open promotion terms page modal")
     public PromotionTermsModal openPromotionTermsModal() {
-        $x(titleXpath).hover();
-        $x("//button[contains(@class, 'promotion')]").click();
+        var promotionTermsModalButtonXpath = "//button[contains(@class, 'promotion')]";
+        waitTillVisible(promotionTermsModalButtonXpath);
+        $x(promotionTermsModalButtonXpath).click();
         return new PromotionTermsModal();
     }
 
