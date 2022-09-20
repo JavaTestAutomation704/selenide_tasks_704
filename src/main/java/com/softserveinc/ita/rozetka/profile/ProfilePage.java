@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.profile;
 
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -10,9 +11,9 @@ import static java.lang.String.format;
 public class ProfilePage extends ProfileBasePage {
 
     @Step("Profile page: open personal data section")
-    public ProfilePage openPersonalDataSection() {
+    public PersonalDataSection openPersonalDataSection() {
         $x(format("//h3[text()='%s']/ancestor::details", PERSONAL_DATA.getName())).click();
-        return this;
+        return new PersonalDataSection();
     }
 
     @Step("Profile page: sign out")
