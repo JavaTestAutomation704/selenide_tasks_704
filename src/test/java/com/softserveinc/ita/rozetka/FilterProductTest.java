@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static com.softserveinc.ita.rozetka.data.Category.*;
+import static com.softserveinc.ita.rozetka.data.Color.BLACK;
+import static com.softserveinc.ita.rozetka.data.Color.WHITE;
 import static com.softserveinc.ita.rozetka.data.Country.ITALY;
 import static com.softserveinc.ita.rozetka.data.Country.SPAIN;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
@@ -289,7 +291,8 @@ public class FilterProductTest extends TestRunner {
             productCharacteristicsPage.back();
         }
 
-        filter.filter(List.of(PRODUCED_IN_SPAIN, PRODUCED_IN_ITALY));
+        filter.filter(PRODUCED_IN_SPAIN);
+        filter.filter(PRODUCED_IN_ITALY);
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
@@ -390,6 +393,43 @@ public class FilterProductTest extends TestRunner {
                                             .as("Brand name should contains selected letter")
                                             .contains(letter)));
         });
+
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyFilterByProductColor() {
+        var productPage = homePage
+                .openCategoryPage(SMARTPHONES_TV_AND_ELECTRONICS)
+                .openSubcategoryPage(MOBILE_PHONES)
+                .getFilter()
+                .filter(WHITE_COLOR)
+                .getProduct(1)
+                .open();
+        var productCharacteristicsPage = productPage.openCharacteristicsPage();
+
+        var softly = new SoftAssertions();
+        softly.assertThat(productCharacteristicsPage.getCharacteristicText())
+                .as("Characteristic text should contain correct color")
+                .contains(WHITE.getColor());
+
+        productCharacteristicsPage.back();
+
+        softly.assertThat(productPage.getColor())
+                .as("Products color should be correct")
+                .contains(WHITE.getColor());
+
+        productPage.selectColor(BLACK);
+
+        softly.assertThat(productPage.getColor())
+                .as("Products color should be correct")
+                .isEqualTo(BLACK.getColor());
+
+        productPage.openCharacteristicsPage();
+
+        softly.assertThat(productCharacteristicsPage.getCharacteristicText())
+                .as("Characteristic text should contain correct color")
+                .contains(BLACK.getColor());
 
         softly.assertAll();
     }

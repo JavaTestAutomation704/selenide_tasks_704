@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka.modals;
 
 import com.codeborne.selenide.Selenide;
 import com.softserveinc.ita.rozetka.HomePage;
-import com.softserveinc.ita.rozetka.utils.ConfigProperties;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -64,6 +63,7 @@ public class LogInModal {
             $x("//input[@id='pass']").setValue(password);
             $x("//input[@name='login']").click();
             Selenide.switchTo().window(0);
+            waitInvisibility("//rz-single-modal-window");
         }
         return new HomePage();
     }

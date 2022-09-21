@@ -2,10 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Selenide;
-import com.softserveinc.ita.rozetka.components.CompanyInformationSection;
-import com.softserveinc.ita.rozetka.components.PartnerSection;
-import com.softserveinc.ita.rozetka.components.SmallCart;
-import com.softserveinc.ita.rozetka.components.SocialNetworksSection;
+import com.softserveinc.ita.rozetka.components.*;
 import com.softserveinc.ita.rozetka.data.Category;
 import io.qameta.allure.Step;
 import lombok.Getter;
@@ -20,6 +17,8 @@ public class HomePage extends BasePage {
     private final SocialNetworksSection socialNetworksSection = new SocialNetworksSection();
     private final CompanyInformationSection companyInformationSection = new CompanyInformationSection();
     private final PartnerSection partnerSection = new PartnerSection();
+    private final LastSeenProductsSection lastSeenProductsSection = new LastSeenProductsSection();
+    private final SmallCart smallCart = new SmallCart();
 
     @Step("Home page: open home page")
     public HomePage open() {
@@ -39,10 +38,6 @@ public class HomePage extends BasePage {
     public CategoryPage openCategoryPage(Category category) {
         $x(format("//div[@class = 'fat-wrap']//a[contains(@href, '%s')]", category.getCategoryXpath())).click();
         return new CategoryPage();
-    }
-
-    public SmallCart getSmallCart() {
-        return new SmallCart();
     }
 
     @Step("Home page: open pickup points city page")
@@ -80,5 +75,12 @@ public class HomePage extends BasePage {
 
     public String getUserEmail() {
         return getText("//p[@class='main-auth__user-caption']");
+    }
+
+    @Step("Home page: open bonus account page")
+    public BonusAccountPage openBonusAccountPage() {
+        $x("//a[contains(@href, 'loyalty')]").click(ClickOptions.usingJavaScript());
+        waitTillPreloaderInvisible();
+        return new BonusAccountPage();
     }
 }

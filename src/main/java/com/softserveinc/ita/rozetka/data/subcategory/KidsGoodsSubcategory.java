@@ -6,13 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum SportAndHobbiesSubcategory implements ISubcategory {
+public enum KidsGoodsSubcategory implements ISubcategory {
 
-    PROTEIN("protein", "Протеїн"),
-    VITAMINS("vitamins", "Вітаміни"),
-    FISHING_RODS("rods", "Вудлища"),
-    HOVERBOARDS("girobordi", "Гіроборди"),
-    YOGA("yoga", "Йога");
+    KIDS_CONSTRUCTION_SETS("building_kits", "Дитячі конструктори"),
+    TABLE_GAMES("nastoljnye-igry-i-golovolomki", "Настільні ігри");
 
     @NonNull
     private final String subcategoryXpath;

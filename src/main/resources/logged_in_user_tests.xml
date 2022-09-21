@@ -4,7 +4,9 @@
 <suite name="Rozetka tests" parallel="methods" thread-count="3">
     <test name="Logged in user tests">
         <classes>
+            <class name="com.softserveinc.ita.rozetka.WishlistTest"/>
             <class name="com.softserveinc.ita.rozetka.SignInTest"/>
+            <class name="com.softserveinc.ita.rozetka.PersonalDataTest"/>
         </classes>
     </test>
 </suite>

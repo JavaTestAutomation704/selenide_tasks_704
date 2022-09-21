@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.SearchResultsPage;
+import com.softserveinc.ita.rozetka.WishlistPage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.CatalogModal;
 import com.softserveinc.ita.rozetka.modals.ComparisonListModal;
@@ -13,8 +14,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class Header {
@@ -93,6 +93,10 @@ public class Header {
         return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
     }
 
+    public int getShoppingCartProductQuantity() {
+        return Integer.parseInt(getText("//rz-icon-counter//span[contains(@class, 'counter')]"));
+    }
+
     @Step("Header: open comparison list modal")
     public ComparisonListModal openComparisonListModal() {
         $x("//rz-comparison//button").click();
@@ -111,5 +115,19 @@ public class Header {
 
     public boolean isHeaderLogInButtonVisible() {
         return isVisible("//rz-user");
+    }
+
+    public boolean isWishlistCounterVisible() {
+        return isVisible("//rz-wishlist//rz-icon-counter", 2);
+    }
+
+    public int getWishlistProductQuantity() {
+        return Integer.parseInt(getText("//rz-wishlist//rz-icon-counter"));
+    }
+
+    @Step("Header: open wishlist page")
+    public WishlistPage openWishlistPage() {
+        $x("//rz-wishlist//a").click();
+        return new WishlistPage();
     }
 }
