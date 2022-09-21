@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.profile;
 
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.components.profile.CardDataSection;
 import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
 import io.qameta.allure.Step;
 
@@ -25,5 +26,12 @@ public class ProfilePage extends ProfileBasePage {
 
     public String getUserEmail() {
         return $x("//p[@class='cabinet-user__email']").text();
+    }
+
+    @Step("Profile page: open card data section")
+    public CardDataSection openCardDataSection() {
+        var cardDataSectionXpath = format("//button[contains(@class,'wallet-cards__add')]");
+        $x(cardDataSectionXpath).click();
+        return new CardDataSection(cardDataSectionXpath);
     }
 }

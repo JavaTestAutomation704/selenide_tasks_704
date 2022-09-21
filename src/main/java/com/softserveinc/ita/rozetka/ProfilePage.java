@@ -17,9 +17,4 @@ public class ProfilePage extends ProfileBasePage {
     public String getUserEmail() {
         return $x("//p[@class='cabinet-user__email']").text();
     }
-
-    public CardDataSection openCardDataSection(){
-        $x("//button[contains(@class,'wallet-cards__add')]").click();
-        return new CardDataSection();
-    }
 }
