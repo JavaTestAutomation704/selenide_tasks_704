@@ -52,9 +52,18 @@ public class WebElementUtil {
         }
     }
 
-    public static boolean hasAttribute(String elementXpath, String name, String value) {
+    public static boolean hasAttributeValue(String elementXpath, String name, String value) {
         try {
             $x(elementXpath).shouldHave(attribute(name, value));
+            return true;
+        } catch (AssertionError e) {
+            return false;
+        }
+    }
+
+    public static boolean hasAttribute(String elementXpath, String name) {
+        try {
+            $x(elementXpath).shouldHave(attribute(name));
             return true;
         } catch (AssertionError e) {
             return false;
@@ -182,7 +191,7 @@ public class WebElementUtil {
         waitInvisibility($x(elementXpath));
     }
 
-    public static void waitInvisibility(String elementXpath , long timeout) {
+    public static void waitInvisibility(String elementXpath, long timeout) {
         waitInvisibility($x(elementXpath), timeout);
     }
 
