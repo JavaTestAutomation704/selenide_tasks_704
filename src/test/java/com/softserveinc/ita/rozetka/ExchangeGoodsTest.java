@@ -11,7 +11,7 @@ import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ChargingStat
 import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ChargingStatus.MORE_THEN_SEVEN_HUNDRED_RECHARGE_CYCLES;
 import static com.softserveinc.ita.rozetka.data.goods_exchange_page.EquipmentStatus.COMPLETE_SET_IS_MISSING;
 import static com.softserveinc.ita.rozetka.data.goods_exchange_page.EquipmentStatus.FULL_EQUIPMENT;
-import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ExchangeProduct.OTHER_GOODS;
+import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ExchangeProductStatus.OTHER_GOODS;
 import static com.softserveinc.ita.rozetka.data.goods_exchange_page.FunctionalityStatus.ALL_FUNCTION_WORKS;
 import static com.softserveinc.ita.rozetka.data.goods_exchange_page.FunctionalityStatus.FUNCTION_NOT_WORKS;
 import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ImageStatus.BROKEN_COLOR_RENDERING;

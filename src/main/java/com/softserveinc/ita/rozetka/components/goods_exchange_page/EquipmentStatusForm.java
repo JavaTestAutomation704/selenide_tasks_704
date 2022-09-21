@@ -15,8 +15,8 @@ public class EquipmentStatusForm extends BaseStatusForm {
     }
 
     @Step("Equipment status form: switch to next step")
-    public ExchangeProductForm switchToNextStep() {
+    public ExchangeProductStatusForm switchToNextStep() {
         switchToNext();
-        return new ExchangeProductForm();
+        return new ExchangeProductStatusForm();
     }
 }

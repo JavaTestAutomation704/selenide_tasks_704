@@ -6,12 +6,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ExchangeProduct {
+public enum ExchangeProductStatus {
 
     OTHER_GOODS(2, "Other goods");
 
     private final int orderNumber;
-
     @NonNull
     private final String name;
 
