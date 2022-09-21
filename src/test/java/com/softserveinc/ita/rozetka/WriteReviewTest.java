@@ -55,6 +55,6 @@ public class WriteReviewTest extends LogInViaFacebookTestRunner {
 
         assertThat(errorsList)
                 .as("Errors list should contains this error")
-                .contains("Поле обов'язкове до заповнення");
+                .contains("Мінімальна кількість символів: 1/3");
     }
 }
