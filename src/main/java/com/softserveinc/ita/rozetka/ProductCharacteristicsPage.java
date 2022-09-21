@@ -56,4 +56,8 @@ public class ProductCharacteristicsPage extends BasePage {
     public String getCountryName() {
         return $x("//a[contains(@href,'strana')]").text();
     }
+
+    public String getCharacteristicText() {
+        return $x("//rz-product-characteristics-list").text();
+    }
 }
