@@ -8,19 +8,19 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class ExchangeProductStatusForm extends BaseStatusForm {
-    private String buttonNextXpath = "//button[contains(@class,'button-next')]";
+    private final String buttonNextStepXpath = "//button[contains(@class,'button-next')]";
 
-    @Step("Exchange product form: select product you want to exchange for '{exchangeProduct}'")
+    @Step("Exchange product status form: select product you want to exchange for '{exchangeProduct}'")
     public ExchangeProductStatusForm selectStatus(ExchangeProductStatus exchangeProduct) {
-        if (isVisible(buttonNextXpath)) {
+        if (isVisible(buttonNextStepXpath)) {
             $x(format(statusNameXpathTemplate, exchangeProduct.getOrderNumber())).click();
         }
         return this;
     }
 
-    @Step("Exchange product form: switch to next step")
+    @Step("Exchange product status form: switch to next step")
     public ResultProductForm switchToNextStep() {
-        if (isVisible(buttonNextXpath)) {
+        if (isVisible(buttonNextStepXpath)) {
             switchToNext();
         }
         return new ResultProductForm();
