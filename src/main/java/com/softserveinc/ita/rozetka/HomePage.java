@@ -81,4 +81,11 @@ public class HomePage extends BasePage {
     public String getUserEmail() {
         return getText("//p[@class='main-auth__user-caption']");
     }
+
+    @Step("Home page: open bonus account page")
+    public BonusAccountPage openBonusAccountPage() {
+        $x("//a[contains(@href, 'loyalty')]").click(ClickOptions.usingJavaScript());
+        waitTillPreloaderInvisible();
+        return new BonusAccountPage();
+    }
 }
