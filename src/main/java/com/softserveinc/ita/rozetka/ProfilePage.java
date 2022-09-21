@@ -1,12 +1,10 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.profile.CardDataSection;
-import com.softserveinc.ita.rozetka.profile.ProfileBasePage;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ProfilePage extends ProfileBasePage {
+public class ProfilePage {
 
     @Step("Profile page: log out")
     public HomePage logOut() {
