@@ -120,11 +120,11 @@ public class SearchFunctionalityTest extends TestRunner {
         header.openHomePageViaLogo();
 
         var lastSeenProductsSection = homePage.getLastSeenProductsSection();
-        int primaryProductsAmount = lastSeenProductsSection.getProductsAmount();
+        int minProductsAmount = lastSeenProductsSection.getProductsAmount();
 
         lastSeenProductsSection.showMoreProducts();
 
-        assertThat(lastSeenProductsSection.areMoreProductsShown(primaryProductsAmount))
+        assertThat(lastSeenProductsSection.areMoreProductsShown(minProductsAmount))
                 .as("More last seen products should be shown")
                 .isTrue();
     }

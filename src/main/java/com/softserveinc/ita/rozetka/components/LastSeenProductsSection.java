@@ -22,7 +22,7 @@ public class LastSeenProductsSection {
         return getCollectionSize("(//section[contains(@class, 'main-goods')])[1]//div[@class = 'tile']");
     }
 
-    public boolean areMoreProductsShown(int primaryProductsAmount) {
-        return getProductsAmount() > primaryProductsAmount;
+    public boolean areMoreProductsShown(int minProductsAmount) {
+        return getProductsAmount() > minProductsAmount;
     }
 }
