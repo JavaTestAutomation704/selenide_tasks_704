@@ -6,6 +6,7 @@
         <classes>
             <class name="com.softserveinc.ita.rozetka.WishlistTest"/>
             <class name="com.softserveinc.ita.rozetka.SignInTest"/>
+            <class name="com.softserveinc.ita.rozetka.PersonalDataTest"/>
         </classes>
     </test>
 </suite>

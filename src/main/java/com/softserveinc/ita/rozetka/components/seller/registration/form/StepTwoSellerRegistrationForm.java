@@ -6,7 +6,7 @@ import io.qameta.allure.Step;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.hasAttribute;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.hasAttributeValue;
 import static java.lang.String.format;
 
 public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {
@@ -81,6 +81,6 @@ public class StepTwoSellerRegistrationForm extends SellerRegistrationForm {
     }
 
     public boolean isRegistrationButtonDisabled() {
-        return hasAttribute(format(formButtonXpathTemplate, 3), "disabled", "true");
+        return hasAttributeValue(format(formButtonXpathTemplate, 3), "disabled", "true");
     }
 }
