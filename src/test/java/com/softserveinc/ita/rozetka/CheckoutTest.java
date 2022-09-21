@@ -56,7 +56,7 @@ public class CheckoutTest extends TestRunner {
                 .as("Filter should be selected")
                 .isTrue();
 
-        int productsQuantity = 60;
+        int productsQuantity = 50;
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -288,7 +288,7 @@ public class CheckoutTest extends TestRunner {
                 .as("Delivery should be correct")
                 .contains(MEEST_PICK_UP.getDeliveryNameUa());
 
-        int departmentNumber = 8841;
+        int departmentNumber = 1;
         meestPickup.selectPickUpPointDepartment(departmentNumber);
         var pickupPointName = meestPickup.getPickUpPointName();
         var pickupPointModal = meestPickup.openPickUpPointModal();

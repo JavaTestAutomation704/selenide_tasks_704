@@ -5,7 +5,6 @@ import com.softserveinc.ita.rozetka.SearchResultsPage;
 import com.softserveinc.ita.rozetka.data.Availability;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
@@ -124,5 +123,21 @@ public class Product {
 
     public long getOldPrice() {
         return getNumber(productXpath + "//div[contains(@class, 'old price')]");
+    }
+
+    @Step("Product: add product to wishlist")
+    public SearchResultsPage addToWishlist() {
+        var wishListIconCounter = $x("//rz-wishlist//rz-icon-counter");
+        var initialCounterValue = isVisible(wishListIconCounter, 2)
+                ? getNumber(wishListIconCounter)
+                : 0;
+
+        $x(productXpath + titleXpath)
+                .scrollIntoView(false)
+                .hover();
+        $x(productXpath + "//app-goods-wishlist//button").click();
+
+        waitText(wishListIconCounter, String.valueOf(initialCounterValue + 1));
+        return new SearchResultsPage();
     }
 }

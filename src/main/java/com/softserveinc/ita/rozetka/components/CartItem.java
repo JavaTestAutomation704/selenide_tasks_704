@@ -64,7 +64,7 @@ public class CartItem {
     }
 
     public long getAdditionalServicePrice(int serviceNumber) {
-        return getLongFromField(format("(%s//span[contains(@class, 'price')]//span[contains(@class, 'cart-service__price')])[%s]", cartItemXpath, serviceNumber));
+        return getNumber(format("(%s//span[contains(@class, 'price')]//span[contains(@class, 'cart-service__price')])[%s]", cartItemXpath, serviceNumber));
     }
 
     public boolean isAdditionalServicesAvailable() {
