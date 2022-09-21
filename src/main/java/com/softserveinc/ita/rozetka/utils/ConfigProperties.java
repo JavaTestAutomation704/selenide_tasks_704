@@ -23,4 +23,12 @@ public class ConfigProperties {
     public String getUserEmail() {
         return properties.getProperty("USER_EMAIL");
     }
+
+    public boolean getRemote() {
+        return Boolean.parseBoolean(properties.getProperty("REMOTE"));
+    }
+
+    public String getBrowser() {
+        return properties.getProperty("BROWSER");
+    }
 }
