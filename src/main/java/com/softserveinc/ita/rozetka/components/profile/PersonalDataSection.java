@@ -1,11 +1,14 @@
 package com.softserveinc.ita.rozetka.components.profile;
 
+import com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage;
+import com.softserveinc.ita.rozetka.data.profile.Gender;
 import com.softserveinc.ita.rozetka.models.PersonalData;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getFormattedDateFromString;
+import static com.softserveinc.ita.rozetka.utils.DateUtil.getFormattedDateFromString;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
@@ -25,12 +28,12 @@ public class PersonalDataSection {
 
         return PersonalData
                 .builder()
-                .lastName($x(format(dataXpathTemplate, "lastName")).text())
-                .firstName($x(format(dataXpathTemplate, "firstName")).text())
-                .secondName($x(format(dataXpathTemplate, "secondName")).text())
+                .lastName(getText(format(dataXpathTemplate, "lastName")))
+                .firstName(getText(format(dataXpathTemplate, "firstName")))
+                .secondName(getText(format(dataXpathTemplate, "secondName")))
                 .birthday(getFormattedDateFromString(format(dataXpathTemplate, "birthday"), "dd-MM-yyyy"))
-                .gender($x(format(dataXpathTemplate, "gender")).text())
-                .language($x(format(dataXpathTemplate, "rozetkaLanguage")).text())
+                .gender(Gender.getByValue(getText(format(dataXpathTemplate, "gender"))))
+                .language(CommunicationLanguage.getByValue(getText(format(dataXpathTemplate, "rozetkaLanguage"))))
                 .build();
     }
 
