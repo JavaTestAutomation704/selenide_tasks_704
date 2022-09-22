@@ -10,7 +10,7 @@ import static java.lang.String.format;
 public class ExchangeProductStatusForm extends BaseStatusForm {
     private final String buttonNextStepXpath = "//button[contains(@class,'button-next')]";
 
-    @Step("Exchange product status form: select product you want to exchange for '{exchangeProduct}'")
+    @Step("Exchange product status form: select product you want to exchange for '{exchangeProductStatus}'")
     public ExchangeProductStatusForm selectStatus(ExchangeProductStatus exchangeProductStatus) {
         if (isVisible(buttonNextStepXpath)) {
             $x(format(statusNameXpathTemplate, exchangeProductStatus.getOrderNumber())).click();
