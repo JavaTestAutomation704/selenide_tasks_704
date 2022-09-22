@@ -10,4 +10,6 @@ public class PersonalData {
     private final String secondName;
     private final String lastName;
     private final String birthday;
+    private final String gender;
+    private final String language;
 }
