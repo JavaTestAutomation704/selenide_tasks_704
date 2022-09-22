@@ -98,7 +98,7 @@ public class FilterProductTest extends TestRunner {
                 .getFilter();
         filter.filter(AVAILABLE);
         var searchResultsPage = filter.filter(WITH_BONUS);
-        int productsQuantity = 5;
+        int productsQuantity = 4;
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products amount should be sufficient")

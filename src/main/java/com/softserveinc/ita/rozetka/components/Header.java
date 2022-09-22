@@ -12,10 +12,13 @@ import com.softserveinc.ita.rozetka.profile.MyOrdersPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
+import static java.time.Duration.ofSeconds;
 
 public class Header {
 
@@ -26,6 +29,7 @@ public class Header {
         if (!isVisible("//div[contains(@class, 'side-menu__body')]")) {
             $x("//rz-mobile-user-menu/button").click();
         }
+        waitTillPreloaderInvisible();
         return new MainSidebar();
     }
 
@@ -43,7 +47,7 @@ public class Header {
     @Step("Header: open shopping cart modal")
     public ShoppingCartModal openShoppingCartModal() {
         $x("//button[@rzopencart='']").click();
-        $x("//rz-shopping-cart").shouldBe(visible);
+        $x("//rz-shopping-cart").shouldBe(visible, ofSeconds(20));
         return new ShoppingCartModal();
     }
 
