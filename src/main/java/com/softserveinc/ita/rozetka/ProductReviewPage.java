@@ -46,7 +46,7 @@ public class ProductReviewPage {
     }
 
     @Step("Product review page: write review")
-    public WriteReviewModal writeReview() {
+    public WriteReviewModal startWritingReviewWhenUserUnauthorized() {
         $x("//section[@class='product-comments__cta']//button").click();
         return new WriteReviewModal();
     }

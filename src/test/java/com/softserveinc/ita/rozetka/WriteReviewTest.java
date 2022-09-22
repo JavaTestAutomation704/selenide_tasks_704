@@ -8,18 +8,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WriteReviewTest extends LogInViaFacebookTestRunner {
     @Test
-    public void verifyImpossibilityWriteReviewWithInvalidData() {
-        var isLanguageUa = homePage
-                .getHeader()
-                .isLanguageSelected(Language.UA);
+    public void verifyImpossibilityToWriteReviewWithInvalidData() {
+        var header = homePage.getHeader();
+        var isLanguageUa = header.isLanguageSelected(Language.UA);
 
         assertThat(isLanguageUa)
                 .as("Language should be ukrainian")
                 .isTrue();
 
-        var searchResultsPage = homePage
-                .getHeader()
-                .search("macbook");
+        var searchResultsPage = header.search("macbook");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -29,25 +26,26 @@ public class WriteReviewTest extends LogInViaFacebookTestRunner {
                 .getProduct(1)
                 .open()
                 .openReviewPage()
-                .writeReview();
+                .startWritingReviewWhenUserUnauthorized();
 
         assertThat(writeReviewModal.isModalOpen())
                 .as("Write review modal should be opened")
                 .isTrue();
 
-        String invalidData = " ";
+        var emptyString = " ";
 
         writeReviewModal = writeReviewModal
-                .writeAdvantages(invalidData)
-                .writeDisadvantages(invalidData)
-                .writeComment(invalidData)
+                .writeAdvantages(emptyString)
+                .writeDisadvantages(emptyString)
+                .writeComment(emptyString)
                 .startSubmitting();
 
-        assertThat(writeReviewModal.getErrorsQuantity())
+        var errorsList = writeReviewModal.getErrors();
+
+        assertThat(errorsList.size())
                 .as("Errors quantity should be sufficient")
                 .isGreaterThanOrEqualTo(2);
 
-        var errorsList = writeReviewModal.getErrors();
 
         assertThat(errorsList)
                 .as("Errors list should contains this error")
