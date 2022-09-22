@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -20,7 +20,7 @@ import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ScreenStatus
 import static com.softserveinc.ita.rozetka.data.goods_exchange_page.ScreenStatus.NO_USE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ExchangeGoodsTest extends TestRunner {
+public class ExchangeGoodsTest extends BaseTestRunner {
 
     @Test
     public void verifyGoodsExchangeFunctionality() {
