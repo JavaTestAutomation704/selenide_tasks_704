@@ -1,14 +1,14 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.ReviewsSort;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ReviewTest extends TestRunner {
+public class ReviewTest extends BaseTestRunner {
     @Test
     public void verifyFilterReviewsByRating() {
         var searchResultsPage = homePage

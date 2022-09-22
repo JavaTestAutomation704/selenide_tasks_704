@@ -1,7 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.ProductSort;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -11,7 +11,7 @@ import static com.softserveinc.ita.rozetka.data.ProductSort.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SortProductTest extends TestRunner {
+public class SortProductTest extends BaseTestRunner {
 
     @Test
     public void verifyProductsSortingInAscendingOrderByPrice() {

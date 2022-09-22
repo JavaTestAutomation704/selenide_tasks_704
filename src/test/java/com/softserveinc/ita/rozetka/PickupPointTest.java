@@ -1,13 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.City;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PickupPointTest extends TestRunner {
+public class PickupPointTest extends BaseTestRunner {
 
     @Test
     public void verifyDeliveryPointsAddressesAreChangingWhenCityIsChanged() {

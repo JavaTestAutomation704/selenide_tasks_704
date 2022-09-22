@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 import java.io.IOException;
 
 @Listeners(AllureScreenShooter.class)
-public class TestRunner {
+public class BaseTestRunner {
     protected HomePage homePage;
     protected static ConfigProperties configProperties;
 

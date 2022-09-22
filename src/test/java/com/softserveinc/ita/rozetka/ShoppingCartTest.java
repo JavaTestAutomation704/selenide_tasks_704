@@ -1,7 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,7 +11,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersS
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ShoppingCartTest extends TestRunner {
+public class ShoppingCartTest extends BaseTestRunner {
     private Header header;
 
     @BeforeMethod
