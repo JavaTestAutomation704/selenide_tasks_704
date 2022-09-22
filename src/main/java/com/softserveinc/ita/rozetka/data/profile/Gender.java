@@ -13,4 +13,13 @@ public enum Gender {
 
     @NonNull
     private final String name;
+
+    public static Gender getByValue(String value) {
+        for (Gender gender : values()) {
+            if (gender.name.equals(value)) {
+                return gender;
+            }
+        }
+        throw new IllegalArgumentException("Can't get Gender enum for value: " + value);
+    }
 }

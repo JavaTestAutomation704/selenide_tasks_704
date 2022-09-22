@@ -5,11 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.*;
@@ -203,15 +200,5 @@ public class WebElementUtil {
             $x(elementXpath).shouldHave(attribute(attributeName, attributeValue));
         } catch (AssertionError ignore) {
         }
-    }
-
-    public static LocalDate getDateFromString(String elementXpath) {
-        Locale.setDefault(Locale.forLanguageTag("uk-UA"));
-        var formatter = DateTimeFormatter.ofPattern("d MMMM yyyy");
-        return LocalDate.parse(getText(elementXpath), formatter);
-    }
-
-    public static String getFormattedDateFromString(String elementXpath, String dateFormat) {
-        return getDateFromString(elementXpath).format(DateTimeFormatter.ofPattern(dateFormat));
     }
 }

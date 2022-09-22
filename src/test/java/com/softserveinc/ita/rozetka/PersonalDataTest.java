@@ -1,18 +1,16 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
-import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.models.PersonalData;
 import com.softserveinc.ita.rozetka.utils.LogInViaFacebookTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Random;
-
+import static com.softserveinc.ita.rozetka.data.Language.UA;
+import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
 import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
-import static com.softserveinc.ita.rozetka.data.profile.Language.UA;
+import static com.softserveinc.ita.rozetka.utils.DateUtil.getRandomPastDate;
+import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomCyrillicString;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonalDataTest extends LogInViaFacebookTestRunner {
@@ -20,8 +18,8 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
     @Test
     public void verifyThatUserCanNotEditPersonalDataWithInvalidData() {
         var header = homePage.getHeader();
-        header.changeLanguage(Language.UA);
-        var isUaLanguageSelected = header.isLanguageSelected(Language.UA);
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
         assertThat(isUaLanguageSelected)
                 .as("Localization should be switched to UA")
@@ -47,7 +45,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
 
         var editPersonalDataSection = personalDataSection
                 .startEditing()
-                .fillInPersonalData(personalData);
+                .fillInInputPersonalDataFields(personalData);
 
         var softly = new SoftAssertions();
 
@@ -108,8 +106,8 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
     @Test
     public void verifyThatPersonalDataEditingWorksCorrectly() {
         var header = homePage.getHeader();
-        header.changeLanguage(Language.UA);
-        var isUaLanguageSelected = header.isLanguageSelected(Language.UA);
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
 
         assertThat(isUaLanguageSelected)
                 .as("Localization should be switched to UA")
@@ -131,15 +129,15 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
 
         var newPersonalData = PersonalData
                 .builder()
-                .firstName(getRandomString())
-                .secondName(getRandomString())
-                .lastName(getRandomString())
+                .firstName(getRandomCyrillicString())
+                .secondName(getRandomCyrillicString())
+                .lastName(getRandomCyrillicString())
                 .birthday(getRandomPastDate())
-                .gender(MALE.getName())
-                .language(UA.getName())
+                .gender(MALE)
+                .language(UKRAINIAN)
                 .build();
 
-        editPersonalDataSection.fillInPersonalDataIncludingSelectors(newPersonalData);
+        editPersonalDataSection.fillInAllPersonalDataFields(newPersonalData);
 
         assertThat(editPersonalDataSection.isSaveButtonDisabled())
                 .as("Save button should be enabled")
@@ -162,29 +160,5 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .isEqualTo(newPersonalData);
 
         softly.assertAll();
-    }
-
-    private String getRandomString() {
-        var alphabetUa = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя";
-        // TODO: String should have at least 2 chars, so this solves the problem when the random number is 0
-        int randomNumber = new Random().nextInt(7) + 2;
-        var randomString = new StringBuilder(randomNumber);
-
-        for (int i = 0; i < randomNumber; i++) {
-            int randomLetterIndex = new Random().nextInt(alphabetUa.length());
-            randomString.append(alphabetUa.charAt(randomLetterIndex));
-        }
-        return randomString.toString();
-    }
-
-    private String getRandomPastDate() {
-        int randomNumber = new Random().nextInt(30);
-        // TODO: This guarantees that the date is always different
-        var date = LocalDate
-                .now()
-                .minusYears(randomNumber)
-                .plusDays(randomNumber);
-        var formattedDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return date.format(formattedDate);
     }
 }
