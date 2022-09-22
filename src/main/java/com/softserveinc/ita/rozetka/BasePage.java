@@ -6,6 +6,7 @@ import com.softserveinc.ita.rozetka.components.Header;
 import io.qameta.allure.Step;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 
 public abstract class BasePage {
     public String getUrl() {
@@ -23,6 +24,7 @@ public abstract class BasePage {
     @Step("Base page: back to the previous page")
     public Header back() {
         Selenide.back();
+        waitTillPreloaderInvisible();
         return new Header();
     }
 }

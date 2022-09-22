@@ -1,13 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchFunctionalityTest extends TestRunner {
+public class SearchFunctionalityTest extends BaseTestRunner {
 
     @Test
     public void verifySearchFunctionalityWorks() {

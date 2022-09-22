@@ -1,13 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ChangeCityTest extends TestRunner {
+public class ChangeCityTest extends BaseTestRunner {
     @Test
     public void verifyCityChangeViaSideBarAndProductPage() {
         var expectedCityViaMobileMenu = "Одеса";

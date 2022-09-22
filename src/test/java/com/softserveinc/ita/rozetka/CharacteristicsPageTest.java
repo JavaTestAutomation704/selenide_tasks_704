@@ -2,7 +2,7 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.Language;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -11,7 +11,7 @@ import static com.softserveinc.ita.rozetka.data.Color.GREEN;
 import static com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesSubcategory.REFRIGERATORS;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CharacteristicsPageTest extends TestRunner {
+public class CharacteristicsPageTest extends BaseTestRunner {
     @Test
     public void verifyProductAdditionToComparisonListOnCharacteristicsPage() {
         var lastProduct = homePage

@@ -6,7 +6,7 @@ import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.data.subcategory.BusinessGoodsSubcategory;
 import com.softserveinc.ita.rozetka.data.subcategory.OfficeSchoolBooksSubcategory;
 import com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubcategory;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,7 +25,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcatego
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CheckoutTest extends TestRunner {
+public class CheckoutTest extends BaseTestRunner {
     private Header header;
 
     @BeforeMethod

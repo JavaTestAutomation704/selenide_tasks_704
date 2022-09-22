@@ -3,7 +3,7 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductFilter;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -24,7 +24,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.PlumbingAndRepairSub
 import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElectronicsSubcategory.MOBILE_PHONES;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FilterProductTest extends TestRunner {
+public class FilterProductTest extends BaseTestRunner {
     @Test
     public void verifySaleFilterFunctionality() {
         var header = homePage.getHeader();
@@ -98,7 +98,7 @@ public class FilterProductTest extends TestRunner {
                 .getFilter();
         filter.filter(AVAILABLE);
         var searchResultsPage = filter.filter(WITH_BONUS);
-        int productsQuantity = 5;
+        int productsQuantity = 4;
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
