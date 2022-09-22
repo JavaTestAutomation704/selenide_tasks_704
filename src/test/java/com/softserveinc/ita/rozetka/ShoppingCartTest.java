@@ -228,15 +228,10 @@ public class ShoppingCartTest extends TestRunner {
         long additionalServicePrice = firstCartItem
                 .addService(serviceNumber)
                 .getAdditionalServicePrice(serviceNumber);
-        shoppingCart.close();
-
-        softly.assertThat(header.getShoppingCartProductQuantity())
-                .as("Products quantity should be sufficient")
-                .isEqualTo(2);
 
         softly.assertThat(productPrice + additionalServicePrice)
                 .as("Total sum should be equal to sum of product and additional service")
-                .isEqualTo(header.openShoppingCartModal().getTotalSum());
+                .isEqualTo(shoppingCart.getTotalSum());
         softly.assertAll();
     }
 }
