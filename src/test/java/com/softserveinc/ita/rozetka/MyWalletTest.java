@@ -30,8 +30,7 @@ public class MyWalletTest extends LogInViaFacebookTestRunner {
                 .CVV("12")
                 .build();
 
-        cardDataSection
-                .fillInCardData(cardData);
+        cardDataSection.fillInCardData(cardData);
 
         var softly = new SoftAssertions();
 
