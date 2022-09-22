@@ -11,9 +11,9 @@ public class ExchangeProductStatusForm extends BaseStatusForm {
     private final String buttonNextStepXpath = "//button[contains(@class,'button-next')]";
 
     @Step("Exchange product status form: select product you want to exchange for '{exchangeProduct}'")
-    public ExchangeProductStatusForm selectStatus(ExchangeProductStatus exchangeProduct) {
+    public ExchangeProductStatusForm selectStatus(ExchangeProductStatus exchangeProductStatus) {
         if (isVisible(buttonNextStepXpath)) {
-            $x(format(statusNameXpathTemplate, exchangeProduct.getOrderNumber())).click();
+            $x(format(statusNameXpathTemplate, exchangeProductStatus.getOrderNumber())).click();
         }
         return this;
     }
