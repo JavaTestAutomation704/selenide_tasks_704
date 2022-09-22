@@ -27,7 +27,7 @@ public class WriteReviewModal {
 
     @Step("Write review modal: write comments {comments}")
     public WriteReviewModal writeComment(String comment) {
-        $x("//textares[@id='comment-text']").setValue(comment);
+        $x("//textarea[@id='comment-text']").setValue(comment);
         return this;
     }
 
