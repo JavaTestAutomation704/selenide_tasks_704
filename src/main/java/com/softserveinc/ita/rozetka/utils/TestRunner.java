@@ -26,7 +26,7 @@ public class TestRunner {
         Configuration.browserSize = "1920x1080";
         Configuration.reportsFolder = "target/allure-results";
         Configuration.browser = configProperties.getBrowser();
-        if (configProperties.getRemote()) {
+        if (configProperties.isWithSelenoid()) {
             Configuration.remote = "http://localhost:4444/wd/hub";
             var desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setCapability("enableVNC", true);

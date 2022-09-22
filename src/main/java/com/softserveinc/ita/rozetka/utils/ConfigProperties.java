@@ -24,11 +24,15 @@ public class ConfigProperties {
         return properties.getProperty("USER_EMAIL");
     }
 
-    public boolean getRemote() {
-        return Boolean.parseBoolean(properties.getProperty("REMOTE"));
+    public boolean isWithSelenoid() {
+        return Boolean.parseBoolean(properties.getProperty("RUN_WITH_SELENOID"));
     }
 
     public String getBrowser() {
-        return properties.getProperty("BROWSER");
+        var browser = properties.getProperty("BROWSER");
+        if (browser == null) {
+            browser = "chrome";
+        }
+        return browser;
     }
 }
