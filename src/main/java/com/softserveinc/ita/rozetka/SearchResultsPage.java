@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Filter;
+import com.softserveinc.ita.rozetka.components.PagePagination;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
@@ -72,5 +73,9 @@ public class SearchResultsPage extends BasePage {
 
     public DrinkingAgeConfirmationModal getDrinkingAgeConfirmationModal() {
         return new DrinkingAgeConfirmationModal();
+    }
+
+    public PagePagination getPagination() {
+        return new PagePagination();
     }
 }
