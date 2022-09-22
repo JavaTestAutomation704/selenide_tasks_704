@@ -11,7 +11,7 @@ import java.io.IOException;
 @Listeners(AllureScreenShooter.class)
 public class BaseTestRunner {
     protected HomePage homePage;
-    protected static ConfigProperties configProperties;
+    protected ConfigProperties configProperties;
 
     @BeforeSuite
     public void setConfigProperties() throws IOException {
