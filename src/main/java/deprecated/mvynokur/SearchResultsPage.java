@@ -1,9 +1,10 @@
 package deprecated.mvynokur;
 
-import org.openqa.selenium.By;
 import com.softserveinc.ita.rozetka.utils.WebElementUtil;
+import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultsPage {
     private final String searchFieldCss = "q";

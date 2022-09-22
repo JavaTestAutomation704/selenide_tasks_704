@@ -1,35 +1,36 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.components.Filter;
+import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
+import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
+import io.qameta.allure.Step;
 
-
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-
+import static com.codeborne.selenide.Selenide.actions;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
+
 
 public class SearchResultsPage extends BasePage {
+
+    private final String resultsAmountXpath = "//p[contains(@class, 'selection')]";
 
     public Filter getFilter() {
         return new Filter();
     }
 
-    public ProductPage openProductPage(int number) {
-        return new Product(number).open();
+    public long getResultsAmount() {
+        waitTillVisible(resultsAmountXpath);
+        return getNumber(resultsAmountXpath);
     }
 
-    public int getResultsAmount() {
-        return Integer.parseInt(
-                $x("//p[contains(@class, 'selection')]")
-                        .getText()
-                        .replaceAll("[^0-9]", ""));
-    }
-
+    @Step("Search results page: reset filters")
     public SearchResultsPage resetFilters() {
-        $x("//button[contains(@class, 'reset')]").click();
+        long resultsAmount = getResultsAmount();
+        actions().click($x("//button[contains(@class, 'reset')]")).perform();
+        waitForTextChange(resultsAmountXpath, String.valueOf(resultsAmount));
         return this;
     }
 
@@ -41,16 +42,35 @@ public class SearchResultsPage extends BasePage {
         return new Product(number);
     }
 
+    public Product getProductWithDiscount(int number) {
+        return new Product(number, true);
+    }
+
+    @Step("Search results page: sort search results by {sort}")
     public SearchResultsPage sortBy(ProductSort sort) {
-        String firstResultXpath = "(//div[contains(@class, 'goods-tile ')])[1]";
-        String firstResultText = getText(firstResultXpath);
         $x("//rz-sort//select").click();
-        $x(String.format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
-        $x(firstResultXpath).shouldNotHave(text(firstResultText));
+        $x(format("//rz-sort//select//option[contains(@value, '%s')]", sort.getOptionXpath())).click();
+
+        var preloaderXpath = "//main[contains(@class, 'preloader_type_element')]";
+        if (isVisible(preloaderXpath, 10)) {
+            $x(preloaderXpath).shouldNotBe(visible);
+        }
         return this;
     }
 
     public int getProductsQuantity() {
         return getCollectionSize("//rz-catalog-tile");
+    }
+
+    public boolean doesTitleContain(String keyword) {
+        return isVisible(format("//h1[contains(text(), '%s')]", keyword));
+    }
+
+    public int getProductsWithDiscountQuantity() {
+        return getCollectionSize("//rz-catalog-tile//span[contains(@class, 'label_type_action')]");
+    }
+
+    public DrinkingAgeConfirmationModal getDrinkingAgeConfirmationModal() {
+        return new DrinkingAgeConfirmationModal();
     }
 }

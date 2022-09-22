@@ -9,13 +9,19 @@ import lombok.RequiredArgsConstructor;
 public enum ProductFilter {
 
     AVAILABLE("Є в наявності"),
+    RUNNING_OUT("Закінчується"),
     OUT_OF_STOCK("Немає в наявності"),
     WHITE_COLOR("Білий"),
     ROZETKA_SELLER("Rozetka"),
     OTHER_SELLERS("Інші продавці"),
     NEW("Новий"),
     PRE_USED("Б/в"),
-    MICROSOFT_BRAND("Microsoft");
+    PROMOTION("Акція"),
+    WITH_BONUS("З бонусами"),
+    MICROSOFT_BRAND("Microsoft"),
+    PRODUCED_IN_SPAIN("Іспанія"),
+    PRODUCED_IN_ITALY("Італія"),
+    READY_TO_BE_DELIVERED("Готовий до відправлення");
 
     @NonNull
     private final String filterXpath;

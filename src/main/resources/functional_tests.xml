@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Rozetka tests" parallel="methods" thread-count="3">
+    <test name="All Tests">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.BuyOnCreditTest"/>
+            <class name="com.softserveinc.ita.rozetka.ChangeCityTest"/>
+            <class name="com.softserveinc.ita.rozetka.CharacteristicsPageTest"/>
+            <class name="com.softserveinc.ita.rozetka.CheckoutTest"/>
+            <class name="com.softserveinc.ita.rozetka.ComparisonListTest"/>
+            <class name="com.softserveinc.ita.rozetka.DiscountsTest"/>
+            <class name="com.softserveinc.ita.rozetka.ExchangeGoodsTest"/>
+            <class name="com.softserveinc.ita.rozetka.FilterProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.FranchiseApplicationFormTest"/>
+            <class name="com.softserveinc.ita.rozetka.HelpCenterSearchTest"/>
+            <class name="com.softserveinc.ita.rozetka.LogInTest"/>
+            <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
+            <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
+            <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
+            <class name="com.softserveinc.ita.rozetka.ProductQuestionsTest"/>
+            <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
+            <class name="com.softserveinc.ita.rozetka.PromotionsTest"/>
+            <class name="com.softserveinc.ita.rozetka.RegistrationTest"/>
+            <class name="com.softserveinc.ita.rozetka.ReviewTest"/>
+            <class name="com.softserveinc.ita.rozetka.SearchFunctionalityTest"/>
+            <class name="com.softserveinc.ita.rozetka.SellerRegistrationFormTest"/>
+            <class name="com.softserveinc.ita.rozetka.ServiceCenterTest"/>
+            <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
+            <class name="com.softserveinc.ita.rozetka.SmallCartTest"/>
+            <class name="com.softserveinc.ita.rozetka.SocialNetworksTest"/>
+            <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
+            <class name="com.softserveinc.ita.rozetka.BonusAccountTest"/>
+            <class name="com.softserveinc.ita.rozetka.HelpCenterSearchTest"/>
+            <class name="com.softserveinc.ita.rozetka.DownloadApplicationTest"/>
+        </classes>
+    </test>
+</suite>
