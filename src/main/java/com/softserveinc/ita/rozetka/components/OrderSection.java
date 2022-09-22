@@ -40,7 +40,7 @@ public class OrderSection {
     public MeestPickUpSection selectMeestPickUp(Language selectedLocalization) {
         $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
                 orderNumber, MEEST_PICK_UP.getDeliveryName(selectedLocalization))).click();
-        waitTillPreloaderInvisible();
+        waitTillCheckoutPreloaderInvisible();
         return new MeestPickUpSection(orderNumber);
     }
 
@@ -48,7 +48,7 @@ public class OrderSection {
     public NovaPoshtaPickUpSection selectNovaPoshtaPickUp(Language selectedLocalization) {
         $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
                 orderNumber, NOVA_POSHTA_PICK_UP.getDeliveryName(selectedLocalization))).click();
-        waitTillPreloaderInvisible();
+        waitTillCheckoutPreloaderInvisible();
         return new NovaPoshtaPickUpSection(orderNumber);
     }
 
@@ -56,7 +56,7 @@ public class OrderSection {
     public RozetkaPickUpSection selectRozetkaPickUp(Language selectedLocalization) {
         $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
                 orderNumber, ROZETKA_PICK_UP.getDeliveryName(selectedLocalization))).click();
-        waitTillPreloaderInvisible();
+        waitTillCheckoutPreloaderInvisible();
         return new RozetkaPickUpSection(orderNumber);
     }
 

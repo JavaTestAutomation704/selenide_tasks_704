@@ -37,7 +37,7 @@ public class CourierDeliverySection {
 
     @Step("Courier delivery section: fill in {street}")
     private CourierDeliverySection fillInStreetField(String street) {
-        $x(format(streetFieldXpathTemplate, orderNumber)).val(street);
+        $x(format(streetFieldXpathTemplate, orderNumber)).sendKeys(street);
         var streetDropDownListXpath = "(//rz-checkout-dropdown)[1]//div[@role = 'button']";
         if (!isVisible(streetDropDownListXpath)) {
             var streetLength = $x(format(streetFieldXpathTemplate, orderNumber)).getValue().length();

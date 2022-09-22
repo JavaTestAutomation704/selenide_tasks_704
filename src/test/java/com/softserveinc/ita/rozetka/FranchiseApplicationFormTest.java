@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,7 +10,7 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 
-public class FranchiseApplicationFormTest extends TestRunner {
+public class FranchiseApplicationFormTest extends BaseTestRunner {
 
     @BeforeMethod
     public void resetLanguage() {
