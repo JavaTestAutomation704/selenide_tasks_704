@@ -25,8 +25,8 @@ public class EditPersonalDataSection {
         return new PersonalDataSection(personalDataSectionXpath);
     }
 
-    @Step("Edit personal data section: fill in personal data {personalData}")
-    public EditPersonalDataSection fillInPersonalData(PersonalData personalData) {
+    @Step("Edit personal data section: fill in input personal data fields {personalData}")
+    public EditPersonalDataSection fillInInputPersonalDataFields(PersonalData personalData) {
         $x(inputLastNameXpath).val(personalData.getLastName());
         $x(inputFirstNameXpath).val(personalData.getFirstName());
         $x(inputSecondNameXpath).val(personalData.getSecondName());
@@ -34,11 +34,11 @@ public class EditPersonalDataSection {
         return this;
     }
 
-    @Step("Edit personal data section: fill in personal data including selectors {personalData}")
-    public EditPersonalDataSection fillInPersonalDataIncludingSelectors(PersonalData personalData) {
-        fillInPersonalData(personalData);
-        $x("//select[@id='gender']").selectOption(personalData.getGender());
-        $x("//select[@id='rozetkaLanguage']").selectOption(personalData.getLanguage());
+    @Step("Edit personal data section: fill in all personal data fields {personalData}")
+    public EditPersonalDataSection fillInAllPersonalDataFields(PersonalData personalData) {
+        fillInInputPersonalDataFields(personalData);
+        $x("//select[@id='gender']").selectOption(personalData.getGender().getName());
+        $x("//select[@id='rozetkaLanguage']").selectOption(personalData.getLanguage().getName());
         return this;
     }
 
