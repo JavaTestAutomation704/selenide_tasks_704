@@ -83,7 +83,7 @@ public class FranchiseApplicationFormTest extends BaseTestRunner {
         var fields = asList(NAME, PHONE, EMAIL, CITY);
         fields.forEach(field -> softly.assertThat(franchiseApplicationForm.isErrorVisible(field))
                 .as(field.getFieldName() + " error should be visible")
-                // TODO: Phone error does not appear
+                // TODO: Test fails when phone error does not appear
                 .isTrue()
         );
 
@@ -94,7 +94,7 @@ public class FranchiseApplicationFormTest extends BaseTestRunner {
 
         softly.assertThat(franchiseApplicationForm.getError(PHONE))
                 .as(format(invalidErrorTemplate, PHONE.getFieldName()))
-                //TODO: Phone error does not appear
+                //TODO: Test fails when phone error does not appear
                 .isEqualTo("Введіть коректний номер телефону");
         softly.assertThat(franchiseApplicationForm.getError(EMAIL))
                 .as(format(invalidErrorTemplate, EMAIL.getFieldName()))

@@ -1,38 +1,80 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Rozetka tests" parallel="methods" thread-count="3">
-    <test name="All Tests">
+<suite name="Rozetka tests" parallel="tests" thread-count="3">
+    <test name="Logged in user tests">
         <classes>
-            <class name="com.softserveinc.ita.rozetka.BuyOnCreditTest"/>
-            <class name="com.softserveinc.ita.rozetka.ChangeCityTest"/>
-            <class name="com.softserveinc.ita.rozetka.CharacteristicsPageTest"/>
-            <class name="com.softserveinc.ita.rozetka.CheckoutTest"/>
-            <class name="com.softserveinc.ita.rozetka.ComparisonListTest"/>
-            <class name="com.softserveinc.ita.rozetka.DiscountsTest"/>
-            <class name="com.softserveinc.ita.rozetka.ExchangeGoodsTest"/>
+            <class name="com.softserveinc.ita.rozetka.WishlistTest"/>
+            <class name="com.softserveinc.ita.rozetka.SignInTest"/>
+            <class name="com.softserveinc.ita.rozetka.PersonalDataTest"/>
+        </classes>
+    </test>
+    <test name="Filter product tests" parallel="methods" thread-count="3">
+        <classes>
             <class name="com.softserveinc.ita.rozetka.FilterProductTest"/>
-            <class name="com.softserveinc.ita.rozetka.FranchiseApplicationFormTest"/>
-            <class name="com.softserveinc.ita.rozetka.HelpCenterSearchTest"/>
-            <class name="com.softserveinc.ita.rozetka.LogInTest"/>
-            <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
-            <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
-            <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
-            <class name="com.softserveinc.ita.rozetka.ProductQuestionsTest"/>
-            <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
-            <class name="com.softserveinc.ita.rozetka.PromotionsTest"/>
-            <class name="com.softserveinc.ita.rozetka.RegistrationTest"/>
-            <class name="com.softserveinc.ita.rozetka.ReviewTest"/>
-            <class name="com.softserveinc.ita.rozetka.SearchFunctionalityTest"/>
-            <class name="com.softserveinc.ita.rozetka.SellerRegistrationFormTest"/>
-            <class name="com.softserveinc.ita.rozetka.ServiceCenterTest"/>
+        </classes>
+    </test>
+    <test name="Checkout tests">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.CheckoutTest"/>
+        </classes>
+    </test>
+    <test name="Comparison list tests">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.ComparisonListTest"/>
+            <class name="com.softserveinc.ita.rozetka.CharacteristicsPageTest"/>
+        </classes>
+    </test>
+    <test name="Shopping cart tests">
+        <classes>
             <class name="com.softserveinc.ita.rozetka.ShoppingCartTest"/>
             <class name="com.softserveinc.ita.rozetka.SmallCartTest"/>
-            <class name="com.softserveinc.ita.rozetka.SocialNetworksTest"/>
+        </classes>
+    </test>
+    <test name="Sort products tests">
+        <classes>
             <class name="com.softserveinc.ita.rozetka.SortProductTest"/>
+        </classes>
+    </test>
+    <test name="Services tests" parallel="methods" thread-count="3">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.BuyOnCreditTest"/>
+            <class name="com.softserveinc.ita.rozetka.ExchangeGoodsTest"/>
+            <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
+            <class name="com.softserveinc.ita.rozetka.PromotionsTest"/>
             <class name="com.softserveinc.ita.rozetka.BonusAccountTest"/>
             <class name="com.softserveinc.ita.rozetka.HelpCenterSearchTest"/>
             <class name="com.softserveinc.ita.rozetka.DownloadApplicationTest"/>
+            <class name="com.softserveinc.ita.rozetka.ServiceCenterTest"/>
+        </classes>
+    </test>
+    <test name="Form tests" parallel="classes" thread-count="2">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.FranchiseApplicationFormTest"/>
+            <class name="com.softserveinc.ita.rozetka.SellerRegistrationFormTest"/>
+        </classes>
+    </test>
+    <test name="Login functionality tests">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.LogInTest"/>
+            <class name="com.softserveinc.ita.rozetka.RegistrationTest"/>
+        </classes>
+    </test>
+    <test name="General tests" parallel="methods" thread-count="3">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.ChangeCityTest"/>
+            <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
+            <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
+            <class name="com.softserveinc.ita.rozetka.SearchFunctionalityTest"/>
+            <class name="com.softserveinc.ita.rozetka.SocialNetworksTest"/>
+        </classes>
+    </test>
+    <test name="Product tests" parallel="methods" thread-count="3">
+        <classes>
+            <class name="com.softserveinc.ita.rozetka.DiscountsTest"/>
+            <class name="com.softserveinc.ita.rozetka.ProductQuestionsTest"/>
+            <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
+            <class name="com.softserveinc.ita.rozetka.ReviewTest"/>
         </classes>
     </test>
 </suite>
