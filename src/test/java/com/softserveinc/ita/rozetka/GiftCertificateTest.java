@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GiftCertificateTest extends BaseTestRunner {
 
     @Test
-    public void verifyUserIsNotAbleToTransferCertificateAndErrorMessagesAppearWhenFieldsAreFilledInWithInvalidData() {
+    public void verifyUserIsNotAbleToTransferGiftCertificateAndErrorMessagesAppearWhenFieldsAreFilledInWithInvalidData() {
         var header = homePage.getHeader();
         if (!header.isLanguageSelected(UA)) {
             header
@@ -45,8 +45,8 @@ public class GiftCertificateTest extends BaseTestRunner {
 
         var softly = new SoftAssertions();
 
-        softly.assertThat(giftCertificatesTransferPage.isGiftButtonDisabled())
-                .as("Gift button should be disabled")
+        softly.assertThat(giftCertificatesTransferPage.isToGiftButtonDisabled())
+                .as("To gift button should be disabled")
                 .isTrue();
 
         giftCertificatesTransferPage.clearCertificateField();
@@ -63,8 +63,8 @@ public class GiftCertificateTest extends BaseTestRunner {
 
         giftCertificatesTransferPage.fillInTransferForm("631122345", "631133456", "ABGYRTYUERTYUIOP");
 
-        assertThat(giftCertificatesTransferPage.isGiftButtonDisabled())
-                .as("Gift button should be enabled")
+        assertThat(giftCertificatesTransferPage.isToGiftButtonDisabled())
+                .as("To gift button should be enabled")
                 .isFalse();
 
         giftCertificatesTransferPage.submitGiftTransferForm();

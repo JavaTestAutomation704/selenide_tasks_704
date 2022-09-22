@@ -11,7 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 public class GiftCertificateTransferPage extends BasePage {
 
     private final String certificateFieldXpath = "//input[@id = 'certificateInput']";
-    private final String transferFormSubmitButtonXpath = "//button[@type = 'submit']";
+    private final String transferFormGiftButtonXpath = "//button[@type = 'submit']";
 
     public boolean isOpened() {
         return isVisible("//div[@class = 'certificate__container']");
@@ -33,12 +33,12 @@ public class GiftCertificateTransferPage extends BasePage {
 
     @Step("Gift certificate transfer page: submit gift transfer form")
     public GiftCertificateTransferPage submitGiftTransferForm() {
-        $x(transferFormSubmitButtonXpath).click();
+        $x(transferFormGiftButtonXpath).click();
         return this;
     }
 
-    public boolean isGiftButtonDisabled() {
-        return WebElementUtil.hasAttribute(transferFormSubmitButtonXpath, "disabled");
+    public boolean isToGiftButtonDisabled() {
+        return WebElementUtil.hasAttribute(transferFormGiftButtonXpath, "disabled");
     }
 
     public boolean isCertificateFieldBorderColorCorrect() {
