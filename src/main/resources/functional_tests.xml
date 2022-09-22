@@ -33,6 +33,7 @@
             <class name="com.softserveinc.ita.rozetka.BonusAccountTest"/>
             <class name="com.softserveinc.ita.rozetka.HelpCenterSearchTest"/>
             <class name="com.softserveinc.ita.rozetka.DownloadApplicationTest"/>
+            <class name="com.softserveinc.ita.rozetka.GiftCertificateTest"/>
         </classes>
     </test>
 </suite>
