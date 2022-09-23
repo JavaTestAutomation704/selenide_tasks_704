@@ -25,8 +25,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        var personalDataSection = homePage
-                .getHeader()
+        var personalDataSection = header
                 .openMainSidebar()
                 .openProfilePage()
                 .openPersonalDataSection();
@@ -113,8 +112,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .as("Localization should be switched to UA")
                 .isTrue();
 
-        var personalDataSection = homePage
-                .getHeader()
+        var personalDataSection = header
                 .openMainSidebar()
                 .openProfilePage()
                 .openPersonalDataSection();
