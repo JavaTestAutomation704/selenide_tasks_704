@@ -13,14 +13,14 @@ public class CardDataSection {
     private final String inputCardNumberXpath = "//input[@id='cardNumber']";
     private final String inputMonthValidityXpath = "//input[@id='month']";
     private final String inputYearValidityXpath = "//input[@id='year']";
-    private final String inputCVVXpath = "//input[@id='cvv']";
+    private final String inputCardVerificationValueXpath = "//input[@id='CardVerificationValue']";
 
     @Step("Card data section: fill in card data {cardData}")
     public CardDataSection fillInCardData(CardData cardData) {
         $x(inputCardNumberXpath).val(cardData.getCardNumber());
         $x(inputMonthValidityXpath).val(cardData.getMonthValidity());
         $x(inputYearValidityXpath).val(cardData.getYearValidity());
-        $x(inputCVVXpath).val(cardData.getCVV());
+        $x(inputCardVerificationValueXpath).val(cardData.getCardVerificationValue());
         return this;
     }
 
@@ -40,8 +40,8 @@ public class CardDataSection {
         return isBorderColorCorrect(inputYearValidityXpath, colorRgb);
     }
 
-    public boolean isCVVBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputCVVXpath, colorRgb);
+    public boolean isCardVerificationValueBorderColorCorrect(String colorRgb) {
+        return isBorderColorCorrect(inputCardVerificationValueXpath, colorRgb);
     }
 
     public boolean isOpened() {

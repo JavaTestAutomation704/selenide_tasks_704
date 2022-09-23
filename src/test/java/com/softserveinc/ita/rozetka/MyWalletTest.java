@@ -27,7 +27,7 @@ public class MyWalletTest extends LogInViaFacebookTestRunner {
                 .cardNumber("1234567")
                 .monthValidity("1")
                 .yearValidity("9")
-                .CVV("12")
+                .CardVerificationValue("12")
                 .build();
 
         cardDataSection.fillInCardData(cardData);
@@ -55,10 +55,10 @@ public class MyWalletTest extends LogInViaFacebookTestRunner {
                 .as("Year validity border color should be red when entering year validity invalid data")
                 .isTrue();
 
-        var isActualCVVBorderColorCorrect = cardDataSection.isCVVBorderColorCorrect(redColor);
+        var isActualCardVerificationValueBorderColorCorrect = cardDataSection.isCardVerificationValueBorderColorCorrect(redColor);
         softly
-                .assertThat(isActualCVVBorderColorCorrect)
-                .as("CVV border color should be red when entering CVV invalid date")
+                .assertThat(isActualCardVerificationValueBorderColorCorrect)
+                .as("CardVerificationValue border color should be red when entering CardVerificationValue invalid date")
                 .isTrue();
 
         softly.assertThat(cardDataSection.isSaveButtonDisabled())
