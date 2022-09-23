@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
+import com.softserveinc.ita.rozetka.models.CertificateData;
 import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
@@ -17,11 +18,11 @@ public class GiftCertificateTransferPage extends BasePage {
         return isVisible("//div[@class = 'certificate__container']");
     }
 
-    @Step("Gift certificate transfer page: fill in transfer form")
-    public GiftCertificateTransferPage fillInTransferForm(String ownerPhone, String futureOwnerPhone, String certificate) {
-        $x("//input[@id = 'ownerPhone']").val(ownerPhone);
-        $x("//input[@id = 'futureOwnerPhone']").val(futureOwnerPhone);
-        $x(certificateFieldXpath).val(certificate);
+    @Step("Gift certificate transfer page: fill in transfer form {certificate}")
+    public GiftCertificateTransferPage fillInTransferForm(CertificateData certificate) {
+        $x("//input[@id = 'ownerPhone']").val(certificate.getOwnerPhone());
+        $x("//input[@id = 'futureOwnerPhone']").val(certificate.getFutureOwnerPhone());
+        $x(certificateFieldXpath).val(certificate.getCode());
         return this;
     }
 
