@@ -15,14 +15,14 @@ public class PaginationTest extends BaseTestRunner {
         var subcategoryPage = homePage
                 .openCategoryPage(LAPTOPS_AND_COMPUTERS)
                 .openSubcategoryPage(TABLETS);
-        var pagePagination = subcategoryPage.getPagination();
+        var pagePagination = subcategoryPage.getPagePagination();
 
         var softly = new SoftAssertions();
-        softly.assertThat(pagePagination.isNextPageButtonEnable())
-                .as("Button should be enable")
+        softly.assertThat(pagePagination.isNextPageButtonEnabled())
+                .as("Button should be enabled")
                 .isTrue();
-        softly.assertThat(pagePagination.isPreviousPageButtonEnable())
-                .as("Button shouldn't be enable")
+        softly.assertThat(pagePagination.isPreviousPageButtonEnabled())
+                .as("Button should be disabled")
                 .isFalse();
 
         int pageNumber = 5;
@@ -30,7 +30,7 @@ public class PaginationTest extends BaseTestRunner {
 
         int productsQuantity = subcategoryPage.getProductsQuantity();
 
-        String pageNumberTemplate = "page=%d";
+        var pageNumberTemplate = "page=%d";
         softly.assertThat(subcategoryPage.getUrl())
                 .as("Products quantity should be correct")
                 .contains(format(pageNumberTemplate, pageNumber));
@@ -39,29 +39,28 @@ public class PaginationTest extends BaseTestRunner {
 
         softly.assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products quantity should be correct")
-                .isGreaterThan(productsQuantity)
                 .isEqualTo(productsQuantity * 2);
         softly.assertThat(subcategoryPage.getUrl())
                 .as("Products quantity should be correct")
                 .contains(format(pageNumberTemplate, pageNumber + 1));
-        softly.assertThat(pagePagination.isPreviousPageButtonEnable())
-                .as("Button should be enable")
+        softly.assertThat(pagePagination.isPreviousPageButtonEnabled())
+                .as("Button should be enabled")
                 .isTrue();
-        softly.assertThat(pagePagination.isNextPageButtonEnable())
-                .as("Button should be enable")
+        softly.assertThat(pagePagination.isNextPageButtonEnabled())
+                .as("Button should be enabled")
                 .isTrue();
 
-        long lastPageNumber = pagePagination.getLastPageNumber();
+        var lastPageNumber = pagePagination.getLastPageNumber();
         pagePagination.switchToPage(lastPageNumber);
 
         softly.assertThat(subcategoryPage.getUrl())
                 .as("Products quantity should be correct")
                 .contains(format(pageNumberTemplate, lastPageNumber));
-        softly.assertThat(pagePagination.isPreviousPageButtonEnable())
-                .as("Button should be enable")
+        softly.assertThat(pagePagination.isPreviousPageButtonEnabled())
+                .as("Button should be enabled")
                 .isTrue();
-        softly.assertThat(pagePagination.isNextPageButtonEnable())
-                .as("Button shouldn't be enable")
+        softly.assertThat(pagePagination.isNextPageButtonEnabled())
+                .as("Button should disabled")
                 .isFalse();
         softly.assertAll();
     }

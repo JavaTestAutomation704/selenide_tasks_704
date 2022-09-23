@@ -6,6 +6,7 @@ import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.ProductSort;
 import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -16,11 +17,13 @@ import static java.lang.String.format;
 
 public class SearchResultsPage extends BasePage {
 
+    @Getter
+    private final PagePagination pagePagination = new PagePagination();
+    @Getter
+    private final Filter filter = new Filter();
+    @Getter
+    private final DrinkingAgeConfirmationModal drinkingAgeConfirmationModal= new DrinkingAgeConfirmationModal();
     private final String resultsAmountXpath = "//p[contains(@class, 'selection')]";
-
-    public Filter getFilter() {
-        return new Filter();
-    }
 
     public long getResultsAmount() {
         waitTillVisible(resultsAmountXpath);
@@ -69,13 +72,5 @@ public class SearchResultsPage extends BasePage {
 
     public int getProductsWithDiscountQuantity() {
         return getCollectionSize("//rz-catalog-tile//span[contains(@class, 'label_type_action')]");
-    }
-
-    public DrinkingAgeConfirmationModal getDrinkingAgeConfirmationModal() {
-        return new DrinkingAgeConfirmationModal();
-    }
-
-    public PagePagination getPagination() {
-        return new PagePagination();
     }
 }

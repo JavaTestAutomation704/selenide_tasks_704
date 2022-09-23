@@ -9,11 +9,11 @@ import static java.lang.String.format;
 
 public class PagePagination {
 
-    public boolean isPreviousPageButtonEnable() {
+    public boolean isPreviousPageButtonEnabled() {
         return isVisible("//a[contains(@class, 'direction ng') and contains(@href,'page')]");
     }
 
-    public boolean isNextPageButtonEnable() {
+    public boolean isNextPageButtonEnabled() {
         return isVisible("//a[contains(@class, 'direction pagination') and contains(@href,'page')]");
     }
 
