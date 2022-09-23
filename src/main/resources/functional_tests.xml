@@ -17,6 +17,7 @@
             <class name="com.softserveinc.ita.rozetka.LogInTest"/>
             <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
             <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
+            <class name="com.softserveinc.ita.rozetka.PaginationTest"/>
             <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductQuestionsTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
