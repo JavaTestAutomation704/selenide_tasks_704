@@ -15,7 +15,7 @@ public enum CommunicationLanguage {
     private final String name;
 
     public static CommunicationLanguage getByValue(String value) {
-        for (CommunicationLanguage communicationLanguage : values()) {
+        for (var communicationLanguage : values()) {
             if (communicationLanguage.name.equals(value)) {
                 return communicationLanguage;
             }
