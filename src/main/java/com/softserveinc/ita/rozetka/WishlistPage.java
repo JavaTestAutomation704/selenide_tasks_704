@@ -10,7 +10,9 @@ public class WishlistPage extends BasePage {
 
     @Step("Wishlist page: select all items")
     public WishlistPage selectAllItems() {
-        $x("//rz-cabinet-wishlist-details//button[contains(@class, 'check-all')]").click();
+        $x("//rz-cabinet-wishlist-details//button[contains(@class, 'check-all')]")
+                .scrollIntoView(false)
+                .click();
         return this;
     }
 
@@ -18,7 +20,9 @@ public class WishlistPage extends BasePage {
     public WishlistPage removeSelectedItems() {
         var wishlistCounterXpath = "//rz-wishlist//rz-icon-counter";
         var wishlistCounterQuantity = getText(wishlistCounterXpath);
-        $x("//div[contains(@class, 'wish-details__actions')]//button[contains(@class, 'delete')]").click();
+        $x("//div[contains(@class, 'wish-details__actions')]//button[contains(@class, 'delete')]")
+                .scrollIntoView(false)
+                .click();
         if (isVisible(wishlistCounterXpath, 2)) {
             waitForTextChange(wishlistCounterXpath, wishlistCounterQuantity);
         }
