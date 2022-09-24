@@ -9,24 +9,24 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class WriteReviewModal {
 
-    public boolean isModalOpen() {
+    public boolean isOpen() {
         return isVisible("//rz-product-add-comments[@class='ng-star-inserted']");
     }
 
     @Step("Write review modal: write advantages {advantages}")
-    public WriteReviewModal writeAdvantages(String advantages) {
+    public WriteReviewModal addPros(String advantages) {
         $x("//input[@id='dostoinstva']").setValue(advantages);
         return this;
     }
 
     @Step("Write review modal: write disadvantages {disadvantages}")
-    public WriteReviewModal writeDisadvantages(String disadvantages) {
+    public WriteReviewModal addCons(String disadvantages) {
         $x("//input[@id='nedostatki']").setValue(disadvantages);
         return this;
     }
 
     @Step("Write review modal: write comments {comments}")
-    public WriteReviewModal writeComment(String comment) {
+    public WriteReviewModal addComment(String comment) {
         $x("//textarea[@id='comment-text']").setValue(comment);
         return this;
     }
@@ -35,8 +35,8 @@ public class WriteReviewModal {
         return getElementsText("//p[contains(@class, 'validation-message')]");
     }
 
-    @Step("Write review modal: start submitting a review")
-    public WriteReviewModal startSubmitting() {
+    @Step("Write review modal: submit a review")
+    public WriteReviewModal submit() {
         $x("//button[@type='submit']").click();
         return this;
     }

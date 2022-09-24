@@ -26,26 +26,26 @@ public class WriteReviewTest extends LogInViaFacebookTestRunner {
                 .getProduct(1)
                 .open()
                 .openReviewPage()
-                .startWritingReviewWhenUserUnauthorized();
+                .startWritingReviewWhenUserAuthorized();
 
-        assertThat(writeReviewModal.isModalOpen())
+        assertThat(writeReviewModal.isOpen())
                 .as("Write review modal should be opened")
                 .isTrue();
 
-        var emptyString = " ";
+        var invalidString = " ";
 
         writeReviewModal = writeReviewModal
-                .writeAdvantages(emptyString)
-                .writeDisadvantages(emptyString)
-                .writeComment(emptyString)
-                .startSubmitting();
+                .addPros(invalidString)
+                .addCons(invalidString)
+                .addComment(invalidString)
+                .submit();
 
         var errorsList = writeReviewModal.getErrors();
 
-        assertThat(errorsList.size())
+        assertThat(errorsList)
+                .size()
                 .as("Errors quantity should be sufficient")
                 .isGreaterThanOrEqualTo(2);
-
 
         assertThat(errorsList)
                 .as("Errors list should contains this error")
