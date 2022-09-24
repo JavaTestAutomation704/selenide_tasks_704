@@ -45,7 +45,7 @@ public class ProductReviewPage {
         return new LogInModal().isOpened();
     }
 
-    @Step("Product review page: start writing review when user unauthorized")
+    @Step("Product review page: start writing review when user authorized")
     public WriteReviewModal startWritingReviewWhenUserAuthorized() {
         $x("//section[@class='product-comments__cta']//button").click();
         return new WriteReviewModal();

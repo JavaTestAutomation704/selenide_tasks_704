@@ -28,7 +28,7 @@ public class WriteReviewTest extends LogInViaFacebookTestRunner {
                 .openReviewPage()
                 .startWritingReviewWhenUserAuthorized();
 
-        assertThat(writeReviewModal.isOpen())
+        assertThat(writeReviewModal.isOpened())
                 .as("Write review modal should be opened")
                 .isTrue();
 

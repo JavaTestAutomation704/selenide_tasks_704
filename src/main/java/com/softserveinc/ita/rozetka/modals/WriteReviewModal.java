@@ -8,24 +8,23 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class WriteReviewModal {
-
-    public boolean isOpen() {
+    public boolean isOpened() {
         return isVisible("//rz-product-add-comments[@class='ng-star-inserted']");
     }
 
-    @Step("Write review modal: write advantages {advantages}")
-    public WriteReviewModal addPros(String advantages) {
-        $x("//input[@id='dostoinstva']").setValue(advantages);
+    @Step("Write review modal: add pros {pros}")
+    public WriteReviewModal addPros(String pros) {
+        $x("//input[@id='dostoinstva']").setValue(pros);
         return this;
     }
 
-    @Step("Write review modal: write disadvantages {disadvantages}")
-    public WriteReviewModal addCons(String disadvantages) {
-        $x("//input[@id='nedostatki']").setValue(disadvantages);
+    @Step("Write review modal: add cons {cons}")
+    public WriteReviewModal addCons(String cons) {
+        $x("//input[@id='nedostatki']").setValue(cons);
         return this;
     }
 
-    @Step("Write review modal: write comments {comments}")
+    @Step("Write review modal: add comment {comments}")
     public WriteReviewModal addComment(String comment) {
         $x("//textarea[@id='comment-text']").setValue(comment);
         return this;
