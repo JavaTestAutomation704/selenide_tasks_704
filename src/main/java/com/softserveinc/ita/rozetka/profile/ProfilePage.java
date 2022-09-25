@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.profile;
 
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
+import com.softserveinc.ita.rozetka.modals.PasswordEditingModal;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -25,5 +26,11 @@ public class ProfilePage extends ProfileBasePage {
 
     public String getUserEmail() {
         return $x("//p[@class='cabinet-user__email']").text();
+    }
+
+    @Step("Profile page: start edit password")
+    public PasswordEditingModal startEditPassword() {
+        $x("(//div/button[contains(@class, 'button--link')])[2]").click();
+        return new PasswordEditingModal();
     }
 }

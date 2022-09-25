@@ -2,15 +2,20 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.models.PersonalData;
+import com.softserveinc.ita.rozetka.utils.ConfigProperties;
 import com.softserveinc.ita.rozetka.utils.LogInViaFacebookTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
+import static com.softserveinc.ita.rozetka.data.ErrorMessage.*;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
 import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
 import static com.softserveinc.ita.rozetka.utils.DateUtil.getRandomPastDate;
 import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomCyrillicString;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonalDataTest extends LogInViaFacebookTestRunner {
@@ -157,6 +162,93 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .usingRecursiveComparison()
                 .isEqualTo(newPersonalData);
 
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyThatUserCanNotEditPasswordWithInvalidData() throws IOException {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var passwordEditingModal = header
+                .openMyOrdersPage()
+                .getProfileSideBar()
+                .openProfilePage()
+                .startEditPassword();
+        passwordEditingModal.fillInCurrentPassword("");
+
+        var softly = new SoftAssertions();
+        softly.assertThat(passwordEditingModal.isErrorMessageDisplayed())
+                .as("Error message should be displayed")
+                .isTrue();
+        softly.assertThat(passwordEditingModal.getErrorMessageText())
+                .as("Error message should be correct")
+                .isEqualTo(INVALID_CURRENT_PASSWORD.getMessageUa());
+
+        var configProperties = new ConfigProperties();
+        passwordEditingModal.fillInCurrentPassword(configProperties.getFacebookUserPassword());
+
+        asList("Ab123", "invalidPassword", "invalidpassword123", configProperties.getUserEmail()).forEach(newPassword -> {
+            passwordEditingModal
+                    .fillInNewPassword(newPassword)
+                    .repeatFillInNewPassword(newPassword);
+
+            softly.assertThat(passwordEditingModal.isErrorMessageDisplayed())
+                    .as("Error message should be displayed")
+                    .isTrue();
+            softly.assertThat(passwordEditingModal.getErrorMessageText())
+                    .as("Error message should be correct")
+                    .isEqualTo(INVALID_NEW_PASSWORD.getMessageUa());
+            softly.assertThat(passwordEditingModal.isSaveButtonEnabled())
+                    .as("Save button should be disabled")
+                    .isFalse();
+        });
+
+        var validPassword = "validPassword123";
+        passwordEditingModal
+                .fillInNewPassword(validPassword)
+                .repeatFillInNewPassword(validPassword + "1");
+
+        softly.assertThat(passwordEditingModal.isErrorMessageDisplayed())
+                .as("Error message should be displayed")
+                .isTrue();
+        softly.assertThat(passwordEditingModal.getErrorMessageText())
+                .as("Error message should be correct")
+                .isEqualTo(ENTERED_NEW_PASSWORDS_DO_NOT_MATCH.getMessageUa());
+        softly.assertThat(passwordEditingModal.isSaveButtonEnabled())
+                .as("Save button should be disabled")
+                .isFalse();
+
+        passwordEditingModal
+                .fillInCurrentPassword("invalidPassword")
+                .fillInNewPassword(validPassword)
+                .repeatFillInNewPassword(validPassword);
+
+        softly.assertThat(passwordEditingModal.isErrorMessageDisplayed())
+                .as("Error message shouldn't be displayed")
+                .isFalse();
+        softly.assertThat(passwordEditingModal.isSaveButtonEnabled())
+                .as("Save button should be enabled")
+                .isTrue();
+
+        passwordEditingModal.saveChanges();
+        //TODO When trying to save password changes, the save button may not work the first time
+        passwordEditingModal.saveChanges();
+
+        softly.assertThat(passwordEditingModal.isErrorMessageDisplayed())
+                .as("Error message should be displayed")
+                .isTrue();
+        softly.assertThat(passwordEditingModal.getErrorMessageText())
+                .as("Error message should be correct")
+                .isEqualTo(INVALID_CURRENT_PASSWORD.getMessageUa());
+        softly.assertThat(passwordEditingModal.isSaveButtonEnabled())
+                .as("Save button should be disabled")
+                .isFalse();
         softly.assertAll();
     }
 }
