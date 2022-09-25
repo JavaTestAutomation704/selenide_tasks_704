@@ -8,7 +8,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
-public class PasswordEditingModal {
+public class PasswordChangeModal {
     private final String errorMessageXpath = "//p[contains(@class, 'error-message')]";
     private final String saveButtonXpathTemplate = "//button[@type='submit' and contains(@class,'navy')%s]";
 
@@ -20,19 +20,19 @@ public class PasswordEditingModal {
     }
 
     @Step("Password editing modal: fill in current password {password}")
-    public PasswordEditingModal fillInCurrentPassword(String password) {
+    public PasswordChangeModal fillInCurrentPassword(String password) {
         fillInPassword(password, "//input[@id='current_pass']");
         return this;
     }
 
     @Step("Password editing modal: fill in new password {password}")
-    public PasswordEditingModal fillInNewPassword(String password) {
+    public PasswordChangeModal fillInNewPassword(String password) {
         fillInPassword(password, "//input[@id='new_pass']");
         return this;
     }
 
     @Step("Password editing modal: repeat fill in new password {password}")
-    public PasswordEditingModal repeatFillInNewPassword(String password) {
+    public PasswordChangeModal repeatFillInNewPassword(String password) {
         fillInPassword(password, "//input[@id='repeated_new_pass']");
         return this;
     }
