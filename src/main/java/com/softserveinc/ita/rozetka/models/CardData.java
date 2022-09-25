@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
+
 public class CardData {
     private final String cardNumber;
     private final String monthValidity;
