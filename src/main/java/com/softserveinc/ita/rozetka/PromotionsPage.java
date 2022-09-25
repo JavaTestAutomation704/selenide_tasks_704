@@ -1,8 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
+import com.codeborne.selenide.ClickOptions;
 import com.softserveinc.ita.rozetka.components.Promotion;
+import com.softserveinc.ita.rozetka.data.PromotionFilter;
+import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
 public class PromotionsPage {
 
@@ -18,5 +23,15 @@ public class PromotionsPage {
         var promotionXpath = "//rz-promotion-tile";
         waitTillVisible(promotionXpath);
         return getCollectionSize(promotionXpath);
+    }
+
+    @Step("Promotions page: filter promotion by filter {type}")
+    public PromotionsPage filter(PromotionFilter type) {
+        waitTillVisible("//aside[@spinnerid = 'LOAD_FILTERS']");
+        $x(format("//a[@data-id = '%s']", type.getFilterXpath()))
+                .scrollIntoView(false)
+                .click(ClickOptions.usingJavaScript());
+        waitTillPreloaderInvisible();
+        return this;
     }
 }
