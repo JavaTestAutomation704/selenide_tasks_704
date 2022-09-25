@@ -10,8 +10,8 @@ public class WishlistItem {
     private final String itemXpath;
     private final String itemTitleXpath;
 
-    public WishlistItem(int itemNumber) {
-        this.itemXpath = format("(//app-goods-tile)[%d]", itemNumber);
+    public WishlistItem(String wishlistXpath, int itemNumber) {
+        this.itemXpath = format("(%s//app-goods-tile)[%d]", wishlistXpath, itemNumber);
         this.itemTitleXpath = itemXpath + "//span[contains(@class, 'title')]";
     }
 
