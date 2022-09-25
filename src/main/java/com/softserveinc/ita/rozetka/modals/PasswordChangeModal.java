@@ -19,19 +19,19 @@ public class PasswordChangeModal {
         quantityInput.pressTab();
     }
 
-    @Step("Password editing modal: fill in current password {password}")
+    @Step("Password change modal: fill in current password {password}")
     public PasswordChangeModal fillInCurrentPassword(String password) {
         fillInPassword(password, "//input[@id='current_pass']");
         return this;
     }
 
-    @Step("Password editing modal: fill in new password {password}")
+    @Step("Password change modal: fill in new password {password}")
     public PasswordChangeModal fillInNewPassword(String password) {
         fillInPassword(password, "//input[@id='new_pass']");
         return this;
     }
 
-    @Step("Password editing modal: repeat fill in new password {password}")
+    @Step("Password change modal: repeat fill in new password {password}")
     public PasswordChangeModal repeatFillInNewPassword(String password) {
         fillInPassword(password, "//input[@id='repeated_new_pass']");
         return this;
@@ -49,7 +49,7 @@ public class PasswordChangeModal {
         return !isVisible(format(saveButtonXpathTemplate, " and @disabled"), 4);
     }
 
-    @Step("Password editing modal: save changes")
+    @Step("Password change modal: save changes")
     public ProductPage saveChanges() {
         $x(format(saveButtonXpathTemplate, "")).click();
         return new ProductPage();
