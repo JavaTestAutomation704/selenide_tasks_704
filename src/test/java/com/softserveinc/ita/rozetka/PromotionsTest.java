@@ -74,6 +74,8 @@ public class PromotionsTest extends BaseTestRunner {
                 .as("Promotion name on the promotion page should be the same as on the promotion terms modal")
                 .isEqualTo(modalTitle);
 
+        // TODO: This test may be failed as promotion period on the promotion terms modal and on the promotion page
+        //  may be different
         softly
                 .assertThat(promotionPeriodOnPage)
                 .as("Promotion period on the promotion page should be the same as on the promotion terms modal")
