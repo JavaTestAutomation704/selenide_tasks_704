@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ErrorMessage {
+public enum ChangePasswordErrorMessage {
 
     INVALID_CURRENT_PASSWORD("Невірний поточний або тимчасовий пароль"),
     INVALID_NEW_PASSWORD("Пароль має бути не менше 6 символів, містити цифри та великі літери і не" +
@@ -15,5 +15,4 @@ public enum ErrorMessage {
 
     @NonNull
     private final String messageUa;
-
 }

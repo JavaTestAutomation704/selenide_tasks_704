@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static com.softserveinc.ita.rozetka.data.ErrorMessage.*;
+import static com.softserveinc.ita.rozetka.data.ChangePasswordErrorMessage.*;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
 import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
@@ -190,10 +190,8 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .as("Error message should be correct")
                 .isEqualTo(INVALID_CURRENT_PASSWORD.getMessageUa());
 
-        var configProperties = new ConfigProperties();
-        passwordChangeModal.fillInCurrentPassword(configProperties.getFacebookUserPassword());
-
-        asList("Ab123", "invalidPassword", "invalidpassword123", configProperties.getUserEmail()).forEach(newPassword -> {
+        passwordChangeModal.fillInCurrentPassword("oldInvalidPassword");
+        asList("Ab123", "invalidPassword", "invalidpassword123", "invalidPassword1@gmail.com").forEach(newPassword -> {
             passwordChangeModal
                     .fillInNewPassword(newPassword)
                     .repeatFillInNewPassword(newPassword);
@@ -225,7 +223,6 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .isFalse();
 
         passwordChangeModal
-                .fillInCurrentPassword("invalidPassword")
                 .fillInNewPassword(validPassword)
                 .repeatFillInNewPassword(validPassword);
 
