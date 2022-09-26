@@ -5,7 +5,11 @@ import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import java.time.LocalDate;
+import java.util.Locale;
+
 import static com.softserveinc.ita.rozetka.data.Language.UA;
+import static java.time.format.DateTimeFormatter.ofPattern;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PromotionsTest extends BaseTestRunner {
@@ -86,7 +90,7 @@ public class PromotionsTest extends BaseTestRunner {
     }
 
     @Test
-    public void verifyFilterWithGifts() {
+    public void verifyFilterByPermanentPromotion() {
         var header = homePage.getHeader();
         header.changeLanguage(UA);
         var isUaLanguageSelected = header.isLanguageSelected(UA);
@@ -100,21 +104,28 @@ public class PromotionsTest extends BaseTestRunner {
                 .as("Promotions page should be opened")
                 .isTrue();
 
-        promotionsPage.filter(PromotionFilter.WITH_GIFTS);
+        promotionsPage.filter(PromotionFilter.PERMANENT_PROMOTION);
 
         assertThat(promotionsPage.getPromotionsQuantity())
                 .as("The products quantity should be sufficient on the promotion page")
                 .isGreaterThanOrEqualTo(10);
 
+        LocalDate today = LocalDate.now();
         var softly = new SoftAssertions();
-        for (int number = 1; number < 10; number++) {
-            var promotionName = promotionsPage
-                    .getPromotion(number)
-                    .getName();
 
-            softly.assertThat(promotionName)
-                    .as("Promotion page should contain 'подарунок' word")
-                    .contains("подарунок");
+        for (int number = 1; number < 10; number++) {
+            var promotion = promotionsPage.getPromotion(number);
+
+            var startPromotion = promotion.getStartPromotionDate();
+            var endPromotion = promotion.getEndPromotionDate();
+
+            softly.assertThat(startPromotion)
+                    .as("Start promotion date should be before or equal to today")
+                    .isBeforeOrEqualTo(today);
+
+            softly.assertThat(endPromotion)
+                    .as("End promotion date should be after or equal to today")
+                    .isAfterOrEqualTo(today);
         }
         softly.assertAll();
     }

@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum PromotionFilter {
-    WITH_GIFTS("З подарунками"),
-    NOVELTY("Новинка");
+    PERMANENT_PROMOTION("Тільки діючі акції");
 
     @NonNull
     private final String filterXpath;
