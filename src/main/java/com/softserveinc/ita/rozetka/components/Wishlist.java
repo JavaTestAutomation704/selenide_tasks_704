@@ -82,6 +82,21 @@ public class Wishlist {
         return this;
     }
 
+    @Step("Wishlist: move selected items to '{wishlistName}' wishlist")
+    public Wishlist moveSelectedItems(String wishlistName) {
+        var wishlistItemsXpath = wishlistXpath + "//app-goods-tile";
+        var wishlistItemsQuantity = getCollectionSize(wishlistItemsXpath);
+
+        $x(wishlistXpath + "//div[contains(@class, 'wish-details__actions')]//button[contains(@class, 'move')]")
+                .scrollIntoView(false)
+                .click();
+
+        $x(format("//rz-cabinet-wishlist-remove//button/span[normalize-space(text())='%s']", wishlistName)).click();
+
+        waitCollectionSizeDecrease(wishlistItemsXpath, wishlistItemsQuantity);
+        return this;
+    }
+
     public int getWishlistItemsQuantity() {
         return getCollectionSize(wishlistXpath + "//app-goods-tile");
     }
