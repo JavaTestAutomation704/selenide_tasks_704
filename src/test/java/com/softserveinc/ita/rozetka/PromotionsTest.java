@@ -6,10 +6,8 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
-import java.util.Locale;
 
 import static com.softserveinc.ita.rozetka.data.Language.UA;
-import static java.time.format.DateTimeFormatter.ofPattern;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PromotionsTest extends BaseTestRunner {
