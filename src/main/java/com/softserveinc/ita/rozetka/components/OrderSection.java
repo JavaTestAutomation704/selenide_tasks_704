@@ -5,6 +5,7 @@ import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.models.ContactInformation;
 import io.qameta.allure.Step;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -14,8 +15,20 @@ import static java.lang.String.format;
 
 @RequiredArgsConstructor
 public class OrderSection {
+    @NonNull
+    private int orderNumber;
 
-    private final int orderNumber;
+    public CourierDeliverySection getCourierDeliverySection() {
+        return new CourierDeliverySection(orderNumber);
+    }
+
+    public RozetkaPickUpSection getRozetkaPickUpSection() {
+        return new RozetkaPickUpSection(orderNumber);
+    }
+
+    public CertificateSection getCertificateSection() {
+        return new CertificateSection(orderNumber);
+    }
 
     @Step("Courier delivery section: select courier delivery")
     public CourierDeliverySection selectCourierDelivery() {
@@ -29,18 +42,6 @@ public class OrderSection {
     public OrderSection copyToOtherOrders() {
         $x(format("(//rz-copy-order-button)[%d]/button", orderNumber)).click();
         return this;
-    }
-
-    public CourierDeliverySection getCourierDeliverySection() {
-        return new CourierDeliverySection(orderNumber);
-    }
-
-    public RozetkaPickUpSection getRozetkaPickUpSection() {
-        return new RozetkaPickUpSection(orderNumber);
-    }
-
-    public CertificateSection getCertificateSection() {
-        return new CertificateSection(orderNumber);
     }
 
     @Step("Order section: select pickup from Meest")
@@ -107,5 +108,12 @@ public class OrderSection {
         $x(String.format("((//div[@class = 'checkout-order'])[1]" +
                 "//rz-checkout-order-payments//label)[%d]", orderNumber)).click();
         return this;
+    }
+
+    @Step("Order section: open certificate section")
+    public CertificateSection openCertificateSection() {
+        $x(format("(//div[@class = 'checkout-order'])[%d]" +
+                "//div[contains(@class, 'certificate-wrap')]/button", orderNumber)).click();
+        return new CertificateSection(orderNumber);
     }
 }

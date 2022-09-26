@@ -210,4 +210,81 @@ public class GiftCertificateTest extends BaseTestRunner {
 
         softly.assertAll();
     }
+
+    @Test
+    public void verifyOrderTotalSumIsNotChangingAndErrorMessageAppearsWhenInvalidCertificateCodeIsApplied() {
+        var header = homePage.getHeader();
+        if (!header.isLanguageSelected(UA)) {
+            header
+                    .openMainSidebar()
+                    .changeLanguage(UA);
+        }
+        var checkoutPage = openCheckoutPage();
+        var orderSection = checkoutPage.getOrderSection(1);
+        var rozetkaPickUpSection = orderSection.getRozetkaPickUpSection();
+
+        assertThat(rozetkaPickUpSection.isSelected(UA, ROZETKA_PICK_UP))
+                .as("Rozetka pickup option should be selected")
+                .isTrue();
+
+        var certificateSection = orderSection.getCertificateSection();
+
+        assertThat(certificateSection.isAddCertificateOptionAvailable())
+                .as("Add certificate option should be available")
+                .isTrue();
+
+        orderSection.openCertificateSection();
+
+        assertThat(certificateSection.isOpened())
+                .as("Certificate section should be opened")
+                .isTrue();
+
+        certificateSection.fillInCertificateField("ABCD");
+
+        var softly = new SoftAssertions();
+        softly.assertThat(certificateSection.isApplyButtonDisabled())
+                .as("Apply certificate button should be disabled")
+                .isTrue();
+
+        var totalOrderSection = checkoutPage.getTotalOrderSection();
+        long totalSumWithoutCertificate = totalOrderSection.getTotalSum();
+
+        certificateSection.fillInCertificateField("ABCDERTYWERTOIUY");
+
+        assertThat(certificateSection.isApplyButtonDisabled())
+                .as("Apply certificate button should be enabled")
+                .isFalse();
+
+        certificateSection.applyCertificate();
+
+        softly.assertThat(totalSumWithoutCertificate)
+                .as("Total sum should be the same")
+                .isEqualTo(totalOrderSection.getTotalSum());
+
+        var invalidCertificateCodeErrorMessage = certificateSection.getCertificateFieldErrorMessage();
+
+        softly.assertThat(invalidCertificateCodeErrorMessage)
+                .as("Error message should appear")
+                .isEqualTo("Сертифікат не існує");
+
+        certificateSection.removeCertificate();
+
+        assertThat(certificateSection.isOpened())
+                .as("Certificate section should be closed")
+                .isFalse();
+
+        orderSection.openCertificateSection();
+
+        assertThat(certificateSection.isOpened())
+                .as("Certificate section should be opened")
+                .isTrue();
+
+        certificateSection.closeCertificateSection();
+
+        softly.assertThat(certificateSection.isOpened())
+                .as("Certificate section should be closed")
+                .isFalse();
+
+        softly.assertAll();
+    }
 }
