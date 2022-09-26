@@ -105,8 +105,8 @@ public class OrderSection {
 
     @Step("Order section: select payment upon receipt")
     public OrderSection selectPaymentUponReceipt() {
-        $x(String.format("((//div[@class = 'checkout-order'])[1]" +
-                "//rz-checkout-order-payments//label)[%d]", orderNumber)).click();
+        $x(String.format("((//div[@class = 'checkout-order'])[%d]" +
+                "//rz-checkout-order-payments//label)[1]", orderNumber)).click();
         return this;
     }
 

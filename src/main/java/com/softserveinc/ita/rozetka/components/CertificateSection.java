@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.softserveinc.ita.rozetka.data.Color;
 import io.qameta.allure.Step;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +15,9 @@ public class CertificateSection {
 
     private final String certificateSectionXpathTemplate = "(//div[@class = 'checkout-order'])[%d]" +
             "//div[contains(@class, 'certificate-wrap')]";
-    private final String applyCertificateButtonXpath = certificateSectionXpathTemplate +
+    private final String applyCertificateButtonXpathTemplate = certificateSectionXpathTemplate +
             "//button[contains(@class, 'certificate-form__button')]";
-    private final String usedCertificateFieldXpath = certificateSectionXpathTemplate +
+    private final String usedCertificateFieldXpathTemplate = certificateSectionXpathTemplate +
             "//p[@class = 'certificate-used__code error']";
 
     public boolean isAddCertificateOptionAvailable() {
@@ -44,17 +43,17 @@ public class CertificateSection {
     }
 
     public boolean isApplyButtonDisabled() {
-        return hasAttribute(format(applyCertificateButtonXpath, orderNumber), "disabled");
+        return hasAttribute(format(applyCertificateButtonXpathTemplate, orderNumber), "disabled");
     }
 
     @Step("Certificate section: apply certificate")
     public CertificateSection applyCertificate() {
-        $x(format(applyCertificateButtonXpath, orderNumber)).click();
+        $x(format(applyCertificateButtonXpathTemplate, orderNumber)).click();
         return this;
     }
 
     public String getCertificateFieldErrorMessage() {
-        waitTillVisible(format(usedCertificateFieldXpath, orderNumber));
+        waitTillVisible(format(usedCertificateFieldXpathTemplate, orderNumber));
         return $x(format(certificateSectionXpathTemplate + "//div[contains(@class, 'form__hint_type_warning')]",
                 orderNumber)).text();
     }
