@@ -63,18 +63,18 @@ public class EditPersonalDataSection {
     }
 
     public boolean isFirstNameBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputFirstNameXpath, colorRgb);
+        return isColorCorrect(inputFirstNameXpath, "border-color", colorRgb);
     }
 
     public boolean isSecondNameBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputSecondNameXpath, colorRgb);
+        return isColorCorrect(inputSecondNameXpath, "border-color", colorRgb);
     }
 
     public boolean isLastNameBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputLastNameXpath, colorRgb);
+        return isColorCorrect(inputLastNameXpath, "border-color", colorRgb);
     }
 
     public boolean isBirthdayBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputBirthdayXpath, colorRgb);
+        return isColorCorrect(inputBirthdayXpath, "border-color", colorRgb);
     }
 }
