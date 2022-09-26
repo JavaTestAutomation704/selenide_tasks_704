@@ -24,7 +24,7 @@ public class PromoCodeSection {
     }
 
     public boolean isPromoCodeFieldBorderColorCorrect(String color) {
-        return isBorderColorCorrect("//div[@class = 'checkout-promo__code-wrap']/p", color);
+        return isColorCorrect("//div[@class = 'checkout-promo__code-wrap']/p", "border-color", color);
     }
 
     public String getPromoCodeErrorMessage() {

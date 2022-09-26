@@ -13,7 +13,12 @@ public class BrowserTabUtil {
     @Step("Browser tab util: close current tab and switch to {tabIndex}")
     public static void closeCurrentTabAndSwitchTo(int tabIndex) {
         closeWindow();
-        switchTo().window(tabIndex);
+        switchToTab(tabIndex);
+    }
+
+    @Step("Browser tab util: switch to tab {index}")
+    public static void switchToTab(int index) {
+        switchTo().window(index);
     }
 
     @Step("Browser tab util: switch to tab {pageName}")

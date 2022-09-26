@@ -10,21 +10,15 @@ import java.io.IOException;
 
 @Listeners(AllureScreenShooter.class)
 public class BaseTestRunner {
-    protected HomePage homePage;
-    protected ConfigProperties configProperties;
 
-    @BeforeSuite
-    public void setConfigProperties() throws IOException {
-        if (configProperties == null) {
-            configProperties = new ConfigProperties();
-        }
-    }
+    protected HomePage homePage;
 
     @BeforeClass
-    public void setConfiguration() {
+    public void setConfiguration() throws IOException {
         Configuration.timeout = 15000;
         Configuration.browserSize = "1920x1080";
         Configuration.reportsFolder = "target/allure-results";
+        var configProperties = new ConfigProperties();
         Configuration.browser = configProperties.getBrowser();
         if (configProperties.isWithSelenoid()) {
             Configuration.remote = "http://localhost:4444/wd/hub";

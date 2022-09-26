@@ -33,15 +33,15 @@ public class ContactInformationSection {
     }
 
     public boolean isNameBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputNameXpath, colorRgb);
+        return isColorCorrect(inputNameXpath, "border-color", colorRgb);
     }
 
     public boolean isSurnameBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputSurnameXpath, colorRgb);
+        return isColorCorrect(inputSurnameXpath, "border-color", colorRgb);
     }
 
     public boolean isPhoneNumberBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputPhoneXpath, colorRgb);
+        return isColorCorrect(inputPhoneXpath, "border-color", colorRgb);
     }
 
     public String getNameErrorMessage() {
