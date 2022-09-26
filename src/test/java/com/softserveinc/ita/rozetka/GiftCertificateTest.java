@@ -69,14 +69,14 @@ public class GiftCertificateTest extends BaseTestRunner {
                 .as("Certificate field border color should be correct")
                 .isTrue();
 
-        var certificateDataWithInvalidCode = CertificateData
+        var invalidCodeCertificateData = CertificateData
                 .builder()
                 .ownerPhone("631122345")
                 .futureOwnerPhone("631133456")
                 .code("ABGYRTYUERTYUIOP")
                 .build();
 
-        giftCertificatesTransferPage.fillInTransferForm(certificateDataWithInvalidCode);
+        giftCertificatesTransferPage.fillInTransferForm(invalidCodeCertificateData);
 
         assertThat(giftCertificatesTransferPage.isToGiftButtonDisabled())
                 .as("To gift button should be enabled")
@@ -84,9 +84,9 @@ public class GiftCertificateTest extends BaseTestRunner {
 
         giftCertificatesTransferPage.submitGiftTransferForm();
 
-        var certificateFieldWithInvalidDataErrorMessage = giftCertificatesTransferPage.getCertificateErrorMessage();
+        var certificateFieldErrorMessage = giftCertificatesTransferPage.getCertificateErrorMessage();
 
-        softly.assertThat(certificateFieldWithInvalidDataErrorMessage)
+        softly.assertThat(certificateFieldErrorMessage)
                 .as("Error message should appear")
                 .isEqualTo("Номер сертифіката або номер телефону власника не вірні. Перевірте коректність даних");
 
