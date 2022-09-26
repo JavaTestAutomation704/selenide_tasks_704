@@ -28,23 +28,23 @@ public class RegistrationModal {
     }
 
     public boolean isFirstNameBorderColorCorrect(String color) {
-        return isBorderColorCorrect("//input[@id='registerUserName']", color);
+        return isColorCorrect("//input[@id='registerUserName']", "border-color", color);
     }
 
     public boolean isLastNameBorderColorCorrect(String color) {
-        return isBorderColorCorrect("//input[@id='registerUserSurname']", color);
+        return isColorCorrect("//input[@id='registerUserSurname']", "border-color", color);
     }
 
     public boolean isPhoneNumberBorderColorCorrect(String color) {
-        return isBorderColorCorrect("//input[@id='registerUserPhone']", color);
+        return isColorCorrect("//input[@id='registerUserPhone']", "border-color", color);
     }
 
     public boolean isEmailBorderColorCorrect(String color) {
-        return isBorderColorCorrect("//input[@id='registerUserEmail']", color);
+        return isColorCorrect("//input[@id='registerUserEmail']", "border-color", color);
     }
 
     public boolean isPasswordBorderColorCorrect(String color) {
-        return isBorderColorCorrect("//input[@id='registerUserPassword']", color);
+        return isColorCorrect("//input[@id='registerUserPassword']", "border-color", color);
     }
 
     public String getFirstNameErrorMessage() {
