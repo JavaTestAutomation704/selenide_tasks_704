@@ -72,7 +72,7 @@ public class Filter extends Header {
     public SearchResultsPage clearBrandSearchField() {
         int currentBrandSearchResultsQuantity = getBrandSearchResults().size();
         $x("//div[@data-filter-name='producer']//input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
-        waitForSizeChange("//div[@data-filter-name='producer']//rz-scrollbar//a", currentBrandSearchResultsQuantity);
+        waitCollectionSizeIncrease("//div[@data-filter-name='producer']//rz-scrollbar//a", currentBrandSearchResultsQuantity);
         return new SearchResultsPage();
     }
 

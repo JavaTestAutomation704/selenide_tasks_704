@@ -43,7 +43,7 @@ public class GiftCertificateTransferPage extends BasePage {
     }
 
     public boolean isCertificateFieldBorderColorCorrect() {
-        return WebElementUtil.isBorderColorCorrect(certificateFieldXpath, Color.RED.getRgb());
+        return WebElementUtil.isColorCorrect(certificateFieldXpath, "border-color", Color.RED.getRgb());
     }
 
     public String getCertificateErrorMessage() {
