@@ -89,4 +89,8 @@ public class Wishlist {
     public WishlistItem getItem(int number) {
         return new WishlistItem(wishlistXpath, number);
     }
+
+    public String getWishlistName() {
+        return getText(wishlistXpath + "//h3/span[1]");
+    }
 }
