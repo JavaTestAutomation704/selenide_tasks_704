@@ -4,16 +4,12 @@ import com.softserveinc.ita.rozetka.WishlistPage;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitInvisibility;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillVisible;
-import static java.lang.String.format;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class AddWishlistModal {
-    private String wishlistName;
 
     @Step("Add wishlist modal: fill in wishlist name '{name}'")
     public AddWishlistModal fillInName(String name) {
-        this.wishlistName = name;
         $x("//input[@formcontrolname='wishListName']").sendKeys(name);
         return this;
     }
@@ -26,9 +22,12 @@ public class AddWishlistModal {
 
     @Step("Add wishlist modal: add wishlist")
     public WishlistPage add() {
+        var wishlistXpath = "//rz-cabinet-wishlist-details";
+        int wishlistsQuantity = getCollectionSize(wishlistXpath);
+
         $x("//button[@type='submit']").click();
-        waitInvisibility("//div[contains(@class, 'modal__holder')]");
-        waitTillVisible(format("//rz-cabinet-wishlist-details//h3/span[contains(text(), '%s')]", wishlistName));
+
+        waitCollectionSizeIncrease(wishlistXpath, wishlistsQuantity);
         return new WishlistPage();
     }
 }

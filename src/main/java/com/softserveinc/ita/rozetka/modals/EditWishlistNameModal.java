@@ -8,15 +8,14 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitInvisibility
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillVisible;
 import static java.lang.String.format;
 
-public class EditWishlistNameModal extends AddWishlistModal {
-    private String wishlistName;
+public class EditWishlistNameModal {
+    private final String nameFieldXpath = "//input[@formcontrolname='wishListNewName']";
 
     @Step("Edit wishlist name modal: fill in wishlist name '{name}'")
     public EditWishlistNameModal fillInName(String name) {
-        this.wishlistName = name;
-        var nameInputField = $x("//input[@formcontrolname='wishListNewName']");
-        nameInputField.clear();
-        nameInputField.sendKeys(name);
+        var nameField = $x(nameFieldXpath);
+        nameField.clear();
+        nameField.sendKeys(name);
         return this;
     }
 
@@ -28,7 +27,11 @@ public class EditWishlistNameModal extends AddWishlistModal {
 
     @Step("Edit wishlist name modal: save changes")
     public WishlistPage save() {
+        var nameField = $x(nameFieldXpath);
+        var wishlistName = nameField.val();
+
         $x("//button[contains(@class, 'navy')]").click();
+
         waitInvisibility("//div[contains(@class, 'modal__holder')]");
         waitTillVisible(format("//rz-cabinet-wishlist-details//h3/span[contains(text(), '%s')]", wishlistName));
         return new WishlistPage();

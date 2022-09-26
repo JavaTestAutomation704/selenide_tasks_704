@@ -190,9 +190,8 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
                 .addToWishlist();
 
         var wishlistPage = header.openWishlistPage();
-        var names = asList("Vitamins", "Protein", "Nice Jeans", "Cool Sneakers", "Phones");
 
-        names.forEach(name -> wishlistPage
+        asList("Vitamins", "Protein", "Nice Jeans", "Cool Sneakers", "Phones").forEach(name -> wishlistPage
                 .addWishlist()
                 .fillInName(name)
                 .setDefault()
@@ -200,22 +199,21 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
 
         int wishlistsQuantity = wishlistPage.getWishlistsQuantity();
 
-        int removalCounter = 0;
-        for (int i = names.size() - 1; i >= 0; i -= 2) {
-            var name = names.get(i);
+        var removalCounter = new AtomicInteger();
+        asList("Cool Sneakers", "Vitamins", "Nice Jeans").forEach(name -> {
             wishlistPage
                     .getWishlist(name)
                     .delete();
-            removalCounter++;
+            removalCounter.getAndIncrement();
 
             assertThat(wishlistPage.getWishlistsQuantity())
                     .as("Incorrect quantity of wishlists on wishlist page")
-                    .isEqualTo(wishlistsQuantity - removalCounter);
+                    .isEqualTo(wishlistsQuantity - removalCounter.get());
 
             assertThat(wishlistPage.getWishlistNames())
                     .as("List of wishlist names should not contain wishlist name")
                     .doesNotContain(name);
-        }
+        });
     }
 
     @Test
@@ -227,15 +225,13 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
                 .addToWishlist();
 
         var wishlistPage = header.openWishlistPage();
-        var names = asList("Protein", "Top Jeans", "Fancy Sneakers", "Latest Phones", "Vitamins");
 
-        names.forEach(name -> wishlistPage
+        asList("Protein", "Top Jeans", "Fancy Sneakers", "Latest Phones", "Vitamins").forEach(name -> wishlistPage
                 .addWishlist()
                 .fillInName(name)
                 .add());
 
-        for (int i = names.size() - 2; i >= 0; i -= 2) {
-            var name = names.get(i);
+        asList("Vitamins", "Protein", "Fancy Sneakers").forEach(name -> {
             var newName = "New " + name;
             wishlistPage
                     .getWishlist(name)
@@ -252,6 +248,6 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
             assertThat(wishlistNames)
                     .as("List of wishlist names should contain wishlist name")
                     .contains(newName);
-        }
+        });
     }
 }

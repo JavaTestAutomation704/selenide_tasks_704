@@ -13,18 +13,18 @@ public class Wishlist {
     private final String actionsMenuXpathTemplate;
 
     public Wishlist() {
-        this.wishlistXpath = "//h3/span[contains(@class, 'caption')]/ancestor::rz-cabinet-wishlist-details";
-        this.actionsMenuXpathTemplate = wishlistXpath + "//rz-cabinet-wishlist-menu//button[contains(@class, '%s')]";
+        wishlistXpath = "//h3/span[contains(@class, 'caption')]/ancestor::rz-cabinet-wishlist-details";
+        actionsMenuXpathTemplate = wishlistXpath + "//rz-cabinet-wishlist-menu//button[contains(@class, '%s')]";
     }
 
     public Wishlist(int wishlistNumber) {
-        this.wishlistXpath = format("(//rz-cabinet-wishlist-details)[%d]", wishlistNumber);
-        this.actionsMenuXpathTemplate = wishlistXpath + "//rz-cabinet-wishlist-menu//button[contains(@class, '%s')]";
+        wishlistXpath = format("(//rz-cabinet-wishlist-details)[%d]", wishlistNumber);
+        actionsMenuXpathTemplate = wishlistXpath + "//rz-cabinet-wishlist-menu//button[contains(@class, '%s')]";
     }
 
     public Wishlist(String wishlistName) {
-        this.wishlistXpath = format("//h3//span[contains(text(), '%s')]/ancestor::rz-cabinet-wishlist-details", wishlistName);
-        this.actionsMenuXpathTemplate = wishlistXpath + "//rz-cabinet-wishlist-menu//button[contains(@class, '%s')]";
+        wishlistXpath = format("//h3//span[contains(text(), '%s')]/ancestor::rz-cabinet-wishlist-details", wishlistName);
+        actionsMenuXpathTemplate = wishlistXpath + "//rz-cabinet-wishlist-menu//button[contains(@class, '%s')]";
     }
 
     private void openActionsMenu() {
@@ -36,12 +36,14 @@ public class Wishlist {
 
     @Step("Wishlist: delete")
     public WishlistPage delete() {
+        var wishlistXpath = "//rz-cabinet-wishlist-details";
+        int wishlistsQuantity = getCollectionSize(wishlistXpath);
+
         openActionsMenu();
         $x(format(actionsMenuXpathTemplate, "delete")).click();
+        $x("//button[contains(@class, 'navy')]").click(); // confirm deletion
 
-        // confirm deletion
-        $x("//button[contains(@class, 'navy')]").click();
-        waitInvisibility("//div[contains(@class, 'modal__holder')]");
+        waitCollectionSizeDecrease(wishlistXpath, wishlistsQuantity);
         return new WishlistPage();
     }
 
