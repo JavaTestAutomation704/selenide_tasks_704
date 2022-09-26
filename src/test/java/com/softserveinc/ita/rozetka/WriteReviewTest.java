@@ -43,9 +43,8 @@ public class WriteReviewTest extends LogInViaFacebookTestRunner {
         var errorsList = writeReviewModal.getErrors();
 
         assertThat(errorsList)
-                .size()
                 .as("Errors quantity should be sufficient")
-                .isGreaterThanOrEqualTo(2);
+                .hasSizeGreaterThanOrEqualTo(2);
 
         assertThat(errorsList)
                 .as("Errors list should contains this error")
