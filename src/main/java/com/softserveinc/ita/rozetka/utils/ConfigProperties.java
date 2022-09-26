@@ -23,4 +23,16 @@ public class ConfigProperties {
     public String getUserEmail() {
         return properties.getProperty("USER_EMAIL");
     }
+
+    public boolean isWithSelenoid() {
+        return Boolean.parseBoolean(properties.getProperty("RUN_WITH_SELENOID"));
+    }
+
+    public String getBrowser() {
+        var browser = properties.getProperty("BROWSER");
+        if (browser == null) {
+            browser = "chrome";
+        }
+        return browser;
+    }
 }

@@ -145,12 +145,12 @@ public class WebElementUtil {
                 .replaceAll("[^0-9]", ""));
     }
 
-    public static boolean isBorderColorCorrect(String elementXpath, String colorRgb) {
+    public static boolean isColorCorrect(String elementXpath, String propertyName, String colorRgb) {
         var expectedColor = format("rgb(%s)", colorRgb);
         try {
             var actualColor = $x(elementXpath)
-                    .shouldHave(cssValue("border-color", expectedColor))
-                    .getCssValue("border-color");
+                    .shouldHave(cssValue(propertyName, expectedColor))
+                    .getCssValue(propertyName);
             return actualColor.equals(expectedColor);
         } catch (AssertionError e) {
             return false;

@@ -2,13 +2,13 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.modals.RegistrationModal;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 
-public class RegistrationTest extends TestRunner {
+public class RegistrationTest extends BaseTestRunner {
     @Test
     public void verifyThatBordersAreRedAndErrorMessageAppearsAfterLeavingEmptyFields() {
 

@@ -4,7 +4,7 @@ import com.softserveinc.ita.rozetka.components.Header;
 import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.ISubcategory;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +27,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersS
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ComparisonListTest extends TestRunner {
+public class ComparisonListTest extends BaseTestRunner {
     private Header header;
 
     @BeforeMethod

@@ -1,12 +1,12 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.utils.BrowserTabUtil.closeCurrentTabAndSwitchTo;
 
-public class SocialNetworksTest extends TestRunner {
+public class SocialNetworksTest extends BaseTestRunner {
 
     @Test
     public void verifyThatUserCanOpenRozetkaSocialNetworksPages() {

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Rozetka tests" parallel="methods" thread-count="3">
+<suite name="Rozetka tests">
     <test name="Logged in user tests">
         <classes>
             <class name="com.softserveinc.ita.rozetka.WishlistTest"/>

@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,7 +10,7 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 
-public class FranchiseApplicationFormTest extends TestRunner {
+public class FranchiseApplicationFormTest extends BaseTestRunner {
 
     @BeforeMethod
     public void resetLanguage() {
@@ -83,7 +83,7 @@ public class FranchiseApplicationFormTest extends TestRunner {
         var fields = asList(NAME, PHONE, EMAIL, CITY);
         fields.forEach(field -> softly.assertThat(franchiseApplicationForm.isErrorVisible(field))
                 .as(field.getFieldName() + " error should be visible")
-                // TODO: Phone error does not appear
+                // TODO: Test fails when phone error does not appear
                 .isTrue()
         );
 
@@ -94,7 +94,7 @@ public class FranchiseApplicationFormTest extends TestRunner {
 
         softly.assertThat(franchiseApplicationForm.getError(PHONE))
                 .as(format(invalidErrorTemplate, PHONE.getFieldName()))
-                //TODO: Phone error does not appear
+                // TODO: Test fails when invalid phone error message is shown
                 .isEqualTo("Введіть коректний номер телефону");
         softly.assertThat(franchiseApplicationForm.getError(EMAIL))
                 .as(format(invalidErrorTemplate, EMAIL.getFieldName()))
