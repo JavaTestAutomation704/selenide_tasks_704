@@ -12,7 +12,6 @@ public enum Gender {
     FEMALE("Жіноча"),
     NOT_SPECIFIED("Не вказана");
 
-
     @NonNull
     private final String name;
 

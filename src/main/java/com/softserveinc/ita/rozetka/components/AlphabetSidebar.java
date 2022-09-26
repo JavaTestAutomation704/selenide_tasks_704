@@ -22,10 +22,13 @@ public class AlphabetSidebar {
 
     @Step("Alphabet sidebar: search by letter {letter}")
     public SearchResultsPage searchByLetter(String letter) {
-        int brandSearchResultsQuantity = getCollectionSize("//div[@data-filter-name='producer']//rz-scrollbar//a");
+        var brandSearchResultsXpath = "//div[@data-filter-name='producer']//rz-scrollbar//a";
+        int brandSearchResultsQuantity = getCollectionSize(brandSearchResultsXpath);
+
         $x(format("//a[contains(@class, 'sidebar-alphabet') and text()=' %s ']", letter)).click();
         waitTillPreloaderInvisible();
-        waitForSizeChange("//div[@data-filter-name='producer']//rz-scrollbar//a", brandSearchResultsQuantity);
+        waitCollectionSizeChange(brandSearchResultsXpath, brandSearchResultsQuantity);
+
         return new SearchResultsPage();
     }
 }
