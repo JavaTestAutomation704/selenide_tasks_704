@@ -1,10 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.components.order.delivery.section.*;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
 import com.softserveinc.ita.rozetka.models.ContactInformation;
 import io.qameta.allure.Step;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -12,7 +12,6 @@ import static com.softserveinc.ita.rozetka.data.DeliveryType.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
-@Getter
 @RequiredArgsConstructor
 public class OrderSection {
 
@@ -36,12 +35,36 @@ public class OrderSection {
         return new CourierDeliverySection(orderNumber);
     }
 
+    public RozetkaPickUpSection getRozetkaPickUpSection() {
+        return new RozetkaPickUpSection(orderNumber);
+    }
+
+    public CertificateSection getCertificateSection() {
+        return new CertificateSection(orderNumber);
+    }
+
     @Step("Order section: select pickup from Meest")
     public MeestPickUpSection selectMeestPickUp(Language selectedLocalization) {
         $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
                 orderNumber, MEEST_PICK_UP.getDeliveryName(selectedLocalization))).click();
         waitTillCheckoutPreloaderInvisible();
         return new MeestPickUpSection(orderNumber);
+    }
+
+    @Step("Order section: select pickup from Mobile point")
+    public MobilePointPickUpSection selectMobilePointPickUp(Language selectedLocalization) {
+        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
+                orderNumber, MOBILE_POINT_PICK_UP.getDeliveryName(selectedLocalization))).click();
+        waitTillCheckoutPreloaderInvisible();
+        return new MobilePointPickUpSection(orderNumber);
+    }
+
+    @Step("Order section: select pickup from Ukr Poshta point")
+    public UkrPoshtaPickUpSection selectUkrPoshtaPickUp(Language selectedLocalization) {
+        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
+                orderNumber, UKR_POSHTA_PICK_UP.getDeliveryName(selectedLocalization))).click();
+        waitTillCheckoutPreloaderInvisible();
+        return new UkrPoshtaPickUpSection(orderNumber);
     }
 
     @Step("Order section: select pickup from Nova Poshta")
@@ -77,5 +100,12 @@ public class OrderSection {
                 .name($x(inputNameXpath).val())
                 .phone($x(inputPhoneXpath).val())
                 .build();
+    }
+
+    @Step("Order section: select payment upon receipt")
+    public OrderSection selectPaymentUponReceipt() {
+        $x(String.format("((//div[@class = 'checkout-order'])[1]" +
+                "//rz-checkout-order-payments//label)[%d]", orderNumber)).click();
+        return this;
     }
 }
