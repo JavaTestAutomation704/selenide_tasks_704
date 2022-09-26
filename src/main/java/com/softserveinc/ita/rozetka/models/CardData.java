@@ -9,5 +9,5 @@ public class CardData {
     private final String cardNumber;
     private final String monthValidity;
     private final String yearValidity;
-    private final String CVV;
+    private final String CardVerificationValue;
 }
