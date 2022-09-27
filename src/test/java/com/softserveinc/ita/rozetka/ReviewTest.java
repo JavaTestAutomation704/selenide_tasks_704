@@ -13,16 +13,23 @@ public class ReviewTest extends BaseTestRunner {
     public void verifyFilterReviewsByRating() {
         var searchResultsPage = homePage
                 .getHeader()
-                .search("samsung a52");
+                .search("телефони");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        var reviewPage = searchResultsPage
+        var productPage = searchResultsPage
                 .getProduct(1)
-                .open()
-                .openReviewPage();
+                .open();
+
+        var productTitle = productPage.getTitle();
+
+        var reviewPage = productPage.openReviewPage();
+
+        assertThat(reviewPage.getTitle())
+                .as("Title on product page and review page should be the same")
+                .contains(productTitle);
 
         int initialQuantity = reviewPage.getReviewsQuantity();
         assertThat(initialQuantity)
@@ -60,12 +67,20 @@ public class ReviewTest extends BaseTestRunner {
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        var reviewPage = searchResultsPage
+        var productPage = searchResultsPage
                 .getProduct(1)
-                .open()
-                .openReviewPage();
+                .open();
 
-        assertThat(reviewPage.getReviewsQuantity())
+        var productTitle = productPage.getTitle();
+
+        var reviewPage = productPage.openReviewPage();
+
+        assertThat(reviewPage.getTitle())
+                .as("Title on product page and review page should be the same")
+                .contains(productTitle);
+
+        int initialQuantity = reviewPage.getReviewsQuantity();
+        assertThat(initialQuantity)
                 .as("Reviews quantity should be sufficient")
                 .isGreaterThanOrEqualTo(30);
 
@@ -93,18 +108,26 @@ public class ReviewTest extends BaseTestRunner {
     public void verifySortByDateReviewsFunctionality() {
         var searchResultsPage = homePage
                 .getHeader()
-                .search("macbook");
+                .search("телефони");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        var reviewPage = searchResultsPage
+        var productPage = searchResultsPage
                 .getProduct(1)
-                .open()
-                .openReviewPage();
+                .open();
 
-        assertThat(reviewPage.getReviewsQuantity())
+        var productTitle = productPage.getTitle();
+
+        var reviewPage = productPage.openReviewPage();
+
+        assertThat(reviewPage.getTitle())
+                .as("Title on product page and review page should be the same")
+                .contains(productTitle);
+
+        int initialQuantity = reviewPage.getReviewsQuantity();
+        assertThat(initialQuantity)
                 .as("Reviews quantity should be sufficient")
                 .isGreaterThanOrEqualTo(30);
 
@@ -136,16 +159,23 @@ public class ReviewTest extends BaseTestRunner {
     public void verifyThatUnregisteredUserCanNotWriteReview() {
         var searchResultsPage = homePage
                 .getHeader()
-                .search("телефон");
+                .search("телефони");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        var reviewPage = searchResultsPage
+        var productPage = searchResultsPage
                 .getProduct(1)
-                .open()
-                .openReviewPage();
+                .open();
+
+        var productTitle = productPage.getTitle();
+
+        var reviewPage = productPage.openReviewPage();
+
+        assertThat(reviewPage.getTitle())
+                .as("Title on product page and review page should be the same")
+                .contains(productTitle);
 
         reviewPage = reviewPage.startWritingReview();
         assertThat(reviewPage.isLoginModalOpen())
