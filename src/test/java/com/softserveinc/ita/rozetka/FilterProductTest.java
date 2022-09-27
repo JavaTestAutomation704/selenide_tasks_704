@@ -363,9 +363,9 @@ public class FilterProductTest extends BaseTestRunner {
 
         searchQueries.forEach(query -> {
             filter.searchForBrand(query);
-            softly
-                    .assertThat(filter.getBrandSearchResults())
-                    .allSatisfy(brand -> assertThat(brand)
+            filter
+                    .getBrandSearchResults()
+                    .forEach(brand -> softly.assertThat(brand)
                             .as("Brand name should contain search query")
                             .containsIgnoringCase(query));
         });
@@ -378,19 +378,18 @@ public class FilterProductTest extends BaseTestRunner {
                 .isTrue();
 
         var searchLetters = List.of("A", "N", "H", "J");
+
         searchLetters.forEach(letter -> {
             alphabetSidebar.searchByLetter(letter);
-            softly
-                    .assertThat(filter.getBrandSearchResults())
-                    .as("Brand name should start with selected letter or contain that letter")
-                    .satisfiesAnyOf(
-                            brands -> assertThat(brands)
-                                    .allSatisfy(brand -> assertThat(brand)
-                                            .as("Brand name should start with selected letter")
-                                            .startsWithIgnoringCase(letter)),
-                            brands -> assertThat(brands)
-                                    .allSatisfy(brand -> assertThat(brand)
-                                            .as("Brand name should contains selected letter")
+            filter
+                    .getBrandSearchResults()
+                    .forEach(brand -> softly.assertThat(brand)
+                            .satisfiesAnyOf(
+                                    brandName -> softly.assertThat(brandName)
+                                            .as("Brand name should start with selected letter ignoring case")
+                                            .startsWithIgnoringCase(letter),
+                                    brandName -> softly.assertThat(brandName)
+                                            .as("Brand name should contain upper case selected letter")
                                             .contains(letter)));
         });
 

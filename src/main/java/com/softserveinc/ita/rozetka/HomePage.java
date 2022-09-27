@@ -17,6 +17,7 @@ public class HomePage extends BasePage {
     private final SocialNetworksSection socialNetworksSection = new SocialNetworksSection();
     private final CompanyInformationSection companyInformationSection = new CompanyInformationSection();
     private final PartnerSection partnerSection = new PartnerSection();
+    private final ServiceSection serviceSection = new ServiceSection();
     private final LastSeenProductsSection lastSeenProductsSection = new LastSeenProductsSection();
     private final SmallCart smallCart = new SmallCart();
 
