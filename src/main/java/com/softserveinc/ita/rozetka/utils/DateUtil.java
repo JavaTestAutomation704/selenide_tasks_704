@@ -26,6 +26,12 @@ public class DateUtil {
         }
     }
 
+    public static String getFormattedCurrentDate() {
+        return LocalDate
+                .now()
+                .format(DateTimeFormatter.ofPattern(stringDateFormat));
+    }
+
     public static String getRandomPastDate() {
         int randomNumber = new Random().nextInt(30);
         // TODO: This guarantees that the date is always different
