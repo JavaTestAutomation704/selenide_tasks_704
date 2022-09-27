@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.profile;
 
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.components.profile.CardDataSection;
 import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
 import com.softserveinc.ita.rozetka.modals.PasswordChangeModal;
 import io.qameta.allure.Step;
@@ -34,9 +35,9 @@ public class ProfilePage extends ProfileBasePage {
         return new PasswordChangeModal();
     }
 
-    @Step("Profile page: add new card")
-    public ProfilePage addCard() {
+    @Step("Profile page: open card data section")
+    public CardDataSection openCardDataSection() {
         $x("//button[contains(@class,'wallet-cards__add')]").click();
-        return new ProfilePage();
+        return this.openCardDataSection();
     }
 }

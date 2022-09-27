@@ -16,7 +16,7 @@ public class MyWalletTest extends LogInViaFacebookTestRunner {
                 .getHeader()
                 .openMainSidebar()
                 .openProfilePage()
-                .addCard();
+                .openCardDataSection();
 
         assertThat(cardDataSection.isOpened())
                 .as("Card data section should be opened")
