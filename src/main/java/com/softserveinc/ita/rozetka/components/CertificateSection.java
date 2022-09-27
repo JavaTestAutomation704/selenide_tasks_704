@@ -17,7 +17,7 @@ public class CertificateSection {
             "//div[contains(@class, 'certificate-wrap')]";
     private final String applyCertificateButtonXpathTemplate = certificateSectionXpathTemplate +
             "//button[contains(@class, 'certificate-form__button')]";
-    private final String usedCertificateFieldXpathTemplate = certificateSectionXpathTemplate +
+    private final String usedCertificateCodeFieldXpathTemplate = certificateSectionXpathTemplate +
             "//p[@class = 'certificate-used__code error']";
 
     public boolean isAddCertificateOptionAvailable() {
@@ -30,14 +30,14 @@ public class CertificateSection {
                 "//div[contains(@class, 'certificate-form__inner')]", orderNumber));
     }
 
-    @Step("Certificate section: close certificate section")
-    public OrderSection closeCertificateSection() {
+    @Step("Certificate section: cancel certificate")
+    public OrderSection canselAddingCertificate() {
         $x(format(certificateSectionXpathTemplate + "//button[contains(@class, 'certificate-header')]", orderNumber)).click();
         return new OrderSection(orderNumber);
     }
 
     @Step("Certificate section: fill in certificate field {certificateCode}")
-    public CertificateSection fillInCertificateField(String certificateCode) {
+    public CertificateSection fillInCertificateCodeField(String certificateCode) {
         $x(format(certificateSectionXpathTemplate + "//input[@id = 'certificateInput']", orderNumber)).val(certificateCode);
         return this;
     }
@@ -52,8 +52,8 @@ public class CertificateSection {
         return this;
     }
 
-    public String getCertificateFieldErrorMessage() {
-        waitTillVisible(format(usedCertificateFieldXpathTemplate, orderNumber));
+    public String getCertificateCodeFieldErrorMessage() {
+        waitTillVisible(format(usedCertificateCodeFieldXpathTemplate, orderNumber));
         return $x(format(certificateSectionXpathTemplate + "//div[contains(@class, 'form__hint_type_warning')]",
                 orderNumber)).text();
     }

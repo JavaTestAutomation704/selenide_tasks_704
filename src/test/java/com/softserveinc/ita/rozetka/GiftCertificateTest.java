@@ -99,7 +99,7 @@ public class GiftCertificateTest extends BaseTestRunner {
         softly.assertAll();
     }
 
-    private CheckoutPage openCheckoutPage() {
+    private CheckoutPage addAvailableProductFromRozetkaSellerToShoppingCartAndOpenCheckoutPage() {
         var keyword = "starbucks";
         var header = homePage.getHeader();
         var searchResultsPage = header.search(keyword);
@@ -141,7 +141,7 @@ public class GiftCertificateTest extends BaseTestRunner {
 
     @Test
     public void verifyAddCertificateOptionIsAvailableOnlyWithCertainShippingMethods() {
-        var checkoutPage = openCheckoutPage();
+        var checkoutPage = addAvailableProductFromRozetkaSellerToShoppingCartAndOpenCheckoutPage();
         var orderSection = checkoutPage.getOrderSection(1);
         var rozetkaPickUpSection = orderSection.getRozetkaPickUpSection();
 
@@ -219,7 +219,7 @@ public class GiftCertificateTest extends BaseTestRunner {
                     .openMainSidebar()
                     .changeLanguage(UA);
         }
-        var checkoutPage = openCheckoutPage();
+        var checkoutPage = addAvailableProductFromRozetkaSellerToShoppingCartAndOpenCheckoutPage();
         var orderSection = checkoutPage.getOrderSection(1);
         var rozetkaPickUpSection = orderSection.getRozetkaPickUpSection();
 
@@ -239,7 +239,7 @@ public class GiftCertificateTest extends BaseTestRunner {
                 .as("Certificate section should be opened")
                 .isTrue();
 
-        certificateSection.fillInCertificateField("ABCD");
+        certificateSection.fillInCertificateCodeField("ABCD");
 
         var softly = new SoftAssertions();
         softly.assertThat(certificateSection.isApplyButtonDisabled())
@@ -249,7 +249,7 @@ public class GiftCertificateTest extends BaseTestRunner {
         var totalOrderSection = checkoutPage.getTotalOrderSection();
         long totalSumWithoutCertificate = totalOrderSection.getTotalSum();
 
-        certificateSection.fillInCertificateField("ABCDERTYWERTOIUY");
+        certificateSection.fillInCertificateCodeField("ABCDERTYWERTOIUY");
 
         assertThat(certificateSection.isApplyButtonDisabled())
                 .as("Apply certificate button should be enabled")
@@ -261,7 +261,7 @@ public class GiftCertificateTest extends BaseTestRunner {
                 .as("Total sum should be the same")
                 .isEqualTo(totalOrderSection.getTotalSum());
 
-        var invalidCertificateCodeErrorMessage = certificateSection.getCertificateFieldErrorMessage();
+        var invalidCertificateCodeErrorMessage = certificateSection.getCertificateCodeFieldErrorMessage();
 
         softly.assertThat(invalidCertificateCodeErrorMessage)
                 .as("Error message should appear")
@@ -279,7 +279,7 @@ public class GiftCertificateTest extends BaseTestRunner {
                 .as("Certificate section should be opened")
                 .isTrue();
 
-        certificateSection.closeCertificateSection();
+        certificateSection.canselAddingCertificate();
 
         softly.assertThat(certificateSection.isOpened())
                 .as("Certificate section should be closed")
