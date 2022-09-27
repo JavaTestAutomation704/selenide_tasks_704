@@ -17,6 +17,7 @@
             <class name="com.softserveinc.ita.rozetka.LogInTest"/>
             <class name="com.softserveinc.ita.rozetka.MainSidebarTest"/>
             <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
+            <class name="com.softserveinc.ita.rozetka.PaginationTest"/>
             <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductQuestionsTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
@@ -33,6 +34,7 @@
             <class name="com.softserveinc.ita.rozetka.BonusAccountTest"/>
             <class name="com.softserveinc.ita.rozetka.HelpCenterSearchTest"/>
             <class name="com.softserveinc.ita.rozetka.DownloadApplicationTest"/>
+            <class name="com.softserveinc.ita.rozetka.GiftCertificateTest"/>
         </classes>
     </test>
 </suite>

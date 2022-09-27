@@ -1,13 +1,13 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PromotionsTest extends TestRunner {
+public class PromotionsTest extends BaseTestRunner {
 
     @Test
     public void verifyThatPromotionTermsAreTheSameOnDifferentPages() {
@@ -74,6 +74,8 @@ public class PromotionsTest extends TestRunner {
                 .as("Promotion name on the promotion page should be the same as on the promotion terms modal")
                 .isEqualTo(modalTitle);
 
+        // TODO: This test may be failed as promotion period on the promotion terms modal and on the promotion page
+        //  may be different
         softly
                 .assertThat(promotionPeriodOnPage)
                 .as("Promotion period on the promotion page should be the same as on the promotion terms modal")

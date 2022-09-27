@@ -4,7 +4,7 @@ import org.testng.annotations.BeforeMethod;
 
 import java.io.IOException;
 
-public class LogInViaFacebookTestRunner extends TestRunner {
+public class LogInViaFacebookTestRunner extends BaseTestRunner {
 
     @BeforeMethod
     public void logInByFacebook() throws IOException {

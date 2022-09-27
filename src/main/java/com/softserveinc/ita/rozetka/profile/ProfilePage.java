@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.profile;
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.components.profile.CardDataSection;
 import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
+import com.softserveinc.ita.rozetka.modals.PasswordChangeModal;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -33,5 +34,11 @@ public class ProfilePage extends ProfileBasePage {
         var cardDataSectionXpath = format("//button[contains(@class,'wallet-cards__add')]");
         $x(cardDataSectionXpath).click();
         return new CardDataSection(cardDataSectionXpath);
+    }
+
+    @Step("Profile page: start change password")
+    public PasswordChangeModal startChangePassword() {
+        $x("(//div/button[contains(@class, 'button--link')])[2]").click();
+        return new PasswordChangeModal();
     }
 }

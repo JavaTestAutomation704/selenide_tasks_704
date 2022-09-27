@@ -89,11 +89,11 @@ public class LogInModal {
     }
 
     public boolean isEmailBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect("//input[@type='email']", colorRgb);
+        return isColorCorrect("//input[@type='email']", "border-color", colorRgb);
     }
 
     public boolean isPasswordBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect("//input[@type='password']", colorRgb);
+        return isColorCorrect("//input[@type='password']", "border-color", colorRgb);
     }
 
     public String getEmailErrorMessage() {

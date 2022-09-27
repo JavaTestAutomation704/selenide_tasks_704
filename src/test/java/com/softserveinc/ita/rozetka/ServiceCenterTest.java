@@ -1,6 +1,6 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -8,7 +8,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static java.lang.String.valueOf;
 
-public class ServiceCenterTest extends TestRunner {
+public class ServiceCenterTest extends BaseTestRunner {
 
     @Test
     public void verifyServiceCenterFunctionalityWorks() {

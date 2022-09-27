@@ -1,7 +1,7 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -10,7 +10,7 @@ import static com.softserveinc.ita.rozetka.data.Language.RU;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MainSidebarTest extends TestRunner {
+public class MainSidebarTest extends BaseTestRunner {
     private Header header;
 
     @Test
