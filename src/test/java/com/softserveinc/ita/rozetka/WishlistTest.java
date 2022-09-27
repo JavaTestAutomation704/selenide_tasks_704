@@ -18,7 +18,6 @@ import static com.softserveinc.ita.rozetka.data.Category.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.CloseShoesAccessoriesSubcategory.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.KidsGoodsSubcategory.*;
 import static com.softserveinc.ita.rozetka.data.subcategory.SportAndHobbiesSubcategory.*;
-import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -309,7 +308,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
         assertThat(wishlistPage
                         .getWishlist(oldDefaultWishlistName)
                         .getWishlistItemsQuantity())
-                .as(format("Incorrect quantity of items in '%s' wishlist", oldDefaultWishlistName))
+                .as("Incorrect quantity of items in wishlist " + oldDefaultWishlistName)
                 .isEqualTo(1);
     }
 
@@ -383,7 +382,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
         assertThat(wishlistPage
                         .getWishlist(oldDefaultWishlistName)
                         .getWishlistItemsQuantity())
-                .as(format("Incorrect quantity of items in '%s' wishlist", oldDefaultWishlistName))
+                .as("Incorrect quantity of items in wishlist " + oldDefaultWishlistName)
                 .isEqualTo(2);
     }
 
@@ -410,7 +409,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
 
         var firstWishlist = wishlistPage.getWishlist(firstWishlistName);
         assertThat(firstWishlist.getWishlistItemsQuantity())
-                .as(format("Incorrect quantity of items in '%s' wishlist", firstWishlistName))
+                .as("Incorrect quantity of items in wishlist " + firstWishlistName)
                 .isEqualTo(6);
 
         var secondWishlistName = "Fun table games";
@@ -421,7 +420,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
 
         var secondWishlist = wishlistPage.getWishlist(secondWishlistName);
         assertThat(secondWishlist.getWishlistItemsQuantity())
-                .as(format("Incorrect quantity of items in '%s' wishlist", firstWishlistName))
+                .as("Incorrect quantity of items in wishlist " + firstWishlistName)
                 .isEqualTo(0);
 
         for (int i = 1; i <= 4; i++) {
@@ -433,11 +432,11 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
         firstWishlist.moveSelectedItems(secondWishlistName);
 
         assertThat(firstWishlist.getWishlistItemsQuantity())
-                .as(format("Incorrect quantity of items in '%s' wishlist", firstWishlistName))
+                .as("Incorrect quantity of items in wishlist " + firstWishlistName)
                 .isEqualTo(2);
 
         assertThat(secondWishlist.getWishlistItemsQuantity())
-                .as(format("Incorrect quantity of items in '%s' wishlist", secondWishlistName))
+                .as("Incorrect quantity of items in wishlist " + secondWishlistName)
                 .isEqualTo(4);
     }
 }
