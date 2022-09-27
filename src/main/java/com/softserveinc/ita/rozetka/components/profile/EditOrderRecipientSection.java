@@ -22,10 +22,10 @@ public class EditOrderRecipientSection {
 
     @Step("Edit order recipient section: fill in {editOrderRecipientField} {text}")
     public EditOrderRecipientSection fillIn(EditOrderRecipientField editOrderRecipientField, String text) {
-        var quantityInput = $x(format("//input[@id='%s']", editOrderRecipientField.getFieldId()));
-        quantityInput.clear();
-        quantityInput.sendKeys(text);
-        quantityInput.pressTab();
+        var textInput = $x(format("//input[@id='%s']", editOrderRecipientField.getFieldId()));
+        textInput.clear();
+        textInput.sendKeys(text);
+        textInput.pressTab();
         return this;
     }
 
