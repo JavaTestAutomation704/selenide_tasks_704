@@ -114,6 +114,13 @@ public class WebElementUtil {
         }
     }
 
+    public static void waitCollectionSizeChange(String elementsXpath, int size) {
+        try {
+            $$x(elementsXpath).shouldBe(CollectionCondition.sizeNotEqual(size), ofSeconds(TIMEOUT.getSeconds()));
+        } catch (AssertionError ignore) {
+        }
+    }
+
     public static void waitCollectionSizeIncrease(String elementsXpath, int size) {
         try {
             $$x(elementsXpath).shouldBe(CollectionCondition.sizeGreaterThan(size), ofSeconds(TIMEOUT.getSeconds()));
