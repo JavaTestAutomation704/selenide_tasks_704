@@ -10,11 +10,11 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 public abstract class BaseDeliverySection {
 
-    private final String radioButtonXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]" +
-            "/ancestor::div[@class='checkout-variant__radio']//input";
     protected final int orderNumber;
 
     public boolean isSelected(Language selectedLocalization, DeliveryType deliveryType) {
+        var radioButtonXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]" +
+                "/ancestor::div[@class='checkout-variant__radio']//input";
         return $x(format(radioButtonXpathTemplate, orderNumber,
                 deliveryType.getDeliveryName(selectedLocalization))).isSelected();
     }
