@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.models.PersonalData;
-import com.softserveinc.ita.rozetka.utils.ConfigProperties;
 import com.softserveinc.ita.rozetka.utils.LogInViaFacebookTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
@@ -13,7 +12,7 @@ import static com.softserveinc.ita.rozetka.data.ChangePasswordErrorMessage.*;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
 import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
-import static com.softserveinc.ita.rozetka.utils.DateUtil.getRandomPastDate;
+import static com.softserveinc.ita.rozetka.utils.DateUtil.*;
 import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomCyrillicString;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -125,6 +124,9 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         assertThat(personalDataSection.isOpened())
                 .as("Personal data section should be opened")
                 .isTrue();
+
+        // TODO: This guarantees that the output formatted date is always same
+        setStringDateFormat("dd-MM-yyyy");
 
         var personalDataBeforeEditing = personalDataSection.getPersonalData();
 
@@ -246,6 +248,78 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(passwordChangeModal.isSaveButtonEnabled())
                 .as("Save button should be disabled")
                 .isFalse();
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyThatCalendarFunctionalityWorksCorrectly() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var personalDataSection = header
+                .openMainSidebar()
+                .openProfilePage()
+                .openPersonalDataSection();
+
+        assertThat(personalDataSection.isOpened())
+                .as("Personal data section should be opened")
+                .isTrue();
+
+        var editPersonalDataSection = personalDataSection.startEditing();
+
+        // TODO: This guarantees that the output formatted date is always same
+        setStringDateFormat("dd-MM-yyyy");
+
+        var newPersonalData = PersonalData
+                .builder()
+                .firstName(getRandomCyrillicString())
+                .secondName(getRandomCyrillicString())
+                .lastName(getRandomCyrillicString())
+                .build();
+
+        editPersonalDataSection.fillInInputPersonalDataFields(newPersonalData);
+
+        var calendar = editPersonalDataSection.selectBirthdayDateViaCalendar();
+
+        assertThat(calendar.isOpened())
+                .as("Calendar should be opened")
+                .isTrue();
+
+        calendar
+                .selectCurrentDate()
+                .save();
+
+        var softly = new SoftAssertions();
+
+        var birthday = personalDataSection
+                .getPersonalData()
+                .getBirthday();
+
+        // TODO: This test may be failed as current date may be not updated on the website
+        softly.assertThat(birthday)
+                .as("Birthday date should be current date")
+                .isEqualTo(getFormattedCurrentDate());
+
+        personalDataSection.startEditing();
+
+        calendar = editPersonalDataSection
+                .selectBirthdayDateViaCalendar();
+        calendar.selectRandomDate()
+                .save();
+
+        birthday = personalDataSection
+                .getPersonalData()
+                .getBirthday();
+
+        softly.assertThat(birthday)
+                .as("Birthday date should be the same as selected date during editing")
+                .isEqualTo(calendar.getSelectedDate());
+
         softly.assertAll();
     }
 }

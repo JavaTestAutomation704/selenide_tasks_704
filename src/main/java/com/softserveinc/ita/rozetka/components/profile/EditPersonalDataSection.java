@@ -1,16 +1,18 @@
 package com.softserveinc.ita.rozetka.components.profile;
 
+import com.codeborne.selenide.ClickOptions;
+import com.softserveinc.ita.rozetka.components.Calendar;
 import com.softserveinc.ita.rozetka.models.PersonalData;
 import io.qameta.allure.Step;
-import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.data.ProfileSection.PERSONAL_DATA;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.String.format;
 
-@RequiredArgsConstructor
 public class EditPersonalDataSection {
 
-    private final String personalDataSectionXpath;
+    private final String personalDataSectionXpath = format("//h3[text()='%s']/ancestor::details", PERSONAL_DATA.getName());
     private final String saveButtonXpath = "//button[@type='submit']";
     private final String inputFirstNameXpath = "//input[@id='firstName']";
     private final String inputSecondNameXpath = "//input[@id='secondName']";
@@ -22,7 +24,7 @@ public class EditPersonalDataSection {
     @Step("Edit personal data section: save")
     public PersonalDataSection save() {
         $x(personalDataSectionXpath + saveButtonXpath).click();
-        return new PersonalDataSection(personalDataSectionXpath);
+        return new PersonalDataSection();
     }
 
     @Step("Edit personal data section: fill in input personal data fields {personalData}")
@@ -40,6 +42,12 @@ public class EditPersonalDataSection {
         $x("//select[@id='gender']").selectOption(personalData.getGender().getName());
         $x("//select[@id='rozetkaLanguage']").selectOption(personalData.getLanguage().getName());
         return this;
+    }
+
+    @Step("Edit personal data section: select birthday date via calendar")
+    public Calendar selectBirthdayDateViaCalendar() {
+        $x("//button//*[@href='#icon-calendar']").click(ClickOptions.usingJavaScript());
+        return new Calendar();
     }
 
     public String getFirstNameErrorMessage() {
