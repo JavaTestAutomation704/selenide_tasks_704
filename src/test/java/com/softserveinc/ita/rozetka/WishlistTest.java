@@ -250,4 +250,193 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
                     .contains(newName);
         });
     }
+
+    @Test
+    public void verifyCreateDefaultWishlistFunctionality() {
+        var subcategoryPage = header
+                .openCatalogModal()
+                .openSubcategory(CLOSE_SHOES_ACCESSORIES, MENS_JEANS);
+
+        subcategoryPage
+                .getProduct(1)
+                .addToWishlist();
+
+        var wishlistPage = header.openWishlistPage();
+        var defaultWishlist = wishlistPage.getDefaultWishlist();
+        assertThat(defaultWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in default wishlist")
+                .isEqualTo(1);
+
+        var oldDefaultWishlistName = "Jeans";
+        defaultWishlist
+                .rename()
+                .fillInName(oldDefaultWishlistName)
+                .save();
+
+        assertThat(defaultWishlist.getWishlistName())
+                .as("Incorrect default wishlist name")
+                .isEqualTo(oldDefaultWishlistName);
+
+        var newDefaultWishlistName = "Sneakers";
+        wishlistPage
+                .addWishlist()
+                .fillInName(newDefaultWishlistName)
+                .setDefault()
+                .add();
+
+        assertThat(defaultWishlist.getWishlistName())
+                .as("Incorrect default wishlist name")
+                .isEqualTo(newDefaultWishlistName);
+
+        header
+                .openCatalogModal()
+                .openSubcategory(CLOSE_SHOES_ACCESSORIES, MENS_SNEAKERS);
+
+        for (int i = 1; i <= 6; i++) {
+            subcategoryPage
+                    .getProduct(i)
+                    .addToWishlist();
+        }
+
+        header.openWishlistPage();
+        assertThat(defaultWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in default wishlist")
+                .isEqualTo(6);
+        assertThat(defaultWishlist.getWishlistName())
+                .as("Incorrect default wishlist name")
+                .isEqualTo(newDefaultWishlistName);
+        assertThat(wishlistPage
+                        .getWishlist(oldDefaultWishlistName)
+                        .getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in wishlist " + oldDefaultWishlistName)
+                .isEqualTo(1);
+    }
+
+    @Test
+    public void verifyChangeDefaultWishlistFunctionality() {
+        var subcategoryPage = header
+                .openCatalogModal()
+                .openSubcategory(SPORT_AND_HOBBIES, PROTEIN);
+
+        subcategoryPage
+                .getProduct(2)
+                .addToWishlist();
+        subcategoryPage
+                .getProduct(4)
+                .addToWishlist();
+
+        var wishlistPage = header.openWishlistPage();
+        var defaultWishlist = wishlistPage.getDefaultWishlist();
+        assertThat(defaultWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in default wishlist")
+                .isEqualTo(2);
+
+        var oldDefaultWishlistName = "Protein";
+        defaultWishlist
+                .rename()
+                .fillInName(oldDefaultWishlistName)
+                .save();
+
+        assertThat(defaultWishlist.getWishlistName())
+                .as("Incorrect default wishlist name")
+                .isEqualTo(oldDefaultWishlistName);
+
+        var wishlistName = "Vitamins";
+        wishlistPage
+                .addWishlist()
+                .fillInName(wishlistName)
+                .add();
+
+        assertThat(defaultWishlist.getWishlistName())
+                .as("Incorrect default wishlist name")
+                .isEqualTo(oldDefaultWishlistName);
+
+        wishlistPage
+                .getWishlist(wishlistName)
+                .makeDefault();
+
+        assertThat(defaultWishlist.getWishlistName())
+                .as("Incorrect default wishlist name")
+                .isEqualTo(wishlistName);
+
+        header
+                .openCatalogModal()
+                .openSubcategory(SPORT_AND_HOBBIES, VITAMINS);
+
+        for (int i = 1; i <= 3; i++) {
+            subcategoryPage
+                    .getProduct(i)
+                    .addToWishlist();
+        }
+
+        header.openWishlistPage();
+        assertThat(defaultWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in default wishlist")
+                .isEqualTo(3);
+
+        assertThat(defaultWishlist.getWishlistName())
+                .as("Incorrect default wishlist name")
+                .isEqualTo(wishlistName);
+
+
+        assertThat(wishlistPage
+                        .getWishlist(oldDefaultWishlistName)
+                        .getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in wishlist " + oldDefaultWishlistName)
+                .isEqualTo(2);
+    }
+
+    @Test
+    public void verifyMoveItemsToDifferentWishlistFunctionality() {
+        var subcategoryPage = header
+                .openCatalogModal()
+                .openSubcategory(KIDS_GOODS, TABLE_GAMES);
+
+        for (int i = 1; i <= 6; i++) {
+            subcategoryPage
+                    .getProduct(i)
+                    .addToWishlist();
+        }
+
+        var wishlistPage = header.openWishlistPage();
+
+        var firstWishlistName = "Table games";
+        wishlistPage
+                .getDefaultWishlist()
+                .rename()
+                .fillInName(firstWishlistName)
+                .save();
+
+        var firstWishlist = wishlistPage.getWishlist(firstWishlistName);
+        assertThat(firstWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in wishlist " + firstWishlistName)
+                .isEqualTo(6);
+
+        var secondWishlistName = "Fun table games";
+        wishlistPage
+                .addWishlist()
+                .fillInName(secondWishlistName)
+                .add();
+
+        var secondWishlist = wishlistPage.getWishlist(secondWishlistName);
+        assertThat(secondWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in wishlist " + firstWishlistName)
+                .isEqualTo(0);
+
+        for (int i = 1; i <= 4; i++) {
+            firstWishlist
+                    .getItem(i)
+                    .select();
+        }
+
+        firstWishlist.moveSelectedItems(secondWishlistName);
+
+        assertThat(firstWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in wishlist " + firstWishlistName)
+                .isEqualTo(2);
+
+        assertThat(secondWishlist.getWishlistItemsQuantity())
+                .as("Incorrect quantity of items in wishlist " + secondWishlistName)
+                .isEqualTo(4);
+    }
 }
