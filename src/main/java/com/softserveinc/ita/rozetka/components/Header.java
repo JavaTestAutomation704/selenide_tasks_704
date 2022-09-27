@@ -12,7 +12,6 @@ import com.softserveinc.ita.rozetka.profile.MyOrdersPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
-import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;

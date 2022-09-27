@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka.modals;
 
 import com.softserveinc.ita.rozetka.CheckoutPage;
 import com.softserveinc.ita.rozetka.data.DeliveryService;
-import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.ClickOptions.usingJavaScript;

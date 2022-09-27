@@ -1,6 +1,5 @@
 package com.softserveinc.ita.rozetka.modals;
 
-import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.components.Header;
 
 import static com.codeborne.selenide.Selenide.$x;

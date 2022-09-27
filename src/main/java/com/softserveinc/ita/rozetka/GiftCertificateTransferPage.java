@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.models.CertificateData;
-import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
