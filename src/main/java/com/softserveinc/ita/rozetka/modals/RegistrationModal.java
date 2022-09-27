@@ -7,6 +7,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class RegistrationModal {
+
     private final String registerButtonXpath = "//button[@class='button button--large button--green auth-modal__submit']";
     private final String errorMessageXpathTemplate = "(//p[@class='validation-message ng-star-inserted'])[%s]";
 

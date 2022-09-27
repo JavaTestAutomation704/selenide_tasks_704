@@ -65,11 +65,6 @@ public class Header {
         return new HomePage();
     }
 
-    public boolean isRegisterButtonVisible() {
-        return isVisible
-                ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
-    }
-
     @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
         actions().click($x("//button[@id='fat-menu']")).perform();
@@ -83,8 +78,7 @@ public class Header {
     }
 
     public boolean isLanguageSelected(Language language) {
-        return isVisible(
-                format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
+        return isVisible(format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[1]", language));
     }
 
     @Step("Header: open search menu")
@@ -95,10 +89,6 @@ public class Header {
 
     public int getComparisonListProductQuantity() {
         return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
-    }
-
-    public int getShoppingCartProductQuantity() {
-        return Integer.parseInt(getText("//rz-icon-counter//span[contains(@class, 'counter')]"));
     }
 
     @Step("Header: open comparison list modal")

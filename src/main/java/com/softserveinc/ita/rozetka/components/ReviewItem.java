@@ -11,6 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class ReviewItem {
+
     private final String reviewItemXpath;
 
     public ReviewItem(int number) {
@@ -37,7 +38,6 @@ public class ReviewItem {
             calendar.add(Calendar.DATE, -1);
         } else if (inputDate.contains(" ")) {
             var dateParts = inputDate.split(" ");
-
             calendar.set(Calendar.DATE, Integer.parseInt(dateParts[0]));
             calendar.set(Calendar.MONTH, Month.getNumberByValue(dateParts[1]));
             calendar.set(Calendar.YEAR, Integer.parseInt(dateParts[2]));

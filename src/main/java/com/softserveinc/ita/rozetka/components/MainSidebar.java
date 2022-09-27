@@ -15,9 +15,9 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class MainSidebar {
+
     @Getter
     private final DownloadApplicationSection downloadApplicationSection = new DownloadApplicationSection();
-
     private final String buttonXpathTemplateAuthentication = "(//button[contains(@class,'side-menu__auth-button')])[%d]";
 
     public String getLoginButtonName() {
@@ -54,8 +54,7 @@ public class MainSidebar {
     }
 
     public boolean isLanguageSelected(Language language) {
-        return isVisible(
-                format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
+        return isVisible(format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
     }
 
     @Step("Main sidebar: change language to {language}")

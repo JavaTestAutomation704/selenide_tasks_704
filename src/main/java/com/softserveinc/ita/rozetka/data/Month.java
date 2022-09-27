@@ -9,6 +9,7 @@ import java.util.Calendar;
 @Getter
 @RequiredArgsConstructor
 public enum Month {
+
     JANUARY("січня", Calendar.JANUARY),
     FEBRUARY("лютого", Calendar.FEBRUARY),
     MARCH("березня", Calendar.MARCH),

@@ -58,45 +58,37 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
 
         var isActualFirstNameBorderColorCorrect = editPersonalDataSection.isFirstNameBorderColorCorrect(redColor);
         var actualFirstNameErrorMessage = editPersonalDataSection.getFirstNameErrorMessage();
-        softly
-                .assertThat(isActualFirstNameBorderColorCorrect)
+        softly.assertThat(isActualFirstNameBorderColorCorrect)
                 .as("First name border color should be red when entering first name invalid data")
                 .isTrue();
-        softly
-                .assertThat(actualFirstNameErrorMessage)
+        softly.assertThat(actualFirstNameErrorMessage)
                 .as("Error message should be displayed when entering first name invalid data")
                 .isEqualTo(expectedErrorMessage);
 
         var isActualSecondNameBorderColorCorrect = editPersonalDataSection.isSecondNameBorderColorCorrect(redColor);
         var actualSecondNameErrorMessage = editPersonalDataSection.getSecondNameErrorMessage();
-        softly
-                .assertThat(isActualSecondNameBorderColorCorrect)
+        softly.assertThat(isActualSecondNameBorderColorCorrect)
                 .as("Second name border color should be red when entering second name invalid data")
                 .isTrue();
-        softly
-                .assertThat(actualSecondNameErrorMessage)
+        softly.assertThat(actualSecondNameErrorMessage)
                 .as("Error message should be displayed when entering second name invalid data")
                 .isEqualTo(expectedErrorMessage);
 
         var isActualLastNameBorderColorCorrect = editPersonalDataSection.isLastNameBorderColorCorrect(redColor);
         var actualLastNameErrorMessage = editPersonalDataSection.getLastNameErrorMessage();
-        softly
-                .assertThat(isActualLastNameBorderColorCorrect)
+        softly.assertThat(isActualLastNameBorderColorCorrect)
                 .as("Last name border color should be red when entering last name invalid data")
                 .isTrue();
-        softly
-                .assertThat(actualLastNameErrorMessage)
+        softly.assertThat(actualLastNameErrorMessage)
                 .as("Error message should be displayed when entering last name invalid data")
                 .isEqualTo(expectedErrorMessage);
 
         var isActualBirthdayBorderColorCorrect = editPersonalDataSection.isBirthdayBorderColorCorrect(redColor);
         var actualBirthdayErrorMessage = editPersonalDataSection.getBirthdayErrorMessage();
-        softly
-                .assertThat(isActualBirthdayBorderColorCorrect)
+        softly.assertThat(isActualBirthdayBorderColorCorrect)
                 .as("Birthday border color should be red when entering birthday invalid date")
                 .isTrue();
-        softly
-                .assertThat(actualBirthdayErrorMessage)
+        softly.assertThat(actualBirthdayErrorMessage)
                 .as("Error message should be displayed when entering birthday invalid date")
                 .isEqualTo("Введіть дату народження");
 

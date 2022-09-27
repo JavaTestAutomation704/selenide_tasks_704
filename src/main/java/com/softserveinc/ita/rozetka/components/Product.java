@@ -10,6 +10,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class Product {
+
     private final String productXpath;
     private final String titleXpath = "//span[@class='goods-tile__title']";
 
@@ -78,7 +79,7 @@ public class Product {
     }
 
     public boolean isAvailable() {
-        Availability availability = getAvailability();
+        var availability = getAvailability();
         return availability == Availability.AVAILABLE
                 || availability == Availability.READY_TO_BE_DELIVERED
                 || availability == Availability.RUNNING_OUT_OF_STOCK;

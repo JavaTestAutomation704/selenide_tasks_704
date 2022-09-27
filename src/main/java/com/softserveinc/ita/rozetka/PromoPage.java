@@ -8,6 +8,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSiz
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 
 public class PromoPage {
+
     public String getTitle() {
         return getText("//h2[1]");
     }

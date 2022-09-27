@@ -150,13 +150,11 @@ public class FilterProductTest extends BaseTestRunner {
 
         var softly = new SoftAssertions();
 
-        softly
-                .assertThat(resultsAmountAfterResetting)
+        softly.assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be grater than after filters")
                 .isGreaterThan(resultsAmountAfterFilters);
         //TODO: This test may be failed as results amount after resetting may be different than after search
-        softly
-                .assertThat(resultsAmountAfterResetting)
+        softly.assertThat(resultsAmountAfterResetting)
                 .as("Results amount after resetting should be the same as after search")
                 .isEqualTo(resultsAmountAfterSearch);
 

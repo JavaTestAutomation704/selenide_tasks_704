@@ -84,7 +84,6 @@ public class SortProductTest extends BaseTestRunner {
         softly.assertAll();
     }
 
-
     @Test
     public void verifySaleSortFunctionality() {
         var header = homePage.getHeader();
@@ -114,5 +113,4 @@ public class SortProductTest extends BaseTestRunner {
         }
         softly.assertAll();
     }
-
 }

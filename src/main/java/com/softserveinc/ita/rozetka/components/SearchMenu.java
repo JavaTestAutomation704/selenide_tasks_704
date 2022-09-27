@@ -13,8 +13,7 @@ public class SearchMenu {
 
     @Step("SearchMenu: clean search history")
     public Header clearSearchHistory() {
-        $x("//button[contains(@class, 'search-suggest__heading-action')]")
-                .click(ClickOptions.usingJavaScript());
+        $x("//button[contains(@class, 'search-suggest__heading-action')]").click(ClickOptions.usingJavaScript());
         return new Header();
     }
 

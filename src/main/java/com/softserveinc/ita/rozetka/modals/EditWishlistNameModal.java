@@ -9,6 +9,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillVisible;
 import static java.lang.String.format;
 
 public class EditWishlistNameModal {
+
     private final String nameFieldXpath = "//input[@formcontrolname='wishListNewName']";
 
     @Step("Edit wishlist name modal: fill in wishlist name '{name}'")

@@ -134,8 +134,7 @@ public class ProductQuestionsTest extends BaseTestRunner {
         int step = 4;
 
         for (int i = step + 1; i < productQuestionsQuantity; i += step) {
-            softly
-                    .assertThat(productQuestionsPage
+            softly.assertThat(productQuestionsPage
                             .getProductQuestionItem(i)
                             .getLikesAndDislikesDifference())
                     .as(i + " product question vote should be less than " + (i - step))

@@ -31,4 +31,3 @@ public class PromoCodeSection {
         return getText("//div[contains(@class, 'form__hint_type_warning')]");
     }
 }
-

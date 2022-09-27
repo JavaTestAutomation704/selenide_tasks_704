@@ -8,6 +8,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class ComparisonItem {
+
     private final String itemXpath;
 
     public ComparisonItem(int itemNumber) {

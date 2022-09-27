@@ -11,7 +11,6 @@ public class NavigateToHomePageTest extends BaseTestRunner {
     @Test
     public void verifyOpeningHomePageViaLogo() {
         var header = homePage.getHeader();
-
         var smallCart = homePage.getSmallCart();
 
         if (header.isShoppingCartCounterVisible()) {

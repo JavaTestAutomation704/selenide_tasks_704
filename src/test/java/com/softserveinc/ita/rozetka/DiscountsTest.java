@@ -33,8 +33,7 @@ public class DiscountsTest extends BaseTestRunner {
             int calculatedDiscount = (int) (oldPrice / currentPrice * 10);
 
             // TODO: This test may be failed as price is not correct according to the discount
-            softly
-                    .assertThat(calculatedDiscount)
+            softly.assertThat(calculatedDiscount)
                     .as("The price should be correctly calculated according to the discount")
                     .isEqualTo(discount);
         }

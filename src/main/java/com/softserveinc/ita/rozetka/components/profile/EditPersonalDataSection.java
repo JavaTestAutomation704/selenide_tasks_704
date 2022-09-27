@@ -18,7 +18,6 @@ public class EditPersonalDataSection {
     private final String inputBirthdayXpath = "//input[@id='birthday']";
     private final String errorMessageXpath = "/ancestor::li//p";
 
-
     @Step("Edit personal data section: save")
     public PersonalDataSection save() {
         $x(personalDataSectionXpath + saveButtonXpath).click();

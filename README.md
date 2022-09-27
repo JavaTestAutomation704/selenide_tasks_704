@@ -46,3 +46,14 @@ File is located by the path:
 selenide_tasks_704/src/test/resources/functional_tests.xml
 ```
 By default, number of running threads is 3. In order to change the number open functional_tests.xml and change `thread-count` value.
+
+Also, you may run tests with Selenoid. You may find quick start guide by the link:
+https://aerokube.com/selenoid/latest/
+
+Create file `config.properties` and locate by the path:
+```
+selenide_tasks_704/src/main/resources/config.properties
+```
+Then add to the file next data: `RUN_WITH_SELENOID=true`
+
+Chrome browser is set by default, in order to change the browser add to the file `config.properties` next data `BROWSER=Firefox'.

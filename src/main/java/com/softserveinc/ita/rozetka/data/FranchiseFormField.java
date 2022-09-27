@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum FranchiseFormField {
+
     NAME("name", "input"),
     PHONE("phone", "input"),
     EMAIL("email", "input"),

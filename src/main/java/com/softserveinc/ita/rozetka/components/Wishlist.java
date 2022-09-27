@@ -9,6 +9,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class Wishlist {
+
     private final String wishlistXpath;
     private final String actionsMenuXpathTemplate;
 

@@ -39,11 +39,11 @@ public class GiftCertificateTransferPage extends BasePage {
     }
 
     public boolean isToGiftButtonDisabled() {
-        return WebElementUtil.hasAttribute(transferFormGiftButtonXpath, "disabled");
+        return hasAttribute(transferFormGiftButtonXpath, "disabled");
     }
 
     public boolean isCertificateFieldBorderColorCorrect() {
-        return WebElementUtil.isColorCorrect(certificateFieldXpath, "border-color", Color.RED.getRgb());
+        return isColorCorrect(certificateFieldXpath, "border-color", Color.RED.getRgb());
     }
 
     public String getCertificateErrorMessage() {

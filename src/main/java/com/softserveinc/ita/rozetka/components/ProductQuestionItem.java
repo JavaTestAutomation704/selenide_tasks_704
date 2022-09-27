@@ -11,6 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class ProductQuestionItem {
+
     private final String productQuestionItemXpath;
 
     public ProductQuestionItem(int number) {
@@ -43,7 +44,6 @@ public class ProductQuestionItem {
         var dateParts = inputDate.split(" ");
         var calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getNumberByValue(dateParts[1]),
                 Integer.parseInt(dateParts[0]));
-
         return calendar.getTime();
     }
 }

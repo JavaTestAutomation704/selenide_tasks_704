@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ShoppingCartTest extends BaseTestRunner {
+
     private Header header;
 
     @BeforeMethod
@@ -47,7 +48,7 @@ public class ShoppingCartTest extends BaseTestRunner {
         long firstAvailableProductPrice = firstAvailableProduct.getPrice();
 
         var softly = new SoftAssertions();
-        for (String word : searchPhrase.split(" ")) {
+        for (var word : searchPhrase.split(" ")) {
             softly.assertThat(firstAvailableProductTitle)
                     .as("First available product title should contain searched keyword.")
                     .contains(word);

@@ -6,6 +6,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class BonusAccountPage {
+
     public boolean isBannerVisible(){
         return isVisible("//div[contains(@class, 'rz-video')]");
     }

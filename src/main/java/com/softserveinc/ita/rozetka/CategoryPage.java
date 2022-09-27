@@ -8,6 +8,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
 public class CategoryPage extends BasePage {
+
     @Step("Category page: open subcategory page {subcategory}")
     public SubcategoryPage openSubcategoryPage(ISubcategory subcategory) {
         $x(format("(//div[@class='tile-cats']//a[contains(@href, '%s')])[1]",

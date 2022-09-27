@@ -12,6 +12,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 @Getter
 public class WishlistPage extends BasePage {
+
     private final Wishlist defaultWishlist = new Wishlist();
 
     public Wishlist getWishlist(int wishlistNumber) {

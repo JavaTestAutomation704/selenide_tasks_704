@@ -18,12 +18,10 @@ public class PartnerSection {
     @Step("Partner section: open franchise page")
     public FranchisePage openFranchisePage() {
         $x("//a[contains(@href, 'franchise')]").click();
-
         // remove annoying promotional video
         if (isVisible("//div[@class='rz-video rz_section']")) {
             executeJavaScript("document.getElementById(\"youtubeiframe\").remove();");
         }
-
         return new FranchisePage();
     }
 }
