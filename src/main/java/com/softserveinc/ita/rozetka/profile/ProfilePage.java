@@ -35,10 +35,9 @@ public class ProfilePage extends ProfileBasePage {
         return new PasswordChangeModal();
     }
 
-    @Step("Profile page: open card data section")
-    public CardDataSection openCardDataSection() {
-        var cardDataSectionXpath = format("//button[contains(@class,'wallet-cards__add')]");
-        $x(cardDataSectionXpath).click();
-        return new CardDataSection(cardDataSectionXpath);
+    @Step("Profile page: add new card")
+    public ProfilePage addCard() {
+        $x("//button[contains(@class,'wallet-cards__add')]").click();
+        return new ProfilePage();
     }
 }
