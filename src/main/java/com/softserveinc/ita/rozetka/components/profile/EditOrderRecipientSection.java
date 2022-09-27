@@ -57,6 +57,7 @@ public class EditOrderRecipientSection {
         return new ProfilePage();
     }
 
+    @Step("Edit order recipient section: remove receiver")
     public EditOrderRecipientSection removeReceiver() {
         $x("//rz-cabinet-order-recipient//button[contains(@class,'white')]").click();
         return new EditOrderRecipientSection();

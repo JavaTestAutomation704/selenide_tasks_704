@@ -271,12 +271,12 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         var validPhone = "67 111 11 11";
 
         editOrderRecipientSection.fillIn(PHONE, validPhone);
-        asList("А", "User", "").forEach(invalidData -> {
+        asList("А", "User", "").forEach(invalidName -> {
             editOrderRecipientSection
-                    .fillIn(PROFILE_NAME, invalidData)
-                    .fillIn(LAST_NAME, invalidData)
-                    .fillIn(FIRST_NAME, invalidData)
-                    .fillIn(SECOND_NAME, invalidData);
+                    .fillIn(PROFILE_NAME, invalidName)
+                    .fillIn(LAST_NAME, invalidName)
+                    .fillIn(FIRST_NAME, invalidName)
+                    .fillIn(SECOND_NAME, invalidName);
             var errorMessageList = editOrderRecipientSection.getErrorMessagesList();
 
             softly.assertThat(errorMessageList)
