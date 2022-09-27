@@ -13,7 +13,7 @@ public class CardDataSection {
     private final String inputCardNumberXpath = "//input[@id='cardNumber']";
     private final String inputMonthValidityXpath = "//input[@id='month']";
     private final String inputYearValidityXpath = "//input[@id='year']";
-    private final String inputCardVerificationValueXpath = "//input[@id='CardVerificationValue']";
+    private final String inputCardVerificationValueXpath = "//input[@id='cvv']";
 
     @Step("Card data section: fill in card data {cardData}")
     public CardDataSection fillInCardData(CardData cardData) {
@@ -29,19 +29,19 @@ public class CardDataSection {
     }
 
     public boolean isCardNumberBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputCardNumberXpath, colorRgb);
+        return isColorCorrect(inputCardNumberXpath, "border-color", colorRgb);
     }
 
     public boolean isMonthValidityBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputMonthValidityXpath, colorRgb);
+        return isColorCorrect(inputMonthValidityXpath, "border-color", colorRgb);
     }
 
     public boolean isYearValidityBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputYearValidityXpath, colorRgb);
+        return isColorCorrect(inputYearValidityXpath, "border-color", colorRgb);
     }
 
     public boolean isCardVerificationValueBorderColorCorrect(String colorRgb) {
-        return isBorderColorCorrect(inputCardVerificationValueXpath, colorRgb);
+        return isColorCorrect(inputCardVerificationValueXpath, "border-color", colorRgb);
     }
 
     public boolean isOpened() {

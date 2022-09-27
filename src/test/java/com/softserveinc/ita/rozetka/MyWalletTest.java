@@ -16,7 +16,7 @@ public class MyWalletTest extends LogInViaFacebookTestRunner {
                 .getHeader()
                 .openMainSidebar()
                 .openProfilePage()
-                .openCardDataSection();
+                .addCard();
 
         assertThat(cardDataSection.isOpened())
                 .as("Card data section should be opened")
@@ -58,7 +58,7 @@ public class MyWalletTest extends LogInViaFacebookTestRunner {
         var isActualCardVerificationValueBorderColorCorrect = cardDataSection.isCardVerificationValueBorderColorCorrect(redColor);
         softly
                 .assertThat(isActualCardVerificationValueBorderColorCorrect)
-                .as("CardVerificationValue border color should be red when entering CardVerificationValue invalid date")
+                .as("Card Verification Value border color should be red when entering CVV invalid date")
                 .isTrue();
 
         softly.assertThat(cardDataSection.isSaveButtonDisabled())
