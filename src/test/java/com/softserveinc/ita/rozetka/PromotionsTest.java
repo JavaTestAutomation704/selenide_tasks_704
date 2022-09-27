@@ -108,14 +108,16 @@ public class PromotionsTest extends BaseTestRunner {
                 .as("The products quantity should be sufficient on the promotion page")
                 .isGreaterThanOrEqualTo(10);
 
-        LocalDate today = LocalDate.now();
+        var today = LocalDate.now();
         var softly = new SoftAssertions();
 
         for (int number = 1; number < 10; number++) {
-            var promotion = promotionsPage.getPromotion(number);
+            var promotionDates = promotionsPage
+                    .getPromotion(number)
+                    .getPromotionDates();
 
-            var startPromotion = promotion.getStartPromotionDate();
-            var endPromotion = promotion.getEndPromotionDate();
+            var startPromotion = promotionDates.getStartPromotionDate();
+            var endPromotion = promotionDates.getEndPromotionDate();
 
             softly.assertThat(startPromotion)
                     .as("Start promotion date should be before or equal to today")

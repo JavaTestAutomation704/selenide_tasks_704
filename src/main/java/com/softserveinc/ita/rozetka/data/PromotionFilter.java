@@ -10,5 +10,5 @@ public enum PromotionFilter {
     PERMANENT_PROMOTION("Тільки діючі акції");
 
     @NonNull
-    private final String filterXpath;
+    private final String filterId;
 }

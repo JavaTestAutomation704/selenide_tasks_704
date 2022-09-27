@@ -25,10 +25,10 @@ public class PromotionsPage {
         return getCollectionSize(promotionXpath);
     }
 
-    @Step("Promotions page: filter promotion by filter {type}")
-    public PromotionsPage filter(PromotionFilter type) {
+    @Step("Promotions page: filter promotion by filter {filter}")
+    public PromotionsPage filter(PromotionFilter filter) {
         waitTillVisible("//aside[@spinnerid = 'LOAD_FILTERS']");
-        $x(format("//a[@data-id = '%s']", type.getFilterXpath()))
+        $x(format("//a[@data-id = '%s']", filter.getFilterId()))
                 .scrollIntoView(false)
                 .click(ClickOptions.usingJavaScript());
         waitTillPreloaderInvisible();
