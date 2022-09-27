@@ -89,6 +89,13 @@ public class WebElementUtil {
         return "";
     }
 
+    public static String getAttribute(String elementXpath, String attributeName) {
+        if (isVisible(elementXpath)) {
+            return $x(elementXpath).getAttribute(attributeName);
+        }
+        return "";
+    }
+
     public static List<String> getElementsText(String elementsXpath) {
         try {
             return $$x(elementsXpath)
