@@ -3,6 +3,7 @@ package com.softserveinc.ita.rozetka.utils;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Random;
 
@@ -18,7 +19,11 @@ public class DateUtil {
     }
 
     public static String getFormattedDateFromString(String elementXpath, String dateFormat) {
-        return getDateFromString(elementXpath).format(ofPattern(dateFormat));
+        try {
+            return getDateFromString(elementXpath).format(ofPattern(dateFormat));
+        } catch (DateTimeParseException exception) {
+            return "";
+        }
     }
 
     public static String getRandomPastDate() {
