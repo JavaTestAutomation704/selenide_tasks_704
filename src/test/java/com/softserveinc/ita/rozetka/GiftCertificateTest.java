@@ -194,6 +194,7 @@ public class GiftCertificateTest extends BaseTestRunner {
 
         orderSection.selectPaymentUponReceipt();
 
+        //TODO: This test may be failed as add certificate option is available with UkrPoshta delivery
         softly.assertThat(certificateSection.isAddCertificateOptionAvailable())
                 .as("Add certificate option should be unavailable")
                 .isFalse();
