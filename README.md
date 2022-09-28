@@ -56,4 +56,4 @@ selenide_tasks_704/src/main/resources/config.properties
 ```
 Then add to the file next data: `RUN_WITH_SELENOID=true`
 
-Chrome browser is set by default, in order to change the browser add to the file `config.properties` next data `BROWSER=Firefox'.
+Chrome browser is set by default, in order to change the browser add to the file `config.properties` next data `BROWSER=Firefox`.
