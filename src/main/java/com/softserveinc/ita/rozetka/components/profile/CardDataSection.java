@@ -9,7 +9,6 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 @RequiredArgsConstructor
 public class CardDataSection {
-    private final String ;
     private final String inputCardNumberXpath = "//input[@id='cardNumber']";
     private final String inputMonthValidityXpath = "//input[@id='month']";
     private final String inputYearValidityXpath = "//input[@id='year']";
