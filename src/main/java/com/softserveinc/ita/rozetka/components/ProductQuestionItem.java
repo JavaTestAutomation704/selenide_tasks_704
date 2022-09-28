@@ -2,8 +2,8 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.data.Month;
 
+import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
@@ -39,10 +39,23 @@ public class ProductQuestionItem {
     }
 
     private Date parseDate(String inputDate) {
-        // DateTimeFormatter doesn't work here, so parseDate() method parses inputDate to the format('dd MMMM yyyy')
-        var dateParts = inputDate.split(" ");
-        var calendar = new GregorianCalendar(Integer.parseInt(dateParts[2]), Month.getNumberByValue(dateParts[1]),
-                Integer.parseInt(dateParts[0]));
+        var calendar = Calendar.getInstance();
+
+        if (inputDate.equals("вчора")) {
+            calendar.add(Calendar.DATE, -1);
+        } else if (inputDate.contains(" ")) {
+            var dateParts = inputDate.split(" ");
+
+            calendar.set(Calendar.DATE, Integer.parseInt(dateParts[0]));
+            calendar.set(Calendar.MONTH, Month.getNumberByValue(dateParts[1]));
+            calendar.set(Calendar.YEAR, Integer.parseInt(dateParts[2]));
+        }
+
+        // The time must be reset because the date on the site did not contain a time
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         return calendar.getTime();
     }
