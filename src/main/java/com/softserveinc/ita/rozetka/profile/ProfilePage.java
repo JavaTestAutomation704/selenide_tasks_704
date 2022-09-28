@@ -9,6 +9,7 @@ import com.softserveinc.ita.rozetka.modals.PasswordChangeModal;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.softserveinc.ita.rozetka.data.ProfileSection.DELIVERY_ADDRESS;
 import static com.softserveinc.ita.rozetka.data.ProfileSection.MY_ORDER_RECIPIENTS;
 import static java.lang.String.format;
 
