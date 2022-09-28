@@ -12,7 +12,7 @@ import static com.softserveinc.ita.rozetka.data.EditOrderRecipientField.*;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
 import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
-import static com.softserveinc.ita.rozetka.utils.DateUtil.getFormattedCurrentDate;
+import static com.softserveinc.ita.rozetka.utils.DateUtil.getCurrentDate;
 import static com.softserveinc.ita.rozetka.utils.DateUtil.getRandomPastDate;
 import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomCyrillicString;
 import static java.util.Arrays.asList;
@@ -298,7 +298,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         // TODO: This test may be failed as current date may be not updated on the website
         softly.assertThat(birthday)
                 .as("Birthday date should be current date")
-                .isEqualTo(getFormattedCurrentDate("dd-MM-yyyy"));
+                .isEqualTo(getCurrentDate("dd-MM-yyyy"));
 
         personalDataSection.startEditing();
 
