@@ -9,7 +9,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 @RequiredArgsConstructor
 public class CardDataSection {
-    private final String cardDataSectionXpath;
+    private final String ;
     private final String inputCardNumberXpath = "//input[@id='cardNumber']";
     private final String inputMonthValidityXpath = "//input[@id='month']";
     private final String inputYearValidityXpath = "//input[@id='year']";
@@ -25,7 +25,7 @@ public class CardDataSection {
     }
 
     public boolean isSaveButtonDisabled() {
-        return hasAttribute(cardDataSectionXpath + "//button[@type='submit']", "disabled");
+        return hasAttribute("//button[@type='submit']", "disabled");
     }
 
     public boolean isCardNumberBorderColorCorrect(String colorRgb) {

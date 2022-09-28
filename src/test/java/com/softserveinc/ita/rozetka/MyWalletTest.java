@@ -27,7 +27,7 @@ public class MyWalletTest extends LogInViaFacebookTestRunner {
                 .cardNumber("1234567")
                 .monthValidity("1")
                 .yearValidity("9")
-                .CardVerificationValue("12")
+                .cardVerificationValue("12")
                 .build();
 
         cardDataSection.fillInCardData(cardData);

@@ -38,6 +38,6 @@ public class ProfilePage extends ProfileBasePage {
     @Step("Profile page: open card data section")
     public CardDataSection openCardDataSection() {
         $x("//button[contains(@class,'wallet-cards__add')]").click();
-        return this.openCardDataSection();
+        return new CardDataSection();
     }
 }
