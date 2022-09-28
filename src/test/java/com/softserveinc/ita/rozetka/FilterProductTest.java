@@ -269,7 +269,7 @@ public class FilterProductTest extends BaseTestRunner {
                 .getFilter();
         var subcategoryPage = filter.filter(PRODUCED_IN_SPAIN);
 
-        int productsQuantity = 5;
+        int productsQuantity = 3;
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
