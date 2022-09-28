@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum EditOrderRecipientField {
+
     FIRST_NAME("firstName", "first name"),
     LAST_NAME("lastName", "last name"),
     SECOND_NAME("secondName", "second name"),

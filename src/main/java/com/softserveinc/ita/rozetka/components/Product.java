@@ -10,6 +10,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class Product {
+
     private final String productXpath;
     private final String titleXpath = "//span[@class='goods-tile__title']";
 

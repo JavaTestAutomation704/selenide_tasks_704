@@ -17,6 +17,7 @@ import static java.time.Duration.ofSeconds;
 
 @UtilityClass
 public class WebElementUtil {
+
     private static final Duration TIMEOUT = ofSeconds(30);
 
     public static boolean isVisible(String elementXpath) {

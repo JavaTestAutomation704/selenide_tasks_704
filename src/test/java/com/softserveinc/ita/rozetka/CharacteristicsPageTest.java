@@ -12,6 +12,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesS
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CharacteristicsPageTest extends BaseTestRunner {
+
     @Test
     public void verifyProductAdditionToComparisonListOnCharacteristicsPage() {
         var lastProduct = homePage

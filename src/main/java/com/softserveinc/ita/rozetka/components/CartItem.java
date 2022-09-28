@@ -10,6 +10,7 @@ import static java.lang.Long.getLong;
 import static java.lang.String.format;
 
 public class CartItem {
+
     private final String cartItemXpath;
 
     public CartItem(int cartItemNumber) {

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ReviewsSort {
+
     BY_DATE("date"),
     WITH_PHOTO("with_attachments");
     @NonNull

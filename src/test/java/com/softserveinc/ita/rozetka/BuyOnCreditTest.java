@@ -54,8 +54,7 @@ public class BuyOnCreditTest extends BaseTestRunner {
                 .selectCreditVariant(1)
                 .isOrderModalVisible();
 
-        softly
-                .assertThat(isCheckoutPageOpened)
+        softly.assertThat(isCheckoutPageOpened)
                 .as("Checkout page should be opened")
                 .isTrue();
 

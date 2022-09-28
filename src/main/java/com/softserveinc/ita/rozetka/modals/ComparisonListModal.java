@@ -11,6 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class ComparisonListModal {
+
     private final String categoryXpath = "//rz-comparison-modal//li[contains(@class, 'item')]";
     private final String removeCategoryButtonXpath = categoryXpath + "//button[contains(@class, 'remove')]";
 

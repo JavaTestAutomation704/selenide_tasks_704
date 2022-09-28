@@ -28,6 +28,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComparisonListTest extends BaseTestRunner {
+
     private Header header;
 
     @BeforeMethod

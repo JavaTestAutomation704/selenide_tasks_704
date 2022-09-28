@@ -58,45 +58,45 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
 
         var isActualFirstNameBorderColorCorrect = editPersonalDataSection.isFirstNameBorderColorCorrect(redColor);
         var actualFirstNameErrorMessage = editPersonalDataSection.getFirstNameErrorMessage();
-        softly
-                .assertThat(isActualFirstNameBorderColorCorrect)
+
+        softly.assertThat(isActualFirstNameBorderColorCorrect)
                 .as("First name border color should be red when entering first name invalid data")
                 .isTrue();
-        softly
-                .assertThat(actualFirstNameErrorMessage)
+
+        softly.assertThat(actualFirstNameErrorMessage)
                 .as("Error message should be displayed when entering first name invalid data")
                 .isEqualTo(expectedErrorMessage);
 
         var isActualSecondNameBorderColorCorrect = editPersonalDataSection.isSecondNameBorderColorCorrect(redColor);
         var actualSecondNameErrorMessage = editPersonalDataSection.getSecondNameErrorMessage();
-        softly
-                .assertThat(isActualSecondNameBorderColorCorrect)
+
+        softly.assertThat(isActualSecondNameBorderColorCorrect)
                 .as("Second name border color should be red when entering second name invalid data")
                 .isTrue();
-        softly
-                .assertThat(actualSecondNameErrorMessage)
+
+        softly.assertThat(actualSecondNameErrorMessage)
                 .as("Error message should be displayed when entering second name invalid data")
                 .isEqualTo(expectedErrorMessage);
 
         var isActualLastNameBorderColorCorrect = editPersonalDataSection.isLastNameBorderColorCorrect(redColor);
         var actualLastNameErrorMessage = editPersonalDataSection.getLastNameErrorMessage();
-        softly
-                .assertThat(isActualLastNameBorderColorCorrect)
+
+        softly.assertThat(isActualLastNameBorderColorCorrect)
                 .as("Last name border color should be red when entering last name invalid data")
                 .isTrue();
-        softly
-                .assertThat(actualLastNameErrorMessage)
+
+        softly.assertThat(actualLastNameErrorMessage)
                 .as("Error message should be displayed when entering last name invalid data")
                 .isEqualTo(expectedErrorMessage);
 
         var isActualBirthdayBorderColorCorrect = editPersonalDataSection.isBirthdayBorderColorCorrect(redColor);
         var actualBirthdayErrorMessage = editPersonalDataSection.getBirthdayErrorMessage();
-        softly
-                .assertThat(isActualBirthdayBorderColorCorrect)
+
+        softly.assertThat(isActualBirthdayBorderColorCorrect)
                 .as("Birthday border color should be red when entering birthday invalid date")
                 .isTrue();
-        softly
-                .assertThat(actualBirthdayErrorMessage)
+
+        softly.assertThat(actualBirthdayErrorMessage)
                 .as("Error message should be displayed when entering birthday invalid date")
                 .isEqualTo("Введіть дату народження");
 
@@ -186,6 +186,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(passwordChangeModal.isErrorMessageDisplayed())
                 .as("Error message should be displayed")
                 .isTrue();
+
         softly.assertThat(passwordChangeModal.getErrorMessageText())
                 .as("Error message should be correct")
                 .isEqualTo(INVALID_CURRENT_PASSWORD.getMessageUa());
@@ -199,9 +200,11 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
             softly.assertThat(passwordChangeModal.isErrorMessageDisplayed())
                     .as("Error message should be displayed")
                     .isTrue();
+
             softly.assertThat(passwordChangeModal.getErrorMessageText())
                     .as("Error message should be correct")
                     .isEqualTo(INVALID_NEW_PASSWORD.getMessageUa());
+
             softly.assertThat(passwordChangeModal.isSaveButtonEnabled())
                     .as("Save button should be disabled")
                     .isFalse();
@@ -215,9 +218,11 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(passwordChangeModal.isErrorMessageDisplayed())
                 .as("Error message should be displayed")
                 .isTrue();
+
         softly.assertThat(passwordChangeModal.getErrorMessageText())
                 .as("Error message should be correct")
                 .isEqualTo(ENTERED_NEW_PASSWORDS_DO_NOT_MATCH.getMessageUa());
+
         softly.assertThat(passwordChangeModal.isSaveButtonEnabled())
                 .as("Save button should be disabled")
                 .isFalse();
@@ -229,6 +234,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(passwordChangeModal.isErrorMessageDisplayed())
                 .as("Error message shouldn't be displayed")
                 .isFalse();
+
         softly.assertThat(passwordChangeModal.isSaveButtonEnabled())
                 .as("Save button should be enabled")
                 .isTrue();
@@ -240,12 +246,15 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(passwordChangeModal.isErrorMessageDisplayed())
                 .as("Error message should be displayed")
                 .isTrue();
+
         softly.assertThat(passwordChangeModal.getErrorMessageText())
                 .as("Error message should be correct")
                 .isEqualTo(INVALID_CURRENT_PASSWORD.getMessageUa());
+
         softly.assertThat(passwordChangeModal.isSaveButtonEnabled())
                 .as("Save button should be disabled")
                 .isFalse();
+
         softly.assertAll();
     }
 
@@ -365,6 +374,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(editOrderRecipientSection.isErrorMessageDisplayed())
                 .as("Error message should be visible")
                 .isTrue();
+
         softly.assertThat(editOrderRecipientSection.getErrorMessage())
                 .as("Error message should be correct")
                 .isEqualTo("Введіть телефон");
@@ -374,6 +384,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(editOrderRecipientSection.isErrorMessageDisplayed())
                 .as("Error message shouldn't be displayed")
                 .isFalse();
+
         softly.assertThat(editOrderRecipientSection.isButtonAddRecipientEnabled())
                 .as("Button order recipient should be enabled")
                 .isTrue();
@@ -383,6 +394,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(myOrderRecipientsSection.getRecipientName())
                 .as("Recipient name should be correct")
                 .isEqualTo(validName);
+
         softly.assertThat(myOrderRecipientsSection.getRecipientPhone())
                 .as("Recipient phone should be correct")
                 .isEqualTo("+38 0" + validPhone);

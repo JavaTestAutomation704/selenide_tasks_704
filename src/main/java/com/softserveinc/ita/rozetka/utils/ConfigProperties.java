@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigProperties {
+
     private final Properties properties;
 
     public ConfigProperties() throws IOException {

@@ -46,4 +46,17 @@ public class DateUtil {
 
         return date.format(ofPattern(strDateFormat));
     }
+
+    public static LocalDate getDate(String elementXpath) {
+        var inputDate = getText(elementXpath);
+
+        if (inputDate.contains(" ")) {
+            return LocalDate.parse(inputDate, ofPattern("d MMMM yyyy"));
+        }
+
+        if (inputDate.equals("вчора")) {
+            return LocalDate.now().minusDays(1);
+        }
+        return LocalDate.now();
+    }
 }
