@@ -33,6 +33,7 @@ public class PersonalDataSection {
         var birthday = getFormattedDateFromString(
                 format(dataXpathTemplate, "birthday"),
                 "d MMMM yyyy",
+                "dd-MM-yyyy",
                 "uk-UA");
 
         return PersonalData

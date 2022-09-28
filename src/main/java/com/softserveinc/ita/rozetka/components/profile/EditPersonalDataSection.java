@@ -44,8 +44,8 @@ public class EditPersonalDataSection {
         return this;
     }
 
-    @Step("Edit personal data section: select birthday date via calendar")
-    public Calendar selectBirthdayDateViaCalendar() {
+    @Step("Edit personal data section: start selecting birthday date")
+    public Calendar startSelectingBirthdayDate() {
         $x("//button//*[@href='#icon-calendar']").click(ClickOptions.usingJavaScript());
         return new Calendar();
     }

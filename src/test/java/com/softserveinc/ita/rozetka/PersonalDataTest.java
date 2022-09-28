@@ -12,7 +12,8 @@ import static com.softserveinc.ita.rozetka.data.ChangePasswordErrorMessage.*;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
 import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
-import static com.softserveinc.ita.rozetka.utils.DateUtil.*;
+import static com.softserveinc.ita.rozetka.utils.DateUtil.getFormattedCurrentDate;
+import static com.softserveinc.ita.rozetka.utils.DateUtil.getRandomPastDate;
 import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomCyrillicString;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -125,9 +126,6 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .as("Personal data section should be opened")
                 .isTrue();
 
-        // TODO: This guarantees that the output formatted date is always same
-        setStringDateFormat("dd-MM-yyyy");
-
         var personalDataBeforeEditing = personalDataSection.getPersonalData();
 
         var editPersonalDataSection = personalDataSection.startEditing();
@@ -137,7 +135,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .firstName(getRandomCyrillicString())
                 .secondName(getRandomCyrillicString())
                 .lastName(getRandomCyrillicString())
-                .birthday(getRandomPastDate())
+                .birthday(getRandomPastDate("dd-MM-yyyy"))
                 .gender(MALE)
                 .language(UKRAINIAN)
                 .build();
@@ -272,9 +270,6 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
 
         var editPersonalDataSection = personalDataSection.startEditing();
 
-        // TODO: This guarantees that the output formatted date is always same
-        setStringDateFormat("dd-MM-yyyy");
-
         var newPersonalData = PersonalData
                 .builder()
                 .firstName(getRandomCyrillicString())
@@ -284,7 +279,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
 
         editPersonalDataSection.fillInInputPersonalDataFields(newPersonalData);
 
-        var calendar = editPersonalDataSection.selectBirthdayDateViaCalendar();
+        var calendar = editPersonalDataSection.startSelectingBirthdayDate();
 
         assertThat(calendar.isOpened())
                 .as("Calendar should be opened")
@@ -303,14 +298,12 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         // TODO: This test may be failed as current date may be not updated on the website
         softly.assertThat(birthday)
                 .as("Birthday date should be current date")
-                .isEqualTo(getFormattedCurrentDate());
+                .isEqualTo(getFormattedCurrentDate("dd-MM-yyyy"));
 
         personalDataSection.startEditing();
 
-        calendar = editPersonalDataSection
-                .selectBirthdayDateViaCalendar();
-        calendar.selectRandomDate()
-                .save();
+        calendar = editPersonalDataSection.startSelectingBirthdayDate();
+        calendar.selectRandomDate().save();
 
         birthday = personalDataSection
                 .getPersonalData()
