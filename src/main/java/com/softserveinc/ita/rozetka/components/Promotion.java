@@ -2,6 +2,7 @@ package com.softserveinc.ita.rozetka.components;
 
 import com.softserveinc.ita.rozetka.PromotionPage;
 import com.softserveinc.ita.rozetka.utils.PromotionDates;
+import com.softserveinc.ita.rozetka.modals.DrinkingAgeConfirmationModal;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
@@ -22,6 +23,7 @@ public class Promotion {
     @Step("Promotion: open promotion page")
     public PromotionPage open() {
         $x(promotionXpath).click();
+        new DrinkingAgeConfirmationModal().confirm();
         return new PromotionPage();
     }
 }

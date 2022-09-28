@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 public enum CommunicationLanguage {
 
     UKRAINIAN("Українська"),
-    RUSSIAN("Русский");
+    RUSSIAN("Русский"),
+    NOT_SPECIFIED("Не вказана");
 
     @NonNull
     private final String name;

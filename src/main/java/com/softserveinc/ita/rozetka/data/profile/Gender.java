@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 public enum Gender {
 
     MALE("Чоловіча"),
-    FEMALE("Жіноча");
+    FEMALE("Жіноча"),
+    NOT_SPECIFIED("Не вказана");
 
     @NonNull
     private final String name;
