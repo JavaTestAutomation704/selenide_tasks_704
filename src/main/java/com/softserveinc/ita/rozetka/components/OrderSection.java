@@ -46,7 +46,7 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Meest")
     public MeestPickUpSection selectMeestPickUp(Language selectedLocalization) {
-        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
+        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]//ancestor::label",
                 orderNumber, MEEST_PICK_UP.getDeliveryName(selectedLocalization))).click();
         waitTillCheckoutPreloaderInvisible();
         return new MeestPickUpSection(orderNumber);
@@ -54,7 +54,7 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Mobile point")
     public MobilePointPickUpSection selectMobilePointPickUp(Language selectedLocalization) {
-        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
+        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]//ancestor::label",
                 orderNumber, MOBILE_POINT_PICK_UP.getDeliveryName(selectedLocalization))).click();
         waitTillCheckoutPreloaderInvisible();
         return new MobilePointPickUpSection(orderNumber);
@@ -62,7 +62,7 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Ukr Poshta point")
     public UkrPoshtaPickUpSection selectUkrPoshtaPickUp(Language selectedLocalization) {
-        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
+        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]//ancestor::label",
                 orderNumber, UKR_POSHTA_PICK_UP.getDeliveryName(selectedLocalization))).click();
         waitTillCheckoutPreloaderInvisible();
         return new UkrPoshtaPickUpSection(orderNumber);
@@ -70,7 +70,7 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Nova Poshta")
     public NovaPoshtaPickUpSection selectNovaPoshtaPickUp(Language selectedLocalization) {
-        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
+        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]//ancestor::label",
                 orderNumber, NOVA_POSHTA_PICK_UP.getDeliveryName(selectedLocalization))).click();
         waitTillCheckoutPreloaderInvisible();
         return new NovaPoshtaPickUpSection(orderNumber);
@@ -78,7 +78,7 @@ public class OrderSection {
 
     @Step("Order section: select pickup from Rozetka")
     public RozetkaPickUpSection selectRozetkaPickUp(Language selectedLocalization) {
-        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]/../../../label",
+        $x(format("(//div[@class = 'checkout-order'])[%d]//span[contains(text(),'%s')]//ancestor::label",
                 orderNumber, ROZETKA_PICK_UP.getDeliveryName(selectedLocalization))).click();
         waitTillCheckoutPreloaderInvisible();
         return new RozetkaPickUpSection(orderNumber);
