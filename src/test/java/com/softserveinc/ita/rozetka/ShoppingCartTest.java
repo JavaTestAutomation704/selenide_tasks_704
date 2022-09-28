@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ShoppingCartTest extends BaseTestRunner {
+
     private Header header;
 
     @BeforeMethod

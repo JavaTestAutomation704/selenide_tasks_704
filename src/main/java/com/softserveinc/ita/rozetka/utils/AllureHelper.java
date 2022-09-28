@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 @UtilityClass
 public final class AllureHelper {
+
     @Attachment(value = "Html source", type = "text/html", fileExtension = ".html")
     public static byte[] getPageSource() {
         return getPageSourceBytes();

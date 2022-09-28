@@ -114,5 +114,4 @@ public class SortProductTest extends BaseTestRunner {
         }
         softly.assertAll();
     }
-
 }

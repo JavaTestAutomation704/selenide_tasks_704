@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.actions;
 import static java.lang.String.format;
 
 public class CatalogModal {
+
     @Step("Catalog modal: open {subcategory} page of {category}")
     public SubcategoryPage openSubcategory(Category category, ISubcategory subcategory) {
         var categoryLinkXpath = format("//ul[contains(@class, 'menu-categories')]/li/a[contains(@class, 'link') and contains(@href, '%s')]", category.getCategoryXpath());

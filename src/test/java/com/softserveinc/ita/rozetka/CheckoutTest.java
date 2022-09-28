@@ -26,6 +26,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElec
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckoutTest extends BaseTestRunner {
+
     private Header header;
 
     @BeforeMethod

@@ -25,6 +25,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElec
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends BaseTestRunner {
+
     @Test
     public void verifySaleFilterFunctionality() {
         var header = homePage.getHeader();

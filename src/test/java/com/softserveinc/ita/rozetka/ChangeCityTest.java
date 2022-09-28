@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ChangeCityTest extends BaseTestRunner {
+
     @Test
     public void verifyCityChangeViaSideBarAndProductPage() {
         var expectedCityViaMobileMenu = "Одеса";

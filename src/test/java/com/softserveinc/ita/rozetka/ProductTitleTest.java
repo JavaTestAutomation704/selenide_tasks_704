@@ -7,6 +7,7 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 public class ProductTitleTest extends BaseTestRunner {
+
     @Test
     public void verifyThatProductTitleContainsTheSameTitleAsCard() {
 

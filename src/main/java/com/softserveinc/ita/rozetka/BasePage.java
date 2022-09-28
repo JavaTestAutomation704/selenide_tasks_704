@@ -9,6 +9,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 
 public abstract class BasePage {
+
     public String getUrl() {
         return WebDriverRunner.getWebDriver().getCurrentUrl();
     }

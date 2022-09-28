@@ -11,6 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class ReviewItem {
+
     private final String reviewItemXpath;
 
     public ReviewItem(int number) {

@@ -7,6 +7,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.waitTillPreloaderInvisible;
 
 public class ChangeCityModal {
+
     public Header changeCity(String city) {
         SelenideElement inputCityField = $x("//input[contains(@class, 'autocomplete__input')]");
         inputCityField.clear();
