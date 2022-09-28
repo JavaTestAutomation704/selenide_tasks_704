@@ -11,7 +11,7 @@ public class ChangeCityModal {
 
     @Step("Change city modal: change city {city}")
     public Header changeCity(String city) {
-        SelenideElement inputCityField = $x("//input[contains(@class, 'autocomplete__input')]");
+        var inputCityField = $x("//input[contains(@class, 'autocomplete__input')]");
         inputCityField.clear();
         inputCityField.sendKeys(city);
         $x("(//form[contains(@class, 'header-location')]//li)[1]").click();
