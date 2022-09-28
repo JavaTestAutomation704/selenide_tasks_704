@@ -12,10 +12,10 @@ import static java.lang.String.format;
 
 public class EditOrderRecipientSection {
     private final String errorMessageXpath = "//p[contains(@class, 'validation-message')]";
-    private final String buttonAddReceiverXpathTemplate = "//rz-cabinet-order-recipient//button[contains(@class,'navy')%s]";
+    private final String buttonAddRecipientXpathTemplate = "//rz-cabinet-order-recipient//button[contains(@class,'navy')%s]";
 
-    @Step("Edit order recipient section: start add receiver")
-    public EditOrderRecipientSection startAddReceiver() {
+    @Step("Edit order recipient section: start adding recipient")
+    public EditOrderRecipientSection startAddingRecipient() {
         $x("//button[contains(@class,'recipient__add-button')]").click();
         return this;
     }
@@ -42,12 +42,12 @@ public class EditOrderRecipientSection {
     }
 
     public boolean isButtonAddRecipientEnabled() {
-        return !isVisible(format(buttonAddReceiverXpathTemplate, " and @disabled"));
+        return !isVisible(format(buttonAddRecipientXpathTemplate, " and @disabled"));
     }
 
-    @Step("Edit order recipient section: add receiver")
-    public ProfilePage addReceiver() {
-        $x(format(buttonAddReceiverXpathTemplate, "")).click();
+    @Step("Edit order recipient section: add recipient")
+    public ProfilePage addRecipient() {
+        $x(format(buttonAddRecipientXpathTemplate, "")).click();
         return new ProfilePage();
     }
 
@@ -57,8 +57,8 @@ public class EditOrderRecipientSection {
         return new ProfilePage();
     }
 
-    @Step("Edit order recipient section: remove receiver")
-    public EditOrderRecipientSection removeReceiver() {
+    @Step("Edit order recipient section: remove recipient")
+    public EditOrderRecipientSection removeRecipient() {
         $x("//rz-cabinet-order-recipient//button[contains(@class,'white')]").click();
         return new EditOrderRecipientSection();
     }

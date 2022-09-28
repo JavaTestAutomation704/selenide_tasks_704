@@ -265,7 +265,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .openMyOrderRecipientsSection();
         var editOrderRecipientSection = myOrderRecipientsSection
                 .startEditing()
-                .startAddReceiver();
+                .startAddingRecipient();
 
         var softly = new SoftAssertions();
         var validPhone = "67 111 11 11";
@@ -310,7 +310,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .as("Button order recipient should be enabled")
                 .isTrue();
 
-        editOrderRecipientSection.addReceiver();
+        editOrderRecipientSection.addRecipient();
 
         softly.assertThat(myOrderRecipientsSection.getRecipientName())
                 .as("Recipient name should be correct")
@@ -323,7 +323,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         refresh();
         myOrderRecipientsSection
                 .startEditing()
-                .removeReceiver()
+                .removeRecipient()
                 .saveChanges();
 
         softly.assertThat(myOrderRecipientsSection.isRecipientNameDisplayed())
