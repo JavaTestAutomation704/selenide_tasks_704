@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import static com.softserveinc.ita.rozetka.data.Language.UA;
-
 @Getter
 @RequiredArgsConstructor
 public enum DeliveryType {
