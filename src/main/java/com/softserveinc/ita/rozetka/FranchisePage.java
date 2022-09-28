@@ -1,9 +1,10 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.components.FranchiseApplicationForm;
+import lombok.Getter;
 
+@Getter
 public class FranchisePage {
-    public FranchiseApplicationForm getFranchiseApplicationForm() {
-        return new FranchiseApplicationForm();
-    }
+
+    private final FranchiseApplicationForm franchiseApplicationForm = new FranchiseApplicationForm();
 }

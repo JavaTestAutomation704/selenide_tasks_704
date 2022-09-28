@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.profile;
 
 import com.softserveinc.ita.rozetka.HomePage;
+import com.softserveinc.ita.rozetka.components.profile.CardDataSection;
 import com.softserveinc.ita.rozetka.components.profile.MyOrderRecipientsSection;
 import com.softserveinc.ita.rozetka.components.profile.PersonalDataSection;
 import com.softserveinc.ita.rozetka.modals.PasswordChangeModal;
@@ -36,6 +37,12 @@ public class ProfilePage extends ProfileBasePage {
         return new PasswordChangeModal();
     }
 
+    @Step("Profile page: open card data section")
+    public CardDataSection openCardDataSection() {
+        $x("//button[contains(@class,'wallet-cards__add')]").click();
+        return new CardDataSection();
+    }
+    
     @Step("Profile page: open my order recipients section")
     public MyOrderRecipientsSection openMyOrderRecipientsSection() {
         $x(format("//h3[text()='%s']/ancestor::details", MY_ORDER_RECIPIENTS.getName())).click();
