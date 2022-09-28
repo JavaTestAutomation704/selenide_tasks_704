@@ -19,6 +19,7 @@
             <class name="com.softserveinc.ita.rozetka.NavigateToHomePageTest"/>
             <class name="com.softserveinc.ita.rozetka.PaginationTest"/>
             <class name="com.softserveinc.ita.rozetka.PickupPointTest"/>
+            <class name="com.softserveinc.ita.rozetka.ProductPageTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductQuestionsTest"/>
             <class name="com.softserveinc.ita.rozetka.ProductTitleTest"/>
             <class name="com.softserveinc.ita.rozetka.PromotionsTest"/>

@@ -48,7 +48,7 @@ public class FilterProductTest extends BaseTestRunner {
                     .getProduct(productNumber)
                     .isOnSale();
 
-            // TODO: This test may be failed as product wasn't have sale label or old price
+            // TODO: This test may be failed as product wasn't on sale
             softly.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale")
                     .isTrue();
