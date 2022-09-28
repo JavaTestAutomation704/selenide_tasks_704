@@ -10,6 +10,7 @@ import static java.lang.String.format;
 
 @RequiredArgsConstructor
 public class CertificateSection {
+
     @NonNull
     private int orderNumber;
 

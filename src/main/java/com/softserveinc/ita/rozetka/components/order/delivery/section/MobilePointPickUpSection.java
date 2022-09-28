@@ -1,6 +1,7 @@
 package com.softserveinc.ita.rozetka.components.order.delivery.section;
 
 public class MobilePointPickUpSection extends BasePickUpSection {
+
     public MobilePointPickUpSection(int orderNumber) {
         super(orderNumber);
     }

@@ -26,6 +26,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElec
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckoutTest extends BaseTestRunner {
+
     private Header header;
 
     @BeforeMethod
@@ -384,16 +385,13 @@ public class CheckoutTest extends BaseTestRunner {
         var actualNameErrorMessage = contactInformationSection.getNameErrorMessage();
         var actualPhoneErrorMessage = contactInformationSection.getPhoneNumberErrorMessage();
 
-        softly
-                .assertThat(actualSurnameErrorMessage)
+        softly.assertThat(actualSurnameErrorMessage)
                 .as("Error message should be displayed when entering invalid data on the contact information section")
                 .isEqualTo("Введіть своє прізвище кирилицею");
-        softly
-                .assertThat(actualNameErrorMessage)
+        softly.assertThat(actualNameErrorMessage)
                 .as("Error message should be displayed when entering invalid data on the contact information section")
                 .isEqualTo("Введіть своє ім'я кирилицею");
-        softly
-                .assertThat(actualPhoneErrorMessage)
+        softly.assertThat(actualPhoneErrorMessage)
                 .as("Error message should be displayed when entering invalid data on the contact information section")
                 .isEqualTo("Введіть номер мобільного телефону");
 
@@ -403,18 +401,15 @@ public class CheckoutTest extends BaseTestRunner {
         var isActualNameBorderColorCorrect = contactInformationSection.isNameBorderColorCorrect(redColor);
         var isActualPhoneBorderColorCorrect = contactInformationSection.isPhoneNumberBorderColorCorrect(redColor);
 
-        softly
-                .assertThat(isActualSurnameBorderColorCorrect)
+        softly.assertThat(isActualSurnameBorderColorCorrect)
                 .as("Surname border color should be red when entering invalid data on the contact information section")
                 .isTrue();
 
-        softly
-                .assertThat(isActualNameBorderColorCorrect)
+        softly.assertThat(isActualNameBorderColorCorrect)
                 .as("Name border color should be red when entering invalid data on the contact information section")
                 .isTrue();
 
-        softly
-                .assertThat(isActualPhoneBorderColorCorrect)
+        softly.assertThat(isActualPhoneBorderColorCorrect)
                 .as("Phone border color should be red when entering invalid data on the contact information section")
                 .isTrue();
 

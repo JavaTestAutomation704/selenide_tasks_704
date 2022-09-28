@@ -22,6 +22,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WishlistTest extends LogInViaFacebookTestRunner {
+
     private Header header;
 
     @BeforeMethod

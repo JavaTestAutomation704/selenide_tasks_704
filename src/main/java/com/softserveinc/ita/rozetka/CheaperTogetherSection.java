@@ -6,6 +6,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getNumber;
 
 public class CheaperTogetherSection {
+
     public long getMainProductPrice() {
         return getNumber($x("(//p[@class='kits-tile__price'])[1]"));
     }

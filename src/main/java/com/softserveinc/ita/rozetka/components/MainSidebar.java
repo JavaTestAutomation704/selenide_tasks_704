@@ -15,6 +15,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class MainSidebar {
+
     @Getter
     private final DownloadApplicationSection downloadApplicationSection = new DownloadApplicationSection();
 

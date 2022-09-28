@@ -19,7 +19,7 @@ public enum Availability {
     private final String filterValue;
 
     public static Availability getByValue(String value) {
-        for (Availability availability : values()) {
+        for (var availability : values()) {
             if (availability.filterValue.equals(value)) {
                 return availability;
             }

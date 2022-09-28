@@ -8,6 +8,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class WriteReviewModal {
+
     public boolean isOpened() {
         return isVisible("//rz-product-add-comments[@class='ng-star-inserted']");
     }

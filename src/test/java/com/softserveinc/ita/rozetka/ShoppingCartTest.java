@@ -6,12 +6,16 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
 import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
 import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ShoppingCartTest extends BaseTestRunner {
+
     private Header header;
 
     @BeforeMethod
@@ -47,7 +51,7 @@ public class ShoppingCartTest extends BaseTestRunner {
         long firstAvailableProductPrice = firstAvailableProduct.getPrice();
 
         var softly = new SoftAssertions();
-        for (String word : searchPhrase.split(" ")) {
+        for (var word : searchPhrase.split(" ")) {
             softly.assertThat(firstAvailableProductTitle)
                     .as("First available product title should contain searched keyword.")
                     .contains(word);
@@ -116,24 +120,34 @@ public class ShoppingCartTest extends BaseTestRunner {
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
-        var searchResultsPage = header.search("starbucks");
+        var subcategoryPage = homePage
+                .openCategoryPage(GAMERS_GOODS)
+                .openSubcategoryPage(MONITORS);
 
-        assertThat(searchResultsPage.getProductsQuantity())
+        var filter = subcategoryPage.getFilter();
+        filter.filter(AVAILABLE);
+
+        assertThat(filter.isSelected(AVAILABLE))
+                .as("Filter should be selected")
+                .isTrue();
+
+        assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(2);
 
-        long firstProductPrice = searchResultsPage.getProduct(1).getPrice();
-        long secondProductPrice = searchResultsPage.getProduct(2).getPrice();
+        long firstProductPrice = subcategoryPage.getProduct(1).getPrice();
+        long secondProductPrice = subcategoryPage.getProduct(2).getPrice();
+
         long expectedTotalSum = firstProductPrice + secondProductPrice;
 
-        var firstProduct = searchResultsPage.getProduct(1);
+        var firstProduct = subcategoryPage.getProduct(1);
         firstProduct.addToShoppingCart();
 
         assertThat(firstProduct.isInShoppingCart())
                 .as("First product should be added to shopping cart")
                 .isTrue();
 
-        var secondProduct = searchResultsPage.getProduct(2);
+        var secondProduct = subcategoryPage.getProduct(2);
         secondProduct.addToShoppingCart();
 
         assertThat(secondProduct.isInShoppingCart())

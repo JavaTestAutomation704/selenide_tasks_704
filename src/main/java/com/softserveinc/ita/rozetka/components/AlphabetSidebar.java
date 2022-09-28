@@ -8,6 +8,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class AlphabetSidebar {
+
     private final String alphabetSidebarXpath = "[contains(@class, 'sidebar-alphabet')]";
 
     @Step("Alphabet sidebar: open")

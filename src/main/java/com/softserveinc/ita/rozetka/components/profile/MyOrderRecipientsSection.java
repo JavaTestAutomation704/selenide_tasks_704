@@ -7,6 +7,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class MyOrderRecipientsSection {
+
     private final String recipientNameXpath = "//p[@class='recipient__name']";
 
     @Step("My order recipients section: start editing")

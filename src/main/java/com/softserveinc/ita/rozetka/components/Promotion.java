@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
 public class Promotion {
+
     private final String promotionXpath;
 
     @Getter

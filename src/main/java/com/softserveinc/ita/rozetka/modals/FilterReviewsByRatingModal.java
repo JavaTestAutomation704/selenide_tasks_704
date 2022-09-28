@@ -7,6 +7,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
 public class FilterReviewsByRatingModal {
+
     @Step("Filter reviews by rating modal: filter reviews by rating {rating}")
     public FilterReviewsByRatingModal filterByRating(int rating) {
         $x(format("(//div[@class='ng-star-inserted']//label)[%s]", rating)).click();

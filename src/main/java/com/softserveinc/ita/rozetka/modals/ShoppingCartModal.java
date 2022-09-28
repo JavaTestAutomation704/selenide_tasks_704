@@ -9,6 +9,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ShoppingCartModal {
+
     private final String closeButtonXpath = "//button[contains(@class, 'modal__close')]";
 
     public boolean isEmpty() {
