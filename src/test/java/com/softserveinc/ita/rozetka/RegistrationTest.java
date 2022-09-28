@@ -23,13 +23,11 @@ public class RegistrationTest extends BaseTestRunner {
                 .getHeader()
                 .isLanguageSelected(UA);
 
-        softly
-                .assertThat(isUaLanguageSelected)
+        softly.assertThat(isUaLanguageSelected)
                 .as("Localization should be in ukrainian language")
                 .isTrue();
 
-        softly
-                .assertThat(registrationModal.isOpened())
+        softly.assertThat(registrationModal.isOpened())
                 .as("Registration modal should be opened")
                 .isTrue();
 
@@ -64,8 +62,7 @@ public class RegistrationTest extends BaseTestRunner {
         var redColor = Color.RED.getRgb();
         var isActualFirstNameBorderInCorrectColor = registrationModal.isFirstNameBorderColorCorrect(redColor);
 
-        softly
-                .assertThat(isActualFirstNameBorderInCorrectColor)
+        softly.assertThat(isActualFirstNameBorderInCorrectColor)
                 .as("FirstName border color should be red")
                 .isTrue();
 

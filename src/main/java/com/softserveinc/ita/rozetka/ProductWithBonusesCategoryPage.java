@@ -12,7 +12,8 @@ public class ProductWithBonusesCategoryPage {
 
     @Step("Product with bonuses category page: open product with bonuses page {category}")
     public ProductWithBonusesPage openProductWithBonusesPage(Category category) {
-        $x(format("(//div[@class = 'rz-categories__item']//a[contains(@href, '%s')])[2]", category.getCategoryXpath())).click();
+        $x(format("(//div[@class = 'rz-categories__item']//a[contains(@href, '%s')])[2]",
+                category.getCategoryXpath())).click();
         switchTo().window(1);
         return new ProductWithBonusesPage();
     }
