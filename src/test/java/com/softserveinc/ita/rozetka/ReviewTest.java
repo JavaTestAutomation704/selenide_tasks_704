@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ReviewTest extends BaseTestRunner {
+
     @Test
     public void verifyFilterReviewsByRating() {
         var searchResultsPage = homePage

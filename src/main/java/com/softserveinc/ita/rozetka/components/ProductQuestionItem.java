@@ -10,6 +10,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class ProductQuestionItem {
+
     private final String productQuestionItemXpath;
 
     public ProductQuestionItem(int number) {

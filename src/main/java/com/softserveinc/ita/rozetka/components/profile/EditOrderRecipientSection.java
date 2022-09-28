@@ -11,6 +11,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class EditOrderRecipientSection {
+
     private final String errorMessageXpath = "//p[contains(@class, 'validation-message')]";
     private final String buttonAddRecipientXpathTemplate = "//rz-cabinet-order-recipient//button[contains(@class,'navy')%s]";
 

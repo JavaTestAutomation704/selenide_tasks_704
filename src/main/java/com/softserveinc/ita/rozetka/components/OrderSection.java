@@ -15,6 +15,7 @@ import static java.lang.String.format;
 
 @RequiredArgsConstructor
 public class OrderSection {
+
     @NonNull
     private int orderNumber;
 

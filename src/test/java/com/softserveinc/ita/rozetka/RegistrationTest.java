@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 
 public class RegistrationTest extends BaseTestRunner {
+
     @Test
     public void verifyThatBordersAreRedAndErrorMessageAppearsAfterLeavingEmptyFields() {
 

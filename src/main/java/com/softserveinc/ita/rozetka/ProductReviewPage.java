@@ -14,6 +14,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static java.lang.String.format;
 
 public class ProductReviewPage {
+
     public ReviewItem getReviewItem(int number) {
         return new ReviewItem(number);
     }

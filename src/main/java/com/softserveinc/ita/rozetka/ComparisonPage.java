@@ -6,6 +6,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSiz
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 
 public class ComparisonPage extends BasePage {
+
     public ComparisonItem getComparisonItem(int number) {
         return new ComparisonItem(number);
     }

@@ -14,6 +14,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class ProductPage extends BasePage {
+
     private final String titleXpath = "//h1[@class='product__title']";
 
     @Getter

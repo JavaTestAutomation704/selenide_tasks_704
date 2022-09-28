@@ -8,6 +8,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class LogInModal {
+
     private final String logInButtonXpath = "//button[contains(@class, 'auth-modal__submit')]";
     private final String registerButtonXpath = "//button[contains(@class, 'auth-modal__register')]";
     private final String remindPasswordButtonXpath = "//a[contains(@class,'restore-link')]";

@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProductQuestionsTest extends BaseTestRunner {
+
     @Test
     public void verifySortProductQuestionsFunctionality() {
         var searchResultsPage = homePage

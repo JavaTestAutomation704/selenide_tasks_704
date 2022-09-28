@@ -11,6 +11,7 @@ import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MainSidebarTest extends BaseTestRunner {
+
     private Header header;
 
     @Test
