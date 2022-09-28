@@ -11,7 +11,7 @@ public class ComparisonPage extends BasePage {
     }
 
     public int getComparisonItemQuantity() {
-        return getCollectionSize("//rz-compare-tile", 2);
+        return getCollectionSize("//rz-compare-tile");
     }
 
     public boolean isNothingToCompareMessageVisible(){

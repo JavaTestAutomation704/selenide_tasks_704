@@ -38,6 +38,7 @@ public class CharacteristicsPageTest extends BaseTestRunner {
                 .contains(GREEN.getRgb());
         softly.assertThat(characteristicsPage.getCharacteristicsTabUnderscoreRgbColor())
                 .as("Characteristics tab underscore should be green")
+                // TODO: Test might fail when Characteristics tab underscore does not appear (rarely)
                 .contains(GREEN.getRgb());
         softly.assertThat(characteristicsPageUrl)
                 .as("Characteristics page url should contain keyword")
