@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum ProfileSection {
 
-    PERSONAL_DATA("Особисті дані");
+    PERSONAL_DATA("Особисті дані"),
+    DELIVERY_ADDRESS("Адреса доставки");
 
     @NonNull
     private final String name;
