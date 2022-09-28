@@ -71,8 +71,10 @@ public class Filter extends Header {
     @Step("Filter: clear brand search field")
     public SearchResultsPage clearBrandSearchField() {
         int currentBrandSearchResultsQuantity = getBrandSearchResults().size();
-        $x("//div[@data-filter-name='producer']//input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
-        waitCollectionSizeIncrease("//div[@data-filter-name='producer']//rz-scrollbar//a", currentBrandSearchResultsQuantity);
+        $x("//div[@data-filter-name='producer']//input")
+                .sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
+        waitCollectionSizeIncrease("//div[@data-filter-name='producer']//rz-scrollbar//a",
+                currentBrandSearchResultsQuantity);
         return new SearchResultsPage();
     }
 
