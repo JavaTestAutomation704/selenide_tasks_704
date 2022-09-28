@@ -1,4 +1,4 @@
-package com.softserveinc.ita.rozetka.components;
+package com.softserveinc.ita.rozetka.components.order.delivery.section;
 
 public class NovaPoshtaPickUpSection extends BasePickUpSection {
     public NovaPoshtaPickUpSection(int orderNumber) {

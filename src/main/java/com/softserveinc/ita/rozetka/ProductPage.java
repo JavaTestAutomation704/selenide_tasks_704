@@ -108,7 +108,10 @@ public class ProductPage extends BasePage {
 
     @Step("Product page: select color {color}")
     public ProductPage selectColor(Color color) {
+        var titleXpath = "//h1";
+        var titleText = $x(titleXpath).text();
         $x(format("//span[@style='background-color: rgb(%s);']", color.getRgb())).click();
+        waitForTextChange(titleXpath, titleText);
         return this;
     }
 }
