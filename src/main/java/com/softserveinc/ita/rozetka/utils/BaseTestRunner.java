@@ -15,7 +15,7 @@ public class BaseTestRunner {
 
     @BeforeClass
     public void setConfiguration() throws IOException {
-        Configuration.timeout = 15000;
+        Configuration.timeout = 30000;
         Configuration.browserSize = "1920x1080";
         Configuration.reportsFolder = "target/allure-results";
         var configProperties = new ConfigProperties();

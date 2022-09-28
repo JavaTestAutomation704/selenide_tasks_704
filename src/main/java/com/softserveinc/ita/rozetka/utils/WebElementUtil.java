@@ -17,7 +17,7 @@ import static java.time.Duration.ofSeconds;
 
 @UtilityClass
 public class WebElementUtil {
-    private static final Duration TIMEOUT = ofSeconds(15);
+    private static final Duration TIMEOUT = ofSeconds(30);
 
     public static boolean isVisible(String elementXpath) {
         return isVisible(elementXpath, TIMEOUT.getSeconds());
@@ -100,7 +100,7 @@ public class WebElementUtil {
     }
 
     public static void waitTillVisible(String elementXpath) {
-        isVisible(elementXpath, 5);
+        isVisible(elementXpath, TIMEOUT.getSeconds());
     }
 
     public static void waitTillVisible(String elementXpath, long seconds) {
@@ -110,6 +110,13 @@ public class WebElementUtil {
     public static void waitForTextChange(String elementXpath, String elementText) {
         try {
             $x(elementXpath).shouldNotHave(text(elementText));
+        } catch (AssertionError ignore) {
+        }
+    }
+
+    public static void waitCollectionSizeChange(String elementsXpath, int size) {
+        try {
+            $$x(elementsXpath).shouldBe(CollectionCondition.sizeNotEqual(size), ofSeconds(TIMEOUT.getSeconds()));
         } catch (AssertionError ignore) {
         }
     }
