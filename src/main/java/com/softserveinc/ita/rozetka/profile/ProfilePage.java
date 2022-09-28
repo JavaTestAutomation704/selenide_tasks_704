@@ -9,16 +9,13 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.data.ProfileSection.MY_ORDER_RECIPIENTS;
-import static com.softserveinc.ita.rozetka.data.ProfileSection.PERSONAL_DATA;
 import static java.lang.String.format;
 
 public class ProfilePage extends ProfileBasePage {
 
     @Step("Profile page: open personal data section")
     public PersonalDataSection openPersonalDataSection() {
-        var personalDataSectionXpath = format("//h3[text()='%s']/ancestor::details", PERSONAL_DATA.getName());
-        $x(personalDataSectionXpath).click();
-        return new PersonalDataSection(personalDataSectionXpath);
+        return new PersonalDataSection().open();
     }
 
     @Step("Profile page: log out")

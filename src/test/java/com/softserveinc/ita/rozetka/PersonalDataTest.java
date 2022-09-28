@@ -12,6 +12,7 @@ import static com.softserveinc.ita.rozetka.data.EditOrderRecipientField.*;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
 import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
 import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
+import static com.softserveinc.ita.rozetka.utils.DateUtil.getCurrentDate;
 import static com.softserveinc.ita.rozetka.utils.DateUtil.getRandomPastDate;
 import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomCyrillicString;
 import static java.util.Arrays.asList;
@@ -134,7 +135,7 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .firstName(getRandomCyrillicString())
                 .secondName(getRandomCyrillicString())
                 .lastName(getRandomCyrillicString())
-                .birthday(getRandomPastDate())
+                .birthday(getRandomPastDate("dd-MM-yyyy"))
                 .gender(MALE)
                 .language(UKRAINIAN)
                 .build();
@@ -253,6 +254,73 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
         softly.assertThat(passwordChangeModal.isSaveButtonEnabled())
                 .as("Save button should be disabled")
                 .isFalse();
+
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyThatCalendarFunctionalityWorksCorrectly() {
+        var header = homePage.getHeader();
+        header.changeLanguage(UA);
+        var isUaLanguageSelected = header.isLanguageSelected(UA);
+
+        assertThat(isUaLanguageSelected)
+                .as("Localization should be switched to UA")
+                .isTrue();
+
+        var personalDataSection = header
+                .openMainSidebar()
+                .openProfilePage()
+                .openPersonalDataSection();
+
+        assertThat(personalDataSection.isOpened())
+                .as("Personal data section should be opened")
+                .isTrue();
+
+        var editPersonalDataSection = personalDataSection.startEditing();
+
+        var newPersonalData = PersonalData
+                .builder()
+                .firstName(getRandomCyrillicString())
+                .secondName(getRandomCyrillicString())
+                .lastName(getRandomCyrillicString())
+                .build();
+
+        editPersonalDataSection.fillInInputPersonalDataFields(newPersonalData);
+
+        var calendar = editPersonalDataSection.startSelectingBirthdayDate();
+
+        assertThat(calendar.isOpened())
+                .as("Calendar should be opened")
+                .isTrue();
+
+        calendar
+                .selectCurrentDate()
+                .save();
+
+        var softly = new SoftAssertions();
+
+        var birthday = personalDataSection
+                .getPersonalData()
+                .getBirthday();
+
+        // TODO: This test may be failed as current date may be not updated on the website
+        softly.assertThat(birthday)
+                .as("Birthday date should be current date")
+                .isEqualTo(getCurrentDate("dd-MM-yyyy"));
+
+        personalDataSection.startEditing();
+
+        calendar = editPersonalDataSection.startSelectingBirthdayDate();
+        calendar.selectRandomDate().save();
+
+        birthday = personalDataSection
+                .getPersonalData()
+                .getBirthday();
+
+        softly.assertThat(birthday)
+                .as("Birthday date should be the same as selected date during editing")
+                .isEqualTo(calendar.getSelectedDate());
 
         softly.assertAll();
     }
