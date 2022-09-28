@@ -19,16 +19,18 @@ public class DateUtil {
         return LocalDate.parse(getText(elementXpath), ofPattern(dateFormat));
     }
 
-    public static String getFormattedDateFromString(String elementXpath, String dateFormat, String strDateFormat, String langTag) {
-        Locale.setDefault(Locale.forLanguageTag(langTag));
+    public static String getFormattedDateFromString(String elementXpath, String dateFormat,
+                                                    String strDateFormat, String localeLanguageTag) {
+
+        Locale.setDefault(Locale.forLanguageTag(localeLanguageTag));
         try {
-            return getDateFromString(elementXpath, dateFormat, langTag).format(ofPattern(strDateFormat));
+            return getDateFromString(elementXpath, dateFormat, localeLanguageTag).format(ofPattern(strDateFormat));
         } catch (DateTimeParseException exception) {
             return "";
         }
     }
 
-    public static String getFormattedCurrentDate(String strDateFormat) {
+    public static String getCurrentDate(String strDateFormat) {
         return LocalDate
                 .now()
                 .format(DateTimeFormatter.ofPattern(strDateFormat));
