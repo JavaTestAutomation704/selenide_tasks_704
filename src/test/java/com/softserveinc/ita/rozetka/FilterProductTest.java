@@ -25,6 +25,7 @@ import static com.softserveinc.ita.rozetka.data.subcategory.SmartphonesTvAndElec
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterProductTest extends BaseTestRunner {
+
     @Test
     public void verifySaleFilterFunctionality() {
         var header = homePage.getHeader();
@@ -48,7 +49,7 @@ public class FilterProductTest extends BaseTestRunner {
                     .getProduct(productNumber)
                     .isOnSale();
 
-            // TODO: This test may be failed as product wasn't have sale label or old price
+            // TODO: This test may be failed as product wasn't on sale
             softly.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale")
                     .isTrue();
@@ -269,7 +270,7 @@ public class FilterProductTest extends BaseTestRunner {
                 .getFilter();
         var subcategoryPage = filter.filter(PRODUCED_IN_SPAIN);
 
-        int productsQuantity = 5;
+        int productsQuantity = 3;
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
@@ -363,9 +364,9 @@ public class FilterProductTest extends BaseTestRunner {
 
         searchQueries.forEach(query -> {
             filter.searchForBrand(query);
-            softly
-                    .assertThat(filter.getBrandSearchResults())
-                    .allSatisfy(brand -> assertThat(brand)
+            filter
+                    .getBrandSearchResults()
+                    .forEach(brand -> softly.assertThat(brand)
                             .as("Brand name should contain search query")
                             .containsIgnoringCase(query));
         });
@@ -378,19 +379,18 @@ public class FilterProductTest extends BaseTestRunner {
                 .isTrue();
 
         var searchLetters = List.of("A", "N", "H", "J");
+
         searchLetters.forEach(letter -> {
             alphabetSidebar.searchByLetter(letter);
-            softly
-                    .assertThat(filter.getBrandSearchResults())
-                    .as("Brand name should start with selected letter or contain that letter")
-                    .satisfiesAnyOf(
-                            brands -> assertThat(brands)
-                                    .allSatisfy(brand -> assertThat(brand)
-                                            .as("Brand name should start with selected letter")
-                                            .startsWithIgnoringCase(letter)),
-                            brands -> assertThat(brands)
-                                    .allSatisfy(brand -> assertThat(brand)
-                                            .as("Brand name should contains selected letter")
+            filter
+                    .getBrandSearchResults()
+                    .forEach(brand -> softly.assertThat(brand)
+                            .satisfiesAnyOf(
+                                    brandName -> softly.assertThat(brandName)
+                                            .as("Brand name should start with selected letter ignoring case")
+                                            .startsWithIgnoringCase(letter),
+                                    brandName -> softly.assertThat(brandName)
+                                            .as("Brand name should contain upper case selected letter")
                                             .contains(letter)));
         });
 

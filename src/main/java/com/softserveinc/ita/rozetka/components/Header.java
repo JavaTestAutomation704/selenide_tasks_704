@@ -12,8 +12,6 @@ import com.softserveinc.ita.rozetka.profile.MyOrdersPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
@@ -65,11 +63,6 @@ public class Header {
         return new HomePage();
     }
 
-    public boolean isRegisterButtonVisible() {
-        return isVisible
-                ("//button[@class='auth-modal__register-link button button--link ng-star-inserted']");
-    }
-
     @Step("Header: open catalog modal")
     public CatalogModal openCatalogModal() {
         actions().click($x("//button[@id='fat-menu']")).perform();
@@ -95,10 +88,6 @@ public class Header {
 
     public int getComparisonListProductQuantity() {
         return Integer.parseInt(getText("//rz-comparison//rz-icon-counter"));
-    }
-
-    public int getShoppingCartProductQuantity() {
-        return Integer.parseInt(getText("//rz-icon-counter//span[contains(@class, 'counter')]"));
     }
 
     @Step("Header: open comparison list modal")

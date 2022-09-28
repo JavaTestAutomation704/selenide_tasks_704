@@ -14,6 +14,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class ProductPage extends BasePage {
+
     private final String titleXpath = "//h1[@class='product__title']";
 
     @Getter
@@ -88,6 +89,7 @@ public class ProductPage extends BasePage {
     @Step("Product page: open promotion terms page modal")
     public PromotionTermsModal openPromotionTermsModal() {
         var promotionTermsModalButtonXpath = "//button[contains(@class, 'promotion')]";
+        $x(titleXpath).hover();
         waitTillVisible(promotionTermsModalButtonXpath);
         $x(promotionTermsModalButtonXpath).click();
         return new PromotionTermsModal();
@@ -107,7 +109,10 @@ public class ProductPage extends BasePage {
 
     @Step("Product page: select color {color}")
     public ProductPage selectColor(Color color) {
+        var titleXpath = "//h1";
+        var titleText = $x(titleXpath).text();
         $x(format("//span[@style='background-color: rgb(%s);']", color.getRgb())).click();
+        waitForTextChange(titleXpath, titleText);
         return this;
     }
 }

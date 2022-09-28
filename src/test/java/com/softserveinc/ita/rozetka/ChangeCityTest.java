@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ChangeCityTest extends BaseTestRunner {
+
     @Test
     public void verifyCityChangeViaSideBarAndProductPage() {
         var expectedCityViaMobileMenu = "Одеса";
@@ -24,7 +25,12 @@ public class ChangeCityTest extends BaseTestRunner {
                 .as(errorMessage)
                 .isEqualTo(expectedCityViaMobileMenu);
 
-        var searchResultsPage = header.search("Планшети");
+        var searchTerm = "телефони";
+        var searchResultsPage = header.search(searchTerm);
+
+        assertThat(searchResultsPage.doesTitleContain(searchTerm))
+                .as("Title should contain search term")
+                .isTrue();
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")

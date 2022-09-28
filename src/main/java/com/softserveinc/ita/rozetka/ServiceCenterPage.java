@@ -3,10 +3,8 @@ package com.softserveinc.ita.rozetka;
 import com.softserveinc.ita.rozetka.service_center.ProducerPage;
 import io.qameta.allure.Step;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;

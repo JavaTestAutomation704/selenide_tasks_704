@@ -1,9 +1,7 @@
-package com.softserveinc.ita.rozetka.components;
+package com.softserveinc.ita.rozetka.components.order.delivery.section;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.Keys;
 
 import java.util.Objects;
@@ -13,14 +11,15 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 @Getter
-@RequiredArgsConstructor
-public class CourierDeliverySection {
+public class CourierDeliverySection extends BaseDeliverySection {
 
-    @NonNull
-    private int orderNumber;
     private final String streetFieldXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//input[@formcontrolname = 'title']";
     private final String houseFieldXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//input[@formcontrolname = 'house']";
     private final String flatFieldXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//input[@formcontrolname = 'flat']";
+
+    public CourierDeliverySection(int orderNumber) {
+        super(orderNumber);
+    }
 
     public boolean isOpened() {
         return isVisible("(//ul//rz-checkout-order-delivery)[2]//fieldset");

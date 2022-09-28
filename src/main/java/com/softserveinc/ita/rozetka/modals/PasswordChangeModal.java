@@ -9,14 +9,15 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class PasswordChangeModal {
+
     private final String errorMessageXpath = "//p[contains(@class, 'error-message')]";
     private final String saveButtonXpathTemplate = "//button[@type='submit' and contains(@class,'navy')%s]";
 
     private void fillInPassword(String password, String inputFieldXpath) {
-        var quantityInput = $x(inputFieldXpath);
-        quantityInput.clear();
-        quantityInput.sendKeys(password);
-        quantityInput.pressTab();
+        var passwordInput = $x(inputFieldXpath);
+        passwordInput.clear();
+        passwordInput.sendKeys(password);
+        passwordInput.pressTab();
     }
 
     @Step("Password change modal: fill in current password {password}")

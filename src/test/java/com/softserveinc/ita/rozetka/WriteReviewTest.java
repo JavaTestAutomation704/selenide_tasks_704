@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WriteReviewTest extends LogInViaFacebookTestRunner {
+
     @Test
     public void verifyImpossibilityToWriteReviewWithInvalidData() {
         var header = homePage.getHeader();

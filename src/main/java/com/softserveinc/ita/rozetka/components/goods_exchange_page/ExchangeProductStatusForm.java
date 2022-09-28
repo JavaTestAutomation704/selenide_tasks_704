@@ -8,6 +8,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
 import static java.lang.String.format;
 
 public class ExchangeProductStatusForm extends BaseStatusForm {
+
     private final String buttonNextStepXpath = "//button[contains(@class,'button-next')]";
 
     @Step("Exchange product status form: select product you want to exchange for '{exchangeProductStatus}'")

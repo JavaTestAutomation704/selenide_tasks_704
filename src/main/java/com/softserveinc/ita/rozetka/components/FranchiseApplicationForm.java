@@ -9,6 +9,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class FranchiseApplicationForm {
+
     private final String formFieldXpathTemplate = "//label[@for='%s']/parent::li//%s";
     private final String errorXpath = "div[contains(@class, 'error')]";
 

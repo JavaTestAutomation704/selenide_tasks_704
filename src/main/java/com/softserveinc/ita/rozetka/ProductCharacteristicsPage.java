@@ -11,6 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 
 public class ProductCharacteristicsPage extends BasePage {
+
     public String getTitle() {
         return $x("//h1[@class='product__title']")
                 .shouldBe(visible)

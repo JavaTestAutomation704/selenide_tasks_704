@@ -8,6 +8,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class PersonalData {
+
     private final String firstName;
     private final String secondName;
     private final String lastName;

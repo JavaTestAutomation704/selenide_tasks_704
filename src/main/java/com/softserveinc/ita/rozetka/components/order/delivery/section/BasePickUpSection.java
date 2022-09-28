@@ -1,16 +1,16 @@
-package com.softserveinc.ita.rozetka.components;
+package com.softserveinc.ita.rozetka.components.order.delivery.section;
 
 import com.softserveinc.ita.rozetka.modals.PickUpPointModal;
 import io.qameta.allure.Step;
-import lombok.RequiredArgsConstructor;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
 
-@RequiredArgsConstructor
-public abstract class BasePickUpSection {
+public abstract class BasePickUpSection extends BaseDeliverySection {
 
-    private final int orderNumber;
+    public BasePickUpSection(int orderNumber) {
+        super(orderNumber);
+    }
 
     public String getPickUpPointName() {
         return $x(format("(//button[contains(@class,'dropdown-button')])[%d]", orderNumber)).text();

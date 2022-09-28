@@ -9,6 +9,7 @@ import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSiz
 import static java.lang.String.format;
 
 public class ProductQuestionsPage {
+
     public ProductQuestionItem getProductQuestionItem(int number) {
         return new ProductQuestionItem(number);
     }

@@ -22,6 +22,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WishlistTest extends LogInViaFacebookTestRunner {
+
     private Header header;
 
     @BeforeMethod
@@ -420,7 +421,7 @@ public class WishlistTest extends LogInViaFacebookTestRunner {
 
         var secondWishlist = wishlistPage.getWishlist(secondWishlistName);
         assertThat(secondWishlist.getWishlistItemsQuantity())
-                .as("Incorrect quantity of items in wishlist " + firstWishlistName)
+                .as("Incorrect quantity of items in wishlist " + secondWishlistName)
                 .isEqualTo(0);
 
         for (int i = 1; i <= 4; i++) {

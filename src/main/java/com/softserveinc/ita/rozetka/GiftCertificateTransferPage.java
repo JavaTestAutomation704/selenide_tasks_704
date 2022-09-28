@@ -2,7 +2,6 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
 import com.softserveinc.ita.rozetka.models.CertificateData;
-import com.softserveinc.ita.rozetka.utils.WebElementUtil;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
@@ -39,11 +38,11 @@ public class GiftCertificateTransferPage extends BasePage {
     }
 
     public boolean isToGiftButtonDisabled() {
-        return WebElementUtil.hasAttribute(transferFormGiftButtonXpath, "disabled");
+        return hasAttribute(transferFormGiftButtonXpath, "disabled");
     }
 
     public boolean isCertificateFieldBorderColorCorrect() {
-        return WebElementUtil.isColorCorrect(certificateFieldXpath, "border-color", Color.RED.getRgb());
+        return isColorCorrect(certificateFieldXpath, "border-color", Color.RED.getRgb());
     }
 
     public String getCertificateErrorMessage() {
