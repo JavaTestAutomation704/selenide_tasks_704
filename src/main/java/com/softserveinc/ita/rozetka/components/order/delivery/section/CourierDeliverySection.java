@@ -13,7 +13,6 @@ import static java.lang.String.format;
 @Getter
 public class CourierDeliverySection extends BaseDeliverySection {
 
-    private int orderNumber;
     private final String streetFieldXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//input[@formcontrolname = 'title']";
     private final String houseFieldXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//input[@formcontrolname = 'house']";
     private final String flatFieldXpathTemplate = "(//div[@class = 'checkout-order'])[%d]//input[@formcontrolname = 'flat']";
