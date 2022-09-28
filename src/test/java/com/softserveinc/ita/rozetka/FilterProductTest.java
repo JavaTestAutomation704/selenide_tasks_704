@@ -49,7 +49,7 @@ public class FilterProductTest extends BaseTestRunner {
                     .getProduct(productNumber)
                     .isOnSale();
 
-            // TODO: This test may be failed as product wasn't have sale label or old price
+            // TODO: This test may be failed as product wasn't on sale
             softly.assertThat(isProductOnSale)
                     .as(productNumber + " product should be on sale")
                     .isTrue();
@@ -270,7 +270,7 @@ public class FilterProductTest extends BaseTestRunner {
                 .getFilter();
         var subcategoryPage = filter.filter(PRODUCED_IN_SPAIN);
 
-        int productsQuantity = 5;
+        int productsQuantity = 3;
 
         assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")

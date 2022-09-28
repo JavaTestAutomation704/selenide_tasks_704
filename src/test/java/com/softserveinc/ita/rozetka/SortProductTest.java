@@ -85,7 +85,8 @@ public class SortProductTest extends BaseTestRunner {
     }
 
 
-    @Test
+    //TODO: this test is invalid as Rozetka remove sort by promotion functionality
+    //@Test
     public void verifySaleSortFunctionality() {
         var header = homePage.getHeader();
         var searchResultsPage = header.search("телефони");

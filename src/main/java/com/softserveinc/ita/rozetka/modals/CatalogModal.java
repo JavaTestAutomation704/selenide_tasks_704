@@ -13,10 +13,12 @@ public class CatalogModal {
 
     @Step("Catalog modal: open {subcategory} page of {category}")
     public SubcategoryPage openSubcategory(Category category, ISubcategory subcategory) {
-        var categoryLinkXpath = format("//ul[contains(@class, 'menu-categories')]/li/a[contains(@class, 'link') and contains(@href, '%s')]", category.getCategoryXpath());
+        var categoryLinkXpath = format("//ul[contains(@class, 'menu-categories')]" +
+                "/li/a[contains(@class, 'link') and contains(@href, '%s')]", category.getCategoryXpath());
         actions().moveToElement($x(categoryLinkXpath)).perform();
 
-        $x(format("%s/parent::li//div[@class='menu__main-cats-inner']//a[contains(@href, '%s')]", categoryLinkXpath, subcategory.getSubcategoryXpath())).click();
+        $x(format("%s/parent::li//div[@class='menu__main-cats-inner']//a[contains(@href, '%s')]",
+                categoryLinkXpath, subcategory.getSubcategoryXpath())).click();
         return new SubcategoryPage();
     }
 }

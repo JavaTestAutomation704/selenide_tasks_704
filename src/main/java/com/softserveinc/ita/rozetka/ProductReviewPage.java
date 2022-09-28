@@ -10,6 +10,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static java.lang.String.format;
 
 public class ProductReviewPage {
@@ -50,5 +51,9 @@ public class ProductReviewPage {
     public WriteReviewModal startWritingReviewWhenUserAuthorized() {
         $x("//section[@class='product-comments__cta']//button").click();
         return new WriteReviewModal();
+    }
+
+    public String getTitle() {
+        return getText("//h1").toLowerCase();
     }
 }

@@ -24,37 +24,31 @@ public class RegistrationTest extends BaseTestRunner {
                 .getHeader()
                 .isLanguageSelected(UA);
 
-        softly
-                .assertThat(isUaLanguageSelected)
+        softly.assertThat(isUaLanguageSelected)
                 .as("Localization should be in ukrainian language")
                 .isTrue();
 
-        softly
-                .assertThat(registrationModal.isOpened())
+        softly.assertThat(registrationModal.isOpened())
                 .as("Registration modal should be opened")
                 .isTrue();
 
         String actualFirstNameErrorMessage = registrationModal.getFirstNameErrorMessage();
-        softly
-                .assertThat(actualFirstNameErrorMessage)
+        softly.assertThat(actualFirstNameErrorMessage)
                 .as("Error message doesn't appear")
                 .isEqualTo("Введіть своє ім'я кирилицею");
 
         String actualLastNameErrorMessage = registrationModal.getLastNameErrorMessage();
-        softly
-                .assertThat(actualLastNameErrorMessage)
+        softly.assertThat(actualLastNameErrorMessage)
                 .as("Error message doesn't appear")
                 .isEqualTo("Введіть своє прізвище кирилицею");
 
         String actualPhoneNumberErrorMessage = registrationModal.getPhoneNumberErrorMessage();
-        softly
-                .assertThat(actualPhoneNumberErrorMessage)
+        softly.assertThat(actualPhoneNumberErrorMessage)
                 .as("Error message doesn't appear")
                 .isEqualTo("Введіть номер мобільного телефону");
 
         String actualEmailErrorMessage = registrationModal.getEmailErrorMessage();
-        softly
-                .assertThat(actualEmailErrorMessage)
+        softly.assertThat(actualEmailErrorMessage)
                 .as("Error message doesn't appear")
                 .isEqualTo("Введіть свою ел. пошту");
 
@@ -65,32 +59,27 @@ public class RegistrationTest extends BaseTestRunner {
         String redColor = Color.RED.getRgb();
         boolean isActualFirstNameBorderInCorrectColor = registrationModal.isFirstNameBorderColorCorrect(redColor);
 
-        softly
-                .assertThat(isActualFirstNameBorderInCorrectColor)
+        softly.assertThat(isActualFirstNameBorderInCorrectColor)
                 .as("FirstName border color should be red")
                 .isTrue();
 
         boolean isActualLastNameBorderInCorrectColor = registrationModal.isLastNameBorderColorCorrect(redColor);
-        softly
-                .assertThat(isActualLastNameBorderInCorrectColor)
+        softly.assertThat(isActualLastNameBorderInCorrectColor)
                 .as("LastName border color should be red")
                 .isTrue();
 
         boolean isPhoneNumberBorderInCorrectColor = registrationModal.isPhoneNumberBorderColorCorrect(redColor);
-        softly
-                .assertThat(isPhoneNumberBorderInCorrectColor)
+        softly.assertThat(isPhoneNumberBorderInCorrectColor)
                 .as("PhoneNumber border color should be red")
                 .isTrue();
 
         boolean isEmailBorderInCorrectColor = registrationModal.isEmailBorderColorCorrect(redColor);
-        softly
-                .assertThat(isEmailBorderInCorrectColor)
+        softly.assertThat(isEmailBorderInCorrectColor)
                 .as("Email border color should be red")
                 .isTrue();
 
         boolean isPasswordBorderInCorrectColor = registrationModal.isPasswordBorderColorCorrect(redColor);
-        softly
-                .assertThat(isPasswordBorderInCorrectColor)
+        softly.assertThat(isPasswordBorderInCorrectColor)
                 .as("Password border color should be red")
                 .isTrue();
 
