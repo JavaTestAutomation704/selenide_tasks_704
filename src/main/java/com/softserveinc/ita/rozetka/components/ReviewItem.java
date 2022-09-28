@@ -1,9 +1,10 @@
 package com.softserveinc.ita.rozetka.components;
 
+import com.softserveinc.ita.rozetka.utils.DateUtil;
+
 import java.time.LocalDate;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.DateUtil.getDateWithDays;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
@@ -24,6 +25,6 @@ public class ReviewItem {
     }
 
     public LocalDate getDate() {
-        return getDateWithDays(reviewItemXpath + "//time");
+        return DateUtil.getDate(reviewItemXpath + "//time");
     }
 }

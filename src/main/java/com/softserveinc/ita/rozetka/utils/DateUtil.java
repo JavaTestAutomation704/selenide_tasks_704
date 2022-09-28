@@ -37,7 +37,7 @@ public class DateUtil {
         return date.format(ofPattern("dd-MM-yyyy"));
     }
 
-    public static LocalDate getDateWithDays(String elementXpath) {
+    public static LocalDate getDate(String elementXpath) {
         var inputDate = getText(elementXpath);
 
         if (inputDate.contains(" ")) {
