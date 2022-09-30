@@ -9,11 +9,11 @@ import com.softserveinc.ita.rozetka.modals.WriteReviewModal;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getCollectionSize;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
 import static java.lang.String.format;
 
 public class ProductReviewPage {
+    private final String reviewsXpath = "//div[@class='comment__inner']";
 
     public ReviewItem getReviewItem(int number) {
         return new ReviewItem(number);
@@ -21,15 +21,19 @@ public class ProductReviewPage {
 
     @Step("Product review page: filter reviews by rating {rating}")
     public ProductReviewPage filterByRating(int rating) {
+        var reviewsText = getText(reviewsXpath);
         $x("//button[contains(@class, 'product-comments__filters')]").click();
         $x("//div[contains(@class, 'modal__holder')]").shouldBe(Condition.visible);
         new FilterReviewsByRatingModal().filterByRating(rating);
+        waitForTextChange(reviewsXpath, reviewsText);
         return this;
     }
 
     @Step("Product review page: sort reviews by {sort}")
     public ProductReviewPage sort(ReviewsSort sort) {
+        var reviewsText = getText(reviewsXpath);
         $x(format("//select//option[@value='%s']", sort.getSortXpath())).click();
+        waitForTextChange(reviewsXpath, reviewsText);
         return this;
     }
 

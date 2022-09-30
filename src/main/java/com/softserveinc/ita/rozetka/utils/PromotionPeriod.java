@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
+import java.util.Locale;
 
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static java.time.format.DateTimeFormatter.ofPattern;
@@ -15,6 +16,7 @@ public class PromotionPeriod {
     private final LocalDate endPromotionDate;
 
     public PromotionPeriod(String elementXpath) {
+        Locale.setDefault(Locale.forLanguageTag("uk-UA"));
         var promotionPeriod = List.of(getText(elementXpath)
                 .replaceAll("[^*]+:|.\\.", "")
                 .trim()
