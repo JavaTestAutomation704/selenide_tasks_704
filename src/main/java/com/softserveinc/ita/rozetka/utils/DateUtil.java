@@ -3,7 +3,6 @@ package com.softserveinc.ita.rozetka.utils;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Random;
@@ -33,7 +32,7 @@ public class DateUtil {
     public static String getCurrentDate(String strDateFormat) {
         return LocalDate
                 .now()
-                .format(DateTimeFormatter.ofPattern(strDateFormat));
+                .format(ofPattern(strDateFormat));
     }
 
     public static String getRandomPastDate(String strDateFormat) {
