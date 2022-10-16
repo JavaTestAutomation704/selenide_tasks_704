@@ -20,4 +20,8 @@ public class RandomUtil {
         }
         return randomString.toString();
     }
+
+    public static <T extends Enum<?>> T getRandomEnum(Class<T> clazz) {
+        return clazz.getEnumConstants()[new Random().nextInt(clazz.getEnumConstants().length)];
+    }
 }
