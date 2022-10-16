@@ -50,14 +50,22 @@ public class PersonalDataStepDefinitions {
 
     @And("The user fills in all personal data fields random data")
     public void theUserFillsInAllPersonalDataFieldsRandomData() {
+        var randomGender = getRandomEnum(Gender.class);
+        var randomLanguage = getRandomEnum(CommunicationLanguage.class);
+
         newPersonalData = PersonalData
                 .builder()
                 .firstName(getRandomCyrillicString())
                 .secondName(getRandomCyrillicString())
                 .lastName(getRandomCyrillicString())
                 .birthday(getRandomPastDate("dd-MM-yyyy"))
-                .gender(getRandomEnum(Gender.class))
-                .language(getRandomEnum(CommunicationLanguage.class))
+                // TODO: It is needed to set gender or language as before editing, if random value is not specified
+                .gender(randomGender.equals(Gender.NOT_SPECIFIED)
+                        ? personalDataBeforeEditing.getGender()
+                        : randomGender)
+                .language(randomLanguage.equals(CommunicationLanguage.NOT_SPECIFIED)
+                        ? personalDataBeforeEditing.getLanguage()
+                        : randomLanguage)
                 .build();
         editPersonalDataSection.fillInAllPersonalDataFields(newPersonalData);
     }
