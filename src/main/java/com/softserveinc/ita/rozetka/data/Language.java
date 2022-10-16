@@ -13,4 +13,13 @@ public enum Language {
 
     @NonNull
     private final String language;
+
+    public static Language getByValue(String value) {
+        for (var language : values()) {
+            if (language.language.equals(value)) {
+                return language;
+            }
+        }
+        throw new IllegalArgumentException("Can't get Language enum for value: " + value);
+    }
 }
