@@ -1,6 +1,8 @@
 package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Color;
+import com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage;
+import com.softserveinc.ita.rozetka.data.profile.Gender;
 import com.softserveinc.ita.rozetka.models.PersonalData;
 import com.softserveinc.ita.rozetka.utils.LogInViaFacebookTestRunner;
 import org.assertj.core.api.SoftAssertions;
@@ -10,11 +12,10 @@ import static com.codeborne.selenide.Selenide.refresh;
 import static com.softserveinc.ita.rozetka.data.ChangePasswordErrorMessage.*;
 import static com.softserveinc.ita.rozetka.data.EditOrderRecipientField.*;
 import static com.softserveinc.ita.rozetka.data.Language.UA;
-import static com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage.UKRAINIAN;
-import static com.softserveinc.ita.rozetka.data.profile.Gender.MALE;
 import static com.softserveinc.ita.rozetka.utils.DateUtil.getCurrentDate;
 import static com.softserveinc.ita.rozetka.utils.DateUtil.getRandomPastDate;
 import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomCyrillicString;
+import static com.softserveinc.ita.rozetka.utils.RandomUtil.getRandomEnum;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -136,8 +137,8 @@ public class PersonalDataTest extends LogInViaFacebookTestRunner {
                 .secondName(getRandomCyrillicString())
                 .lastName(getRandomCyrillicString())
                 .birthday(getRandomPastDate("dd-MM-yyyy"))
-                .gender(MALE)
-                .language(UKRAINIAN)
+                .gender(getRandomEnum(Gender.class))
+                .language(getRandomEnum(CommunicationLanguage.class))
                 .build();
 
         editPersonalDataSection.fillInAllPersonalDataFields(newPersonalData);
