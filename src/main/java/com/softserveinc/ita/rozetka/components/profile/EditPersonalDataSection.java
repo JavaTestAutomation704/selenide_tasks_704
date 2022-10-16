@@ -2,6 +2,8 @@ package com.softserveinc.ita.rozetka.components.profile;
 
 import com.codeborne.selenide.ClickOptions;
 import com.softserveinc.ita.rozetka.components.Calendar;
+import com.softserveinc.ita.rozetka.data.profile.CommunicationLanguage;
+import com.softserveinc.ita.rozetka.data.profile.Gender;
 import com.softserveinc.ita.rozetka.models.PersonalData;
 import io.qameta.allure.Step;
 
@@ -39,8 +41,12 @@ public class EditPersonalDataSection {
     @Step("Edit personal data section: fill in all personal data fields {personalData}")
     public EditPersonalDataSection fillInAllPersonalDataFields(PersonalData personalData) {
         fillInInputPersonalDataFields(personalData);
-        $x("//select[@id='gender']").selectOption(personalData.getGender().getName());
-        $x("//select[@id='rozetkaLanguage']").selectOption(personalData.getLanguage().getName());
+        if (!personalData.getGender().equals(Gender.NOT_SPECIFIED)) {
+            $x("//select[@id='gender']").selectOption(personalData.getGender().getName());
+        }
+        if (!personalData.getLanguage().equals(CommunicationLanguage.NOT_SPECIFIED)) {
+            $x("//select[@id='rozetkaLanguage']").selectOption(personalData.getLanguage().getName());
+        }
         return this;
     }
 
