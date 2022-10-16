@@ -95,6 +95,10 @@
                             <name>listener</name>
                             <value>io.qameta.allure.junit4.AllureJunit4</value>
                         </property>
+                        <property>
+                            <name>dataproviderthreadcount</name>
+                            <value>3</value>
+                        </property>
                     </properties>
                     <suiteXmlFiles>
                         <suiteXmlFile>${suiteXml}</suiteXmlFile>
