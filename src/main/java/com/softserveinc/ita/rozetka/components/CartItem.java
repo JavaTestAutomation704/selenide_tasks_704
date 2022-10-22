@@ -1,47 +1,74 @@
 package com.softserveinc.ita.rozetka.components;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ClickOptions;
 import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
-import lombok.RequiredArgsConstructor;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getLong;
-import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
+import static com.softserveinc.ita.rozetka.utils.WebElementUtil.*;
+import static java.lang.Long.getLong;
+import static java.lang.String.format;
 
-@RequiredArgsConstructor
 public class CartItem {
-    private final int numberCartItem;
-    private String quantityInputXpath = "(//input[contains(@class, 'cart-counter')])[%d]";
+
+    private final String cartItemXpath;
+
+    public CartItem(int cartItemNumber) {
+        cartItemXpath = format("(//rz-cart-product)[%d]", cartItemNumber);
+    }
 
     public String getTitle() {
-        return getText(String.format("(//a[contains(@class, 'cart-product__title')])[%d]", numberCartItem)).toLowerCase();
+        return getText(cartItemXpath + "//a[contains(@class, 'cart-product__title')]").toLowerCase();
     }
 
     public int getQuantity() {
-        return Integer.parseInt($x(String.format(quantityInputXpath, numberCartItem)).val());
+        return Integer.parseInt($x(cartItemXpath + "//input[contains(@class, 'cart-counter')]").val());
     }
 
+    @Step("Cart item: increase the product quantity by one")
     public ShoppingCartModal increment() {
-        $x(String.format("(//button[contains(@data-testid, 'increment')])[%d]", numberCartItem)).click();
+        $x(cartItemXpath + "//button[contains(@data-testid, 'increment')]").click();
         return new ShoppingCartModal();
     }
 
+    @Step("Cart item: decrease the product quantity by one")
     public ShoppingCartModal decrement() {
-        $x(String.format("(//button[contains(@data-testid, 'decrement')])[%d]", numberCartItem)).click();
+        $x(cartItemXpath + "//button[contains(@data-testid, 'decrement')]").click();
         return new ShoppingCartModal();
     }
 
+    @Step("Shopping cart modal: remove product with number {productNumber}")
+    public ShoppingCartModal remove() {
+        $x(cartItemXpath + "//button[contains(@id, 'Actions')]")
+                .scrollIntoView(false)
+                .click(ClickOptions.usingJavaScript());
+        $x("//button[contains(@class, 'context-menu-actions__button')]").click();
+        return new ShoppingCartModal();
+    }
+
+    @Step("Cart item: set product quantity {quantity}")
     public ShoppingCartModal setQuantity(String quantity) {
-        SelenideElement quantityInput = $x(String.format(quantityInputXpath, numberCartItem));
+        var quantityInput = $x(cartItemXpath + "//input[contains(@class, 'cart-counter')]");
         quantityInput.clear();
         quantityInput.sendKeys(quantity);
         return new ShoppingCartModal();
     }
 
     public long getTotalPrice() {
-        String priceXpath = String.format("(//p[contains(@class, 'cart-product__price')])[%d]", numberCartItem);
-        $x(priceXpath).shouldNotHave(Condition.exactText($x(priceXpath).text()));
-        return getLong(priceXpath);
+        return getLong(cartItemXpath + "//p[contains(@class, 'cart-product__price')]");
+    }
+
+    @Step("Shopping cart modal: choose additional service")
+    public CartItem addService(int serviceNumber) {
+        $x(format("(%s//span[@class='cart-service__title'])[%s]", cartItemXpath, serviceNumber)).click();
+        return this;
+    }
+
+    public long getAdditionalServicePrice(int serviceNumber) {
+        return getNumber(format("(%s//span[contains(@class, 'price')]//span[contains(@class, 'cart-service__price')])[%s]", cartItemXpath, serviceNumber));
+    }
+
+    public boolean isAdditionalServicesAvailable() {
+        return isVisible(cartItemXpath + "//button[@data-testid='cart-services-toggle']");
     }
 }

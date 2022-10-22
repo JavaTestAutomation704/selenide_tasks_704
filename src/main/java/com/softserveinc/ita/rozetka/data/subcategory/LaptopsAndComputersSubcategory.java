@@ -8,11 +8,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum LaptopsAndComputersSubcategory implements ISubcategory {
 
-    NOTEBOOKS("/notebooks"),
-    ASUS("asus"),
-    COMPUTERS("/computers/"),
-    MONITORS("monitors");
+    NOTEBOOKS("/notebooks", "Ноутбуки"),
+    ASUS("asus", "Asus"),
+    COMPUTERS("/computers/", "Комп'ютери"),
+    MONITORS("monitors", "Монітори"),
+    TABLETS("tablets", "Планшети"),
+    PROCESSORS("processors", "Процесори");
 
     @NonNull
     private final String subcategoryXpath;
+    @NonNull
+    private final String subcategoryNameUa;
 }

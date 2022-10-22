@@ -1,49 +1,91 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.Product;
 import com.softserveinc.ita.rozetka.data.Category;
-import com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesSubcategory;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.data.Language;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-public class CharacteristicsPageTest extends TestRunner {
+import static com.softserveinc.ita.rozetka.data.Category.HOUSEHOLD_APPLIANCES;
+import static com.softserveinc.ita.rozetka.data.Color.GREEN;
+import static com.softserveinc.ita.rozetka.data.subcategory.HouseholdAppliancesSubcategory.REFRIGERATORS;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class CharacteristicsPageTest extends BaseTestRunner {
+
     @Test
     public void verifyProductAdditionToComparisonListOnCharacteristicsPage() {
-        Product lastProduct = homePage
-                .openCategoryPage(Category.HOUSEHOLD_APPLIANCES)
-                .openSubcategoryPage(HouseholdAppliancesSubcategory.REFRIGERATORS)
+        var lastProduct = homePage
+                .openCategoryPage(HOUSEHOLD_APPLIANCES)
+                .openSubcategoryPage(REFRIGERATORS)
                 .getProduct("last");
-        String lastProductTitle = lastProduct.getTitleLowerCase();
+        var lastProductTitle = lastProduct.getTitleLowerCase();
 
-        ProductCharacteristicsPage characteristicsPage = lastProduct
+        var characteristicsPage = lastProduct
                 .open()
                 .openCharacteristicsPage();
-        String characteristicsPageUrl = characteristicsPage.getUrl();
-        String characteristicsPageTitle = characteristicsPage.getTitle();
+        var characteristicsPageUrl = characteristicsPage.getUrl();
+        var characteristicsPageTitle = characteristicsPage.getTitle();
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         softly.assertThat(characteristicsPageTitle)
-                .as("Characteristics page title should contain last product title.")
+                .as("Characteristics page title should contain last product title")
                 .contains(lastProductTitle);
         softly.assertThat(characteristicsPageTitle)
-                .as("Characteristics page title should contain keyword.")
+                .as("Characteristics page title should contain keyword")
                 .contains("характеристики");
-        softly.assertThat(characteristicsPage.isCharacteristicsTabHighlighted())
-                .as("Characteristics tab should be highlighted.")
-                .isTrue();
+        softly.assertThat(characteristicsPage.getCharacteristicsTabTextRgbColor())
+                .as("Characteristics tab text should be green")
+                .contains(GREEN.getRgb());
+        softly.assertThat(characteristicsPage.getCharacteristicsTabUnderscoreRgbColor())
+                .as("Characteristics tab underscore should be green")
+                // TODO: Test might fail when Characteristics tab underscore does not appear (rarely)
+                .contains(GREEN.getRgb());
         softly.assertThat(characteristicsPageUrl)
-                .as("Characteristics page url should contain keyword.")
+                .as("Characteristics page url should contain keyword")
                 .contains("characteristics");
         softly.assertThat(characteristicsPage.isCharacteristicsSectionVisible())
-                .as("Characteristics page should contain characteristics section.")
+                .as("Characteristics page should contain characteristics section")
                 .isTrue();
 
         characteristicsPage.addToComparison();
 
         softly.assertThat(characteristicsPage.isComparisonCounterVisible())
-                .as("Product should be added to comparison list.")
+                .as("Product should be added to comparison list")
                 .isTrue();
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyProductOnSaleOnPromoPage() {
+        var promoPage = homePage
+                .openCategoryPage(Category.PROMOTION)
+                .openPromoPage();
+
+        var isUaLanguage = homePage
+                .getHeader()
+                .isLanguageSelected(Language.UA);
+
+        assertThat(isUaLanguage)
+                .as("Language should be ukrainian")
+                .isTrue();
+
+        assertThat(promoPage.getTitle())
+                .as("Title should be correct")
+                .isEqualTo("ТОП-товари");
+
+        assertThat(promoPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(40);
+
+        var softly = new SoftAssertions();
+        for (int number = 1; number < 40; number += 3) {
+            softly.assertThat(promoPage
+                            .getProduct(number)
+                            .isOnSale())
+                    .as(number + " product should be on sale")
+                    .isTrue();
+        }
         softly.assertAll();
     }
 }

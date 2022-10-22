@@ -1,24 +1,29 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.ProductSort;
-import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.ProductSort.*;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SortProductTest extends TestRunner {
+public class SortProductTest extends BaseTestRunner {
 
     @Test
     public void verifyProductsSortingInAscendingOrderByPrice() {
         var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS)
+                .getFilter()
+                .filter(AVAILABLE)
+                .sortBy(PRICE_ASCENDING);
 
-        subcategoryPage.sortBy(ProductSort.PRICE_ASCENDING);
+
         var softAssert = new SoftAssertions();
         int step = 4;
         int subcategoryProductQuantity = subcategoryPage.getProductsQuantity();
@@ -38,17 +43,19 @@ public class SortProductTest extends TestRunner {
 
     @Test
     public void verifyProductsSortingInDescendingOrderByPrice() {
-        SubcategoryPage subcategoryPage = homePage
+        var subcategoryPage = homePage
                 .getHeader()
                 .openCatalogModal()
-                .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS)
+                .getFilter()
+                .filter(AVAILABLE);
 
         int productsQuantity = subcategoryPage.getProductsQuantity();
         assertThat(productsQuantity)
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(20);
 
-        subcategoryPage.sortBy(ProductSort.PRICE_DESCENDING);
+        subcategoryPage.sortBy(PRICE_DESCENDING);
 
         assertThat(subcategoryPage
                 .getProduct(1)
@@ -59,7 +66,7 @@ public class SortProductTest extends TestRunner {
                         .getPrice());
 
         int step = 6;
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         for (int i = 1; i <= productsQuantity - step; i += step) {
             softly.assertThat(subcategoryPage
                             .getProduct(i)
@@ -70,9 +77,42 @@ public class SortProductTest extends TestRunner {
                             .getProduct(i)
                             .getPrice())
                     .as("%dth product price should be higher than %dth product price", i, i + step)
+                    //TODO: Descending sort by price doesn't work correctly
                     .isGreaterThan(subcategoryPage
                             .getProduct(i + step)
                             .getPrice());
+        }
+        softly.assertAll();
+    }
+
+
+    //TODO: this test is invalid as Rozetka remove sort by promotion functionality
+    //@Test
+    public void verifySaleSortFunctionality() {
+        var header = homePage.getHeader();
+        var searchResultsPage = header.search("телефони");
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
+
+        searchResultsPage = searchResultsPage.sortBy(ProductSort.PROMOTION);
+
+        assertThat(searchResultsPage.getProductsQuantity())
+                .as("Product quantity should be sufficient")
+                .isGreaterThanOrEqualTo(60);
+
+        var softly = new SoftAssertions();
+
+        for (int productNumber : new int[]{1, 25, 59}) {
+            var isProductOnSale = searchResultsPage
+                    .getProduct(productNumber)
+                    .isOnSale();
+
+            // TODO: This test may be failed as product wasn't have old price
+            softly.assertThat(isProductOnSale)
+                    .as(productNumber + " product should be on sale with old price")
+                    .isTrue();
         }
         softly.assertAll();
     }

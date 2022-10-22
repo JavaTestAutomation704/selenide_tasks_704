@@ -2,11 +2,12 @@ package com.softserveinc.ita.rozetka;
 
 import com.softserveinc.ita.rozetka.data.Category;
 import com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
-public class ProductTitleTest extends TestRunner {
+public class ProductTitleTest extends BaseTestRunner {
+
     @Test
     public void verifyThatProductTitleContainsTheSameTitleAsCard() {
 
@@ -15,12 +16,14 @@ public class ProductTitleTest extends TestRunner {
                 .openCatalogModal()
                 .openSubcategory(Category.LAPTOPS_AND_COMPUTERS, LaptopsAndComputersSubcategory.ASUS);
 
-        var softAssert = new SoftAssertions();
+
+
+        var softly = new SoftAssertions();
         var expectedText = "ноутбук";
 
         int productsQuantity = 10;
 
-        softAssert.assertThat(subcategoryPage.getProductsQuantity())
+        softly.assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products amount should be sufficient")
                 .isGreaterThanOrEqualTo(productsQuantity);
 
@@ -31,12 +34,12 @@ public class ProductTitleTest extends TestRunner {
 
             var actualProductTitle = productPage.getTitle();
 
-            softAssert.assertThat(actualProductTitle)
+            softly.assertThat(actualProductTitle)
                     .contains(expectedText)
-                    .as(actualProductTitle + " should contain %s text" ,expectedText);
+                    .as(actualProductTitle + " should contain %s text", expectedText);
 
             productPage.back();
         }
-        softAssert.assertAll();
+        softly.assertAll();
     }
 }

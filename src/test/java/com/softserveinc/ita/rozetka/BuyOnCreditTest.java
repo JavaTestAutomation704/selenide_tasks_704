@@ -1,19 +1,17 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.modals.CreditModal;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.ita.rozetka.data.ProductFilter.ROZETKA_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BuyOnCreditTest extends TestRunner {
+public class BuyOnCreditTest extends BaseTestRunner {
 
     @Test
     public void verifyPurchaseOnCreditCapability() {
-
-        SearchResultsPage searchResultsPage = homePage
+        var searchResultsPage = homePage
                 .getHeader()
                 .search("Xbox")
                 .getFilter()
@@ -22,41 +20,44 @@ public class BuyOnCreditTest extends TestRunner {
         int productNumber = 1;
 
         assertThat(searchResultsPage.getProductsQuantity())
-                .as(String.format("There should be at least %d product on the search results page", productNumber))
+                .as("The products quantity should be sufficient on the search results page")
                 .isGreaterThanOrEqualTo(productNumber);
 
-        ProductPage productPage = searchResultsPage
+        var productPage = searchResultsPage
                 .getProduct(productNumber)
                 .open();
 
-        CreditModal creditModal = productPage.startPurchaseOnCredit();
-
-        assertThat(creditModal.isOpen())
-                .as("Credit modal should be open")
+        assertThat(productPage.isBuyOnCreditButtonVisible())
+                .as("Buy on credit button should be displayed on the product page")
                 .isTrue();
 
-        SoftAssertions softAssert = new SoftAssertions();
+        var creditModal = productPage.startPurchaseOnCredit();
 
-        boolean isCreditPageOpen = creditModal
+        assertThat(creditModal.isOpened())
+                .as("Credit modal should be opened")
+                .isTrue();
+
+        var softly = new SoftAssertions();
+
+        var isCreditPageOpened = creditModal
                 .openCreditPage()
-                .isOpen();
+                .isOpened();
 
-        softAssert.assertThat(isCreditPageOpen)
-                .as("Credit page should be open")
+        softly.assertThat(isCreditPageOpened)
+                .as("Credit page should be opened")
                 .isTrue();
 
         homePage.back();
         productPage.startPurchaseOnCredit();
 
-        boolean isCheckoutPageOpen = creditModal
+        var isCheckoutPageOpened = creditModal
                 .selectCreditVariant(1)
                 .isOrderModalVisible();
 
-        softAssert
-                .assertThat(isCheckoutPageOpen)
-                .as("Checkout page should be open")
+        softly.assertThat(isCheckoutPageOpened)
+                .as("Checkout page should be opened")
                 .isTrue();
 
-        softAssert.assertAll();
+        softly.assertAll();
     }
 }

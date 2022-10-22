@@ -5,21 +5,28 @@ import com.codeborne.selenide.SelenideElement;
 import com.softserveinc.ita.rozetka.HomePage;
 import com.softserveinc.ita.rozetka.data.Language;
 import com.softserveinc.ita.rozetka.modals.ChangeCityModal;
+import com.softserveinc.ita.rozetka.profile.ProfilePage;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.getText;
 import static com.softserveinc.ita.rozetka.utils.WebElementUtil.isVisible;
+import static java.lang.String.format;
 
 public class MainSidebar {
+
+    @Getter
+    private final DownloadApplicationSection downloadApplicationSection = new DownloadApplicationSection();
+
     private final String buttonXpathTemplateAuthentication = "(//button[contains(@class,'side-menu__auth-button')])[%d]";
 
     public String getLoginButtonName() {
-        return getText(String.format(buttonXpathTemplateAuthentication, 1));
+        return getText(format(buttonXpathTemplateAuthentication, 1));
     }
 
     public String getRegistrationButtonName() {
-        return getText(String.format(buttonXpathTemplateAuthentication, 2));
+        return getText(format(buttonXpathTemplateAuthentication, 2));
     }
 
     public String getHelpCenterButtonName() {
@@ -35,7 +42,7 @@ public class MainSidebar {
         return citySpan.text();
     }
 
-    @Step("Header: change city to {city}")
+    @Step("Main sidebar: change city to {city}")
     public Header changeCity(String city) {
         $x("//button[contains(@class, 'city-toggle')]").click();
         return new ChangeCityModal().changeCity(city);
@@ -49,12 +56,23 @@ public class MainSidebar {
 
     public boolean isLanguageSelected(Language language) {
         return isVisible(
-                String.format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
+                format("(//li[contains(@class, 'lang__item')]/span[contains(text(),'%s')])[2]", language));
     }
 
-    @Step("Header: change language to {language}")
+    @Step("Main sidebar: change language to {language}")
     public Header changeLanguage(Language language) {
-        $x(String.format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
+        $x(format("//li[contains(@class, 'side-menu')]//*[contains(text(),'%s')]", language)).click();
         return new Header();
+    }
+
+    public boolean isOpened() {
+        return isVisible("//div[contains(@class, 'side-menu drawer') " +
+                "and contains(@class, 'drawer-content_state_visible')]");
+    }
+
+    @Step("Main sidebar: open profile page")
+    public ProfilePage openProfilePage() {
+        $x("//div[contains(@class,'side-menu__auth ')]").click();
+        return new ProfilePage();
     }
 }

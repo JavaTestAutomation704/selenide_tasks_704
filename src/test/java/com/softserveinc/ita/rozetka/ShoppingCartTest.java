@@ -1,36 +1,43 @@
 package com.softserveinc.ita.rozetka;
 
-import com.softserveinc.ita.rozetka.components.CartItem;
 import com.softserveinc.ita.rozetka.components.Header;
-import com.softserveinc.ita.rozetka.components.Product;
-import com.softserveinc.ita.rozetka.modals.ShoppingCartModal;
+import com.softserveinc.ita.rozetka.utils.BaseTestRunner;
 import org.assertj.core.api.SoftAssertions;
-import com.softserveinc.ita.rozetka.utils.TestRunner;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static com.softserveinc.ita.rozetka.data.Category.GAMERS_GOODS;
+import static com.softserveinc.ita.rozetka.data.Category.LAPTOPS_AND_COMPUTERS;
+import static com.softserveinc.ita.rozetka.data.ProductFilter.AVAILABLE;
+import static com.softserveinc.ita.rozetka.data.subcategory.GamersGoodsSubcategory.MONITORS;
+import static com.softserveinc.ita.rozetka.data.subcategory.LaptopsAndComputersSubcategory.ASUS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ShoppingCartTest extends TestRunner {
-    Header header;
+public class ShoppingCartTest extends BaseTestRunner {
+
+    private Header header;
 
     @BeforeMethod
     public void clearShoppingCart() {
         header = homePage.getHeader();
 
         if (header.isShoppingCartCounterVisible()) {
-            header
+            var shoppingCartModal = header
                     .openShoppingCartModal()
-                    .clear()
-                    .close();
+                    .clear();
+            if (shoppingCartModal.isCloseButtonVisible()) {
+                shoppingCartModal.close();
+            } else {
+                homePage.back();
+            }
         }
     }
 
     @Test
     public void verifyUserCanAddSearchedProductToShoppingCart() {
-        String searchPhrase = "samsung a52";
-        SearchResultsPage searchResultsPage = header.search(searchPhrase);
+        var searchPhrase = "samsung a52";
+        var searchResultsPage = header.search(searchPhrase);
 
         int productsQuantity = searchResultsPage.getProductsQuantity();
         int productNumber = 1;
@@ -39,18 +46,18 @@ public class ShoppingCartTest extends TestRunner {
             productNumber++;
         }
 
-        Product firstAvailableProduct = searchResultsPage.getProduct(productNumber);
-        String firstAvailableProductTitle = firstAvailableProduct.getTitleLowerCase();
+        var firstAvailableProduct = searchResultsPage.getProduct(productNumber);
+        var firstAvailableProductTitle = firstAvailableProduct.getTitleLowerCase();
         long firstAvailableProductPrice = firstAvailableProduct.getPrice();
 
-        SoftAssertions softly = new SoftAssertions();
-        for (String word : searchPhrase.split(" ")) {
+        var softly = new SoftAssertions();
+        for (var word : searchPhrase.split(" ")) {
             softly.assertThat(firstAvailableProductTitle)
                     .as("First available product title should contain searched keyword.")
                     .contains(word);
         }
 
-        ProductPage productPage = firstAvailableProduct.open();
+        var productPage = firstAvailableProduct.open();
         softly.assertThat(productPage.getTitle())
                 .as("Search result title should be equal to Product page title.")
                 .isEqualTo(firstAvailableProductTitle);
@@ -58,7 +65,7 @@ public class ShoppingCartTest extends TestRunner {
                 .as("Search result price should be equal to Product page price.")
                 .isEqualTo(firstAvailableProductPrice);
 
-        ShoppingCartModal cart = productPage.addToCart();
+        var cart = productPage.addToCart();
         if (!cart.isOpened()) {
             header.openShoppingCartModal();
         }
@@ -73,8 +80,7 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyDeleteProductsFromShoppingCart() {
-        // Test could fail because button "Remove all" should not be visible
-        SearchResultsPage searchResultsPage = header.search("coffee");
+        var searchResultsPage = header.search("coffee");
 
         assertThat(searchResultsPage.getProductsQuantity())
                 .as("Product quantity should be sufficient")
@@ -86,48 +92,62 @@ public class ShoppingCartTest extends TestRunner {
                 .getProduct(5)
                 .addToShoppingCart();
 
-        ShoppingCartModal shoppingCart = header
+        var shoppingCart = header
                 .openShoppingCartModal()
-                .remove(1);
+                .getItem(1)
+                .remove();
 
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(shoppingCart.isEmpty())
+        var softly = new SoftAssertions();
+        softly.assertThat(shoppingCart.isEmpty())
                 .as("Shopping cart should not be empty")
                 .isFalse();
 
-        softAssertions.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
+        // TODO: This test may be failed as button "Remove all" may be visible
+        softly.assertThat(shoppingCart.isRemoveAllProductsButtonVisible())
                 .as("Button 'Remove all' should not be visible")
                 .isFalse();
 
-        shoppingCart.remove(1);
+        shoppingCart
+                .getItem(1)
+                .remove();
 
-        softAssertions.assertThat(shoppingCart.isEmpty())
+        softly.assertThat(shoppingCart.isEmpty())
                 .as("Shopping cart should be empty")
                 .isTrue();
 
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
     public void verifyShoppingCartPriceCalculation() {
-        SearchResultsPage searchResultsPage = header.search("starbucks");
+        var subcategoryPage = homePage
+                .openCategoryPage(GAMERS_GOODS)
+                .openSubcategoryPage(MONITORS);
 
-        assertThat(searchResultsPage.getProductsQuantity())
+        var filter = subcategoryPage.getFilter();
+        filter.filter(AVAILABLE);
+
+        assertThat(filter.isSelected(AVAILABLE))
+                .as("Filter should be selected")
+                .isTrue();
+
+        assertThat(subcategoryPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(2);
 
-        long firstProductPrice = searchResultsPage.getProduct(1).getPrice();
-        long secondProductPrice = searchResultsPage.getProduct(2).getPrice();
+        long firstProductPrice = subcategoryPage.getProduct(1).getPrice();
+        long secondProductPrice = subcategoryPage.getProduct(2).getPrice();
+
         long expectedTotalSum = firstProductPrice + secondProductPrice;
 
-        Product firstProduct = searchResultsPage.getProduct(1);
+        var firstProduct = subcategoryPage.getProduct(1);
         firstProduct.addToShoppingCart();
 
         assertThat(firstProduct.isInShoppingCart())
                 .as("First product should be added to shopping cart")
                 .isTrue();
 
-        Product secondProduct = searchResultsPage.getProduct(2);
+        var secondProduct = subcategoryPage.getProduct(2);
         secondProduct.addToShoppingCart();
 
         assertThat(secondProduct.isInShoppingCart())
@@ -145,29 +165,27 @@ public class ShoppingCartTest extends TestRunner {
 
     @Test
     public void verifyProductCounterWorks() {
-        Header header = homePage.getHeader();
-        boolean doesShoppingCartContainProducts = header.isShoppingCartCounterVisible();
+        var header = homePage.getHeader();
+        var doesShoppingCartContainProducts = header.isShoppingCartCounterVisible();
 
-        SoftAssertions softly = new SoftAssertions();
+        var softly = new SoftAssertions();
         softly.assertThat(doesShoppingCartContainProducts)
                 .as("Shopping cart should be empty")
                 .isFalse();
-        SearchResultsPage searchResultsPage = header.search("kipling");
+        var searchResultsPage = header.search("starbucks");
 
         softly.assertThat(searchResultsPage.getProductsQuantity())
                 .as("Products quantity should be sufficient")
                 .isGreaterThanOrEqualTo(1);
 
-        Product product = searchResultsPage.getProduct(1);
+        var product = searchResultsPage.getProduct(1);
         product.addToShoppingCart();
 
         softly.assertThat(product.isInShoppingCart())
                 .as("First product should be added to shopping cart")
                 .isTrue();
 
-        long price = product.getPrice();
-
-        CartItem cartItem = header
+        var cartItem = header
                 .openShoppingCartModal()
                 .getItem(1);
 
@@ -178,9 +196,6 @@ public class ShoppingCartTest extends TestRunner {
         softly.assertThat(increasedQuantity)
                 .as("Quantity should be increased")
                 .isEqualTo(initialQuantity + 1);
-        softly.assertThat(price + price)
-                .as(" Total price should be increased")
-                .isEqualTo(cartItem.getTotalPrice());
 
         cartItem.decrement();
         int decreasedQuantity = cartItem.getQuantity();
@@ -188,9 +203,49 @@ public class ShoppingCartTest extends TestRunner {
         softly.assertThat(decreasedQuantity)
                 .as("Quantity should be decreased")
                 .isEqualTo(increasedQuantity - 1);
-        softly.assertThat(price)
-                .as(" Total price should be decreased")
-                .isEqualTo(cartItem.getTotalPrice());
+        softly.assertAll();
+    }
+
+    @Test
+    public void verifyUserCanAddAdditionalServices() {
+        var header = homePage.getHeader();
+        var doesShoppingCartContainProducts = header.isShoppingCartCounterVisible();
+
+        var softly = new SoftAssertions();
+        softly.assertThat(doesShoppingCartContainProducts)
+                .as("Shopping cart should be empty")
+                .isFalse();
+
+        var subcategoryPage = homePage
+                .getHeader()
+                .openCatalogModal()
+                .openSubcategory(LAPTOPS_AND_COMPUTERS, ASUS);
+
+        softly.assertThat(subcategoryPage.getProductsQuantity())
+                .as("Products quantity should be sufficient")
+                .isGreaterThanOrEqualTo(1);
+
+        var product = subcategoryPage.getProduct(1);
+        product.addToShoppingCart();
+        long productPrice = product.getPrice();
+        softly.assertThat(product.isInShoppingCart())
+                .as("Product should be added to shopping cart")
+                .isTrue();
+        var shoppingCart = header.openShoppingCartModal();
+        var firstCartItem = shoppingCart.getItem(1);
+
+        softly.assertThat(firstCartItem.isAdditionalServicesAvailable())
+                .as("Product should have additional services")
+                .isTrue();
+
+        int serviceNumber = 1;
+        long additionalServicePrice = firstCartItem
+                .addService(serviceNumber)
+                .getAdditionalServicePrice(serviceNumber);
+
+        softly.assertThat(productPrice + additionalServicePrice)
+                .as("Total sum should be equal to sum of product and additional service")
+                .isEqualTo(shoppingCart.getTotalSum());
         softly.assertAll();
     }
 }
